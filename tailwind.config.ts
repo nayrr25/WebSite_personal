@@ -78,6 +78,10 @@ const config: Config = {
           "0%, 100%": { transform: "translate3d(0,0,0) scale(1)" },
           "50%": { transform: "translate3d(2%,-1%,0) scale(1.05)" },
         },
+        pulseDot: {
+          "0%, 100%": { transform: "scale(1)", opacity: "0.6" },
+          "50%": { transform: "scale(2)", opacity: "0" },
+        },
       },
     },
   },
