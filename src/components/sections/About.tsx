@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
+import { useState } from "react";
 import Section from "@/components/layout/Section";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/motion/Reveal";
+import { LogoMark } from "@/components/ui/Logo";
 import { useT } from "@/lib/i18n";
 import { site } from "@/content/site";
 import {
@@ -163,7 +164,29 @@ export default function About() {
   );
 }
 
+function PortraitFallback() {
+  return (
+    <div
+      aria-hidden
+      className="absolute inset-0 flex items-center justify-center"
+      style={{
+        background:
+          "radial-gradient(ellipse at 30% 30%, rgba(94,233,240,0.10) 0%, rgba(7,9,12,0.95) 70%), linear-gradient(180deg, rgba(11,31,58,0.45) 0%, rgba(7,9,12,1) 100%)",
+      }}
+    >
+      <div className="flex flex-col items-center gap-4">
+        <LogoMark size={56} glow />
+        <span className="font-serif text-[40px] tracking-tight text-text-primary">NR</span>
+        <span className="text-[11px] uppercase tracking-eyebrow text-text-muted">
+          /public/about-nancy.jpg
+        </span>
+      </div>
+    </div>
+  );
+}
+
 function FounderPortrait({ alt }: { alt: string }) {
+  const [imgFailed, setImgFailed] = useState(false);
   return (
     <div className="relative mx-auto w-full max-w-md">
       {/* Outer cyan glow */}
@@ -177,15 +200,21 @@ function FounderPortrait({ alt }: { alt: string }) {
       />
       {/* Frame */}
       <div className="relative overflow-hidden rounded-xl border border-border-subtle bg-bg-elevated/40">
-        <div className="aspect-[4/5] w-full">
-          <Image
-            src="/about-nancy.jpg"
-            alt={alt}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 480px"
-            className="object-cover"
-            priority={false}
-          />
+        <div className="relative aspect-[4/5] w-full">
+          {!imgFailed ? (
+            // Plain <img> (not next/image) so missing files degrade gracefully at runtime
+            // without breaking the production build.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src="/about-nancy.jpg"
+              alt={alt}
+              onError={() => setImgFailed(true)}
+              className="absolute inset-0 h-full w-full object-cover"
+              loading="lazy"
+            />
+          ) : (
+            <PortraitFallback />
+          )}
         </div>
         {/* Subtle bottom gradient overlay for legibility of caption */}
         <div
@@ -204,12 +233,9 @@ function FounderPortrait({ alt }: { alt: string }) {
           </div>
           <span
             aria-hidden
-            className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-accent-cyan/40 bg-accent-cyan/[0.08] backdrop-blur"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-accent-cyan/30 bg-bg-base/60 backdrop-blur"
           >
-            <svg viewBox="0 0 24 24" className="h-4 w-4">
-              <circle cx="12" cy="12" r="6" fill="none" stroke="#5EE9F0" strokeWidth="1.5" />
-              <circle cx="12" cy="12" r="2" fill="#7CF5C4" />
-            </svg>
+            <LogoMark size={22} />
           </span>
         </div>
       </div>

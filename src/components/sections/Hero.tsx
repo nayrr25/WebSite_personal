@@ -3,11 +3,10 @@
 import dynamic from "next/dynamic";
 import { motion, useReducedMotion } from "framer-motion";
 import Container from "@/components/layout/Container";
-import Eyebrow from "@/components/ui/Eyebrow";
 import GradientText from "@/components/ui/GradientText";
+import { LogoFull } from "@/components/ui/Logo";
 import { LinkButton } from "@/components/ui/Button";
 import AuroraGradient from "@/components/backgrounds/AuroraGradient";
-import { site } from "@/content/site";
 import { useT } from "@/lib/i18n";
 
 const ParticleNetwork = dynamic(() => import("@/components/backgrounds/ParticleNetwork"), {
@@ -42,10 +41,9 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduce ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-2"
           >
-            <Eyebrow>
-              {site.brand.name} · {t.hero.eyebrowFull}
-            </Eyebrow>
+            <LogoFull width={460} priority />
           </motion.div>
 
           <motion.h1

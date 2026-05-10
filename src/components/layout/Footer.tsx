@@ -3,6 +3,7 @@
 import Container from "./Container";
 import { site } from "@/content/site";
 import { useT } from "@/lib/i18n";
+import { LogoMark } from "@/components/ui/Logo";
 
 export default function Footer() {
   const t = useT();
@@ -12,16 +13,8 @@ export default function Footer() {
       <Container>
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
           <div>
-            <div className="flex items-center gap-2">
-              <span
-                aria-hidden
-                className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-accent-cyan/30 bg-accent-cyan/[0.06]"
-              >
-                <svg viewBox="0 0 24 24" className="h-4 w-4">
-                  <circle cx="12" cy="12" r="6" fill="none" stroke="#5EE9F0" strokeWidth="1.5" />
-                  <circle cx="12" cy="12" r="2" fill="#7CF5C4" />
-                </svg>
-              </span>
+            <div className="flex items-center gap-2.5">
+              <LogoMark size={28} />
               <span className="text-[15px] font-medium tracking-tight text-text-primary">
                 {site.brand.name}
               </span>

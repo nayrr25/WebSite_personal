@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/cn";
 import { site } from "@/content/site";
 import { useLanguage } from "@/lib/i18n";
+import { LogoMark } from "@/components/ui/Logo";
 import { Menu, X, Globe } from "lucide-react";
 
 const HIDE_UNTIL = 80;
@@ -57,8 +58,12 @@ export default function Nav() {
         )}
         style={{ marginInline: "max(1rem, calc((100vw - 1280px) / 2))" }}
       >
-        <a href="#top" aria-label={`${site.brand.name} home`} className="flex items-center gap-2">
-          <Logo />
+        <a
+          href="#top"
+          aria-label={`${site.brand.name} home`}
+          className="flex items-center gap-2.5"
+        >
+          <LogoMark size={26} />
           <span className="text-[15px] font-medium tracking-tight text-text-primary">
             {site.brand.name}
           </span>
@@ -154,16 +159,3 @@ export default function Nav() {
   );
 }
 
-function Logo() {
-  return (
-    <span
-      aria-hidden
-      className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-accent-cyan/30 bg-accent-cyan/[0.06]"
-    >
-      <svg viewBox="0 0 24 24" className="h-4 w-4">
-        <circle cx="12" cy="12" r="6" fill="none" stroke="#5EE9F0" strokeWidth="1.5" />
-        <circle cx="12" cy="12" r="2" fill="#7CF5C4" />
-      </svg>
-    </span>
-  );
-}
