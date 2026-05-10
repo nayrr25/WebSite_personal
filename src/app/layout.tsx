@@ -21,11 +21,16 @@ const instrumentSerif = Instrument_Serif({
   adjustFontFallback: true,
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://n-ai.dev";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://n-ai.studio"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "N-AI — Data · Insights · AI",
     template: "%s · N-AI",
+  },
+  alternates: {
+    canonical: "/",
   },
   description:
     "Executive AI and data intelligence consultancy. Anomaly detection, risk scoring, and intelligent systems for organizations operating at the edge of complexity.",

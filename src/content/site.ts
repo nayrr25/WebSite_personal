@@ -6,9 +6,10 @@ export const site = {
     subBrand: "Neural Analytics & Intelligence",
   },
   contact: {
-    email: "hello@n-ai.studio",
+    email: "hello@n-ai.dev",
     linkedin: "https://www.linkedin.com/in/nancy-rodriguez",
   },
+  url: "https://n-ai.dev",
   nav: [
     { label: "Case Study", href: "#case-study" },
     { label: "Pipeline", href: "#pipeline" },
