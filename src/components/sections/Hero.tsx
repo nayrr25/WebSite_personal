@@ -8,26 +8,24 @@ import GradientText from "@/components/ui/GradientText";
 import { LinkButton } from "@/components/ui/Button";
 import AuroraGradient from "@/components/backgrounds/AuroraGradient";
 import { site } from "@/content/site";
+import { useT } from "@/lib/i18n";
 
-// ParticleNetwork is a canvas component — only needs to render client-side.
-const ParticleNetwork = dynamic(
-  () => import("@/components/backgrounds/ParticleNetwork"),
-  { ssr: false },
-);
+const ParticleNetwork = dynamic(() => import("@/components/backgrounds/ParticleNetwork"), {
+  ssr: false,
+});
 
 export default function Hero() {
   const reduce = useReducedMotion();
+  const t = useT();
 
   return (
     <section
       id="top"
       className="relative isolate flex min-h-[100svh] items-center overflow-hidden pt-24"
     >
-      {/* Layered backgrounds */}
       <div className="absolute inset-0 -z-10">
         <AuroraGradient intensity={0.85} />
         <ParticleNetwork density={0.07} linkDistance={150} />
-        {/* Subtle vignette */}
         <div
           aria-hidden
           className="absolute inset-0"
@@ -46,7 +44,7 @@ export default function Hero() {
             transition={{ duration: reduce ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             <Eyebrow>
-              {site.brand.name} · {site.brand.fullName}
+              {site.brand.name} · {t.hero.eyebrowFull}
             </Eyebrow>
           </motion.div>
 
@@ -60,8 +58,8 @@ export default function Hero() {
             }}
             className="text-display-xl mt-6 max-w-[20ch] text-balance text-text-primary"
           >
-            Transforming Complex Data Ecosystems Into{" "}
-            <GradientText>Intelligent</GradientText> Systems.
+            {t.hero.headlineStart} <GradientText>{t.hero.headlineHighlight}</GradientText>
+            {t.hero.headlineEnd}
           </motion.h1>
 
           <motion.p
@@ -74,8 +72,7 @@ export default function Hero() {
             }}
             className="text-body mt-7 max-w-2xl text-pretty"
           >
-            AI-powered analytics, anomaly detection, data intelligence and strategic
-            consulting for organizations operating at the edge of complexity.
+            {t.hero.subhead}
           </motion.p>
 
           <motion.div
@@ -89,15 +86,14 @@ export default function Hero() {
             className="mt-10 flex flex-col items-center gap-3 sm:flex-row"
           >
             <LinkButton href="#case-study" variant="primary" withArrow>
-              Explore Case Studies
+              {t.hero.primaryCta}
             </LinkButton>
             <LinkButton href="#contact" variant="ghost">
-              Work With N-AI
+              {t.hero.secondaryCta}
             </LinkButton>
           </motion.div>
         </div>
 
-        {/* Marquee strip */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -106,7 +102,7 @@ export default function Hero() {
           aria-hidden
         >
           <div className="flex w-max animate-marquee-slow gap-3">
-            {[...site.marquee, ...site.marquee, ...site.marquee].map((label, i) => (
+            {[...t.hero.marquee, ...t.hero.marquee, ...t.hero.marquee].map((label, i) => (
               <span
                 key={`${label}-${i}`}
                 className="inline-flex items-center rounded-full border border-border-subtle bg-bg-glass px-4 py-1.5 text-[12px] tracking-eyebrow text-text-secondary backdrop-blur-sm"
@@ -118,11 +114,7 @@ export default function Hero() {
         </motion.div>
       </Container>
 
-      {/* Scroll indicator */}
-      <div
-        aria-hidden
-        className="absolute inset-x-0 bottom-8 flex justify-center"
-      >
+      <div aria-hidden className="absolute inset-x-0 bottom-8 flex justify-center">
         <div className="flex h-10 w-[1px] items-start justify-center overflow-hidden bg-border-subtle">
           <span className="block h-3 w-[1px] animate-scroll-pulse bg-accent-cyan" />
         </div>

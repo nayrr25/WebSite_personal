@@ -7,7 +7,7 @@ import {
   useTransform,
   useReducedMotion,
 } from "framer-motion";
-import { pipelineNodes } from "@/content/caseStudy.sicop";
+import { useT } from "@/lib/i18n";
 import { cn } from "@/lib/cn";
 
 interface PipelineDiagramProps {
@@ -15,14 +15,15 @@ interface PipelineDiagramProps {
   className?: string;
 }
 
-const NODES = pipelineNodes;
 const W = 1280;
 const H = 220;
 const PADX = 60;
 const Y = H / 2;
-const STEP = (W - PADX * 2) / (NODES.length - 1);
 
 export default function PipelineDiagram({ className }: PipelineDiagramProps) {
+  const t = useT();
+  const NODES = t.sicop.pipelineNodes;
+  const STEP = (W - PADX * 2) / (NODES.length - 1);
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({

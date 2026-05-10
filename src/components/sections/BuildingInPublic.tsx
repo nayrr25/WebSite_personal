@@ -1,34 +1,27 @@
+"use client";
+
 import Section from "@/components/layout/Section";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/motion/Reveal";
-
-const upcoming = [
-  { title: "SICOP — Methodology Deep Dive", eta: "Q2 2026", kind: "Case Study" },
-  { title: "HeatSight AI — Beta Architecture", eta: "Q3 2026", kind: "Demo" },
-  { title: "Consumer Intelligence — Field Notes", eta: "Q3 2026", kind: "Essay" },
-  { title: "AI Decision Engine — Concept Spec", eta: "Q4 2026", kind: "Concept" },
-  { title: "Data Governance Intelligence", eta: "Q1 2027", kind: "Concept" },
-];
+import { useT } from "@/lib/i18n";
 
 export default function BuildingInPublic() {
+  const t = useT();
   return (
     <Section id="building-in-public">
       <Reveal>
-        <Eyebrow>Building in Public</Eyebrow>
+        <Eyebrow>{t.bip.eyebrow}</Eyebrow>
       </Reveal>
       <Reveal delay={0.05}>
         <h2 className="text-display-l mt-6 max-w-[24ch] text-text-primary">
-          Real-world case studies, AI prototypes and intelligence systems —{" "}
+          {t.bip.headlineStart}{" "}
           <span className="font-serif italic font-normal text-accent-cyan">
-            open work, in the open.
+            {t.bip.headlineItalic}
           </span>
         </h2>
       </Reveal>
       <Reveal delay={0.12}>
-        <p className="text-body mt-6 max-w-2xl">
-          N-AI will continue publishing the work as it gets built. Below — what&rsquo;s
-          on the editorial pipeline.
-        </p>
+        <p className="text-body mt-6 max-w-2xl">{t.bip.body}</p>
       </Reveal>
 
       <Reveal delay={0.18}>
@@ -37,7 +30,7 @@ export default function BuildingInPublic() {
             className="mask-fade-x flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 md:px-10"
             role="list"
           >
-            {upcoming.map((item, i) => (
+            {t.bip.upcoming.map((item) => (
               <div
                 role="listitem"
                 key={item.title}
@@ -50,7 +43,7 @@ export default function BuildingInPublic() {
                   </h3>
                 </div>
                 <div className="mt-10 flex items-center justify-between text-[12px] text-text-muted">
-                  <span className="uppercase tracking-eyebrow">ETA</span>
+                  <span className="uppercase tracking-eyebrow">{t.bip.etaLabel}</span>
                   <span className="text-text-secondary">{item.eta}</span>
                 </div>
                 <div className="mt-3 h-px w-full bg-border-subtle" />
@@ -59,7 +52,7 @@ export default function BuildingInPublic() {
                     aria-hidden
                     className="inline-block h-1.5 w-1.5 rounded-full bg-accent-cyan"
                   />
-                  Forthcoming
+                  {t.bip.forthcomingLabel}
                 </div>
               </div>
             ))}

@@ -1,71 +1,218 @@
+"use client";
+
+import Image from "next/image";
 import Section from "@/components/layout/Section";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/motion/Reveal";
+import { useT } from "@/lib/i18n";
+import { site } from "@/content/site";
+import {
+  Brain,
+  BarChart3,
+  Database,
+  Users,
+  TrendingUp,
+  ShieldCheck,
+  LayoutGrid,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const matrix = [
-  ["AI", "Data Science"],
-  ["Analytics", "Consumer Intelligence"],
-  ["Strategic Thinking", "Machine Learning"],
-  ["Intelligent Systems", "Decision Design"],
+const WORK_AREA_ICONS: LucideIcon[] = [
+  Brain,
+  BarChart3,
+  Database,
+  Users,
+  TrendingUp,
+  ShieldCheck,
+  LayoutGrid,
+];
+
+const FUTURE_ICONS: LucideIcon[] = [
+  Brain,
+  Database,
+  TrendingUp,
+  Users,
+  ShieldCheck,
+  LayoutGrid,
 ];
 
 export default function About() {
+  const t = useT();
   return (
-    <Section id="about">
+    <Section id="about" className="relative overflow-hidden">
+      {/* Subtle ambient glow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(ellipse at 70% 30%, rgba(94,233,240,0.06) 0%, transparent 50%)",
+        }}
+      />
+
       <Reveal>
-        <Eyebrow>About N-AI</Eyebrow>
+        <Eyebrow>{t.about.eyebrow}</Eyebrow>
+      </Reveal>
+      <Reveal delay={0.05}>
+        <h2 className="text-display-l mt-5 max-w-[18ch] text-text-primary">
+          {t.about.headline}
+        </h2>
       </Reveal>
 
-      <div className="mt-10 grid grid-cols-1 gap-16 md:grid-cols-2">
-        <div>
-          <Reveal delay={0.05}>
-            <h2 className="text-display-l max-w-[14ch] text-text-primary">
-              A studio for{" "}
-              <span className="font-serif italic font-normal text-accent-cyan">
-                intelligence systems
-              </span>
-              , not a vendor.
-            </h2>
-          </Reveal>
+      {/* Founder block: portrait + bio */}
+      <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-16">
+        <Reveal delay={0.1}>
+          <FounderPortrait alt={t.about.portraitAlt} />
+        </Reveal>
 
-          <Reveal delay={0.12}>
-            <p className="text-body mt-7 max-w-xl">
-              N-AI sits at the fusion of{" "}
-              <span className="font-serif italic text-text-primary">AI</span>,{" "}
-              <span className="font-serif italic text-text-primary">data science</span>,
-              analytics, consumer intelligence, strategic thinking, machine learning and
-              intelligent systems design. The work is the same in every engagement: take
-              a complex data ecosystem and turn it into a system that decides — auditable,
-              explainable, alive.
-            </p>
-          </Reveal>
+        <Reveal delay={0.15} className="flex flex-col justify-center">
+          <p className="text-body max-w-xl text-text-secondary">{t.about.founderBio}</p>
 
-          <Reveal delay={0.18}>
-            <p className="text-body mt-5 max-w-xl">
-              Engagements are concept-to-deployment partnerships with executive teams,
-              government innovation leads and category-leading organizations. The
-              deliverable is never a dashboard. It is the underlying system the dashboard
-              is just one face of.
-            </p>
-          </Reveal>
-        </div>
-
-        <Reveal delay={0.15}>
-          <div className="grid grid-cols-2 gap-3">
-            {matrix.flat().map((item, i) => (
-              <div
-                key={item}
-                className="group relative overflow-hidden rounded-md border border-border-subtle bg-bg-elevated/40 p-5 transition-all duration-300 ease-smooth hover:border-accent-cyan/30"
-              >
-                <div className="text-eyebrow mb-2 text-text-muted transition-colors duration-300 group-hover:text-accent-cyan">
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <div className="text-[16px] font-medium text-text-primary">{item}</div>
-              </div>
-            ))}
+          <div className="mt-10">
+            <p className="text-eyebrow">{t.about.workCombinesLabel}</p>
+            <ul className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+              {t.about.workAreas.map((area, i) => {
+                const Icon = WORK_AREA_ICONS[i % WORK_AREA_ICONS.length];
+                return (
+                  <li
+                    key={area}
+                    className="group flex items-center gap-3 rounded-md border border-border-subtle bg-bg-elevated/40 px-4 py-3 transition-all duration-200 ease-smooth hover:border-accent-cyan/30 hover:bg-bg-elevated/70"
+                  >
+                    <Icon
+                      aria-hidden
+                      className="h-4 w-4 flex-shrink-0 text-accent-cyan transition-transform duration-200 group-hover:scale-110"
+                    />
+                    <span className="text-[14px] text-text-primary">{area}</span>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
+
+          <p className="text-body mt-10 max-w-xl text-text-secondary">{t.about.focusBody}</p>
         </Reveal>
       </div>
+
+      {/* "Why N-AI" passage — editorial centerpiece */}
+      <Reveal delay={0.1}>
+        <div className="mt-32 max-w-3xl">
+          <div className="text-eyebrow">{t.about.whyTitle}</div>
+          <p className="mt-6 font-serif text-[28px] leading-snug text-text-primary md:text-[36px]">
+            {t.about.whyLead}
+          </p>
+          <p className="text-body mt-6 text-text-secondary">{t.about.whyBody}</p>
+          <p className="mt-6 inline-flex items-center gap-3 text-[18px] font-medium text-text-primary md:text-[22px]">
+            <span aria-hidden className="h-px w-10 bg-accent-cyan" />
+            {t.about.whyClose}
+          </p>
+        </div>
+      </Reveal>
+
+      {/* Future vision */}
+      <div className="mt-32 grid grid-cols-1 gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
+        <Reveal>
+          <div>
+            <Eyebrow>{t.about.futureTitle}</Eyebrow>
+            <p className="text-body mt-6 max-w-md text-text-secondary">{t.about.futureLead}</p>
+            <p className="mt-8 max-w-md font-serif italic text-[18px] leading-relaxed text-accent-cyan">
+              {t.about.futureClosing}
+            </p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {t.about.futureAreas.map((area, i) => {
+              const Icon = FUTURE_ICONS[i % FUTURE_ICONS.length];
+              return (
+                <li
+                  key={area}
+                  className="group flex items-start gap-3 rounded-lg border border-border-subtle bg-bg-elevated/40 p-4 transition-all duration-300 ease-smooth hover:border-accent-cyan/30 hover:bg-bg-elevated/70"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-0.5 inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md border border-accent-cyan/30 bg-accent-cyan/[0.06]"
+                  >
+                    <Icon className="h-3.5 w-3.5 text-accent-cyan" />
+                  </span>
+                  <span className="text-[14px] leading-snug text-text-primary">{area}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </Reveal>
+      </div>
+
+      {/* Contact handle inline */}
+      <Reveal delay={0.1}>
+        <div className="mt-20 flex flex-col items-start gap-2 border-t border-border-subtle pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-[13px] text-text-muted">
+            Nancy Rodríguez · {site.contact.email}
+          </p>
+          <a
+            href={site.contact.linkedin}
+            target="_blank"
+            rel="noreferrer"
+            className="text-[13px] text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
+          >
+            LinkedIn ↗
+          </a>
+        </div>
+      </Reveal>
     </Section>
+  );
+}
+
+function FounderPortrait({ alt }: { alt: string }) {
+  return (
+    <div className="relative mx-auto w-full max-w-md">
+      {/* Outer cyan glow */}
+      <div
+        aria-hidden
+        className="absolute -inset-4 -z-10 rounded-2xl opacity-60 blur-3xl"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(94,233,240,0.25) 0%, rgba(94,233,240,0) 70%)",
+        }}
+      />
+      {/* Frame */}
+      <div className="relative overflow-hidden rounded-xl border border-border-subtle bg-bg-elevated/40">
+        <div className="aspect-[4/5] w-full">
+          <Image
+            src="/about-nancy.jpg"
+            alt={alt}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 480px"
+            className="object-cover"
+            priority={false}
+          />
+        </div>
+        {/* Subtle bottom gradient overlay for legibility of caption */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-bg-base/80 to-transparent"
+        />
+        {/* Caption — bottom-left */}
+        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5">
+          <div>
+            <div className="text-[18px] font-medium tracking-tight text-text-primary">
+              Nancy Rodríguez
+            </div>
+            <div className="mt-1 text-[11px] uppercase tracking-eyebrow text-accent-cyan">
+              Founder · N-AI
+            </div>
+          </div>
+          <span
+            aria-hidden
+            className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-accent-cyan/40 bg-accent-cyan/[0.08] backdrop-blur"
+          >
+            <svg viewBox="0 0 24 24" className="h-4 w-4">
+              <circle cx="12" cy="12" r="6" fill="none" stroke="#5EE9F0" strokeWidth="1.5" />
+              <circle cx="12" cy="12" r="2" fill="#7CF5C4" />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
   );
 }

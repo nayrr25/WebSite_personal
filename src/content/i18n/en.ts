@@ -1,0 +1,429 @@
+import type { Strings } from "./es";
+
+// English — translation. Keys must mirror es.ts exactly (Strings type enforces it).
+export const en: Strings = {
+  brand: {
+    tagline: "Data · Insights · AI",
+    subBrand: "Neural Analytics & Intelligence",
+  },
+  nav: [
+    { label: "About", href: "#about" },
+    { label: "Case Study", href: "#case-study" },
+    { label: "Pipeline", href: "#pipeline" },
+    { label: "Demos", href: "#demos" },
+    { label: "Capabilities", href: "#capabilities" },
+    { label: "Contact", href: "#contact" },
+  ],
+  navCTA: "Work With N-AI",
+  skipToContent: "Skip to content",
+  themeLabel: "Theme · Dark",
+
+  hero: {
+    eyebrowFull: "Nancy Artificial Intelligence",
+    headlineStart: "Transforming complex data ecosystems into",
+    headlineHighlight: "intelligent",
+    headlineEnd: " systems.",
+    subhead:
+      "AI-powered analytics, anomaly detection, data intelligence and strategic consulting for organizations operating at the edge of complexity.",
+    primaryCta: "Explore Case Studies",
+    secondaryCta: "Work With N-AI",
+    marquee: [
+      "Anomaly Detection",
+      "Risk Scoring",
+      "Predictive Analytics",
+      "Consumer Intelligence",
+      "Data Governance",
+      "Machine Learning",
+      "Executive Dashboards",
+      "Decision Engines",
+      "Public Procurement",
+      "Forecasting",
+    ],
+  },
+
+  sicop: {
+    eyebrow: "Featured Case Study",
+    title: "Public Procurement Intelligence",
+    subtitle:
+      "Complete SICOP intelligence architecture for anomaly detection, risk scoring and preventive monitoring.",
+    architecturePreviewTitle: "Architecture Preview",
+    architecturePreviewBody:
+      "Sources flow into the pipeline; the pipeline emits intelligence; intelligence powers the executive surface — every component traceable end-to-end.",
+    archCells: [
+      ["Sources", "Solicitations · Awards · Contracts"],
+      ["Pipeline", "7 stages · Replayable · Audited"],
+      ["AI Layer", "47 patterns · Explainable scoring"],
+      ["Outputs", "Risk index · Triage · Drilldown"],
+    ],
+    archNodes: [
+      { label: "Sources", sub: "SICOP" },
+      { label: "Pipeline", sub: "7-stage" },
+      { label: "AI Layer", sub: "Anomaly + Risk" },
+      { label: "Outputs", sub: "Executive" },
+    ],
+    kpis: [
+      { value: ">2.4M", label: "Procurement records analyzed" },
+      { value: "47", label: "Anomaly patterns modeled" },
+      { value: "8", label: "Institutional risk dimensions" },
+      { value: "<1s", label: "Risk scoring latency" },
+    ],
+    sections: [
+      {
+        id: "challenge",
+        number: "01",
+        title: "The Challenge",
+        lead:
+          "Public procurement operates on opaque ecosystems: fragmented data, inconsistent taxonomies, and oversight that arrives after harm is done.",
+        body:
+          "Auditors, regulators and decision-makers face a compounding problem — millions of transactions across thousands of institutions, encoded in heterogeneous schemas. The result is reactive oversight: anomalies are caught only after irregularities materialize into legal cases, and patterns of systemic risk go unmodeled. The gap is not data — it is intelligence.",
+      },
+      {
+        id: "infrastructure",
+        number: "02",
+        title: "Data Infrastructure",
+        lead:
+          "Inventory and structuring of the complete SICOP ecosystem — every source, every schema, every relationship.",
+        body:
+          "We mapped the SICOP data graph end-to-end: solicitations, awards, contracts, addenda, supplier registries, sanctions, institutional metadata. Each source was inventoried, schemas reconciled, and relationships modeled into a unified graph that downstream pipelines can reason over.",
+      },
+      {
+        id: "pipeline",
+        number: "03",
+        title: "Intelligence Pipeline",
+        lead:
+          "Seven-stage pipeline from raw extraction to preventive monitoring — the spine of the whole system.",
+        body:
+          "Each stage is independently testable, observable and replayable. Raw sources flow through extraction, structural inventory, unification, validation, anomaly detection, risk scoring and into the monitoring layer that powers executive surveillance.",
+      },
+      {
+        id: "anomaly",
+        number: "04",
+        title: "AI Anomaly Detection",
+        lead:
+          "Forty-seven anomaly patterns modeled across temporal, structural and behavioral signals.",
+        body:
+          "Rule-based detectors catch the obvious; learned models surface the subtle: unusual award velocity, supplier concentration drift, pricing breaks vs. peer baselines, and addendum sequences that statistically precede irregularities. Outputs are scored, ranked, and explainable.",
+      },
+      {
+        id: "risk",
+        number: "05",
+        title: "Risk Scoring System",
+        lead:
+          "Eight institutional risk dimensions composed into a single executive score with traceable components.",
+        body:
+          "Each institution carries a score that decomposes into dimensions auditors and decision-makers actually reason about: contracting velocity, supplier concentration, pricing dispersion, addendum exposure, sanction proximity, transparency posture, control maturity and historical signal density.",
+      },
+      {
+        id: "institutional",
+        number: "06",
+        title: "Institutional Intelligence",
+        lead:
+          "A single executive surface where every institution has its own risk profile, peer comparators and trend.",
+        body:
+          "Heatmap-style triage shows the population at a glance; drilldowns reveal time-series, anomaly contributions and historical events. The same surface answers two questions at once: where to look first, and why.",
+      },
+      {
+        id: "impact",
+        number: "07",
+        title: "Strategic Impact",
+        lead:
+          "Three executive outcomes the system unlocks — measured in months, not quarters.",
+        body:
+          "Preventive oversight replaces reactive audit. Decision velocity improves because risk is visible at the surface, not buried in records. And transparency becomes a deliverable, not an aspiration.",
+      },
+    ],
+    challengePoints: [
+      "Opaque procurement ecosystems",
+      "Fragmented, heterogeneous data sources",
+      "Inconsistent taxonomies across institutions",
+      "Reactive oversight — irregularities surface after harm",
+      "Systemic risk patterns left unmodeled",
+    ],
+    infrastructureSources: [
+      "Solicitations",
+      "Awards",
+      "Contracts",
+      "Addenda",
+      "Supplier Registry",
+      "Sanctions",
+      "Institutional Metadata",
+    ],
+    infrastructure: {
+      ingestionTitle: "Ingestion",
+      ingestionItems: [
+        "Continuous extraction",
+        "Schema reconciliation",
+        "Lineage capture",
+        "Validation rules",
+      ],
+      unifiedTitle: "Unified Graph",
+      unifiedBody:
+        "Canonical schema. Cross-source relationships modeled. Replayable transforms. Substrate for every downstream signal.",
+      sourcesLabel: "Sources",
+    },
+    pipelineLinkLabel: "See the seven-stage pipeline in motion",
+    pipelineNodes: [
+      {
+        label: "Data Extraction",
+        description: "Pull raw records from every SICOP source on a continuous cadence.",
+      },
+      {
+        label: "Inventory & Structuring",
+        description: "Catalog every field, document every relationship, version every schema.",
+      },
+      {
+        label: "Data Unification",
+        description: "Reconcile heterogeneous schemas into a single canonical graph.",
+      },
+      {
+        label: "Validation Rules",
+        description: "Enforce typing, lineage and referential consistency before downstream use.",
+      },
+      {
+        label: "AI Anomaly Detection",
+        description: "Score 47 anomaly patterns across temporal, structural and behavioral signals.",
+      },
+      {
+        label: "Risk Scoring",
+        description: "Compose 8 institutional risk dimensions into a single auditable score.",
+      },
+      {
+        label: "Preventive Monitoring",
+        description: "Surface flagged events, trends and peer drift to executive decision-makers.",
+      },
+    ],
+    riskDimensions: [
+      { label: "Contracting Velocity", value: 78 },
+      { label: "Supplier Concentration", value: 62 },
+      { label: "Pricing Dispersion", value: 71 },
+      { label: "Addendum Exposure", value: 55 },
+      { label: "Sanction Proximity", value: 34 },
+      { label: "Transparency Posture", value: 82 },
+      { label: "Control Maturity", value: 49 },
+      { label: "Signal Density", value: 67 },
+    ],
+    riskCompositeLabel: "Composite",
+    riskIndexLabel: "Risk Index",
+    riskGaugeTitle: "8-Dimension Composite",
+    anomalyChartCaption: "Signal · Last 60 weeks",
+    anomalyChartLegend: "Flagged anomalies",
+    institutionRiskLabel: "risk",
+    institutionTiers: {
+      low: "low",
+      medium: "medium",
+      high: "high",
+      critical: "critical",
+    },
+    railTitle: "Sections",
+    strategicImpact: [
+      {
+        title: "Preventive Oversight",
+        body:
+          "Risk surfaces before irregularities calcify into legal cases — auditors act on signals, not findings.",
+      },
+      {
+        title: "Decision Velocity",
+        body:
+          "Executives see risk where it lives — at the surface — and reach a defensible decision in minutes, not weeks.",
+      },
+      {
+        title: "Operational Transparency",
+        body:
+          "Every score traces back to its components; every component traces back to a record. Transparency becomes a deliverable.",
+      },
+    ],
+  },
+
+  pipeline: {
+    eyebrow: "Pipeline",
+    title: "Seven stages from raw to executive surface.",
+    body:
+      "Each stage is independently testable, observable and replayable. The result is intelligence with lineage — every conclusion traces back to the record that produced it.",
+  },
+
+  demosSection: {
+    eyebrow: "Demos",
+    title: "Working systems and the ones we're building next.",
+    body:
+      "Production deployments and design-stage prototypes. Each demo answers a real question for a real audience.",
+    cta: "View case study",
+  },
+  demos: [
+    {
+      slug: "public-procurement-intelligence",
+      title: "Public Procurement Intelligence",
+      status: "Live" as const,
+      description:
+        "SICOP-wide anomaly detection, risk scoring and preventive monitoring at executive resolution.",
+    },
+    {
+      slug: "heatsight-ai",
+      title: "HeatSight AI",
+      status: "In Build" as const,
+      description:
+        "Consumer demand sensing across geographies and SKUs — micro-trends surfaced before they hit the report.",
+    },
+    {
+      slug: "consumer-intelligence",
+      title: "Consumer Intelligence",
+      status: "In Build" as const,
+      description:
+        "Behavioral segmentation and revealed-preference modeling for category leaders and retail strategists.",
+    },
+    {
+      slug: "ai-decision-engine",
+      title: "AI Decision Engine",
+      status: "Concept" as const,
+      description:
+        "An executive surface for trade-offs: simulate decisions, score outcomes, audit reasoning end-to-end.",
+    },
+    {
+      slug: "data-governance-intelligence",
+      title: "Data Governance Intelligence",
+      status: "Concept" as const,
+      description:
+        "Lineage, quality, ownership and regulatory posture made visible at the institutional scale.",
+    },
+  ],
+  statusLabels: {
+    Live: "Live",
+    "In Build": "In Build",
+    Concept: "Concept",
+  },
+
+  about: {
+    eyebrow: "About Me",
+    headline: "N-AI · Nancy Artificial Intelligence",
+    founderBio:
+      "N-AI was founded by Nancy Rodríguez, a data and AI strategist with experience designing analytical ecosystems, intelligence architectures and AI-powered solutions across complex business environments.",
+    workCombinesLabel: "Her work combines",
+    workAreas: [
+      "Artificial Intelligence",
+      "Advanced Analytics",
+      "Data Strategy",
+      "Consumer Intelligence",
+      "Predictive Modeling",
+      "Governance & Data Maturity",
+      "Executive Intelligence Systems",
+    ],
+    focusBody:
+      "From public procurement intelligence to consumer behavior analytics, the focus of N-AI is not only generating dashboards — but building systems capable of transforming data into actionable intelligence.",
+    whyTitle: "Why N-AI",
+    whyLead: "Most organizations already have data.",
+    whyBody:
+      "The challenge is understanding how to structure it, connect it, interpret it and transform it into intelligent systems that support real decisions.",
+    whyClose: "N-AI was created to bridge that gap.",
+    futureTitle: "Future Vision",
+    futureLead: "N-AI is evolving as a space to explore:",
+    futureAreas: [
+      "AI-powered intelligence systems",
+      "Data ecosystems and architectures",
+      "Predictive analytics",
+      "Consumer intelligence",
+      "Risk monitoring systems",
+      "Real-world AI prototypes",
+    ],
+    futureClosing:
+      "Building in public through real case studies and applied intelligence projects.",
+    portraitAlt: "Portrait of Nancy Rodríguez, founder of N-AI",
+  },
+
+  capabilitiesSection: {
+    eyebrow: "Capabilities",
+    title: "Eight disciplines, one engagement.",
+    body: "Every project draws from the same toolkit. The mix changes; the standard does not.",
+  },
+  capabilities: [
+    {
+      title: "AI & Intelligence Systems",
+      description:
+        "End-to-end design of AI-powered systems for executive surfaces, decision flows and operational reasoning.",
+    },
+    {
+      title: "Data Strategy & Governance",
+      description:
+        "From data inventory to lineage, quality, ownership and regulatory posture — strategy made operable.",
+    },
+    {
+      title: "Predictive Analytics",
+      description:
+        "Forecasting, scenario modeling and forward-looking metrics built directly into executive workflows.",
+    },
+    {
+      title: "Anomaly Detection",
+      description:
+        "Detect what should not be there — temporal, structural and behavioral signals modeled at scale.",
+    },
+    {
+      title: "Consumer Intelligence",
+      description:
+        "Behavioral segmentation, revealed preference and demand sensing for category and retail leaders.",
+    },
+    {
+      title: "Executive Dashboards",
+      description:
+        "Surfaces designed for the way executives actually decide — not the way data engineers think.",
+    },
+    {
+      title: "Risk Analytics",
+      description:
+        "Composite risk scoring with auditable components — the score and the why, in the same view.",
+    },
+    {
+      title: "Data Infrastructure",
+      description:
+        "Pipelines, schemas, validation and observability — the substrate beneath every reliable signal.",
+    },
+  ],
+
+  bip: {
+    eyebrow: "Building in Public",
+    headlineStart: "Real-world case studies, AI prototypes and intelligence systems —",
+    headlineItalic: "open work, in the open.",
+    body:
+      "N-AI will continue publishing the work as it gets built. Below — what's on the editorial pipeline.",
+    etaLabel: "ETA",
+    forthcomingLabel: "Forthcoming",
+    upcoming: [
+      { title: "SICOP — Methodology Deep Dive", eta: "Q2 2026", kind: "Case Study" },
+      { title: "HeatSight AI — Beta Architecture", eta: "Q3 2026", kind: "Demo" },
+      { title: "Consumer Intelligence — Field Notes", eta: "Q3 2026", kind: "Essay" },
+      { title: "AI Decision Engine — Concept Spec", eta: "Q4 2026", kind: "Concept" },
+      { title: "Data Governance Intelligence", eta: "Q1 2027", kind: "Concept" },
+    ],
+  },
+
+  contact: {
+    eyebrow: "Contact",
+    headlineStart: "Let's build",
+    headlineItalic: "intelligent systems",
+    headlineEnd: ".",
+    body:
+      "N-AI engages with executive teams, government innovation leads and category-leading organizations. Reach out with the question you can't answer with the system you have today.",
+    primaryCta: "Start a Conversation",
+    mailtoSubject: "Conversation with N-AI",
+    mailtoBody:
+      "Hi Nancy,\n\nI'd like to start a conversation about an intelligence system project we're scoping.\n\nContext:\n• Organization:\n• Goal:\n• Timeline:\n\nThanks,\n",
+  },
+
+  footer: {
+    navTitle: "Navigate",
+    contactTitle: "Contact",
+  },
+
+  metadata: {
+    title: "N-AI — Data · Insights · AI",
+    description:
+      "Executive AI and data intelligence consultancy. Anomaly detection, risk scoring, and intelligent systems for organizations operating at the edge of complexity.",
+    ogDescription:
+      "AI-powered analytics, anomaly detection and intelligent systems design for executive leaders.",
+  },
+
+  langToggle: {
+    label: "Language",
+    es: "ES",
+    en: "EN",
+    switchToEnglish: "Switch to English",
+    switchToSpanish: "Switch to Spanish",
+  },
+};

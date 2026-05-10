@@ -5,15 +5,18 @@ import dynamic from "next/dynamic";
 import Container from "@/components/layout/Container";
 import GlassCard from "@/components/ui/GlassCard";
 import Reveal from "@/components/motion/Reveal";
-import {
-  sicop,
-  challengePoints,
-  infrastructureSources,
-  institutions,
-  strategicImpact,
-} from "@/content/caseStudy.sicop";
+import { useT } from "@/lib/i18n";
+import { institutions } from "@/content/caseStudy.sicop";
 import { cn } from "@/lib/cn";
-import { CheckCircle2, Database, ArrowRight, AlertTriangle, ShieldCheck, Eye, Gauge } from "lucide-react";
+import {
+  CheckCircle2,
+  Database,
+  ArrowRight,
+  AlertTriangle,
+  ShieldCheck,
+  Eye,
+  Gauge,
+} from "lucide-react";
 
 const AnomalyChart = dynamic(() => import("@/components/charts/AnomalyChart"), {
   ssr: false,
@@ -24,38 +27,46 @@ const RiskScoreGauge = dynamic(() => import("@/components/charts/RiskScoreGauge"
   loading: () => <div className="h-[420px] w-full animate-pulse rounded-md bg-bg-glass" />,
 });
 
+// Static visual mapping — language-agnostic
+const VISUAL_BY_ID: Record<string, string> = {
+  challenge: "ChallengePoints",
+  infrastructure: "InfrastructureDiagram",
+  pipeline: "PipelineLink",
+  anomaly: "AnomalyChart",
+  risk: "RiskGauge",
+  institutional: "InstitutionGrid",
+  impact: "ImpactCards",
+};
+
 export default function CaseStudyDeepDive() {
-  const [active, setActive] = useState<string>(sicop.sections[0].id);
+  const t = useT();
+  const [active, setActive] = useState<string>(t.sicop.sections[0].id);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
-          if (e.isIntersecting) setActive(e.target.id);
+          if (e.isIntersecting) setActive(e.target.id.replace(/^cs-/, ""));
         });
       },
       { rootMargin: "-40% 0px -45% 0px", threshold: 0 },
     );
-    sicop.sections.forEach((s) => {
+    t.sicop.sections.forEach((s) => {
       const el = document.getElementById(`cs-${s.id}`);
       if (el) obs.observe(el);
     });
     return () => obs.disconnect();
-  }, []);
+  }, [t.sicop.sections]);
 
   return (
     <section id="case-study-deep-dive" className="relative py-24 md:py-32">
       <Container>
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[180px_1fr] md:gap-16">
-          {/* Sticky rail */}
           <aside className="hidden md:block">
-            <nav
-              aria-label="Case study sections"
-              className="sticky top-32 self-start"
-            >
-              <p className="text-eyebrow mb-4">Sections</p>
+            <nav aria-label={t.sicop.railTitle} className="sticky top-32 self-start">
+              <p className="text-eyebrow mb-4">{t.sicop.railTitle}</p>
               <ol className="space-y-3 text-sm">
-                {sicop.sections.map((s) => {
+                {t.sicop.sections.map((s) => {
                   const isActive = active === s.id;
                   return (
                     <li key={s.id}>
@@ -70,10 +81,10 @@ export default function CaseStudyDeepDive() {
                       >
                         <span
                           className={cn(
-                            "block h-px w-4 transition-all duration-300 ease-smooth",
+                            "block h-px transition-all duration-300 ease-smooth",
                             isActive
                               ? "w-8 bg-accent-cyan"
-                              : "bg-border-subtle group-hover:bg-border-strong",
+                              : "w-4 bg-border-subtle group-hover:bg-border-strong",
                           )}
                         />
                         <span className="leading-tight">{s.title}</span>
@@ -85,9 +96,8 @@ export default function CaseStudyDeepDive() {
             </nav>
           </aside>
 
-          {/* Sub-section content */}
           <div className="space-y-32">
-            {sicop.sections.map((s) => (
+            {t.sicop.sections.map((s) => (
               <article key={s.id} id={`cs-${s.id}`} className="scroll-mt-32">
                 <Reveal>
                   <div className="text-eyebrow flex items-center gap-3">
@@ -97,16 +107,14 @@ export default function CaseStudyDeepDive() {
                   </div>
                 </Reveal>
                 <Reveal delay={0.05}>
-                  <h3 className="text-h2 mt-4 max-w-[20ch] text-text-primary">
-                    {s.lead}
-                  </h3>
+                  <h3 className="text-h2 mt-4 max-w-[20ch] text-text-primary">{s.lead}</h3>
                 </Reveal>
                 <Reveal delay={0.1}>
                   <p className="text-body mt-5 max-w-2xl">{s.body}</p>
                 </Reveal>
                 <Reveal delay={0.15}>
                   <div className="mt-8">
-                    <SectionVisual id={s.visual} />
+                    <SectionVisual visualId={VISUAL_BY_ID[s.id]} />
                   </div>
                 </Reveal>
               </article>
@@ -116,100 +124,98 @@ export default function CaseStudyDeepDive() {
       </Container>
     </section>
   );
+}
 
-  function SectionVisual({ id }: { id: string }) {
-    switch (id) {
-      case "ChallengePoints":
-        return (
-          <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
-            {challengePoints.map((p, i) => (
-              <li
-                key={p}
-                className="flex items-start gap-3 rounded-md border border-border-subtle bg-bg-elevated/40 p-4"
-              >
-                <AlertTriangle
-                  aria-hidden
-                  className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent-cyan"
-                />
-                <span className="text-sm text-text-secondary">{p}</span>
-              </li>
-            ))}
-          </ul>
-        );
-      case "InfrastructureDiagram":
-        return <InfrastructureDiagram />;
-      case "PipelineLink":
-        return (
-          <a
-            href="#pipeline"
-            className="group inline-flex items-center gap-3 rounded-md border border-accent-cyan/30 bg-accent-cyan/[0.04] px-5 py-4 text-sm text-text-primary transition-all duration-200 ease-smooth hover:border-accent-cyan/70 hover:shadow-glow"
-          >
-            <Database className="h-4 w-4 text-accent-cyan" aria-hidden />
-            See the seven-stage pipeline in motion
-            <ArrowRight
-              aria-hidden
-              className="h-4 w-4 text-accent-cyan transition-transform duration-200 ease-smooth group-hover:translate-x-1"
-            />
-          </a>
-        );
-      case "AnomalyChart":
-        return (
-          <GlassCard className="p-6">
-            <div className="mb-4 flex items-center justify-between">
-              <span className="text-eyebrow">Signal · Last 60 weeks</span>
-              <span className="inline-flex items-center gap-2 text-[11px] text-text-muted">
-                <span
-                  aria-hidden
-                  className="inline-block h-2 w-2 rounded-full bg-accent-mint"
-                />
-                Flagged anomalies
-              </span>
-            </div>
-            <AnomalyChart />
-          </GlassCard>
-        );
-      case "RiskGauge":
-        return (
-          <GlassCard className="p-6">
-            <div className="mb-2 text-eyebrow">8-Dimension Composite</div>
-            <RiskScoreGauge />
-          </GlassCard>
-        );
-      case "InstitutionGrid":
-        return <InstitutionGrid />;
-      case "ImpactCards":
-        return (
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {strategicImpact.map((card, i) => {
-              const Icon = [Eye, Gauge, ShieldCheck][i];
-              return (
-                <GlassCard key={card.title} hoverable className="p-6">
-                  <Icon
-                    aria-hidden
-                    className="mb-4 h-5 w-5 text-accent-cyan"
-                  />
-                  <h4 className="text-h3 text-text-primary">{card.title}</h4>
-                  <p className="mt-3 text-sm text-text-secondary">{card.body}</p>
-                </GlassCard>
-              );
-            })}
+function SectionVisual({ visualId }: { visualId: string }) {
+  const t = useT();
+  switch (visualId) {
+    case "ChallengePoints":
+      return (
+        <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          {t.sicop.challengePoints.map((p) => (
+            <li
+              key={p}
+              className="flex items-start gap-3 rounded-md border border-border-subtle bg-bg-elevated/40 p-4"
+            >
+              <AlertTriangle
+                aria-hidden
+                className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent-cyan"
+              />
+              <span className="text-sm text-text-secondary">{p}</span>
+            </li>
+          ))}
+        </ul>
+      );
+    case "InfrastructureDiagram":
+      return <InfrastructureDiagram />;
+    case "PipelineLink":
+      return (
+        <a
+          href="#pipeline"
+          className="group inline-flex items-center gap-3 rounded-md border border-accent-cyan/30 bg-accent-cyan/[0.04] px-5 py-4 text-sm text-text-primary transition-all duration-200 ease-smooth hover:border-accent-cyan/70 hover:shadow-glow"
+        >
+          <Database className="h-4 w-4 text-accent-cyan" aria-hidden />
+          {t.sicop.pipelineLinkLabel}
+          <ArrowRight
+            aria-hidden
+            className="h-4 w-4 text-accent-cyan transition-transform duration-200 ease-smooth group-hover:translate-x-1"
+          />
+        </a>
+      );
+    case "AnomalyChart":
+      return (
+        <GlassCard className="p-6">
+          <div className="mb-4 flex items-center justify-between">
+            <span className="text-eyebrow">{t.sicop.anomalyChartCaption}</span>
+            <span className="inline-flex items-center gap-2 text-[11px] text-text-muted">
+              <span
+                aria-hidden
+                className="inline-block h-2 w-2 rounded-full bg-accent-mint"
+              />
+              {t.sicop.anomalyChartLegend}
+            </span>
           </div>
-        );
-      default:
-        return null;
-    }
+          <AnomalyChart />
+        </GlassCard>
+      );
+    case "RiskGauge":
+      return (
+        <GlassCard className="p-6">
+          <div className="mb-2 text-eyebrow">{t.sicop.riskGaugeTitle}</div>
+          <RiskScoreGauge />
+        </GlassCard>
+      );
+    case "InstitutionGrid":
+      return <InstitutionGrid />;
+    case "ImpactCards":
+      return (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {t.sicop.strategicImpact.map((card, i) => {
+            const Icon = [Eye, Gauge, ShieldCheck][i];
+            return (
+              <GlassCard key={card.title} hoverable className="p-6">
+                <Icon aria-hidden className="mb-4 h-5 w-5 text-accent-cyan" />
+                <h4 className="text-h3 text-text-primary">{card.title}</h4>
+                <p className="mt-3 text-sm text-text-secondary">{card.body}</p>
+              </GlassCard>
+            );
+          })}
+        </div>
+      );
+    default:
+      return null;
   }
 }
 
 function InfrastructureDiagram() {
+  const t = useT();
   return (
     <div className="rounded-lg border border-border-subtle bg-bg-elevated/40 p-6">
       <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-[1fr_auto_1fr_auto_1fr]">
-        {/* Sources column */}
         <div className="space-y-2">
-          <div className="text-eyebrow">Sources</div>
+          <div className="text-eyebrow">{t.sicop.infrastructure.sourcesLabel}</div>
           <ul className="space-y-1.5">
-            {infrastructureSources.map((s) => (
+            {t.sicop.infrastructureSources.map((s) => (
               <li
                 key={s}
                 className="flex items-center gap-2 rounded-md border border-border-subtle bg-bg-base/60 px-3 py-2 text-[12.5px] text-text-secondary"
@@ -226,14 +232,12 @@ function InfrastructureDiagram() {
           className="hidden h-5 w-5 justify-self-center text-accent-cyan/60 md:block"
         />
 
-        {/* Ingestion + Schema */}
         <div className="rounded-md border border-accent-cyan/30 bg-accent-cyan/[0.05] p-4">
-          <div className="text-eyebrow">Ingestion</div>
+          <div className="text-eyebrow">{t.sicop.infrastructure.ingestionTitle}</div>
           <ul className="mt-2 space-y-1 text-[12.5px] text-text-secondary">
-            <li>• Continuous extraction</li>
-            <li>• Schema reconciliation</li>
-            <li>• Lineage capture</li>
-            <li>• Validation rules</li>
+            {t.sicop.infrastructure.ingestionItems.map((item) => (
+              <li key={item}>• {item}</li>
+            ))}
           </ul>
         </div>
 
@@ -242,12 +246,12 @@ function InfrastructureDiagram() {
           className="hidden h-5 w-5 justify-self-center text-accent-cyan/60 md:block"
         />
 
-        {/* Unified graph */}
         <div className="rounded-md border border-accent-mint/30 bg-accent-mint/[0.04] p-4">
-          <div className="text-eyebrow text-accent-mint">Unified Graph</div>
+          <div className="text-eyebrow text-accent-mint">
+            {t.sicop.infrastructure.unifiedTitle}
+          </div>
           <p className="mt-2 text-[12.5px] text-text-secondary">
-            Canonical schema. Cross-source relationships modeled. Replayable transforms.
-            Substrate for every downstream signal.
+            {t.sicop.infrastructure.unifiedBody}
           </p>
         </div>
       </div>
@@ -256,6 +260,7 @@ function InfrastructureDiagram() {
 }
 
 function InstitutionGrid() {
+  const t = useT();
   const tones: Record<string, string> = {
     low: "border-accent-mint/30 bg-accent-mint/[0.06] text-accent-mint",
     medium: "border-accent-cyan/30 bg-accent-cyan/[0.06] text-accent-cyan",
@@ -273,17 +278,15 @@ function InstitutionGrid() {
           )}
         >
           <div className="text-[10px] uppercase tracking-eyebrow opacity-80">
-            {inst.tier}
+            {t.sicop.institutionTiers[inst.tier]}
           </div>
-          <div className="mt-2 text-[15px] font-medium text-text-primary">
-            {inst.name}
-          </div>
+          <div className="mt-2 text-[15px] font-medium text-text-primary">{inst.name}</div>
           <div className="mt-3 flex items-baseline justify-between">
             <span className="text-display-l !text-[36px] tabular-nums text-text-primary">
               {inst.score}
             </span>
             <span className="text-[11px] uppercase tracking-eyebrow text-text-muted">
-              risk
+              {t.sicop.institutionRiskLabel}
             </span>
           </div>
         </div>

@@ -1,0 +1,434 @@
+// Spanish — default/primary language.
+// Keep keys in sync with en.ts. If you add a key here, add it to en.ts (TS will complain otherwise).
+
+export const es = {
+  brand: {
+    tagline: "Datos · Insights · IA",
+    subBrand: "Neural Analytics & Intelligence",
+  },
+  nav: [
+    { label: "Sobre Mí", href: "#about" },
+    { label: "Caso de Estudio", href: "#case-study" },
+    { label: "Pipeline", href: "#pipeline" },
+    { label: "Demos", href: "#demos" },
+    { label: "Capacidades", href: "#capabilities" },
+    { label: "Contacto", href: "#contact" },
+  ],
+  navCTA: "Trabaja con N-AI",
+  skipToContent: "Saltar al contenido",
+  themeLabel: "Tema · Oscuro",
+
+  hero: {
+    eyebrowFull: "Nancy Artificial Intelligence",
+    headlineStart: "Transformando ecosistemas de datos complejos en sistemas",
+    headlineHighlight: "inteligentes",
+    headlineEnd: ".",
+    subhead:
+      "Analítica con IA, detección de anomalías, inteligencia de datos y consultoría estratégica para organizaciones que operan al filo de la complejidad.",
+    primaryCta: "Explorar Casos de Estudio",
+    secondaryCta: "Trabaja con N-AI",
+    marquee: [
+      "Detección de Anomalías",
+      "Risk Scoring",
+      "Analítica Predictiva",
+      "Inteligencia de Consumidor",
+      "Gobernanza de Datos",
+      "Machine Learning",
+      "Dashboards Ejecutivos",
+      "Motores de Decisión",
+      "Compras Públicas",
+      "Pronósticos",
+    ],
+  },
+
+  sicop: {
+    eyebrow: "Caso de Estudio Destacado",
+    title: "Inteligencia de Compras Públicas",
+    subtitle:
+      "Arquitectura completa de inteligencia para SICOP — detección de anomalías, risk scoring y monitoreo preventivo.",
+    architecturePreviewTitle: "Vista previa de arquitectura",
+    architecturePreviewBody:
+      "Las fuentes alimentan el pipeline; el pipeline produce inteligencia; la inteligencia activa la capa ejecutiva — cada componente rastreable de punta a punta.",
+    archCells: [
+      ["Fuentes", "Solicitudes · Adjudicaciones · Contratos"],
+      ["Pipeline", "7 etapas · Replicable · Auditado"],
+      ["Capa de IA", "47 patrones · Scoring explicable"],
+      ["Resultados", "Índice de riesgo · Triage · Drilldown"],
+    ] as ReadonlyArray<readonly [string, string]>,
+    archNodes: [
+      { label: "Fuentes", sub: "SICOP" },
+      { label: "Pipeline", sub: "7 etapas" },
+      { label: "Capa de IA", sub: "Anomalía + Riesgo" },
+      { label: "Resultados", sub: "Ejecutivo" },
+    ],
+    kpis: [
+      { value: ">2.4M", label: "Registros de compras analizados" },
+      { value: "47", label: "Patrones de anomalía modelados" },
+      { value: "8", label: "Dimensiones de riesgo institucional" },
+      { value: "<1s", label: "Latencia de scoring de riesgo" },
+    ],
+    sections: [
+      {
+        id: "challenge",
+        number: "01",
+        title: "El Reto",
+        lead:
+          "Las compras públicas operan sobre ecosistemas opacos: datos fragmentados, taxonomías inconsistentes y supervisión que llega después del daño.",
+        body:
+          "Auditores, reguladores y tomadores de decisión enfrentan un problema que se acumula — millones de transacciones cruzando miles de instituciones, codificadas en esquemas heterogéneos. El resultado es supervisión reactiva: las anomalías se descubren cuando las irregularidades ya escalaron a casos legales, y los patrones de riesgo sistémico nunca se modelan. La brecha no son los datos — es la inteligencia.",
+      },
+      {
+        id: "infrastructure",
+        number: "02",
+        title: "Infraestructura de Datos",
+        lead:
+          "Inventario y estructuración del ecosistema completo de SICOP — cada fuente, cada esquema, cada relación.",
+        body:
+          "Mapeamos el grafo de datos de SICOP de punta a punta: solicitudes, adjudicaciones, contratos, adendas, registro de proveedores, sanciones, metadatos institucionales. Cada fuente fue inventariada, esquemas reconciliados y relaciones modeladas en un grafo unificado sobre el cual los pipelines aguas abajo pueden razonar.",
+      },
+      {
+        id: "pipeline",
+        number: "03",
+        title: "Pipeline de Inteligencia",
+        lead:
+          "Pipeline de siete etapas, desde la extracción cruda hasta el monitoreo preventivo — la columna vertebral del sistema.",
+        body:
+          "Cada etapa es testeable, observable y replicable de forma independiente. Las fuentes crudas fluyen por extracción, inventario estructural, unificación, validación, detección de anomalías, scoring de riesgo y luego a la capa de monitoreo que alimenta la vigilancia ejecutiva.",
+      },
+      {
+        id: "anomaly",
+        number: "04",
+        title: "Detección de Anomalías con IA",
+        lead:
+          "Cuarenta y siete patrones de anomalía modelados sobre señales temporales, estructurales y de comportamiento.",
+        body:
+          "Detectores basados en reglas capturan lo obvio; modelos aprendidos descubren lo sutil: velocidad inusual de adjudicación, deriva en concentración de proveedores, rupturas de precio frente a baselines de pares y secuencias de adendas que estadísticamente preceden irregularidades. Los resultados son priorizados, rankeados y explicables.",
+      },
+      {
+        id: "risk",
+        number: "05",
+        title: "Sistema de Risk Scoring",
+        lead:
+          "Ocho dimensiones de riesgo institucional compuestas en un solo score ejecutivo, con componentes trazables.",
+        body:
+          "Cada institución lleva un score que se descompone en las dimensiones sobre las cuales auditores y decisores realmente razonan: velocidad de contratación, concentración de proveedores, dispersión de precios, exposición a adendas, proximidad a sanciones, postura de transparencia, madurez de controles y densidad histórica de señales.",
+      },
+      {
+        id: "institutional",
+        number: "06",
+        title: "Inteligencia Institucional",
+        lead:
+          "Una sola superficie ejecutiva donde cada institución tiene su perfil de riesgo, comparadores y tendencia.",
+        body:
+          "Un triage estilo heatmap muestra la población de un vistazo; los drilldowns revelan series de tiempo, contribuciones de anomalía y eventos históricos. La misma superficie responde dos preguntas a la vez: dónde mirar primero y por qué.",
+      },
+      {
+        id: "impact",
+        number: "07",
+        title: "Impacto Estratégico",
+        lead:
+          "Tres resultados ejecutivos que el sistema desbloquea — medibles en meses, no trimestres.",
+        body:
+          "La supervisión preventiva reemplaza la auditoría reactiva. La velocidad de decisión mejora porque el riesgo es visible en la superficie, no enterrado en registros. Y la transparencia se vuelve un entregable, no una aspiración.",
+      },
+    ],
+    challengePoints: [
+      "Ecosistemas opacos de compras públicas",
+      "Fuentes de datos fragmentadas y heterogéneas",
+      "Taxonomías inconsistentes entre instituciones",
+      "Supervisión reactiva — las irregularidades emergen después del daño",
+      "Patrones de riesgo sistémico que nunca se modelan",
+    ],
+    infrastructureSources: [
+      "Solicitudes",
+      "Adjudicaciones",
+      "Contratos",
+      "Adendas",
+      "Registro de Proveedores",
+      "Sanciones",
+      "Metadatos Institucionales",
+    ],
+    infrastructure: {
+      ingestionTitle: "Ingesta",
+      ingestionItems: [
+        "Extracción continua",
+        "Reconciliación de esquemas",
+        "Captura de lineage",
+        "Reglas de validación",
+      ],
+      unifiedTitle: "Grafo Unificado",
+      unifiedBody:
+        "Esquema canónico. Relaciones cross-source modeladas. Transformaciones replicables. Sustrato para cada señal aguas abajo.",
+      sourcesLabel: "Fuentes",
+    },
+    pipelineLinkLabel: "Ver el pipeline de siete etapas en acción",
+    pipelineNodes: [
+      {
+        label: "Extracción de Datos",
+        description: "Extrae registros crudos de cada fuente SICOP de manera continua.",
+      },
+      {
+        label: "Inventario y Estructuración",
+        description: "Cataloga cada campo, documenta cada relación, versiona cada esquema.",
+      },
+      {
+        label: "Unificación de Datos",
+        description: "Reconcilia esquemas heterogéneos en un grafo canónico único.",
+      },
+      {
+        label: "Reglas de Validación",
+        description: "Aplica tipado, lineage y consistencia referencial antes del uso aguas abajo.",
+      },
+      {
+        label: "Detección de Anomalías con IA",
+        description:
+          "Puntúa 47 patrones de anomalía sobre señales temporales, estructurales y de comportamiento.",
+      },
+      {
+        label: "Risk Scoring",
+        description: "Compone 8 dimensiones de riesgo institucional en un score auditable.",
+      },
+      {
+        label: "Monitoreo Preventivo",
+        description:
+          "Visibiliza eventos, tendencias y deriva entre pares para los tomadores de decisión.",
+      },
+    ],
+    riskDimensions: [
+      { label: "Velocidad de Contratación", value: 78 },
+      { label: "Concentración de Proveedores", value: 62 },
+      { label: "Dispersión de Precios", value: 71 },
+      { label: "Exposición a Adendas", value: 55 },
+      { label: "Proximidad a Sanciones", value: 34 },
+      { label: "Postura de Transparencia", value: 82 },
+      { label: "Madurez de Controles", value: 49 },
+      { label: "Densidad de Señales", value: 67 },
+    ],
+    riskCompositeLabel: "Compuesto",
+    riskIndexLabel: "Índice de Riesgo",
+    riskGaugeTitle: "Compuesto de 8 Dimensiones",
+    anomalyChartCaption: "Señal · Últimas 60 semanas",
+    anomalyChartLegend: "Anomalías marcadas",
+    institutionRiskLabel: "riesgo",
+    institutionTiers: {
+      low: "bajo",
+      medium: "medio",
+      high: "alto",
+      critical: "crítico",
+    },
+    railTitle: "Secciones",
+    strategicImpact: [
+      {
+        title: "Supervisión Preventiva",
+        body:
+          "El riesgo se vuelve visible antes de que las irregularidades se solidifiquen en casos legales — los auditores actúan sobre señales, no sobre hallazgos.",
+      },
+      {
+        title: "Velocidad de Decisión",
+        body:
+          "Los ejecutivos ven el riesgo donde vive — en la superficie — y llegan a una decisión defendible en minutos, no semanas.",
+      },
+      {
+        title: "Transparencia Operativa",
+        body:
+          "Cada score se rastrea a sus componentes; cada componente se rastrea a un registro. La transparencia se vuelve un entregable.",
+      },
+    ],
+  },
+
+  pipeline: {
+    eyebrow: "Pipeline",
+    title: "Siete etapas, de lo crudo a la superficie ejecutiva.",
+    body:
+      "Cada etapa es testeable, observable y replicable de forma independiente. El resultado es inteligencia con lineage — cada conclusión se rastrea al registro que la produjo.",
+  },
+
+  demosSection: {
+    eyebrow: "Demos",
+    title: "Sistemas en producción y los que estamos construyendo.",
+    body:
+      "Despliegues productivos y prototipos en fase de diseño. Cada demo responde una pregunta real para una audiencia real.",
+    cta: "Ver caso de estudio",
+  },
+  demos: [
+    {
+      slug: "public-procurement-intelligence",
+      title: "Inteligencia de Compras Públicas",
+      status: "Live" as const,
+      description:
+        "Detección de anomalías, risk scoring y monitoreo preventivo a escala SICOP, en resolución ejecutiva.",
+    },
+    {
+      slug: "heatsight-ai",
+      title: "HeatSight AI",
+      status: "In Build" as const,
+      description:
+        "Sensado de demanda de consumidor por geografía y SKU — micro-tendencias visibles antes de que lleguen al reporte.",
+    },
+    {
+      slug: "consumer-intelligence",
+      title: "Inteligencia de Consumidor",
+      status: "In Build" as const,
+      description:
+        "Segmentación de comportamiento y modelado de preferencia revelada para líderes de categoría y estrategas retail.",
+    },
+    {
+      slug: "ai-decision-engine",
+      title: "Motor de Decisión con IA",
+      status: "Concept" as const,
+      description:
+        "Una superficie ejecutiva para trade-offs: simula decisiones, puntúa resultados, audita el razonamiento de punta a punta.",
+    },
+    {
+      slug: "data-governance-intelligence",
+      title: "Inteligencia de Gobernanza de Datos",
+      status: "Concept" as const,
+      description:
+        "Lineage, calidad, ownership y postura regulatoria — visibles a escala institucional.",
+    },
+  ],
+  statusLabels: {
+    Live: "En Vivo",
+    "In Build": "En Construcción",
+    Concept: "Concepto",
+  },
+
+  about: {
+    eyebrow: "Sobre Mí",
+    headline: "N-AI · Nancy Artificial Intelligence",
+    founderBio:
+      "N-AI fue fundada por Nancy Rodríguez, una estratega de datos e IA con experiencia diseñando ecosistemas analíticos, arquitecturas de inteligencia y soluciones impulsadas por IA en entornos de negocio complejos.",
+    workCombinesLabel: "Su trabajo combina",
+    workAreas: [
+      "Inteligencia Artificial",
+      "Analítica Avanzada",
+      "Estrategia de Datos",
+      "Inteligencia de Consumidor",
+      "Modelado Predictivo",
+      "Gobernanza y Madurez de Datos",
+      "Sistemas de Inteligencia Ejecutiva",
+    ],
+    focusBody:
+      "Desde inteligencia de compras públicas hasta analítica de comportamiento del consumidor, el foco de N-AI no es solo generar dashboards — sino construir sistemas capaces de transformar datos en inteligencia accionable.",
+    whyTitle: "Por qué N-AI",
+    whyLead: "La mayoría de las organizaciones ya tienen datos.",
+    whyBody:
+      "El reto es entender cómo estructurarlos, conectarlos, interpretarlos y transformarlos en sistemas inteligentes que apoyen decisiones reales.",
+    whyClose: "N-AI fue creada para cerrar esa brecha.",
+    futureTitle: "Visión Futura",
+    futureLead: "N-AI evoluciona como un espacio para explorar:",
+    futureAreas: [
+      "Sistemas de inteligencia impulsados por IA",
+      "Ecosistemas y arquitecturas de datos",
+      "Analítica predictiva",
+      "Inteligencia de consumidor",
+      "Sistemas de monitoreo de riesgo",
+      "Prototipos reales de IA",
+    ],
+    futureClosing:
+      "Construyendo en abierto a través de casos reales y proyectos aplicados de inteligencia.",
+    portraitAlt: "Retrato de Nancy Rodríguez, fundadora de N-AI",
+  },
+
+  capabilitiesSection: {
+    eyebrow: "Capacidades",
+    title: "Ocho disciplinas, un solo engagement.",
+    body:
+      "Cada proyecto se nutre del mismo toolkit. La mezcla cambia; el estándar no.",
+  },
+  capabilities: [
+    {
+      title: "IA y Sistemas de Inteligencia",
+      description:
+        "Diseño end-to-end de sistemas con IA para superficies ejecutivas, flujos de decisión y razonamiento operativo.",
+    },
+    {
+      title: "Estrategia y Gobernanza de Datos",
+      description:
+        "Del inventario al lineage, calidad, ownership y postura regulatoria — estrategia hecha operable.",
+    },
+    {
+      title: "Analítica Predictiva",
+      description:
+        "Forecasting, modelado de escenarios y métricas prospectivas integradas directo en los flujos ejecutivos.",
+    },
+    {
+      title: "Detección de Anomalías",
+      description:
+        "Detecta lo que no debería estar ahí — señales temporales, estructurales y de comportamiento modeladas a escala.",
+    },
+    {
+      title: "Inteligencia de Consumidor",
+      description:
+        "Segmentación de comportamiento, preferencia revelada y sensado de demanda para líderes de categoría y retail.",
+    },
+    {
+      title: "Dashboards Ejecutivos",
+      description:
+        "Superficies diseñadas para la forma en que los ejecutivos realmente deciden — no la forma en que piensan los data engineers.",
+    },
+    {
+      title: "Analítica de Riesgo",
+      description:
+        "Scoring de riesgo compuesto con componentes auditables — el score y el porqué, en la misma vista.",
+    },
+    {
+      title: "Infraestructura de Datos",
+      description:
+        "Pipelines, esquemas, validación y observabilidad — el sustrato debajo de cada señal confiable.",
+    },
+  ],
+
+  bip: {
+    eyebrow: "Building in Public",
+    headlineStart: "Casos reales, prototipos de IA y sistemas de inteligencia —",
+    headlineItalic: "trabajo abierto, en abierto.",
+    body:
+      "N-AI seguirá publicando el trabajo conforme se construye. Abajo — lo que viene en el pipeline editorial.",
+    etaLabel: "ETA",
+    forthcomingLabel: "Próximo",
+    upcoming: [
+      { title: "SICOP — Deep Dive de Metodología", eta: "Q2 2026", kind: "Caso de Estudio" },
+      { title: "HeatSight AI — Arquitectura Beta", eta: "Q3 2026", kind: "Demo" },
+      { title: "Inteligencia de Consumidor — Notas de Campo", eta: "Q3 2026", kind: "Ensayo" },
+      { title: "Motor de Decisión con IA — Spec Conceptual", eta: "Q4 2026", kind: "Concepto" },
+      { title: "Inteligencia de Gobernanza de Datos", eta: "Q1 2027", kind: "Concepto" },
+    ],
+  },
+
+  contact: {
+    eyebrow: "Contacto",
+    headlineStart: "Construyamos",
+    headlineItalic: "sistemas inteligentes",
+    headlineEnd: ".",
+    body:
+      "N-AI colabora con equipos ejecutivos, líderes de innovación gubernamental y organizaciones líderes de categoría. Escríbenos sobre la pregunta que tu sistema actual no puede responder.",
+    primaryCta: "Iniciar una Conversación",
+    mailtoSubject: "Conversación con N-AI",
+    mailtoBody:
+      "Hola Nancy,\n\nMe gustaría iniciar una conversación sobre un proyecto de sistema de inteligencia que estamos evaluando.\n\nContexto:\n• Organización:\n• Objetivo:\n• Timeline:\n\nGracias,\n",
+  },
+
+  footer: {
+    navTitle: "Navegar",
+    contactTitle: "Contacto",
+  },
+
+  metadata: {
+    title: "N-AI — Datos · Insights · IA",
+    description:
+      "Consultoría ejecutiva de IA e inteligencia de datos. Detección de anomalías, risk scoring y sistemas inteligentes para organizaciones que operan al filo de la complejidad.",
+    ogDescription:
+      "Analítica con IA, detección de anomalías y diseño de sistemas inteligentes para líderes ejecutivos.",
+  },
+
+  langToggle: {
+    label: "Idioma",
+    es: "ES",
+    en: "EN",
+    switchToEnglish: "Cambiar a inglés",
+    switchToSpanish: "Cambiar a español",
+  },
+};
+
+export type Strings = typeof es;

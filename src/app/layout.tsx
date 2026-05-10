@@ -3,6 +3,8 @@ import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
+import { LanguageProvider } from "@/lib/i18n";
+import SkipToContent from "@/components/layout/SkipToContent";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,23 +25,28 @@ const instrumentSerif = Instrument_Serif({
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://n-ai.dev";
 
+// Spanish is the default/canonical locale; English is offered via in-page toggle.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "N-AI — Data · Insights · AI",
+    default: "N-AI — Datos · Insights · IA",
     template: "%s · N-AI",
   },
   alternates: {
     canonical: "/",
+    languages: {
+      "es-CR": "/",
+      "en-US": "/",
+    },
   },
   description:
-    "Executive AI and data intelligence consultancy. Anomaly detection, risk scoring, and intelligent systems for organizations operating at the edge of complexity.",
+    "Consultoría ejecutiva de IA e inteligencia de datos. Detección de anomalías, risk scoring y sistemas inteligentes para organizaciones que operan al filo de la complejidad.",
   keywords: [
-    "AI consulting",
-    "data intelligence",
-    "anomaly detection",
+    "consultoría IA",
+    "inteligencia de datos",
+    "detección de anomalías",
     "risk scoring",
-    "executive analytics",
+    "analítica ejecutiva",
     "Nancy Rodriguez",
     "N-AI",
   ],
@@ -47,18 +54,19 @@ export const metadata: Metadata = {
   creator: "Nancy Rodriguez",
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "es_CR",
+    alternateLocale: ["en_US"],
     url: "/",
-    title: "N-AI — Data · Insights · AI",
+    title: "N-AI — Datos · Insights · IA",
     description:
-      "AI-powered analytics, anomaly detection and intelligent systems design for executive leaders.",
+      "Analítica con IA, detección de anomalías y diseño de sistemas inteligentes para líderes ejecutivos.",
     siteName: "N-AI",
   },
   twitter: {
     card: "summary_large_image",
-    title: "N-AI — Data · Insights · AI",
+    title: "N-AI — Datos · Insights · IA",
     description:
-      "AI-powered analytics, anomaly detection and intelligent systems design for executive leaders.",
+      "Analítica con IA, detección de anomalías y diseño de sistemas inteligentes para líderes ejecutivos.",
   },
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
@@ -75,19 +83,16 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${instrumentSerif.variable}`}>
+    <html lang="es" className={`${inter.variable} ${instrumentSerif.variable}`}>
       <body className="font-sans antialiased">
-        <a
-          href="#main"
-          className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:left-4 focus-visible:top-4 focus-visible:z-[100] focus-visible:rounded-md focus-visible:bg-bg-elevated focus-visible:px-4 focus-visible:py-2 focus-visible:text-sm focus-visible:text-text-primary"
-        >
-          Skip to content
-        </a>
-        <Nav />
-        <main id="main" className="relative">
-          {children}
-        </main>
-        <Footer />
+        <LanguageProvider>
+          <SkipToContent />
+          <Nav />
+          <main id="main" className="relative">
+            {children}
+          </main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

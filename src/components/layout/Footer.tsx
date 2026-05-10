@@ -1,7 +1,11 @@
+"use client";
+
 import Container from "./Container";
 import { site } from "@/content/site";
+import { useT } from "@/lib/i18n";
 
 export default function Footer() {
+  const t = useT();
   const year = new Date().getFullYear();
   return (
     <footer className="relative border-t border-border-subtle bg-bg-base py-16">
@@ -14,14 +18,7 @@ export default function Footer() {
                 className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-accent-cyan/30 bg-accent-cyan/[0.06]"
               >
                 <svg viewBox="0 0 24 24" className="h-4 w-4">
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="6"
-                    fill="none"
-                    stroke="#5EE9F0"
-                    strokeWidth="1.5"
-                  />
+                  <circle cx="12" cy="12" r="6" fill="none" stroke="#5EE9F0" strokeWidth="1.5" />
                   <circle cx="12" cy="12" r="2" fill="#7CF5C4" />
                 </svg>
               </span>
@@ -30,14 +27,14 @@ export default function Footer() {
               </span>
             </div>
             <p className="mt-4 max-w-sm text-sm text-text-secondary">
-              {site.brand.fullName}. {site.brand.tagline}.
+              {site.brand.fullName}. {t.brand.tagline}.
             </p>
           </div>
 
           <div>
-            <p className="text-eyebrow mb-4">Navigate</p>
+            <p className="text-eyebrow mb-4">{t.footer.navTitle}</p>
             <ul className="space-y-2 text-sm">
-              {site.nav.map((item) => (
+              {t.nav.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
@@ -51,7 +48,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-eyebrow mb-4">Contact</p>
+            <p className="text-eyebrow mb-4">{t.footer.contactTitle}</p>
             <ul className="space-y-2 text-sm">
               <li>
                 <a
@@ -77,14 +74,11 @@ export default function Footer() {
 
         <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-border-subtle pt-6 md:flex-row md:items-center">
           <p className="text-xs text-text-muted">
-            © {year} {site.brand.name} · {site.brand.subBrand}
+            © {year} {site.brand.name} · {t.brand.subBrand}
           </p>
           <p className="flex items-center gap-2 text-xs text-text-muted">
-            <span
-              aria-hidden
-              className="inline-block h-2 w-2 rounded-full bg-accent-cyan shadow-glow"
-            />
-            Theme · Dark
+            <span aria-hidden className="inline-block h-2 w-2 rounded-full bg-accent-cyan shadow-glow" />
+            {t.themeLabel}
           </p>
         </div>
       </Container>

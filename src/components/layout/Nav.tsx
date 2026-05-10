@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/cn";
 import { site } from "@/content/site";
-import { Menu, X } from "lucide-react";
+import { useLanguage } from "@/lib/i18n";
+import { Menu, X, Globe } from "lucide-react";
 
 const HIDE_UNTIL = 80;
 
 export default function Nav() {
   const reduce = useReducedMotion();
+  const { lang, t, toggle } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
@@ -32,6 +34,9 @@ export default function Nav() {
     };
   }, [open]);
 
+  const switchLabel = lang === "es" ? t.langToggle.switchToEnglish : t.langToggle.switchToSpanish;
+  const oppositeLang = lang === "es" ? t.langToggle.en : t.langToggle.es;
+
   return (
     <motion.header
       initial={{ opacity: 0, y: -8 }}
@@ -52,23 +57,19 @@ export default function Nav() {
         )}
         style={{ marginInline: "max(1rem, calc((100vw - 1280px) / 2))" }}
       >
-        <a
-          href="#top"
-          aria-label={`${site.brand.name} home`}
-          className="flex items-center gap-2"
-        >
+        <a href="#top" aria-label={`${site.brand.name} home`} className="flex items-center gap-2">
           <Logo />
           <span className="text-[15px] font-medium tracking-tight text-text-primary">
             {site.brand.name}
           </span>
           <span className="hidden text-[12px] tracking-eyebrow text-text-muted md:inline">
-            · {site.brand.tagline}
+            · {t.brand.tagline}
           </span>
         </a>
 
         <nav aria-label="Primary" className="hidden md:block">
           <ul className="flex items-center gap-1">
-            {site.nav.map((item) => (
+            {t.nav.map((item) => (
               <li key={item.href}>
                 <a
                   href={item.href}
@@ -82,11 +83,23 @@ export default function Nav() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {/* Language toggle */}
+          <button
+            type="button"
+            onClick={toggle}
+            aria-label={switchLabel}
+            title={switchLabel}
+            className="group inline-flex h-9 items-center gap-1.5 rounded-md border border-border-subtle bg-bg-glass px-2.5 text-[12px] font-medium text-text-secondary transition-all duration-200 ease-smooth hover:border-accent-cyan/40 hover:text-text-primary"
+          >
+            <Globe aria-hidden className="h-3.5 w-3.5 text-accent-cyan" />
+            <span className="tracking-eyebrow">{oppositeLang}</span>
+          </button>
+
           <a
             href="#contact"
             className="hidden rounded-md border border-accent-cyan/40 bg-accent-cyan/[0.04] px-3.5 py-1.5 text-[13px] font-medium text-text-primary transition-all duration-200 ease-smooth hover:border-accent-cyan/80 hover:shadow-glow md:inline-block"
           >
-            Work With N-AI
+            {t.navCTA}
           </a>
           <button
             type="button"
@@ -114,7 +127,7 @@ export default function Nav() {
       >
         <div className="mx-4 mt-2 rounded-xl border border-border-subtle bg-bg-base/95 p-4 backdrop-blur-xl">
           <ul className="flex flex-col gap-1">
-            {site.nav.map((item) => (
+            {t.nav.map((item) => (
               <li key={item.href}>
                 <a
                   onClick={() => setOpen(false)}
@@ -131,7 +144,7 @@ export default function Nav() {
                 href="#contact"
                 className="block rounded-md border border-accent-cyan/40 px-3 py-2 text-center text-sm font-medium text-text-primary"
               >
-                Work With N-AI
+                {t.navCTA}
               </a>
             </li>
           </ul>

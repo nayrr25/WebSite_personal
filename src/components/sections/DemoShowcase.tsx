@@ -4,39 +4,63 @@ import Section from "@/components/layout/Section";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Badge from "@/components/ui/Badge";
 import Reveal from "@/components/motion/Reveal";
-import { demos, type Demo } from "@/content/demos";
+import { useT } from "@/lib/i18n";
+import { demoStatic, type DemoStatus, type DemoPreview } from "@/content/demos";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { motion, useReducedMotion } from "framer-motion";
 
-const statusTone: Record<Demo["status"], "live" | "build" | "concept"> = {
+const statusTone: Record<DemoStatus, "live" | "build" | "concept"> = {
   Live: "live",
   "In Build": "build",
   Concept: "concept",
 };
 
+interface MergedDemo {
+  slug: string;
+  title: string;
+  description: string;
+  status: DemoStatus;
+  statusLabel: string;
+  preview: DemoPreview;
+  span?: 1 | 2;
+}
+
 export default function DemoShowcase() {
+  const t = useT();
+
+  // Merge translation strings with static visual mapping by slug.
+  const merged: MergedDemo[] = t.demos.map((d) => {
+    const stat = demoStatic.find((s) => s.slug === d.slug);
+    return {
+      slug: d.slug,
+      title: d.title,
+      description: d.description,
+      status: d.status,
+      statusLabel: t.statusLabels[d.status],
+      preview: stat?.preview ?? "anomaly",
+      span: stat?.span,
+    };
+  });
+
   return (
     <Section id="demos">
       <Reveal>
-        <Eyebrow>Demos</Eyebrow>
+        <Eyebrow>{t.demosSection.eyebrow}</Eyebrow>
       </Reveal>
       <Reveal delay={0.05}>
         <h2 className="text-display-l mt-5 max-w-[18ch] text-text-primary">
-          Working systems and the ones we&rsquo;re building next.
+          {t.demosSection.title}
         </h2>
       </Reveal>
       <Reveal delay={0.12}>
-        <p className="text-body mt-5 max-w-2xl">
-          Production deployments and design-stage prototypes. Each demo answers a real
-          question for a real audience.
-        </p>
+        <p className="text-body mt-5 max-w-2xl">{t.demosSection.body}</p>
       </Reveal>
 
       <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {demos.map((demo, i) => (
+        {merged.map((demo, i) => (
           <Reveal key={demo.slug} delay={i * 0.05}>
-            <DemoCard demo={demo} />
+            <DemoCard demo={demo} ctaLabel={t.demosSection.cta} />
           </Reveal>
         ))}
       </div>
@@ -44,7 +68,7 @@ export default function DemoShowcase() {
   );
 }
 
-function DemoCard({ demo }: { demo: Demo }) {
+function DemoCard({ demo, ctaLabel }: { demo: MergedDemo; ctaLabel: string }) {
   const reduce = useReducedMotion();
   return (
     <motion.a
@@ -57,7 +81,6 @@ function DemoCard({ demo }: { demo: Demo }) {
         demo.span === 2 && "lg:col-span-2",
       )}
     >
-      {/* Sheen sweep */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-accent-cyan/[0.06] to-transparent transition-transform duration-700 ease-smooth group-hover:translate-x-full"
@@ -65,7 +88,7 @@ function DemoCard({ demo }: { demo: Demo }) {
 
       <div className="relative flex items-start justify-between gap-4">
         <Badge tone={statusTone[demo.status]} pulse={demo.status === "Live"}>
-          {demo.status}
+          {demo.statusLabel}
         </Badge>
         <ArrowUpRight
           aria-hidden
@@ -73,25 +96,22 @@ function DemoCard({ demo }: { demo: Demo }) {
         />
       </div>
 
-      <h3 className="text-h3 relative mt-6 max-w-[28ch] text-text-primary">
-        {demo.title}
-      </h3>
+      <h3 className="text-h3 relative mt-6 max-w-[28ch] text-text-primary">{demo.title}</h3>
       <p className="text-body-sm relative mt-2 max-w-md text-[14px]">{demo.description}</p>
 
       <div className="relative mt-6 flex-1">
-        <DemoPreview kind={demo.preview} />
+        <DemoPreviewVisual kind={demo.preview} />
       </div>
 
       <div className="relative mt-6 flex items-center gap-2 text-[12px] text-accent-cyan/80 transition-colors duration-200 ease-smooth group-hover:text-accent-cyan">
-        View case study
+        {ctaLabel}
         <ArrowUpRight aria-hidden className="h-3 w-3" />
       </div>
     </motion.a>
   );
 }
 
-/** Inline mini visuals for each demo card. Pure SVG, low cost. */
-function DemoPreview({ kind }: { kind: Demo["preview"] }) {
+function DemoPreviewVisual({ kind }: { kind: DemoPreview }) {
   switch (kind) {
     case "anomaly":
       return (
@@ -170,16 +190,7 @@ function DemoPreview({ kind }: { kind: Demo["preview"] }) {
     case "decision":
       return (
         <svg viewBox="0 0 240 80" className="block w-full" aria-hidden>
-          <rect
-            x="20"
-            y="30"
-            width="40"
-            height="20"
-            rx="4"
-            fill="rgba(94,233,240,0.10)"
-            stroke="#5EE9F0"
-            strokeWidth="1"
-          />
+          <rect x="20" y="30" width="40" height="20" rx="4" fill="rgba(94,233,240,0.10)" stroke="#5EE9F0" strokeWidth="1" />
           <line x1="60" y1="40" x2="100" y2="20" stroke="rgba(94,233,240,0.5)" strokeWidth="1" />
           <line x1="60" y1="40" x2="100" y2="60" stroke="rgba(94,233,240,0.5)" strokeWidth="1" />
           <rect x="100" y="10" width="40" height="20" rx="4" fill="rgba(94,233,240,0.10)" stroke="#5EE9F0" strokeWidth="1" />
@@ -191,32 +202,15 @@ function DemoPreview({ kind }: { kind: Demo["preview"] }) {
     case "graph":
       return (
         <svg viewBox="0 0 240 80" className="block w-full" aria-hidden>
-          {[
-            [40, 20], [80, 50], [120, 18], [160, 52], [200, 22],
-            [60, 60], [100, 30], [140, 60], [180, 30],
-          ].map(([cx, cy], i) => (
+          {[[40, 20], [80, 50], [120, 18], [160, 52], [200, 22], [60, 60], [100, 30], [140, 60], [180, 30]].map(([cx, cy], i) => (
             <circle key={i} cx={cx} cy={cy} r="3" fill="#5EE9F0" />
           ))}
           {[
-            [40, 20, 80, 50],
-            [80, 50, 120, 18],
-            [120, 18, 160, 52],
-            [160, 52, 200, 22],
-            [60, 60, 100, 30],
-            [100, 30, 140, 60],
-            [140, 60, 180, 30],
-            [80, 50, 100, 30],
-            [120, 18, 100, 30],
+            [40, 20, 80, 50], [80, 50, 120, 18], [120, 18, 160, 52], [160, 52, 200, 22],
+            [60, 60, 100, 30], [100, 30, 140, 60], [140, 60, 180, 30],
+            [80, 50, 100, 30], [120, 18, 100, 30],
           ].map(([x1, y1, x2, y2], i) => (
-            <line
-              key={i}
-              x1={x1}
-              y1={y1}
-              x2={x2}
-              y2={y2}
-              stroke="rgba(94,233,240,0.3)"
-              strokeWidth="1"
-            />
+            <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(94,233,240,0.3)" strokeWidth="1" />
           ))}
         </svg>
       );

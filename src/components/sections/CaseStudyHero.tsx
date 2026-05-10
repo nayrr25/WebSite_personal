@@ -6,46 +6,40 @@ import GlassCard from "@/components/ui/GlassCard";
 import KpiCard from "@/components/ui/KpiCard";
 import Reveal from "@/components/motion/Reveal";
 import GridGlow from "@/components/backgrounds/GridGlow";
-import { sicop } from "@/content/caseStudy.sicop";
+import { useT } from "@/lib/i18n";
 import { motion, useReducedMotion } from "framer-motion";
 
 export default function CaseStudyHero() {
   const reduce = useReducedMotion();
+  const t = useT();
 
   return (
     <Section id="case-study" className="relative overflow-hidden">
       <GridGlow />
       <div className="relative">
         <Reveal>
-          <Eyebrow>{sicop.eyebrow}</Eyebrow>
+          <Eyebrow>{t.sicop.eyebrow}</Eyebrow>
         </Reveal>
         <Reveal delay={0.05}>
           <h2 className="text-display-l mt-5 max-w-[18ch] text-text-primary">
-            {sicop.title}
+            {t.sicop.title}
           </h2>
         </Reveal>
         <Reveal delay={0.12}>
-          <p className="text-body mt-5 max-w-2xl">{sicop.subtitle}</p>
+          <p className="text-body mt-5 max-w-2xl">{t.sicop.subtitle}</p>
         </Reveal>
 
         <Reveal delay={0.2}>
           <GlassCard className="mt-14 grid grid-cols-1 gap-8 p-8 md:grid-cols-2 md:p-12">
             <div className="flex flex-col justify-between gap-8">
               <div className="space-y-3">
-                <div className="text-eyebrow">Architecture Preview</div>
+                <div className="text-eyebrow">{t.sicop.architecturePreviewTitle}</div>
                 <p className="text-body-sm max-w-md">
-                  Sources flow into the pipeline; the pipeline emits intelligence;
-                  intelligence powers the executive surface — every component traceable
-                  end-to-end.
+                  {t.sicop.architecturePreviewBody}
                 </p>
               </div>
               <ul className="grid grid-cols-2 gap-x-6 gap-y-2 text-[12px]">
-                {[
-                  ["Sources", "Solicitations · Awards · Contracts"],
-                  ["Pipeline", "7 stages · Replayable · Audited"],
-                  ["AI Layer", "47 patterns · Explainable scoring"],
-                  ["Outputs", "Risk index · Triage · Drilldown"],
-                ].map(([k, v]) => (
+                {t.sicop.archCells.map(([k, v]) => (
                   <li key={k} className="flex flex-col">
                     <span className="text-eyebrow">{k}</span>
                     <span className="mt-1 text-text-secondary">{v}</span>
@@ -59,12 +53,11 @@ export default function CaseStudyHero() {
         </Reveal>
 
         <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {sicop.kpis.map((kpi, i) => (
+          {t.sicop.kpis.map((kpi, i) => (
             <KpiCard
               key={kpi.label}
               value={kpi.value}
               label={kpi.label}
-              suffix={kpi.suffix}
               delay={i * 0.06}
             />
           ))}
@@ -75,12 +68,17 @@ export default function CaseStudyHero() {
 }
 
 function ArchitecturePreview({ reduceMotion }: { reduceMotion: boolean }) {
-  // 4 columns: Sources, Pipeline, AI, Outputs — connected by animated luminous lines
-  const t = (delay: number) => ({
+  const t = useT();
+  const tr = (delay: number) => ({
     duration: reduceMotion ? 0 : 1.2,
-    ease: [0.22, 1, 0.36, 1],
+    ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
     delay: reduceMotion ? 0 : delay,
   });
+
+  const nodes = t.sicop.archNodes.map((n, i) => ({
+    ...n,
+    x: [30, 150, 270, 390][i],
+  }));
 
   return (
     <div className="relative h-[320px] w-full">
@@ -97,7 +95,6 @@ function ArchitecturePreview({ reduceMotion }: { reduceMotion: boolean }) {
           </linearGradient>
         </defs>
 
-        {/* connectors */}
         {[1, 2, 3].map((i) => (
           <motion.path
             key={i}
@@ -108,23 +105,17 @@ function ArchitecturePreview({ reduceMotion }: { reduceMotion: boolean }) {
             initial={{ pathLength: 0 }}
             whileInView={{ pathLength: 1 }}
             viewport={{ once: true, amount: 0.4 }}
-            transition={t(0.3 + i * 0.18)}
+            transition={tr(0.3 + i * 0.18)}
           />
         ))}
 
-        {/* nodes */}
-        {[
-          { x: 30, label: "Sources", sub: "SICOP" },
-          { x: 150, label: "Pipeline", sub: "7-stage" },
-          { x: 270, label: "AI Layer", sub: "Anomaly + Risk" },
-          { x: 390, label: "Outputs", sub: "Executive" },
-        ].map((n, i) => (
+        {nodes.map((n, i) => (
           <motion.g
             key={n.label}
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
-            transition={t(0.15 + i * 0.18)}
+            transition={tr(0.15 + i * 0.18)}
           >
             <rect
               x={n.x}
@@ -136,7 +127,6 @@ function ArchitecturePreview({ reduceMotion }: { reduceMotion: boolean }) {
               stroke="rgba(94,233,240,0.4)"
               strokeWidth="1"
             />
-            {/* dotted records */}
             {[0, 1, 2, 3].map((d) => (
               <line
                 key={d}
@@ -149,13 +139,7 @@ function ArchitecturePreview({ reduceMotion }: { reduceMotion: boolean }) {
                 strokeDasharray="2 2"
               />
             ))}
-            <text
-              x={n.x + 30}
-              y={104}
-              textAnchor="middle"
-              fontSize="11"
-              fill="#F5F7FA"
-            >
+            <text x={n.x + 30} y={104} textAnchor="middle" fontSize="11" fill="#F5F7FA">
               {n.label}
             </text>
             <text
@@ -171,7 +155,6 @@ function ArchitecturePreview({ reduceMotion }: { reduceMotion: boolean }) {
           </motion.g>
         ))}
 
-        {/* ambient nodes / signals */}
         {Array.from({ length: 8 }).map((_, i) => {
           const cx = 30 + (i * 480) / 8 + (i % 2) * 12;
           const cy = 50 + (i % 3) * 14;

@@ -1,33 +1,33 @@
+"use client";
+
 import Section from "@/components/layout/Section";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/motion/Reveal";
-import { capabilities } from "@/content/capabilities";
+import { useT } from "@/lib/i18n";
+import { capabilityIcons } from "@/content/capabilities";
 
 export default function Capabilities() {
+  const t = useT();
   return (
     <Section id="capabilities">
       <Reveal>
-        <Eyebrow>Capabilities</Eyebrow>
+        <Eyebrow>{t.capabilitiesSection.eyebrow}</Eyebrow>
       </Reveal>
       <Reveal delay={0.05}>
         <h2 className="text-display-l mt-5 max-w-[18ch] text-text-primary">
-          Eight disciplines, one engagement.
+          {t.capabilitiesSection.title}
         </h2>
       </Reveal>
       <Reveal delay={0.12}>
-        <p className="text-body mt-5 max-w-2xl">
-          Every project draws from the same toolkit. The mix changes; the standard does
-          not.
-        </p>
+        <p className="text-body mt-5 max-w-2xl">{t.capabilitiesSection.body}</p>
       </Reveal>
 
       <div className="mt-14 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {capabilities.map((cap, i) => {
-          const Icon = cap.icon;
+        {t.capabilities.map((cap, i) => {
+          const Icon = capabilityIcons[i] ?? capabilityIcons[0];
           return (
             <Reveal key={cap.title} delay={i * 0.04}>
               <div className="group relative h-full overflow-hidden rounded-lg border border-border-subtle bg-bg-elevated/40 p-6 transition-all duration-300 ease-smooth hover:border-accent-cyan/30">
-                {/* gradient border on hover */}
                 <span
                   aria-hidden
                   className="pointer-events-none absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100"

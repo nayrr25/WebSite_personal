@@ -2,16 +2,13 @@
 
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { riskDimensions } from "@/content/caseStudy.sicop";
+import { useT } from "@/lib/i18n";
 
 const SIZE = 320;
 const CENTER = SIZE / 2;
 const RADIUS_OUTER = 120;
 const RADIUS_INNER = 60;
-const SEGMENTS = riskDimensions.length;
 const SEGMENT_GAP_DEG = 6;
-const SEGMENT_DEG = 360 / SEGMENTS;
-const ARC_DEG = SEGMENT_DEG - SEGMENT_GAP_DEG;
 
 function polar(cx: number, cy: number, r: number, angleDeg: number) {
   const a = ((angleDeg - 90) * Math.PI) / 180;
@@ -29,11 +26,14 @@ function arcPath(start: number, end: number, r1: number, r2: number) {
 
 export default function RiskScoreGauge() {
   const reduce = useReducedMotion();
+  const t = useT();
   const ref = useRef<SVGSVGElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
 
-  const total = riskDimensions.reduce((s, d) => s + d.value, 0);
-  const composite = Math.round(total / riskDimensions.length);
+  const dims = t.sicop.riskDimensions;
+  const SEGMENT_DEG = 360 / dims.length;
+  const ARC_DEG = SEGMENT_DEG - SEGMENT_GAP_DEG;
+  const composite = Math.round(dims.reduce((s, d) => s + d.value, 0) / dims.length);
 
   return (
     <div className="flex w-full flex-col items-center gap-6">
@@ -44,7 +44,7 @@ export default function RiskScoreGauge() {
           height={SIZE}
           viewBox={`0 0 ${SIZE} ${SIZE}`}
           className="block"
-          aria-label="Composite risk score gauge with 8 dimensions"
+          aria-label={t.sicop.riskGaugeTitle}
           role="img"
         >
           <defs>
@@ -53,8 +53,7 @@ export default function RiskScoreGauge() {
               <stop offset="100%" stopColor="#7CF5C4" />
             </linearGradient>
           </defs>
-          {/* track ring */}
-          {riskDimensions.map((_, i) => {
+          {dims.map((_, i) => {
             const start = i * SEGMENT_DEG + SEGMENT_GAP_DEG / 2;
             const end = start + ARC_DEG;
             return (
@@ -68,12 +67,10 @@ export default function RiskScoreGauge() {
             );
           })}
 
-          {/* value bars (clipped via per-segment fill height proxy: scale radius by value) */}
-          {riskDimensions.map((d, i) => {
+          {dims.map((d, i) => {
             const start = i * SEGMENT_DEG + SEGMENT_GAP_DEG / 2;
             const end = start + ARC_DEG;
-            const valueR =
-              RADIUS_INNER + ((RADIUS_OUTER - RADIUS_INNER) * d.value) / 100;
+            const valueR = RADIUS_INNER + ((RADIUS_OUTER - RADIUS_INNER) * d.value) / 100;
             return (
               <motion.path
                 key={`val-${i}`}
@@ -91,8 +88,7 @@ export default function RiskScoreGauge() {
             );
           })}
 
-          {/* labels */}
-          {riskDimensions.map((d, i) => {
+          {dims.map((d, i) => {
             const mid = i * SEGMENT_DEG + SEGMENT_DEG / 2;
             const [lx, ly] = polar(CENTER, CENTER, RADIUS_OUTER + 16, mid);
             return (
@@ -112,10 +108,9 @@ export default function RiskScoreGauge() {
           })}
         </svg>
 
-        {/* center readout */}
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
           <div className="text-[10px] uppercase tracking-eyebrow text-text-muted">
-            Composite
+            {t.sicop.riskCompositeLabel}
           </div>
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -130,17 +125,14 @@ export default function RiskScoreGauge() {
             {composite}
           </motion.div>
           <div className="text-[10px] uppercase tracking-eyebrow text-accent-cyan">
-            Risk Index
+            {t.sicop.riskIndexLabel}
           </div>
         </div>
       </div>
 
       <ul className="grid w-full max-w-md grid-cols-2 gap-x-6 gap-y-1.5 text-[12px]">
-        {riskDimensions.map((d) => (
-          <li
-            key={d.label}
-            className="flex items-center justify-between text-text-secondary"
-          >
+        {dims.map((d) => (
+          <li key={d.label} className="flex items-center justify-between text-text-secondary">
             <span className="truncate">{d.label}</span>
             <span className="tabular-nums text-text-primary">{d.value}</span>
           </li>

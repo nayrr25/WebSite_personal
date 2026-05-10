@@ -1,16 +1,18 @@
+"use client";
+
 import Section from "@/components/layout/Section";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/motion/Reveal";
 import GridGlow from "@/components/backgrounds/GridGlow";
 import { LinkButton } from "@/components/ui/Button";
 import { site } from "@/content/site";
+import { useT } from "@/lib/i18n";
 import { Mail, Linkedin } from "lucide-react";
 
 export default function Contact() {
-  const subject = encodeURIComponent("Conversation with N-AI");
-  const body = encodeURIComponent(
-    "Hi Nancy,\n\nI'd like to start a conversation about an intelligence system project we're scoping.\n\nContext:\n• Organization:\n• Goal:\n• Timeline:\n\nThanks,\n",
-  );
+  const t = useT();
+  const subject = encodeURIComponent(t.contact.mailtoSubject);
+  const body = encodeURIComponent(t.contact.mailtoBody);
   const mailto = `mailto:${site.contact.email}?subject=${subject}&body=${body}`;
 
   return (
@@ -18,29 +20,25 @@ export default function Contact() {
       <GridGlow size={50} />
       <div className="relative flex flex-col items-center text-center">
         <Reveal>
-          <Eyebrow>Contact</Eyebrow>
+          <Eyebrow>{t.contact.eyebrow}</Eyebrow>
         </Reveal>
         <Reveal delay={0.05}>
           <h2 className="text-display-l mt-6 max-w-[16ch] text-text-primary">
-            Let&rsquo;s build{" "}
+            {t.contact.headlineStart}{" "}
             <span className="font-serif italic font-normal text-accent-cyan">
-              intelligent systems
+              {t.contact.headlineItalic}
             </span>
-            .
+            {t.contact.headlineEnd}
           </h2>
         </Reveal>
         <Reveal delay={0.12}>
-          <p className="text-body mt-6 max-w-xl">
-            N-AI engages with executive teams, government innovation leads and
-            category-leading organizations. Reach out with the question you can&rsquo;t
-            answer with the system you have today.
-          </p>
+          <p className="text-body mt-6 max-w-xl">{t.contact.body}</p>
         </Reveal>
 
         <Reveal delay={0.18}>
           <div className="mt-12 flex flex-col items-center gap-4">
             <LinkButton href={mailto} variant="primary" withArrow>
-              Start a Conversation
+              {t.contact.primaryCta}
             </LinkButton>
 
             <div className="mt-4 flex items-center gap-6">
