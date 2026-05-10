@@ -6,7 +6,7 @@ export const site = {
   },
   contact: {
     email: "nancyrodriguez@n-ai.dev",
-    linkedin: "https://www.linkedin.com/in/nancy-raquel-rodr%C3%ADguez-ramos/",
+    linkedin: "https://www.linkedin.com/in/nancy-raquel-rodríguez-ramos",
   },
   url: "https://n-ai.dev",
 } as const;
