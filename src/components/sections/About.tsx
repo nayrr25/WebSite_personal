@@ -178,7 +178,7 @@ function PortraitFallback() {
         <LogoMark size={56} glow />
         <span className="font-serif text-[40px] tracking-tight text-text-primary">NR</span>
         <span className="text-[11px] uppercase tracking-eyebrow text-text-muted">
-          /public/about-nancy.jpg
+          /public/Nancy.png
         </span>
       </div>
     </div>
@@ -206,7 +206,7 @@ function FounderPortrait({ alt }: { alt: string }) {
             // without breaking the production build.
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src="/about-nancy.jpg"
+              src="/Nancy.png"
               alt={alt}
               onError={() => setImgFailed(true)}
               className="absolute inset-0 h-full w-full object-cover"
