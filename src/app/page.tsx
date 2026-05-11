@@ -6,6 +6,7 @@ import IntelligencePipeline from "@/components/sections/IntelligencePipeline";
 import DemoShowcase from "@/components/sections/DemoShowcase";
 import Capabilities from "@/components/sections/Capabilities";
 import BuildingInPublic from "@/components/sections/BuildingInPublic";
+import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
       <DemoShowcase />
       <Capabilities />
       <BuildingInPublic />
+      <FAQ />
       <Contact />
     </>
   );

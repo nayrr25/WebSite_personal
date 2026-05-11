@@ -61,6 +61,16 @@ export default function Footer() {
                   LinkedIn
                 </a>
               </li>
+              <li>
+                <a
+                  href={site.contact.scholar}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
+                >
+                  Google Scholar
+                </a>
+              </li>
             </ul>
           </div>
         </div>

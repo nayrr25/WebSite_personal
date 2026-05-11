@@ -7,7 +7,7 @@ import GridGlow from "@/components/backgrounds/GridGlow";
 import { LinkButton } from "@/components/ui/Button";
 import { site } from "@/content/site";
 import { useT } from "@/lib/i18n";
-import { Mail, Linkedin } from "lucide-react";
+import { Mail, Linkedin, GraduationCap } from "lucide-react";
 
 export default function Contact() {
   const t = useT();
@@ -41,7 +41,7 @@ export default function Contact() {
               {t.contact.primaryCta}
             </LinkButton>
 
-            <div className="mt-4 flex items-center gap-6">
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
               <a
                 href={`mailto:${site.contact.email}`}
                 className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
@@ -57,6 +57,15 @@ export default function Contact() {
               >
                 <Linkedin className="h-4 w-4" aria-hidden />
                 LinkedIn
+              </a>
+              <a
+                href={site.contact.scholar}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
+              >
+                <GraduationCap className="h-4 w-4" aria-hidden />
+                Google Scholar
               </a>
             </div>
           </div>

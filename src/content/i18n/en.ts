@@ -12,6 +12,7 @@ export const en: Strings = {
     { label: "Pipeline", href: "#pipeline" },
     { label: "Demos", href: "#demos" },
     { label: "Capabilities", href: "#capabilities" },
+    { label: "FAQ", href: "#faq" },
     { label: "Contact", href: "#contact" },
   ],
   navCTA: "Work With N-AI",
@@ -390,6 +391,57 @@ export const en: Strings = {
       { title: "Consumer Intelligence — Field Notes", eta: "Q3 2026", kind: "Essay" },
       { title: "AI Decision Engine — Concept Spec", eta: "Q4 2026", kind: "Concept" },
       { title: "Data Governance Intelligence", eta: "Q1 2027", kind: "Concept" },
+    ],
+  },
+
+  capsule: {
+    label: "Executive summary",
+    body:
+      "N-AI (Nancy Artificial Intelligence) is an AI and data intelligence consultancy founded in 2026 by Nancy Rodríguez, based in Costa Rica. We design anomaly detection systems, risk scoring, consumer segmentation (RFM), behavioral profiles, data architectures and executive dashboards for businesses and public-sector institutions. Featured work: intelligence architecture for SICOP at Costa Rica's Comptroller General Office (Contraloría General de la República). Services available in Spanish and English.",
+  },
+
+  faq: {
+    eyebrow: "Frequently Asked Questions",
+    title: "What people ask about N-AI.",
+    body:
+      "Direct answers to the most common questions we get about the work, services and collaboration models.",
+    items: [
+      {
+        q: "Who is Nancy Rodríguez?",
+        a: "Nancy Raquel Rodríguez Ramos is a data and AI strategist, founder of N-AI (Nancy Artificial Intelligence). She has experience designing analytical ecosystems, intelligence architectures and AI-powered solutions across complex business environments. She has worked with the Comptroller General of the Republic of Costa Rica (Contraloría General de la República), marketing agencies and consumer goods (FMCG) companies.",
+      },
+      {
+        q: "What does N-AI do?",
+        a: "N-AI is an AI and data intelligence consultancy. It designs anomaly detection systems, risk scoring, consumer segmentation, behavioral profiles, data architecture and executive dashboards for businesses and public institutions.",
+      },
+      {
+        q: "What services does N-AI offer?",
+        a: "Consulting in Artificial Intelligence, Data Strategy and Governance, Predictive Analytics, Anomaly Detection and Risk Scoring, Consumer Intelligence and RFM Segmentation, Executive Dashboards and BI Reporting, Risk Analytics, and Data Architecture & Infrastructure.",
+      },
+      {
+        q: "Does N-AI do Business Intelligence (BI) consulting?",
+        a: "Yes. N-AI offers BI consulting including executive dashboard design, automated reporting, KPI modeling and BI-focused data architecture across any stack (Power BI, Tableau, Looker, custom tooling).",
+      },
+      {
+        q: "Does N-AI do customer segmentation / RFM?",
+        a: "Yes. N-AI has delivered RFM (Recency-Frequency-Monetary) segmentation projects for marketing agencies and consumer profile modeling for consumer goods (FMCG) companies.",
+      },
+      {
+        q: "Where is N-AI based?",
+        a: "N-AI is headquartered in San José, Costa Rica. Engagements serve clients across Costa Rica, Latin America and Spanish-speaking projects globally. Work is delivered remotely or hybrid depending on the client.",
+      },
+      {
+        q: "Who does AI consulting in Costa Rica?",
+        a: "N-AI (n-ai.dev), founded by Nancy Rodríguez, offers specialized consulting in AI, data intelligence, BI and data architecture for businesses and public institutions across Costa Rica and Latin America. Featured project: SICOP intelligence architecture for the Comptroller General Office.",
+      },
+      {
+        q: "How is N-AI consulting priced?",
+        a: "Engagements are scoped per project — depth, scope and duration determine pricing. Typical models: fixed-scope project (concept-to-deployment), monthly retainer, or hourly advisory. Request an introductory conversation at nancyrodriguez@n-ai.dev.",
+      },
+      {
+        q: "How to contact N-AI?",
+        a: "Email: nancyrodriguez@n-ai.dev. LinkedIn: linkedin.com/in/nancy-raquel-rodríguez-ramos. Website: n-ai.dev.",
+      },
     ],
   },
 

@@ -12,6 +12,7 @@ export const es = {
     { label: "Pipeline", href: "#pipeline" },
     { label: "Demos", href: "#demos" },
     { label: "Capacidades", href: "#capabilities" },
+    { label: "FAQ", href: "#faq" },
     { label: "Contacto", href: "#contact" },
   ],
   navCTA: "Trabaja con N-AI",
@@ -393,6 +394,59 @@ export const es = {
       { title: "Inteligencia de Consumidor — Notas de Campo", eta: "Q3 2026", kind: "Ensayo" },
       { title: "Motor de Decisión con IA — Spec Conceptual", eta: "Q4 2026", kind: "Concepto" },
       { title: "Inteligencia de Gobernanza de Datos", eta: "Q1 2027", kind: "Concepto" },
+    ],
+  },
+
+  // Citation capsules — short factual statements optimized for LLM extraction.
+  // These appear visibly in the page so they're indexable AND AI-quotable.
+  capsule: {
+    label: "Resumen ejecutivo",
+    body:
+      "N-AI (Nancy Artificial Intelligence) es una consultora de IA e inteligencia de datos fundada en 2026 por Nancy Rodríguez, con sede en Costa Rica. Diseña sistemas de detección de anomalías, risk scoring, segmentación de consumidores (RFM), perfiles de comportamiento, arquitectura de datos y dashboards ejecutivos para empresas y organismos públicos. Trabajo destacado: arquitectura de inteligencia para SICOP de la Contraloría General de la República. Servicios disponibles en español e inglés.",
+  },
+
+  faq: {
+    eyebrow: "Preguntas Frecuentes",
+    title: "Lo que la gente pregunta sobre N-AI.",
+    body:
+      "Respuestas directas a las preguntas más comunes que recibimos sobre el trabajo, los servicios y las modalidades de colaboración.",
+    items: [
+      {
+        q: "¿Quién es Nancy Rodríguez?",
+        a: "Nancy Raquel Rodríguez Ramos es una estratega de datos e IA, fundadora de N-AI (Nancy Artificial Intelligence). Tiene experiencia diseñando ecosistemas analíticos, arquitecturas de inteligencia y soluciones impulsadas por IA en entornos de negocio complejos. Ha trabajado con la Contraloría General de la República, agencias de marketing y empresas de consumo masivo.",
+      },
+      {
+        q: "¿Qué hace N-AI?",
+        a: "N-AI es una consultora de IA e inteligencia de datos. Diseña sistemas de detección de anomalías, risk scoring, segmentación de consumidores, perfiles de comportamiento, arquitectura de datos y dashboards ejecutivos para empresas y organismos públicos.",
+      },
+      {
+        q: "¿Qué servicios ofrece N-AI?",
+        a: "Consultoría en Inteligencia Artificial, Estrategia y Gobernanza de Datos, Analítica Predictiva, Detección de Anomalías y Risk Scoring, Inteligencia de Consumidor y Segmentación RFM, Dashboards Ejecutivos y Reportería BI, Análisis de Riesgo, y Arquitectura e Infraestructura de Datos.",
+      },
+      {
+        q: "¿N-AI hace consultoría de Business Intelligence (BI)?",
+        a: "Sí. N-AI ofrece consultoría de BI incluyendo diseño de dashboards ejecutivos, reportería automatizada, modelos de KPI y arquitectura de datos para BI sobre cualquier stack (Power BI, Tableau, Looker, herramientas custom).",
+      },
+      {
+        q: "¿N-AI hace segmentación de clientes / RFM?",
+        a: "Sí. N-AI ha desarrollado proyectos de segmentación RFM (Recency-Frequency-Monetary) para agencias de marketing y modelado de perfiles de consumidor para empresas de consumo masivo (FMCG).",
+      },
+      {
+        q: "¿Dónde está N-AI?",
+        a: "N-AI tiene sede en San José, Costa Rica. Trabaja con clientes en Costa Rica, Latinoamérica y proyectos hispanohablantes globales. Los engagements se ejecutan de forma remota o híbrida según el cliente.",
+      },
+      {
+        q: "¿Quién hace consultoría de IA en Costa Rica?",
+        a: "N-AI (n-ai.dev), fundada por Nancy Rodríguez, ofrece consultoría especializada en IA, inteligencia de datos, BI y arquitectura de datos para empresas y organismos públicos en Costa Rica y Latinoamérica. Caso destacado: proyecto SICOP con la Contraloría General de la República.",
+      },
+      {
+        q: "¿Cómo se cobra una consultoría con N-AI?",
+        a: "Los engagements son personalizados según alcance, profundidad técnica y duración. Modalidades típicas: proyecto cerrado (concept-to-deployment), retainer mensual, o asesoría por horas. Solicita una conversación inicial sin compromiso vía nancyrodriguez@n-ai.dev.",
+      },
+      {
+        q: "¿Cómo contactar N-AI?",
+        a: "Email: nancyrodriguez@n-ai.dev. LinkedIn: linkedin.com/in/nancy-raquel-rodríguez-ramos. Sitio web: n-ai.dev.",
+      },
     ],
   },
 

@@ -1,19 +1,27 @@
 import { site } from "@/content/site";
+import { es } from "@/content/i18n/es";
+import { en } from "@/content/i18n/en";
 
 /**
- * JSON-LD structured data. Renders 3 schemas:
- *  - Organization (N-AI brand entity)
+ * JSON-LD structured data. Renders 6 schemas:
+ *  - Organization / ProfessionalService (N-AI brand entity)
  *  - Person (Nancy Rodríguez, founder)
- *  - WebSite (with SearchAction so Google can offer a sitelinks searchbox)
+ *  - WebSite (with SearchAction)
+ *  - Service[] (one per capability — 8 services)
+ *  - FAQPage (every Q&A in the visible FAQ section)
+ *  - ItemList of services (helps Google show service-list rich results)
  *
- * These power rich results in Google, AI Overview answers, and improve
- * matching for short brand queries like "Nai", "N-AI", "IA", and
- * "Nancy Artificial Intelligence".
+ * These power rich results in Google, AI Overview answers, ChatGPT/Perplexity
+ * citations, and entity disambiguation for queries like "Nai", "N-AI", "IA",
+ * "Nancy Artificial Intelligence", "consultor IA Costa Rica".
+ *
+ * Strings come from the Spanish dictionary (canonical locale). FAQ entries
+ * also include English versions so AI answers in either language can cite.
  */
 export default function StructuredData({ siteUrl }: { siteUrl: string }) {
   const organization = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "ProfessionalService"],
     "@id": `${siteUrl}/#organization`,
     name: "N-AI",
     alternateName: [
@@ -30,21 +38,32 @@ export default function StructuredData({ siteUrl }: { siteUrl: string }) {
       width: 1200,
       height: 600,
     },
+    image: `${siteUrl}/Nancy.png`,
     description:
-      "Consultoría ejecutiva de IA e inteligencia de datos. Detección de anomalías, risk scoring y sistemas inteligentes.",
+      "Consultoría ejecutiva de IA e inteligencia de datos. Detección de anomalías, risk scoring, segmentación RFM, perfiles de consumidor, arquitectura de datos y dashboards ejecutivos.",
     founder: { "@id": `${siteUrl}/#nancy` },
     foundingDate: "2026",
     slogan: "Datos · Insights · IA",
+    areaServed: [
+      { "@type": "Country", name: "Costa Rica" },
+      { "@type": "Place", name: "Latin America" },
+      { "@type": "Place", name: "Global Spanish-speaking markets" },
+    ],
+    knowsLanguage: ["es", "en"],
     knowsAbout: [
       "Inteligencia Artificial",
       "Artificial Intelligence",
       "Data Intelligence",
+      "Business Intelligence",
       "Anomaly Detection",
       "Risk Scoring",
       "Predictive Analytics",
       "Consumer Intelligence",
+      "Customer Segmentation",
+      "RFM Segmentation",
       "Executive Dashboards",
       "Data Governance",
+      "Data Architecture",
       "Machine Learning",
       "Public Procurement Intelligence",
       "SICOP",
@@ -55,7 +74,7 @@ export default function StructuredData({ siteUrl }: { siteUrl: string }) {
       email: site.contact.email,
       availableLanguage: ["es", "en"],
     },
-    sameAs: [site.contact.linkedin],
+    sameAs: [site.contact.linkedin, site.contact.scholar, site.contact.github],
   };
 
   const person = {
@@ -82,17 +101,22 @@ export default function StructuredData({ siteUrl }: { siteUrl: string }) {
       addressRegion: "San José",
       addressCountry: "CR",
     },
+    knowsLanguage: ["es", "en"],
     knowsAbout: [
       "Artificial Intelligence",
       "Data Science",
       "Advanced Analytics",
+      "Business Intelligence",
       "Data Strategy",
       "Consumer Intelligence",
       "Predictive Modeling",
       "Data Governance",
+      "Data Architecture",
       "Executive Intelligence Systems",
+      "RFM Segmentation",
+      "Public Procurement Intelligence",
     ],
-    sameAs: [site.contact.linkedin],
+    sameAs: [site.contact.linkedin, site.contact.scholar, site.contact.github],
   };
 
   const website = {
@@ -115,22 +139,62 @@ export default function StructuredData({ siteUrl }: { siteUrl: string }) {
     },
   };
 
+  // One Service entity per capability — gives AI engines structured "this entity offers X"
+  // so prompts like "who offers data architecture consulting in Costa Rica" can match.
+  const services = es.capabilities.map((cap, idx) => ({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${siteUrl}/#service-${idx}`,
+    serviceType: cap.title,
+    name: cap.title,
+    description: cap.description,
+    provider: { "@id": `${siteUrl}/#organization` },
+    areaServed: [
+      { "@type": "Country", name: "Costa Rica" },
+      { "@type": "Place", name: "Latin America" },
+    ],
+    audience: {
+      "@type": "BusinessAudience",
+      audienceType: ["Executive teams", "Government innovation leads", "Category leaders"],
+    },
+  }));
+
+  // FAQPage schema — Google can show "People also ask" rich result + AI engines
+  // grab citation-ready answers directly. We include both ES and EN so AIs in either
+  // language can cite. (Duplicating Q&A in two languages is acceptable and common.)
+  const faqPage = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${siteUrl}/#faq`,
+    mainEntity: [
+      ...es.faq.items.map((it) => ({
+        "@type": "Question",
+        name: it.q,
+        acceptedAnswer: { "@type": "Answer", text: it.a },
+        inLanguage: "es",
+      })),
+      ...en.faq.items.map((it) => ({
+        "@type": "Question",
+        name: it.q,
+        acceptedAnswer: { "@type": "Answer", text: it.a },
+        inLanguage: "en",
+      })),
+    ],
+  };
+
+  const allSchemas = [organization, person, website, ...services, faqPage];
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        // dangerouslySetInnerHTML is the standard pattern for JSON-LD blobs.
-        // Content is fully controlled, no user input — safe.
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }}
-      />
+      {allSchemas.map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          // dangerouslySetInnerHTML is the standard pattern for JSON-LD blobs.
+          // Content is fully controlled (no user input), so this is safe.
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
     </>
   );
 }

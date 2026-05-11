@@ -7,6 +7,7 @@ import Reveal from "@/components/motion/Reveal";
 import { LogoMark } from "@/components/ui/Logo";
 import { useT } from "@/lib/i18n";
 import { site } from "@/content/site";
+import { Mail, Linkedin, Github, MessageCircle, GraduationCap } from "lucide-react";
 import {
   Brain,
   BarChart3,
@@ -58,6 +59,23 @@ export default function About() {
         <h2 className="text-display-l mt-5 max-w-[18ch] text-text-primary">
           {t.about.headline}
         </h2>
+      </Reveal>
+
+      {/* Citation capsule — visible, factual, LLM-citable */}
+      <Reveal delay={0.08}>
+        <aside
+          aria-label={t.capsule.label}
+          className="relative mt-8 max-w-3xl overflow-hidden rounded-lg border border-accent-cyan/20 bg-bg-elevated/40 p-6"
+        >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/40 to-transparent"
+          />
+          <div className="text-eyebrow mb-3 text-accent-cyan">{t.capsule.label}</div>
+          <p className="text-body text-[16px] leading-relaxed text-text-secondary">
+            {t.capsule.body}
+          </p>
+        </aside>
       </Reveal>
 
       {/* Founder block: portrait + bio */}
@@ -150,14 +168,24 @@ export default function About() {
           <p className="text-[13px] text-text-muted">
             Nancy Rodríguez · {site.contact.email}
           </p>
-          <a
-            href={site.contact.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            className="text-[13px] text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
-          >
-            LinkedIn ↗
-          </a>
+          <div className="flex items-center gap-5 text-[13px]">
+            <a
+              href={site.contact.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
+            >
+              LinkedIn ↗
+            </a>
+            <a
+              href={site.contact.scholar}
+              target="_blank"
+              rel="noreferrer"
+              className="text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
+            >
+              Google Scholar ↗
+            </a>
+          </div>
         </div>
       </Reveal>
     </Section>
@@ -188,22 +216,20 @@ function PortraitFallback() {
 function FounderPortrait({ alt }: { alt: string }) {
   const [imgFailed, setImgFailed] = useState(false);
   return (
-    <div className="relative mx-auto w-full max-w-md">
+    <div className="relative mx-auto flex w-full max-w-xs flex-col items-center">
       {/* Outer cyan glow */}
       <div
         aria-hidden
-        className="absolute -inset-4 -z-10 rounded-2xl opacity-60 blur-3xl"
+        className="absolute -inset-4 -z-10 rounded-2xl opacity-50 blur-3xl"
         style={{
           background:
-            "radial-gradient(circle, rgba(94,233,240,0.25) 0%, rgba(94,233,240,0) 70%)",
+            "radial-gradient(circle, rgba(94,233,240,0.22) 0%, rgba(94,233,240,0) 70%)",
         }}
       />
-      {/* Frame */}
-      <div className="relative overflow-hidden rounded-xl border border-border-subtle bg-bg-elevated/40">
-        <div className="relative aspect-[4/5] w-full">
+      {/* Frame — smaller, square-ish portrait */}
+      <div className="relative w-full overflow-hidden rounded-xl border border-border-subtle bg-bg-elevated/40">
+        <div className="relative aspect-square w-full">
           {!imgFailed ? (
-            // Plain <img> (not next/image) so missing files degrade gracefully at runtime
-            // without breaking the production build.
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src="/Nancy.png"
@@ -219,26 +245,83 @@ function FounderPortrait({ alt }: { alt: string }) {
         {/* Subtle bottom gradient overlay for legibility of caption */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-bg-base/80 to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-bg-base/80 to-transparent"
         />
         {/* Caption — bottom-left */}
-        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5">
+        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-4">
           <div>
-            <div className="text-[18px] font-medium tracking-tight text-text-primary">
+            <div className="text-[15px] font-medium tracking-tight text-text-primary">
               Nancy Rodríguez
             </div>
-            <div className="mt-1 text-[11px] uppercase tracking-eyebrow text-accent-cyan">
+            <div className="mt-0.5 text-[10px] uppercase tracking-eyebrow text-accent-cyan">
               Founder · N-AI
             </div>
           </div>
           <span
             aria-hidden
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-accent-cyan/30 bg-bg-base/60 backdrop-blur"
+            className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-accent-cyan/30 bg-bg-base/60 backdrop-blur"
           >
-            <LogoMark size={22} />
+            <LogoMark size={18} />
           </span>
         </div>
       </div>
+
+      {/* Social row — under the photo */}
+      <div className="mt-5 flex items-center justify-center gap-3">
+        <SocialIcon
+          href={site.contact.linkedin}
+          label="LinkedIn"
+          icon={<Linkedin className="h-4 w-4" aria-hidden />}
+          external
+        />
+        <SocialIcon
+          href={site.contact.whatsapp}
+          label="WhatsApp"
+          icon={<MessageCircle className="h-4 w-4" aria-hidden />}
+          external
+        />
+        <SocialIcon
+          href={site.contact.github}
+          label="GitHub"
+          icon={<Github className="h-4 w-4" aria-hidden />}
+          external
+        />
+        <SocialIcon
+          href={site.contact.scholar}
+          label="Google Scholar"
+          icon={<GraduationCap className="h-4 w-4" aria-hidden />}
+          external
+        />
+        <SocialIcon
+          href={`mailto:${site.contact.email}`}
+          label={`Email ${site.contact.email}`}
+          icon={<Mail className="h-4 w-4" aria-hidden />}
+        />
+      </div>
     </div>
+  );
+}
+
+function SocialIcon({
+  href,
+  label,
+  icon,
+  external = false,
+}: {
+  href: string;
+  label: string;
+  icon: React.ReactNode;
+  external?: boolean;
+}) {
+  return (
+    <a
+      href={href}
+      aria-label={label}
+      title={label}
+      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+      className="group inline-flex h-9 w-9 items-center justify-center rounded-md border border-border-subtle bg-bg-elevated/40 text-text-secondary transition-all duration-200 ease-smooth hover:-translate-y-0.5 hover:border-accent-cyan/50 hover:text-accent-cyan hover:shadow-glow"
+    >
+      {icon}
+    </a>
   );
 }
