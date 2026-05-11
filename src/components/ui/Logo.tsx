@@ -126,11 +126,13 @@ interface LogoFullProps {
  * Full brand lockup, rendered in HTML/CSS (no PNG dependency).
  * Composition:
  *   [mark]  N - AI
+ *           Neural Analytics & Intelligence
  *           Nancy Artificial Intelligence
  *           ────────────────────────
  *           Data · Insights · AI
  *
- * Scales crisply at any size, themeable, ~5 KB instead of 2 MB.
+ * The two subtitles surface the dual meaning of the acronym (Neural /
+ * Nancy). Scales crisply at any size, themeable, ~5 KB instead of 2 MB.
  */
 export function LogoFull({ className, size = "lg" }: LogoFullProps) {
   const dims = {
@@ -175,6 +177,14 @@ export function LogoFull({ className, size = "lg" }: LogoFullProps) {
         <div
           className={cn(
             "mt-2 uppercase tracking-[0.22em] text-text-secondary",
+            dims.sub,
+          )}
+        >
+          Neural Analytics & Intelligence
+        </div>
+        <div
+          className={cn(
+            "mt-1 uppercase tracking-[0.22em] text-text-muted",
             dims.sub,
           )}
         >

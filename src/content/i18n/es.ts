@@ -296,7 +296,7 @@ export const es = {
 
   about: {
     eyebrow: "Sobre Mí",
-    headline: "N-AI · Nancy Artificial Intelligence",
+    headline: "N-AI · Neural Analytics & Intelligence",
     founderBio:
       "N-AI fue fundada por Nancy Rodríguez, una estratega de datos e IA con experiencia diseñando ecosistemas analíticos, arquitecturas de inteligencia y soluciones impulsadas por IA en entornos de negocio complejos.",
     workCombinesLabel: "Su trabajo combina",

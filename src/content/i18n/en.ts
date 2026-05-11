@@ -294,7 +294,7 @@ export const en: Strings = {
 
   about: {
     eyebrow: "About Me",
-    headline: "N-AI · Nancy Artificial Intelligence",
+    headline: "N-AI · Neural Analytics & Intelligence",
     founderBio:
       "N-AI was founded by Nancy Rodríguez, a data and AI strategist with experience designing analytical ecosystems, intelligence architectures and AI-powered solutions across complex business environments.",
     workCombinesLabel: "Her work combines",
