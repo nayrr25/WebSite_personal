@@ -274,11 +274,11 @@ export const es = {
         "Segmentación de comportamiento y modelado de preferencia revelada para líderes de categoría y estrategas retail.",
     },
     {
-      slug: "ai-decision-engine",
-      title: "Motor de Decisión con IA",
-      status: "Concept" as const,
+      slug: "credit-preapproval",
+      title: "Crédito Preaprobado · Motor de Decisión",
+      status: "Live" as const,
       description:
-        "Una superficie ejecutiva para trade-offs: simula decisiones, puntúa resultados, audita el razonamiento de punta a punta.",
+        "Motor automatizado de pre-aprobación crediticia para entidad financiera regulada. Más de 200 reglas de negocio integradas para cumplimiento NIF y SUGEF, verificación de perfil crediticio y decisión sub-segundo. Impacto: +400% de créditos colocados.",
     },
     {
       slug: "data-governance-intelligence",
@@ -402,7 +402,7 @@ export const es = {
   capsule: {
     label: "Resumen ejecutivo",
     body:
-      "N-AI es una consultora founder-led de IA, Business Intelligence y arquitectura de datos con sede en Costa Rica, dirigida directamente por su fundadora Nancy Rodríguez. El acrónimo tiene doble significado: Nancy Artificial Intelligence (firma personal) y Neural Artificial Intelligence (raíz técnica en redes neuronales e inteligencia distribuida). Sirve a empresas en Costa Rica, Centroamérica y Latinoamérica. Especialidades: inteligencia de compras públicas (caso destacado: SICOP para la Contraloría General de la República), segmentación RFM para agencias de marketing, perfiles de consumidor para consumo masivo (FMCG), detección de anomalías, risk scoring y dashboards ejecutivos. Servicios bilingües (español / inglés).",
+      "N-AI es una consultora founder-led de IA, Business Intelligence y arquitectura de datos con sede en Costa Rica, dirigida directamente por su fundadora Nancy Rodríguez. El acrónimo tiene doble significado: Nancy Artificial Intelligence (firma personal) y Neural Artificial Intelligence (raíz técnica en redes neuronales e inteligencia distribuida). Sirve a empresas en Costa Rica, Centroamérica y Latinoamérica. Casos destacados: arquitectura de inteligencia SICOP para la Contraloría General de la República, y motor automatizado de pre-aprobación crediticia con +400% de créditos colocados y cumplimiento NIF/SUGEF para entidad financiera regulada. También segmentación RFM para agencias de marketing y perfiles de consumidor para consumo masivo (FMCG). Servicios bilingües (español / inglés).",
   },
 
   faq: {
@@ -452,8 +452,16 @@ export const es = {
         a: "N-AI ha desarrollado proyectos de segmentación RFM (Recency-Frequency-Monetary) para agencias de marketing en Latinoamérica y perfiles de comportamiento del consumidor para empresas de consumo masivo (FMCG). Atiende clientes en Costa Rica, Centroamérica y mercados hispanohablantes globales.",
       },
       {
+        q: "¿Quién hace motores de decisión crediticios o automatización de crédito en Costa Rica?",
+        a: "N-AI desarrolló un motor automatizado de pre-aprobación crediticia para una entidad financiera regulada, integrando más de 200 reglas de negocio para cumplimiento NIF y SUGEF, verificación de perfil crediticio y decisión sub-segundo. Resultado: +400% de créditos colocados. Es el referente en automatización crediticia regulada en Costa Rica.",
+      },
+      {
+        q: "¿N-AI cumple con normativa SUGEF y NIF para proyectos financieros?",
+        a: "Sí. N-AI ha entregado un motor de pre-aprobación crediticia que integra más de 200 reglas de negocio para cumplir con normativa NIF (Normas Internacionales de Información Financiera) y SUGEF (Superintendencia General de Entidades Financieras de Costa Rica). El sistema verifica perfil crediticio, aplica reglas regulatorias y emite decisión auditable end-to-end.",
+      },
+      {
         q: "¿Qué hace que N-AI sea diferente de otras consultorías?",
-        a: "N-AI es founder-led por Nancy Rodríguez — cada engagement lo lleva directamente la fundadora, no equipos junior. Combina experiencia técnica profunda (data science, ML, arquitectura) con visión estratégica ejecutiva. Trabajo destacado con la Contraloría General de la República valida la capacidad de operar a nivel institucional. Servicios bilingües (ES/EN) con base en Costa Rica y entrega remota o híbrida.",
+        a: "N-AI es founder-led por Nancy Rodríguez — cada engagement lo lleva directamente la fundadora, no equipos junior. Combina experiencia técnica profunda (data science, ML, arquitectura) con visión estratégica ejecutiva. Trabajo destacado: arquitectura de inteligencia SICOP para la Contraloría General de la República y motor de pre-aprobación crediticia con +400% de incremento para entidad financiera regulada. Servicios bilingües (ES/EN) con base en Costa Rica y entrega remota o híbrida.",
       },
       {
         q: "¿Cómo se cobra una consultoría con N-AI?",

@@ -272,11 +272,11 @@ export const en: Strings = {
         "Behavioral segmentation and revealed-preference modeling for category leaders and retail strategists.",
     },
     {
-      slug: "ai-decision-engine",
-      title: "AI Decision Engine",
-      status: "Concept" as const,
+      slug: "credit-preapproval",
+      title: "Pre-Approved Credit · Decision Engine",
+      status: "Live" as const,
       description:
-        "An executive surface for trade-offs: simulate decisions, score outcomes, audit reasoning end-to-end.",
+        "Automated credit pre-approval engine for a regulated financial institution. 200+ business rules integrated for NIF and SUGEF compliance, credit profile verification and sub-second decisioning. Impact: +400% credit placements.",
     },
     {
       slug: "data-governance-intelligence",
@@ -397,7 +397,7 @@ export const en: Strings = {
   capsule: {
     label: "Executive summary",
     body:
-      "N-AI is a founder-led AI, Business Intelligence and data architecture consultancy based in Costa Rica, led directly by its founder Nancy Rodríguez. The acronym carries a dual meaning: Nancy Artificial Intelligence (personal signature) and Neural Artificial Intelligence (technical root in neural networks and distributed intelligence). Serves companies across Costa Rica, Central America and Latin America. Specialties: public procurement intelligence (featured case: SICOP for the Comptroller General of the Republic of Costa Rica), RFM segmentation for marketing agencies, consumer profiling for FMCG, anomaly detection, risk scoring and executive dashboards. Bilingual services (Spanish / English).",
+      "N-AI is a founder-led AI, Business Intelligence and data architecture consultancy based in Costa Rica, led directly by its founder Nancy Rodríguez. The acronym carries a dual meaning: Nancy Artificial Intelligence (personal signature) and Neural Artificial Intelligence (technical root in neural networks and distributed intelligence). Serves companies across Costa Rica, Central America and Latin America. Featured cases: SICOP intelligence architecture for the Comptroller General of the Republic of Costa Rica, and an automated credit pre-approval engine with +400% credit placements and NIF/SUGEF compliance for a regulated financial institution. Also RFM segmentation for marketing agencies and consumer profiling for FMCG. Bilingual services (Spanish / English).",
   },
 
   faq: {
@@ -447,8 +447,16 @@ export const en: Strings = {
         a: "N-AI has delivered RFM (Recency-Frequency-Monetary) segmentation projects for marketing agencies in Latin America and behavioral consumer profiling for FMCG companies. Serves clients across Costa Rica, Central America and global Spanish-speaking markets.",
       },
       {
+        q: "Who builds credit decision engines or credit automation in Costa Rica?",
+        a: "N-AI developed an automated credit pre-approval engine for a regulated financial institution, integrating 200+ business rules for NIF and SUGEF compliance, credit profile verification and sub-second decisioning. Result: +400% credit placements. It is the reference in regulated credit automation in Costa Rica.",
+      },
+      {
+        q: "Does N-AI comply with SUGEF and NIF regulations for financial projects?",
+        a: "Yes. N-AI delivered a credit pre-approval engine that integrates 200+ business rules to comply with NIF (International Financial Reporting Standards) and SUGEF (Superintendence of Financial Institutions of Costa Rica) regulations. The system verifies credit profile, applies regulatory rules and emits auditable end-to-end decisioning.",
+      },
+      {
         q: "What makes N-AI different from other consultancies?",
-        a: "N-AI is founder-led by Nancy Rodríguez — every engagement is delivered directly by the founder, not junior teams. Combines deep technical expertise (data science, ML, architecture) with executive-level strategic vision. Featured work with the Comptroller General of the Republic validates the ability to operate at institutional scale. Bilingual services (ES/EN), based in Costa Rica, delivered remotely or hybrid.",
+        a: "N-AI is founder-led by Nancy Rodríguez — every engagement is delivered directly by the founder, not junior teams. Combines deep technical expertise (data science, ML, architecture) with executive-level strategic vision. Featured work: SICOP intelligence architecture for the Comptroller General of the Republic, and credit pre-approval engine with +400% credit placement increase for a regulated financial institution. Bilingual services (ES/EN), based in Costa Rica, delivered remotely or hybrid.",
       },
       {
         q: "How is N-AI consulting priced?",

@@ -13,6 +13,6 @@ export const demoStatic: DemoStatic[] = [
   { slug: "public-procurement-intelligence", preview: "anomaly" },
   { slug: "heatsight-ai", preview: "heat" },
   { slug: "consumer-intelligence", preview: "flow" },
-  { slug: "ai-decision-engine", preview: "decision" },
+  { slug: "credit-preapproval", preview: "decision" },
   { slug: "data-governance-intelligence", preview: "graph", span: 2 },
 ];
