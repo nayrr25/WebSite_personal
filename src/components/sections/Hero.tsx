@@ -43,7 +43,7 @@ export default function Hero() {
             transition={{ duration: reduce ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="mb-2"
           >
-            <LogoFull width={460} priority />
+            <LogoFull size="lg" />
           </motion.div>
 
           <motion.h1

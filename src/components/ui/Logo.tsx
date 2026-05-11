@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { cn } from "@/lib/cn";
 
 interface LogoMarkProps {
@@ -119,26 +118,95 @@ export function LogoMark({ className, size = 28, glow = false }: LogoMarkProps) 
 
 interface LogoFullProps {
   className?: string;
-  /** width in px (height auto-scales) */
-  width?: number;
-  priority?: boolean;
+  /** size scaling — `lg` for hero, `md` for footer, `sm` for compact use */
+  size?: "sm" | "md" | "lg";
 }
 
 /**
- * Full lockup — uses the user-supplied logo.png (mark + wordmark + tagline).
- * Use this in hero/footer or wherever the full brand story should read.
+ * Full brand lockup, rendered in HTML/CSS (no PNG dependency).
+ * Composition:
+ *   [mark]  N - AI
+ *           Nancy Artificial Intelligence
+ *           ────────────────────────
+ *           Data · Insights · AI
+ *
+ * Scales crisply at any size, themeable, ~5 KB instead of 2 MB.
  */
-export function LogoFull({ className, width = 420, priority = false }: LogoFullProps) {
+export function LogoFull({ className, size = "lg" }: LogoFullProps) {
+  const dims = {
+    sm: {
+      mark: 32,
+      wordmark: "text-[28px]",
+      sub: "text-[8px]",
+      tag: "text-[10px]",
+      gap: "gap-3",
+    },
+    md: {
+      mark: 44,
+      wordmark: "text-[40px]",
+      sub: "text-[10px]",
+      tag: "text-[12px]",
+      gap: "gap-4",
+    },
+    lg: {
+      mark: 72,
+      wordmark: "text-[64px] md:text-[80px]",
+      sub: "text-[11px] md:text-[12px]",
+      tag: "text-[13px] md:text-[14px]",
+      gap: "gap-5",
+    },
+  }[size];
+
   return (
-    <Image
-      src="/logo.png"
-      alt="N-AI · Nancy Artificial Intelligence · Data · Insights · AI"
-      width={1200}
-      height={600}
-      priority={priority}
-      sizes="(max-width: 768px) 80vw, 420px"
-      className={cn("h-auto select-none", className)}
-      style={{ width: `${width}px`, maxWidth: "100%" }}
-    />
+    <div className={cn("inline-flex items-center", dims.gap, className)}>
+      <LogoMark size={dims.mark} glow />
+      <div className="flex flex-col items-start">
+        <div
+          className={cn(
+            "font-sans font-light tracking-tighter leading-none text-text-primary",
+            dims.wordmark,
+          )}
+          aria-label="N-AI"
+        >
+          <span>N</span>
+          <span className="mx-1 text-accent-cyan">–</span>
+          <span>AI</span>
+        </div>
+        <div
+          className={cn(
+            "mt-2 uppercase tracking-[0.22em] text-text-secondary",
+            dims.sub,
+          )}
+        >
+          Nancy Artificial Intelligence
+        </div>
+        <div
+          aria-hidden
+          className="mt-2 h-px w-full"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(94,233,240,0) 0%, rgba(94,233,240,0.6) 30%, rgba(124,245,196,0.6) 70%, rgba(124,245,196,0) 100%)",
+          }}
+        />
+        <div
+          className={cn(
+            "mt-2 inline-flex items-center gap-2 uppercase tracking-[0.22em] text-text-secondary",
+            dims.tag,
+          )}
+        >
+          <span>Data</span>
+          <span
+            aria-hidden
+            className="inline-block h-1 w-1 rounded-full bg-accent-cyan"
+          />
+          <span>Insights</span>
+          <span
+            aria-hidden
+            className="inline-block h-1 w-1 rounded-full bg-accent-mint"
+          />
+          <span>AI</span>
+        </div>
+      </div>
+    </div>
   );
 }
