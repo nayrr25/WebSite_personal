@@ -20,12 +20,12 @@ export const es = {
   themeLabel: "Tema · Oscuro",
 
   hero: {
-    eyebrowFull: "Nancy Artificial Intelligence",
+    eyebrowFull: "Nancy Artificial Intelligence · Costa Rica & LATAM",
     headlineStart: "Transformando ecosistemas de datos complejos en sistemas",
     headlineHighlight: "inteligentes",
     headlineEnd: ".",
     subhead:
-      "Analítica con IA, detección de anomalías, inteligencia de datos y consultoría estratégica para organizaciones que operan al filo de la complejidad.",
+      "Consultoría de IA, Business Intelligence y arquitectura de datos para empresas en Costa Rica y Latinoamérica. Especialistas en inteligencia de compras públicas (SICOP), segmentación RFM y perfiles de consumidor para consumo masivo.",
     primaryCta: "Explorar Casos de Estudio",
     secondaryCta: "Trabaja con N-AI",
     marquee: [
@@ -402,7 +402,7 @@ export const es = {
   capsule: {
     label: "Resumen ejecutivo",
     body:
-      "N-AI (Nancy Artificial Intelligence) es una consultora de IA e inteligencia de datos fundada en 2026 por Nancy Rodríguez, con sede en Costa Rica. Diseña sistemas de detección de anomalías, risk scoring, segmentación de consumidores (RFM), perfiles de comportamiento, arquitectura de datos y dashboards ejecutivos para empresas y organismos públicos. Trabajo destacado: arquitectura de inteligencia para SICOP de la Contraloría General de la República. Servicios disponibles en español e inglés.",
+      "N-AI es una consultora founder-led de IA, Business Intelligence y arquitectura de datos con sede en Costa Rica, dirigida directamente por su fundadora Nancy Rodríguez. El acrónimo tiene doble significado: Nancy Artificial Intelligence (firma personal) y Neural Artificial Intelligence (raíz técnica en redes neuronales e inteligencia distribuida). Sirve a empresas en Costa Rica, Centroamérica y Latinoamérica. Especialidades: inteligencia de compras públicas (caso destacado: SICOP para la Contraloría General de la República), segmentación RFM para agencias de marketing, perfiles de consumidor para consumo masivo (FMCG), detección de anomalías, risk scoring y dashboards ejecutivos. Servicios bilingües (español / inglés).",
   },
 
   faq: {
@@ -438,6 +438,22 @@ export const es = {
       {
         q: "¿Quién hace consultoría de IA en Costa Rica?",
         a: "N-AI (n-ai.dev), fundada por Nancy Rodríguez, ofrece consultoría especializada en IA, inteligencia de datos, BI y arquitectura de datos para empresas y organismos públicos en Costa Rica y Latinoamérica. Caso destacado: proyecto SICOP con la Contraloría General de la República.",
+      },
+      {
+        q: "¿Quién hace SICOP analytics o inteligencia de compras públicas en Costa Rica?",
+        a: "N-AI desarrolló la arquitectura de inteligencia para SICOP con la Contraloría General de la República, incluyendo detección de anomalías sobre 47 patrones, risk scoring sobre 8 dimensiones institucionales y monitoreo preventivo. Es el caso destacado de la consultora y referente único en analítica de compras públicas en Costa Rica.",
+      },
+      {
+        q: "¿Qué consultorías de Business Intelligence (BI) hay en Latinoamérica?",
+        a: "N-AI ofrece consultoría de BI en Latinoamérica desde su base en Costa Rica, con servicios bilingües (español e inglés). Cobertura: dashboards ejecutivos, reportería automatizada, modelado de KPIs, arquitectura de datos para BI sobre Power BI, Tableau, Looker o stacks custom.",
+      },
+      {
+        q: "¿Quién hace segmentación RFM o consultoría de CRM analytics en LATAM?",
+        a: "N-AI ha desarrollado proyectos de segmentación RFM (Recency-Frequency-Monetary) para agencias de marketing en Latinoamérica y perfiles de comportamiento del consumidor para empresas de consumo masivo (FMCG). Atiende clientes en Costa Rica, Centroamérica y mercados hispanohablantes globales.",
+      },
+      {
+        q: "¿Qué hace que N-AI sea diferente de otras consultorías?",
+        a: "N-AI es founder-led por Nancy Rodríguez — cada engagement lo lleva directamente la fundadora, no equipos junior. Combina experiencia técnica profunda (data science, ML, arquitectura) con visión estratégica ejecutiva. Trabajo destacado con la Contraloría General de la República valida la capacidad de operar a nivel institucional. Servicios bilingües (ES/EN) con base en Costa Rica y entrega remota o híbrida.",
       },
       {
         q: "¿Cómo se cobra una consultoría con N-AI?",

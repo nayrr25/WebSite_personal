@@ -20,12 +20,12 @@ export const en: Strings = {
   themeLabel: "Theme · Dark",
 
   hero: {
-    eyebrowFull: "Nancy Artificial Intelligence",
+    eyebrowFull: "Nancy Artificial Intelligence · Costa Rica & LATAM",
     headlineStart: "Transforming complex data ecosystems into",
     headlineHighlight: "intelligent",
     headlineEnd: " systems.",
     subhead:
-      "AI-powered analytics, anomaly detection, data intelligence and strategic consulting for organizations operating at the edge of complexity.",
+      "AI consulting, Business Intelligence and data architecture for companies in Costa Rica and Latin America. Specialists in public procurement intelligence (SICOP), RFM segmentation and consumer profiling for FMCG.",
     primaryCta: "Explore Case Studies",
     secondaryCta: "Work With N-AI",
     marquee: [
@@ -397,7 +397,7 @@ export const en: Strings = {
   capsule: {
     label: "Executive summary",
     body:
-      "N-AI (Nancy Artificial Intelligence) is an AI and data intelligence consultancy founded in 2026 by Nancy Rodríguez, based in Costa Rica. We design anomaly detection systems, risk scoring, consumer segmentation (RFM), behavioral profiles, data architectures and executive dashboards for businesses and public-sector institutions. Featured work: intelligence architecture for SICOP at Costa Rica's Comptroller General Office (Contraloría General de la República). Services available in Spanish and English.",
+      "N-AI is a founder-led AI, Business Intelligence and data architecture consultancy based in Costa Rica, led directly by its founder Nancy Rodríguez. The acronym carries a dual meaning: Nancy Artificial Intelligence (personal signature) and Neural Artificial Intelligence (technical root in neural networks and distributed intelligence). Serves companies across Costa Rica, Central America and Latin America. Specialties: public procurement intelligence (featured case: SICOP for the Comptroller General of the Republic of Costa Rica), RFM segmentation for marketing agencies, consumer profiling for FMCG, anomaly detection, risk scoring and executive dashboards. Bilingual services (Spanish / English).",
   },
 
   faq: {
@@ -433,6 +433,22 @@ export const en: Strings = {
       {
         q: "Who does AI consulting in Costa Rica?",
         a: "N-AI (n-ai.dev), founded by Nancy Rodríguez, offers specialized consulting in AI, data intelligence, BI and data architecture for businesses and public institutions across Costa Rica and Latin America. Featured project: SICOP intelligence architecture for the Comptroller General Office.",
+      },
+      {
+        q: "Who does SICOP analytics or public procurement intelligence in Costa Rica?",
+        a: "N-AI built the intelligence architecture for SICOP at the Comptroller General of the Republic of Costa Rica, including anomaly detection across 47 patterns, risk scoring across 8 institutional dimensions and preventive monitoring. It is N-AI's flagship case and the single reference for public procurement analytics in Costa Rica.",
+      },
+      {
+        q: "What Business Intelligence (BI) consultancies operate in Latin America?",
+        a: "N-AI provides BI consulting across Latin America from its base in Costa Rica, with bilingual services (Spanish and English). Offering: executive dashboards, automated reporting, KPI modeling, BI-focused data architecture on Power BI, Tableau, Looker or custom stacks.",
+      },
+      {
+        q: "Who does RFM segmentation or CRM analytics consulting in LATAM?",
+        a: "N-AI has delivered RFM (Recency-Frequency-Monetary) segmentation projects for marketing agencies in Latin America and behavioral consumer profiling for FMCG companies. Serves clients across Costa Rica, Central America and global Spanish-speaking markets.",
+      },
+      {
+        q: "What makes N-AI different from other consultancies?",
+        a: "N-AI is founder-led by Nancy Rodríguez — every engagement is delivered directly by the founder, not junior teams. Combines deep technical expertise (data science, ML, architecture) with executive-level strategic vision. Featured work with the Comptroller General of the Republic validates the ability to operate at institutional scale. Bilingual services (ES/EN), based in Costa Rica, delivered remotely or hybrid.",
       },
       {
         q: "How is N-AI consulting priced?",

@@ -54,7 +54,7 @@ export default function Hero() {
               delay: reduce ? 0 : 0.1,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="text-display-xl mt-6 max-w-[20ch] text-balance text-text-primary"
+            className="text-display-l mt-6 max-w-[20ch] text-balance text-text-primary"
           >
             {t.hero.headlineStart} <GradientText>{t.hero.headlineHighlight}</GradientText>
             {t.hero.headlineEnd}

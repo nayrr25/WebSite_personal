@@ -30,7 +30,8 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://n-ai.dev";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "N-AI — Nancy Artificial Intelligence · Datos · Insights · IA",
+    default:
+      "N-AI · Consultoría de IA, BI y Datos en Costa Rica y LATAM — Nancy Artificial Intelligence",
     template: "%s · N-AI",
   },
   alternates: {
@@ -41,20 +42,48 @@ export const metadata: Metadata = {
     },
   },
   description:
-    "N-AI (Nancy Artificial Intelligence) — Consultoría ejecutiva de IA e inteligencia de datos. Detección de anomalías, risk scoring y sistemas inteligentes para organizaciones que operan al filo de la complejidad.",
+    "Consultoría de IA, Business Intelligence y arquitectura de datos para empresas en Costa Rica y Latinoamérica. Especialistas en inteligencia de compras públicas (SICOP), segmentación RFM, perfiles de consumidor y dashboards ejecutivos. Founded by Nancy Rodríguez.",
   keywords: [
+    // Brand variations
     "N-AI",
     "NAI",
     "Nai",
-    "IA",
-    "AI",
-    "IA Nancy",
-    "AI Nancy",
-    "IA consultoría",
     "Nancy AI",
     "Nancy IA",
     "Nancy Artificial Intelligence",
     "Nancy Inteligencia Artificial",
+    "Nancy Rodríguez consultora",
+    // Dual meaning — Neural Artificial Intelligence
+    "Neural AI",
+    "Neural Artificial Intelligence",
+    "Neural Intelligence",
+    // Primary commercial intent — Costa Rica & LATAM
+    "consultoría IA Costa Rica",
+    "consultoría inteligencia artificial Costa Rica",
+    "consultor IA Costa Rica",
+    "consultoría IA LATAM",
+    "consultoría IA Latinoamérica",
+    "empresa de IA Costa Rica",
+    "consultoría BI Costa Rica",
+    "consultoría Business Intelligence LATAM",
+    "consultor BI Costa Rica",
+    "inteligencia de datos Costa Rica",
+    "inteligencia de datos LATAM",
+    // SICOP / public procurement (cero competencia)
+    "SICOP analytics",
+    "SICOP inteligencia",
+    "SICOP analítica",
+    "inteligencia compras públicas",
+    "public procurement intelligence",
+    "analítica compras públicas Costa Rica",
+    // RFM / consumer
+    "consultoría RFM",
+    "segmentación RFM Costa Rica",
+    "segmentación RFM LATAM",
+    "consultoría CRM analytics",
+    "inteligencia de consumidor",
+    "perfiles de consumidor consumo masivo",
+    "consumer intelligence FMCG LATAM",
     "Nancy Rodríguez",
     "Nancy Rodriguez",
     "Nancy Raquel Rodríguez Ramos",
@@ -85,16 +114,16 @@ export const metadata: Metadata = {
     locale: "es_CR",
     alternateLocale: ["en_US"],
     url: "/",
-    title: "N-AI — Nancy Artificial Intelligence",
+    title: "N-AI · Consultoría de IA, BI y Datos en Costa Rica y LATAM",
     description:
-      "Analítica con IA, detección de anomalías y diseño de sistemas inteligentes para líderes ejecutivos.",
+      "Consultoría de IA, Business Intelligence, SICOP analytics, segmentación RFM y perfiles de consumidor para empresas en Costa Rica y Latinoamérica.",
     siteName: "N-AI · Nancy Artificial Intelligence",
   },
   twitter: {
     card: "summary_large_image",
-    title: "N-AI — Nancy Artificial Intelligence",
+    title: "N-AI · Consultoría de IA, BI y Datos en Costa Rica y LATAM",
     description:
-      "Analítica con IA, detección de anomalías y diseño de sistemas inteligentes para líderes ejecutivos.",
+      "Consultoría de IA, Business Intelligence, SICOP analytics, segmentación RFM y perfiles de consumidor para empresas en Costa Rica y Latinoamérica.",
   },
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
