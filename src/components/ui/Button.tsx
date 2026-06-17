@@ -12,15 +12,16 @@ interface BaseProps {
 }
 
 const base =
-  "group relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md px-5 py-3 text-sm font-medium tracking-wide transition-all duration-200 ease-smooth focus-visible:outline-none";
+  "group relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md px-5 py-3 text-sm font-semibold tracking-wide transition-all duration-200 ease-smooth focus-visible:outline-none";
 
 const variants: Record<Variant, string> = {
+  // OPCIÓN C: primario sólido navy con texto blanco
   primary:
-    "border border-accent-cyan/40 bg-accent-cyan/5 text-text-primary hover:border-accent-cyan/80 hover:bg-accent-cyan/10 hover:shadow-glow",
+    "border border-transparent bg-accent-deep text-white hover:bg-accent-cyan hover:shadow-glow",
   ghost:
-    "border border-border-subtle bg-transparent text-text-primary hover:border-border-strong hover:bg-bg-glass",
+    "border border-border-strong bg-bg-elevated text-text-primary hover:border-accent-cyan/50 hover:bg-bg-glass",
   subtle:
-    "border border-transparent bg-bg-glass text-text-secondary hover:bg-white/[0.06] hover:text-text-primary",
+    "border border-transparent bg-bg-glass text-text-secondary hover:bg-[rgba(30,39,53,0.07)] hover:text-text-primary",
 };
 
 export function Button({
