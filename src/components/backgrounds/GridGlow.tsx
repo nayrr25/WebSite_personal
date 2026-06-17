@@ -8,10 +8,14 @@ interface GridGlowProps {
   rgb?: string;
 }
 
+/**
+ * OPCIÓN C · tema claro.
+ * Líneas de grilla OSCURAS sobre fondo claro + glow azul suave.
+ */
 export default function GridGlow({
   className,
   size = 60,
-  rgb = "255,255,255",
+  rgb = "30,39,53",
 }: GridGlowProps) {
   return (
     <div
@@ -31,7 +35,7 @@ export default function GridGlow({
           width: `${size}vmax`,
           height: `${size}vmax`,
           background:
-            "radial-gradient(circle, rgba(94,233,240,0.10) 0%, rgba(94,233,240,0.03) 35%, transparent 65%)",
+            "radial-gradient(circle, rgba(47,98,200,0.08) 0%, rgba(47,98,200,0.02) 35%, transparent 65%)",
           filter: "blur(0px)",
         }}
       />
