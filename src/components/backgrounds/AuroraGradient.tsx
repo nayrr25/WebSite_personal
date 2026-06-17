@@ -6,6 +6,10 @@ interface AuroraGradientProps {
   intensity?: number;
 }
 
+/**
+ * OPCIÓN C · tema claro.
+ * Blooms azules muy sutiles sobre fondo claro — dan profundidad sin ensuciar.
+ */
 export default function AuroraGradient({
   className,
   intensity = 1,
@@ -19,29 +23,29 @@ export default function AuroraGradient({
       )}
       style={{ opacity: intensity }}
     >
-      {/* Cyan glow — top-left drift */}
+      {/* Azul navy — drift arriba-izquierda */}
       <div
         className="absolute -top-1/3 -left-1/4 h-[80vh] w-[80vh] animate-aurora-drift rounded-full blur-3xl will-change-transform"
         style={{
           background:
-            "radial-gradient(circle, rgba(94,233,240,0.18) 0%, rgba(94,233,240,0.05) 35%, transparent 65%)",
+            "radial-gradient(circle, rgba(47,98,200,0.12) 0%, rgba(47,98,200,0.04) 35%, transparent 65%)",
         }}
       />
-      {/* Mint glow — bottom-right drift, opposite phase */}
+      {/* Azul claro — drift abajo-derecha, fase opuesta */}
       <div
         className="absolute -bottom-1/3 -right-1/4 h-[70vh] w-[70vh] animate-aurora-drift rounded-full blur-3xl will-change-transform"
         style={{
           animationDelay: "-9s",
           background:
-            "radial-gradient(circle, rgba(124,245,196,0.12) 0%, rgba(124,245,196,0.04) 35%, transparent 65%)",
+            "radial-gradient(circle, rgba(79,134,230,0.10) 0%, rgba(79,134,230,0.03) 35%, transparent 65%)",
         }}
       />
-      {/* Deep navy haze — bottom center for grounding */}
+      {/* Velo navy abajo-centro para asentar */}
       <div
         className="absolute -bottom-1/4 left-1/2 h-[60vh] w-[100vw] -translate-x-1/2 blur-3xl"
         style={{
           background:
-            "radial-gradient(ellipse at center, rgba(11,31,58,0.6) 0%, transparent 60%)",
+            "radial-gradient(ellipse at center, rgba(47,98,200,0.06) 0%, transparent 60%)",
         }}
       />
     </div>
