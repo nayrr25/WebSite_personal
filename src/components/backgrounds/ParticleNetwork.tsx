@@ -9,7 +9,7 @@ interface ParticleNetworkProps {
   density?: number;
   /** maximum link distance in px */
   linkDistance?: number;
-  /** main color used for nodes/links */
+  /** main color used for nodes/links — rgb comma-separated */
   color?: string;
 }
 
@@ -23,17 +23,13 @@ interface Node {
 
 /**
  * Canvas-based animated network.
- * - 60fps cap (rAF naturally targets monitor refresh; we throttle work to ~60Hz max).
- * - Pauses while off-screen via IntersectionObserver.
- * - Pauses while tab is hidden.
- * - Reduced-motion users get a single static frame.
- * - DPR-aware. Resize-aware.
+ * OPCIÓN C · tema claro: nodos/enlaces en azul navy, con alfas reducidos.
  */
 export default function ParticleNetwork({
   className,
   density = 0.06,
   linkDistance = 140,
-  color = "94,233,240",
+  color = "47,98,200",
 }: ParticleNetworkProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reducedMotion = useRef(false);
@@ -93,7 +89,6 @@ export default function ParticleNetwork({
       const h = canvas.clientHeight;
       ctx.clearRect(0, 0, w, h);
 
-      // update + draw nodes
       for (const n of nodes) {
         n.x += n.vx;
         n.y += n.vy;
@@ -102,11 +97,10 @@ export default function ParticleNetwork({
 
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${color}, 0.7)`;
+        ctx.fillStyle = `rgba(${color}, 0.45)`;
         ctx.fill();
       }
 
-      // draw links
       const ld = linkDistance;
       const ld2 = ld * ld;
       for (let i = 0; i < nodes.length; i++) {
@@ -117,7 +111,7 @@ export default function ParticleNetwork({
           const dy = a.y - b.y;
           const d2 = dx * dx + dy * dy;
           if (d2 < ld2) {
-            const alpha = (1 - d2 / ld2) * 0.35;
+            const alpha = (1 - d2 / ld2) * 0.18;
             ctx.strokeStyle = `rgba(${color}, ${alpha})`;
             ctx.lineWidth = 1;
             ctx.beginPath();
@@ -149,14 +143,13 @@ export default function ParticleNetwork({
     setSize();
 
     if (reducedMotion.current) {
-      // single static frame
       const w = canvas.clientWidth;
       const h = canvas.clientHeight;
       ctx.clearRect(0, 0, w, h);
       for (const n of nodes) {
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${color}, 0.6)`;
+        ctx.fillStyle = `rgba(${color}, 0.4)`;
         ctx.fill();
       }
     } else {
