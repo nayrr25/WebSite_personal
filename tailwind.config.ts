@@ -5,29 +5,34 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // OPCIÓN C · tema claro. Mismos nombres que antes; valores nuevos.
         bg: {
-          base: "#07090C",
-          elevated: "#0C1014",
-          glass: "rgba(255,255,255,0.04)",
+          base: "#F3F5F9",
+          elevated: "#FFFFFF",
+          glass: "rgba(30,39,53,0.04)",
         },
         border: {
-          subtle: "rgba(255,255,255,0.08)",
-          strong: "rgba(255,255,255,0.14)",
+          subtle: "rgba(30,39,53,0.10)",
+          strong: "rgba(30,39,53,0.16)",
         },
         text: {
-          primary: "#F5F7FA",
-          secondary: "#A6ADBB",
-          muted: "#6B7280",
+          primary: "#1E2735",
+          secondary: "#586172",
+          muted: "#828BA0",
         },
         accent: {
-          cyan: "#5EE9F0",
-          mint: "#7CF5C4",
-          deep: "#0B1F3A",
+          cyan: "#2F62C8", // azul navy (acento primario)
+          mint: "#4F86E6", // azul claro (degradados)
+          deep: "#1E3360", // navy profundo (CTA sólido / cabeceras)
         },
-        danger: "#FF6B6B",
+        danger: "#DC4C4C",
       },
       fontFamily: {
+        // body / UI general
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        // titulares (Archivo) — usado por las utilidades .text-display-*/.text-h*
+        display: ["var(--font-display)", "var(--font-sans)", "system-ui", "sans-serif"],
+        // acento itálico ocasional
         serif: ["var(--font-serif)", "ui-serif", "Georgia", "serif"],
       },
       maxWidth: {
@@ -41,19 +46,22 @@ const config: Config = {
       },
       letterSpacing: {
         eyebrow: "0.18em",
-        display: "-0.04em",
-        tightish: "-0.03em",
+        display: "-0.03em",
+        tightish: "-0.02em",
       },
       transitionTimingFunction: {
         smooth: "cubic-bezier(0.22, 1, 0.36, 1)",
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(94,233,240,0.15), 0 0 40px -10px rgba(94,233,240,0.45)",
-        "glow-mint": "0 0 0 1px rgba(124,245,196,0.15), 0 0 40px -10px rgba(124,245,196,0.4)",
+        // sombras azules suaves (en claro queremos elevación real + halo de marca)
+        glow: "0 0 0 1px rgba(47,98,200,0.18), 0 12px 34px -16px rgba(47,98,200,0.40)",
+        "glow-mint": "0 0 0 1px rgba(79,134,230,0.18), 0 12px 34px -16px rgba(79,134,230,0.38)",
+        card: "0 1px 2px rgba(30,39,53,0.04), 0 18px 44px -26px rgba(30,39,53,0.28)",
       },
       backgroundImage: {
+        // líneas de grilla oscuras sobre claro
         "grid-faint":
-          "linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)",
+          "linear-gradient(to right, rgba(30,39,53,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(30,39,53,0.05) 1px, transparent 1px)",
       },
       animation: {
         "marquee-slow": "marquee 38s linear infinite",
