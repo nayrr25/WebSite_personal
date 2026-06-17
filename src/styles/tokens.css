@@ -1,22 +1,30 @@
-/* Design tokens — single source of truth.
- * Mirrored in tailwind.config.ts so utilities and inline styles stay in sync. */
+/* Design tokens — single source of truth (OPCIÓN C · Corporate Cool, tema claro).
+ * Mirrored in tailwind.config.ts so utilities and inline styles stay in sync.
+ *
+ * Nota: conservamos los MISMOS nombres semánticos (--accent-cyan, etc.) para no
+ * tocar ningún componente. Solo cambian los valores: el acento "cyan" ahora es
+ * un azul navy, y el fondo pasa de oscuro a slate claro. */
 :root {
-  --bg-base: #07090c;
-  --bg-elevated: #0c1014;
-  --bg-glass: rgba(255, 255, 255, 0.04);
+  /* Fondos */
+  --bg-base: #f3f5f9;        /* slate muy claro, fondo general */
+  --bg-elevated: #ffffff;    /* tarjetas / superficies elevadas */
+  --bg-glass: rgba(30, 39, 53, 0.04);
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.14);
+  /* Bordes (oscuros sobre claro) */
+  --border-subtle: rgba(30, 39, 53, 0.10);
+  --border-strong: rgba(30, 39, 53, 0.16);
 
-  --text-primary: #f5f7fa;
-  --text-secondary: #a6adbb;
-  --text-muted: #6b7280;
+  /* Texto */
+  --text-primary: #1e2735;   /* slate-900 */
+  --text-secondary: #586172; /* slate-500 */
+  --text-muted: #828ba0;     /* slate-400 */
 
-  --accent-cyan: #5ee9f0;
-  --accent-mint: #7cf5c4;
-  --accent-deep: #0b1f3a;
+  /* Acentos — ahora azul corporativo (mismos nombres) */
+  --accent-cyan: #2f62c8;    /* azul navy — acento primario */
+  --accent-mint: #4f86e6;    /* azul más claro — segundo color de degradados */
+  --accent-deep: #1e3360;    /* navy profundo — fondos sólidos / CTA */
 
-  --danger: #ff6b6b;
+  --danger: #dc4c4c;
 
   --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
   --dur-base: 600ms;
