@@ -10,6 +10,7 @@ import {
   GoogleTagManager,
   GoogleTagManagerNoScript,
 } from "@/components/analytics/GoogleTagManager";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 
 // Body / UI general — Public Sans (variable). Expuesta como --font-sans.
 const publicSans = Public_Sans({
@@ -187,6 +188,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-sans antialiased">
         <GoogleTagManager />
         <GoogleTagManagerNoScript />
+        <GoogleAnalytics />
         <StructuredData siteUrl={SITE_URL} />
         <LanguageProvider>
           <SkipToContent />
