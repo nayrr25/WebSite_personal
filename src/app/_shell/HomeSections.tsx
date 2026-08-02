@@ -9,7 +9,12 @@ import BuildingInPublic from "@/components/sections/BuildingInPublic";
 import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
 
-export default function Home() {
+/**
+ * Las secciones de la portada, compartidas por los dos idiomas.
+ * El contenido lo resuelve cada componente vía `useT()`, que lee el idioma
+ * del layout raíz correspondiente.
+ */
+export default function HomeSections() {
   return (
     <>
       <Hero />
