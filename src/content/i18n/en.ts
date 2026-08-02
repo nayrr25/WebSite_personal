@@ -345,49 +345,65 @@ export const en: Strings = {
 
   capabilitiesSection: {
     eyebrow: "Capabilities",
-    title: "Eight disciplines, one engagement.",
-    body: "Every project draws from the same toolkit. The mix changes; the standard does not.",
+    title: "Two verticals, one methodology.",
+    body:
+      "N-AI works two fronts with different buyers: institutional and financial intelligence, and commercial and consumer intelligence. The problem changes and so does the counterpart; the quantitative standard does not.",
   },
-  capabilities: [
+
+  verticals: [
     {
-      title: "AI & Intelligence Systems",
-      description:
-        "End-to-end design of AI-powered systems for executive surfaces, decision flows and operational reasoning.",
+      eyebrow: "Vertical 01",
+      title: "Institutional & financial intelligence",
+      audience: "For audit, risk, finance and the public sector",
+      items: [
+        {
+          title: "Anomaly detection & risk scoring",
+          description:
+            "Temporal, structural and behavioral signals modeled at scale, with explainable scoring.",
+        },
+        {
+          title: "Public procurement intelligence",
+          description:
+            "Analytics on public contracting: patterns, supplier concentration and preventive monitoring.",
+        },
+        {
+          title: "Credit decision engines",
+          description:
+            "Automated pre-approval, business rules and regulatory compliance with sub-second decisions.",
+        },
+        {
+          title: "Data governance & architecture",
+          description:
+            "From inventory to lineage, quality, ownership and regulatory posture — strategy made operable.",
+        },
+      ],
     },
     {
-      title: "Data Strategy & Governance",
-      description:
-        "From data inventory to lineage, quality, ownership and regulatory posture — strategy made operable.",
-    },
-    {
-      title: "Predictive Analytics",
-      description:
-        "Forecasting, scenario modeling and forward-looking metrics built directly into executive workflows.",
-    },
-    {
-      title: "Anomaly Detection",
-      description:
-        "Detect what should not be there — temporal, structural and behavioral signals modeled at scale.",
-    },
-    {
-      title: "Consumer Intelligence",
-      description:
-        "Behavioral segmentation, revealed preference and demand sensing for category and retail leaders.",
-    },
-    {
-      title: "Executive Dashboards",
-      description:
-        "Surfaces designed for the way executives actually decide — not the way data engineers think.",
-    },
-    {
-      title: "Risk Analytics",
-      description:
-        "Composite risk scoring with auditable components — the score and the why, in the same view.",
-    },
-    {
-      title: "Data Infrastructure",
-      description:
-        "Pipelines, schemas, validation and observability — the substrate beneath every reliable signal.",
+      eyebrow: "Vertical 02",
+      title: "Commercial & consumer intelligence",
+      audience: "For marketing, commercial and category teams",
+      items: [
+        {
+          title: "Consumer intelligence & RFM",
+          description:
+            "Behavioral segmentation, revealed preference and actionable profiles for category leaders.",
+        },
+        {
+          title: "Media & ad spend analytics",
+          description:
+            "A quantitative read on advertising investment: incrementality, saturation and return by channel.",
+        },
+        {
+          title: "Social listening with methodological design",
+          description:
+            "Digital listening treated as measurement, not counting: sampling design, validity, and signal over noise.",
+        },
+        {
+          title: "Data ingestion & unification",
+          description:
+            "Building proprietary sources and unifying data scattered across CRM, campaigns, e-commerce and research.",
+        },
+      ],
     },
   ],
 

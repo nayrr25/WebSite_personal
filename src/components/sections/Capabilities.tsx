@@ -4,10 +4,23 @@ import Section from "@/components/layout/Section";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/motion/Reveal";
 import { useT } from "@/lib/i18n";
-import { capabilityIcons } from "@/content/capabilities";
+import { verticalIcons } from "@/content/capabilities";
 
+/**
+ * Capacidades, agrupadas en DOS VERTICALES.
+ *
+ * Antes eran ocho tarjetas planas en una sola cuadricula. El problema: un
+ * director de marketing entraba, veia "detección de anomalías" y "risk
+ * scoring" en las primeras posiciones, y concluia que el sitio no era para el
+ * — aunque la mitad de las capacidades si le hablaban directamente.
+ *
+ * Separarlas por vertical, con la audiencia declarada en cada bloque, deja
+ * claro que son dos practicas de la misma consultora y no una lista de todo
+ * lo que se sabe hacer. Cada comprador encuentra su bloque en un vistazo.
+ */
 export default function Capabilities() {
   const t = useT();
+
   return (
     <Section id="capabilities">
       <Reveal>
@@ -22,35 +35,50 @@ export default function Capabilities() {
         <p className="text-body mt-5 max-w-2xl">{t.capabilitiesSection.body}</p>
       </Reveal>
 
-      <div className="mt-14 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {t.capabilities.map((cap, i) => {
-          const Icon = capabilityIcons[i] ?? capabilityIcons[0];
+      <div className="mt-16 flex flex-col gap-16">
+        {t.verticals.map((vertical, vi) => {
+          const icons = verticalIcons[vi] ?? verticalIcons[0];
           return (
-            <Reveal key={cap.title} delay={i * 0.04}>
-              <div className="group relative h-full overflow-hidden rounded-lg border border-border-subtle bg-bg-elevated/40 p-6 transition-all duration-300 ease-smooth hover:border-accent-cyan/30">
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, rgba(94,233,240,0.18) 0%, rgba(124,245,196,0.10) 50%, transparent 100%)",
-                    mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-                    WebkitMask:
-                      "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-                    WebkitMaskComposite: "xor",
-                    maskComposite: "exclude",
-                    padding: "1px",
-                  }}
-                />
+            <div key={vertical.title}>
+              <Reveal>
+                <div className="flex flex-col gap-2 border-l-2 border-accent-teal pl-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                  <div>
+                    <p className="text-[11px] uppercase tracking-eyebrow text-accent-teal">
+                      {vertical.eyebrow}
+                    </p>
+                    <h3 className="text-h2 mt-1.5 text-text-primary">{vertical.title}</h3>
+                  </div>
+                  {/* La audiencia, dicha en voz alta. Es lo que permite que el
+                   * visitante correcto se reconozca sin leer las cuatro
+                   * tarjetas. */}
+                  <p className="text-[13px] leading-snug text-text-muted sm:max-w-[26ch] sm:text-right">
+                    {vertical.audience}
+                  </p>
+                </div>
+              </Reveal>
 
-                <Icon
-                  aria-hidden
-                  className="h-5 w-5 text-accent-cyan transition-transform duration-300 ease-smooth group-hover:scale-110"
-                />
-                <h3 className="text-h3 relative mt-5 text-text-primary">{cap.title}</h3>
-                <p className="text-body-sm relative mt-2 text-[14px]">{cap.description}</p>
+              <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {vertical.items.map((cap, i) => {
+                  const Icon = icons[i] ?? icons[0];
+                  return (
+                    <Reveal key={cap.title} delay={i * 0.04}>
+                      <div className="group relative h-full overflow-hidden rounded-lg border border-border-subtle bg-bg-elevated/40 p-6 transition-all duration-300 ease-smooth hover:border-accent-teal/40">
+                        <Icon
+                          aria-hidden
+                          className="h-5 w-5 text-accent-teal transition-transform duration-300 ease-smooth group-hover:scale-110"
+                        />
+                        <h4 className="text-h3 relative mt-5 text-text-primary">
+                          {cap.title}
+                        </h4>
+                        <p className="text-body-sm relative mt-2 text-[14px]">
+                          {cap.description}
+                        </p>
+                      </div>
+                    </Reveal>
+                  );
+                })}
               </div>
-            </Reveal>
+            </div>
           );
         })}
       </div>

@@ -167,7 +167,15 @@ export default function StructuredData({
 
   // One Service entity per capability — gives AI engines structured "this entity offers X"
   // so prompts like "who offers data architecture consulting in Costa Rica" can match.
-  const services = es.capabilities.map((cap, idx) => ({
+  // Las capacidades ahora viven agrupadas en dos verticales, asi que se
+  // aplanan para seguir emitiendo un Service por cada una. Cada vertical
+  // aporta ademas su audiencia declarada, que es informacion util para los
+  // motores: "quien ofrece analitica de pauta para equipos de marketing".
+  const flatCapabilities = es.verticals.flatMap((v) =>
+    v.items.map((item) => ({ ...item, audience: v.audience, vertical: v.title })),
+  );
+
+  const services = flatCapabilities.map((cap, idx) => ({
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": `${siteUrl}/#service-${idx}`,

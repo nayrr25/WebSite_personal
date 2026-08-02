@@ -357,50 +357,69 @@ export const es = {
 
   capabilitiesSection: {
     eyebrow: "Capacidades",
-    title: "Ocho disciplinas, un solo engagement.",
+    title: "Dos verticales, una misma metodología.",
     body:
-      "Cada proyecto se nutre del mismo toolkit. La mezcla cambia; el estándar no.",
+      "N-AI trabaja dos frentes con compradores distintos: inteligencia institucional y financiera, e inteligencia comercial y de consumidor. Cambia el problema y cambia el interlocutor; el estándar cuantitativo no.",
   },
-  capabilities: [
+
+  // Dos verticales explicitas. Antes eran ocho tarjetas planas: un director de
+  // marketing entraba, veia SICOP y risk scoring, y concluia que el sitio no
+  // era para el. Separarlas deja claro que son dos practicas de la misma
+  // consultora, no una lista de todo lo que se sabe hacer.
+  verticals: [
     {
-      title: "IA y Sistemas de Inteligencia",
-      description:
-        "Diseño end-to-end de sistemas con IA para superficies ejecutivas, flujos de decisión y razonamiento operativo.",
+      eyebrow: "Vertical 01",
+      title: "Inteligencia institucional y financiera",
+      audience: "Para auditoría, riesgo, finanzas y sector público",
+      items: [
+        {
+          title: "Detección de anomalías y risk scoring",
+          description:
+            "Señales temporales, estructurales y de comportamiento modeladas a escala, con scoring explicable.",
+        },
+        {
+          title: "Inteligencia de compras públicas",
+          description:
+            "Analítica sobre contratación pública: patrones, concentración de proveedores y monitoreo preventivo.",
+        },
+        {
+          title: "Motores de decisión crediticia",
+          description:
+            "Pre-aprobación automatizada, reglas de negocio y cumplimiento regulatorio con decisión sub-segundo.",
+        },
+        {
+          title: "Gobernanza y arquitectura de datos",
+          description:
+            "Del inventario al lineage, calidad, ownership y postura regulatoria — estrategia hecha operable.",
+        },
+      ],
     },
     {
-      title: "Estrategia y Gobernanza de Datos",
-      description:
-        "Del inventario al lineage, calidad, ownership y postura regulatoria — estrategia hecha operable.",
-    },
-    {
-      title: "Analítica Predictiva",
-      description:
-        "Forecasting, modelado de escenarios y métricas prospectivas integradas directo en los flujos ejecutivos.",
-    },
-    {
-      title: "Detección de Anomalías",
-      description:
-        "Detecta lo que no debería estar ahí — señales temporales, estructurales y de comportamiento modeladas a escala.",
-    },
-    {
-      title: "Inteligencia de Consumidor",
-      description:
-        "Segmentación de comportamiento, preferencia revelada y sensado de demanda para líderes de categoría y retail.",
-    },
-    {
-      title: "Dashboards Ejecutivos",
-      description:
-        "Superficies diseñadas para la forma en que los ejecutivos realmente deciden — no la forma en que piensan los data engineers.",
-    },
-    {
-      title: "Analítica de Riesgo",
-      description:
-        "Scoring de riesgo compuesto con componentes auditables — el score y el porqué, en la misma vista.",
-    },
-    {
-      title: "Infraestructura de Datos",
-      description:
-        "Pipelines, esquemas, validación y observabilidad — el sustrato debajo de cada señal confiable.",
+      eyebrow: "Vertical 02",
+      title: "Inteligencia comercial y de consumidor",
+      audience: "Para marketing, comercial y liderazgo de categoría",
+      items: [
+        {
+          title: "Inteligencia de consumidor y RFM",
+          description:
+            "Segmentación de comportamiento, preferencia revelada y perfiles accionables para líderes de categoría.",
+        },
+        {
+          title: "Análisis de pauta y desempeño de medios",
+          description:
+            "Lectura cuantitativa de inversión publicitaria: incrementalidad, saturación y retorno por canal.",
+        },
+        {
+          title: "Social listening con diseño metodológico",
+          description:
+            "Escucha digital tratada como medición, no como conteo: diseño muestral, validez y señal frente a ruido.",
+        },
+        {
+          title: "Ingesta y unificación de datos",
+          description:
+            "Construcción de fuentes propias y unificación de datos dispersos en CRM, campañas, e-commerce e investigación.",
+        },
+      ],
     },
   ],
 
