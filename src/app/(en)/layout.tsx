@@ -57,6 +57,25 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+
+  // Verificacion de propiedad en buscadores.
+  //
+  // Los tokens NO van hardcodeados: se leen de variables de entorno, asi que
+  // agregar o rotar una verificacion no requiere tocar codigo ni abrir un PR.
+  // Si la variable no esta definida, la etiqueta simplemente no se emite.
+  //
+  // Nota: si verificas por DOMINIO via registro TXT de DNS (la opcion
+  // recomendada, porque cubre / y /en y ambos protocolos de una vez), no
+  // necesitas ninguna de estas variables. Estan aqui como alternativa para
+  // la verificacion por prefijo de URL.
+  verification: {
+    ...(process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION && {
+      google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION,
+    }),
+    ...(process.env.NEXT_PUBLIC_BING_VERIFICATION && {
+      other: { "msvalidate.01": process.env.NEXT_PUBLIC_BING_VERIFICATION },
+    }),
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
