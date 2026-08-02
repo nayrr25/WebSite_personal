@@ -23,10 +23,28 @@ const DEFAULT_GA_ID = "G-JY9LF05GHJ";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? DEFAULT_GA_ID;
 
+/**
+ * Cuándo se activa.
+ *
+ * La versión anterior exigía `NEXT_PUBLIC_VERCEL_ENV === "production"`. Eso
+ * fue un error: esa variable SOLO existe si el proyecto tiene activada la
+ * opción "Automatically expose System Environment Variables" en Vercel. Si
+ * está apagada, la variable es `undefined`, la condición nunca se cumple y el
+ * script no se renderiza — sin ningún error visible en consola ni en el build.
+ *
+ * Ahora la base es `NODE_ENV`, que Next define SIEMPRE como "production" en
+ * cualquier build de producción, con Vercel o sin él. Los previews se excluyen
+ * solo si la variable de Vercel está disponible; si no lo está, preferimos
+ * medir de más antes que no medir nada: fallar midiendo es recuperable
+ * (filtrás el tráfico después), fallar en silencio no — se pierden los datos
+ * para siempre.
+ */
+const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === "preview";
+const FORCED = process.env.NEXT_PUBLIC_GA_FORCE === "1";
+
 const ENABLED =
   Boolean(GA_ID) &&
-  (process.env.NEXT_PUBLIC_VERCEL_ENV === "production" ||
-    process.env.NEXT_PUBLIC_GA_FORCE === "1");
+  (FORCED || (process.env.NODE_ENV === "production" && !IS_PREVIEW));
 
 export default function GoogleAnalytics() {
   if (!ENABLED) return null;
