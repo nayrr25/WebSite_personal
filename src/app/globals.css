@@ -19,6 +19,14 @@
     overflow-x: hidden;
   }
 
+  /* FIX: el nav es `fixed`, así que cualquier salto por ancla aterrizaba DEBAJO
+   * de él y el titular de la sección quedaba tapado. Reservamos la altura del
+   * nav (pill de 64px + margen) más un respiro visual. */
+  section[id],
+  [id]:target {
+    scroll-margin-top: 104px;
+  }
+
   ::selection {
     background-color: rgba(47, 98, 200, 0.18);
     color: var(--text-primary);

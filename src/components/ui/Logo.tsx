@@ -1,4 +1,5 @@
 import { cn } from "@/lib/cn";
+import LogoMark3D from "./LogoMark3D";
 
 interface LogoMarkProps {
   className?: string;
@@ -120,6 +121,21 @@ interface LogoFullProps {
   className?: string;
   /** size scaling — `lg` for hero, `md` for footer, `sm` for compact use */
   size?: "sm" | "md" | "lg";
+  /**
+   * Densidad del lockup.
+   *  - "full"    → las dos bajadas + la tira "Data · Insights · AI" (como estaba)
+   *  - "minimal" → solo "Nancy Artificial Intelligence"  ← default en el hero
+   *
+   * Motivo: tres bajadas apiladas empujaban el titular fuera del primer
+   * pantallazo (en móvil ocupaban 5 líneas). La marca se explica una vez.
+   */
+  variant?: "full" | "minimal";
+  /**
+   * Usa el mark 3D (variante "profundidad real") en vez del plano.
+   * Reservado para el hero — en nav/footer el mark es demasiado chico
+   * para que la profundidad se lea.
+   */
+  three?: boolean;
 }
 
 /**
@@ -134,7 +150,13 @@ interface LogoFullProps {
  * The two subtitles surface the dual meaning of the acronym (Neural /
  * Nancy). Scales crisply at any size, themeable, ~5 KB instead of 2 MB.
  */
-export function LogoFull({ className, size = "lg" }: LogoFullProps) {
+export function LogoFull({
+  className,
+  size = "lg",
+  variant = "minimal",
+  three = false,
+}: LogoFullProps) {
+  const minimal = variant === "minimal";
   const dims = {
     sm: {
       mark: 32,
@@ -160,9 +182,23 @@ export function LogoFull({ className, size = "lg" }: LogoFullProps) {
   }[size];
 
   return (
-    <div className={cn("inline-flex items-center", dims.gap, className)}>
-      <LogoMark size={dims.mark} glow />
-      <div className="flex flex-col items-start">
+    /* FIX móvil: antes era `inline-flex items-center` siempre, y a 390px el
+     * símbolo y el wordmark se encimaban sin alinearse. Ahora apila en
+     * vertical y centra por debajo de `sm`, y recupera la fila desde `sm`. */
+    <div
+      className={cn(
+        "flex flex-col items-center text-center",
+        "sm:flex-row sm:items-center sm:text-left",
+        dims.gap,
+        className,
+      )}
+    >
+      {three ? (
+        <LogoMark3D size={dims.mark} />
+      ) : (
+        <LogoMark size={dims.mark} glow />
+      )}
+      <div className="flex flex-col items-center sm:items-start">
         <div
           className={cn(
             "font-sans font-light tracking-tighter leading-none text-text-primary",
@@ -174,48 +210,55 @@ export function LogoFull({ className, size = "lg" }: LogoFullProps) {
           <span className="mx-1 text-accent-cyan">–</span>
           <span>AI</span>
         </div>
+        {!minimal && (
+          <div
+            className={cn(
+              "mt-2 uppercase tracking-[0.22em] text-text-secondary",
+              dims.sub,
+            )}
+          >
+            Neural Analytics & Intelligence
+          </div>
+        )}
         <div
           className={cn(
-            "mt-2 uppercase tracking-[0.22em] text-text-secondary",
-            dims.sub,
-          )}
-        >
-          Neural Analytics & Intelligence
-        </div>
-        <div
-          className={cn(
-            "mt-1 uppercase tracking-[0.22em] text-text-muted",
+            "mt-2 uppercase tracking-[0.22em] text-text-muted",
+            minimal ? "" : "mt-1",
             dims.sub,
           )}
         >
           Nancy Artificial Intelligence
         </div>
-        <div
-          aria-hidden
-          className="mt-2 h-px w-full"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(94,233,240,0) 0%, rgba(94,233,240,0.6) 30%, rgba(124,245,196,0.6) 70%, rgba(124,245,196,0) 100%)",
-          }}
-        />
-        <div
-          className={cn(
-            "mt-2 inline-flex items-center gap-2 uppercase tracking-[0.22em] text-text-secondary",
-            dims.tag,
-          )}
-        >
-          <span>Data</span>
-          <span
-            aria-hidden
-            className="inline-block h-1 w-1 rounded-full bg-accent-cyan"
-          />
-          <span>Insights</span>
-          <span
-            aria-hidden
-            className="inline-block h-1 w-1 rounded-full bg-accent-mint"
-          />
-          <span>AI</span>
-        </div>
+        {!minimal && (
+          <>
+            <div
+              aria-hidden
+              className="mt-2 h-px w-full"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(94,233,240,0) 0%, rgba(94,233,240,0.6) 30%, rgba(124,245,196,0.6) 70%, rgba(124,245,196,0) 100%)",
+              }}
+            />
+            <div
+              className={cn(
+                "mt-2 inline-flex items-center gap-2 uppercase tracking-[0.22em] text-text-secondary",
+                dims.tag,
+              )}
+            >
+              <span>Data</span>
+              <span
+                aria-hidden
+                className="inline-block h-1 w-1 rounded-full bg-accent-cyan"
+              />
+              <span>Insights</span>
+              <span
+                aria-hidden
+                className="inline-block h-1 w-1 rounded-full bg-accent-mint"
+              />
+              <span>AI</span>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
