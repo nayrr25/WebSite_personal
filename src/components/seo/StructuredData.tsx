@@ -41,7 +41,7 @@ export default function StructuredData({ siteUrl }: { siteUrl: string }) {
       width: 1200,
       height: 600,
     },
-    image: `${siteUrl}/Nancy.png`,
+    image: `${siteUrl}/Nancy.jpg`,
     description:
       "Consultoría ejecutiva de IA e inteligencia de datos. Detección de anomalías, risk scoring, segmentación RFM, perfiles de consumidor, arquitectura de datos y dashboards ejecutivos.",
     founder: { "@id": `${siteUrl}/#nancy` },
@@ -104,7 +104,9 @@ export default function StructuredData({ siteUrl }: { siteUrl: string }) {
     jobTitle: "Founder · Data & AI Strategist",
     worksFor: { "@id": `${siteUrl}/#organization` },
     url: siteUrl,
-    image: `${siteUrl}/Nancy.png`,
+    // Person -> retrato recortado (es lo que Google puede mostrar en un panel
+    // de conocimiento). La organizacion usa la composicion de marca completa.
+    image: `${siteUrl}/nancy-retrato.jpg`,
     email: site.contact.email,
     address: {
       "@type": "PostalAddress",
