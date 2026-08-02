@@ -26,6 +26,8 @@ const config: Config = {
           deep: "#1E3360", // navy profundo (CTA sólido / cabeceras)
         },
         danger: "#DC4C4C",
+        "accent-teal": "var(--accent-teal)",
+        "accent-emerald": "var(--accent-emerald)",
       },
       fontFamily: {
         // body / UI general

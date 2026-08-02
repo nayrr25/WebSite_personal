@@ -28,6 +28,11 @@ export const es = {
       "Consultoría de IA, Business Intelligence y arquitectura de datos para empresas en Costa Rica y Latinoamérica. Especialistas en inteligencia de compras públicas (SICOP), segmentación RFM y perfiles de consumidor para consumo masivo.",
     primaryCta: "Explorar Casos de Estudio",
     secondaryCta: "Trabaja con N-AI",
+    proof: [
+      { value: "+400%", label: "Créditos colocados" },
+      { value: ">2.4M", label: "Registros de compra pública analizados" },
+      { value: "47", label: "Patrones de anomalía modelados" },
+    ],
     marquee: [
       "Detección de Anomalías",
       "Risk Scoring",

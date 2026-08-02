@@ -28,6 +28,11 @@ export const en: Strings = {
       "AI consulting, Business Intelligence and data architecture for companies in Costa Rica and Latin America. Specialists in public procurement intelligence (SICOP), RFM segmentation and consumer profiling for FMCG.",
     primaryCta: "Explore Case Studies",
     secondaryCta: "Work With N-AI",
+    proof: [
+      { value: "+400%", label: "Increase in credit placements" },
+      { value: ">2.4M", label: "Procurement records analyzed" },
+      { value: "47", label: "Anomaly patterns modeled" },
+    ],
     marquee: [
       "Anomaly Detection",
       "Risk Scoring",
