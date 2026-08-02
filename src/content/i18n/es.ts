@@ -301,9 +301,20 @@ export const es = {
 
   about: {
     eyebrow: "Sobre Mí",
-    headline: "N-AI · Neural Analytics & Intelligence",
+    headline: "La mente detrás de N-AI",
+    // Posicionamiento explicito. Antes decia solo "estratega de datos e IA":
+    // una descripcion que puede usar cualquiera. Economista y estadistica son
+    // credenciales verificables y son el diferenciador real frente a un
+    // perfil puramente tecnico.
+    founderName: "Nancy Rodríguez",
+    founderRole: "Fundadora · Principal Data & AI Consultant",
+    founderDisciplines: "Economista · Estadística · Data & AI Leader",
     founderBio:
-      "N-AI fue fundada por Nancy Rodríguez, una estratega de datos e IA con experiencia diseñando ecosistemas analíticos, arquitecturas de inteligencia y soluciones impulsadas por IA en entornos de negocio complejos.",
+      "Nancy Rodríguez es economista, estadística y líder de datos e IA, con experiencia transformando problemas complejos de negocio en soluciones medibles basadas en datos.",
+    founderBio2:
+      "Su trayectoria abarca investigación económica, metodología estadística, analítica financiera y comercial, inteligencia de consumidor, ecosistemas de datos en la nube e inteligencia artificial.",
+    founderBio3:
+      "Combina métodos cuantitativos rigurosos con implementación real: desde marcos de medición y arquitectura de datos hasta analítica predictiva, automatización y sistemas de decisión con IA.",
     workCombinesLabel: "Su trabajo combina",
     workAreas: [
       "Inteligencia Artificial",
@@ -321,18 +332,23 @@ export const es = {
     whyBody:
       "El reto es entender cómo estructurarlos, conectarlos, interpretarlos y transformarlos en sistemas inteligentes que apoyen decisiones reales.",
     whyClose: "N-AI fue creada para cerrar esa brecha.",
-    futureTitle: "Visión Futura",
-    futureLead: "N-AI evoluciona como un espacio para explorar:",
-    futureAreas: [
-      "Sistemas de inteligencia impulsados por IA",
-      "Ecosistemas y arquitecturas de datos",
-      "Analítica predictiva",
+    // Reemplaza a "Vision Futura", que enumeraba lo que N-AI *podria* llegar a
+    // hacer. Prometer capacidades futuras resta credibilidad; la trayectoria
+    // previa la construye.
+    trajectoryTitle: "De la investigación a la inteligencia artificial",
+    trajectoryLead:
+      "La inteligencia artificial no es el punto de partida de N-AI. Es la última capa de una carrera construida sobre economía, estadística, medición y analítica de negocio.",
+    trajectorySteps: [
+      "Investigación económica",
+      "Metodología estadística",
+      "Analítica de negocio",
+      "Ciencia de datos",
       "Inteligencia de consumidor",
-      "Sistemas de monitoreo de riesgo",
-      "Prototipos reales de IA",
+      "Liderazgo en datos e IA",
     ],
-    futureClosing:
-      "Construyendo en abierto a través de casos reales y proyectos aplicados de inteligencia.",
+    trajectoryQuote: "Datos sin metodología son solo información.",
+    trajectoryClose:
+      "Mi formación en economía y estadística define cómo N-AI aborda la inteligencia artificial: primero la pregunta de negocio, después el marco de medición, luego la validación de los datos — y solo al final, la tecnología.",
     portraitAlt: "Retrato de Nancy Rodríguez, fundadora de N-AI",
   },
 
@@ -486,7 +502,14 @@ export const es = {
     headlineEnd: ".",
     body:
       "N-AI colabora con equipos ejecutivos, líderes de innovación gubernamental y organizaciones líderes de categoría. Escríbenos sobre la pregunta que tu sistema actual no puede responder.",
-    primaryCta: "Iniciar una Conversación",
+    primaryCta: "Escribir por WhatsApp",
+    secondaryCta: "Escribir por correo",
+    // Etiquetas que dicen QUE pasa al hacer clic. "Iniciar una conversacion"
+    // no dice a donde lleva; "Escribir por WhatsApp" si.
+    whatsappHint: "Respuesta más rápida",
+    emailHint: "Para propuestas y documentos",
+    whatsappMessage:
+      "Hola Nancy, te escribo desde n-ai.dev. Me interesa conversar sobre un proyecto de datos / IA.",
     mailtoSubject: "Conversación con N-AI",
     mailtoBody:
       "Hola Nancy,\n\nMe gustaría iniciar una conversación sobre un proyecto de sistema de inteligencia que estamos evaluando.\n\nContexto:\n• Organización:\n• Objetivo:\n• Timeline:\n\nGracias,\n",

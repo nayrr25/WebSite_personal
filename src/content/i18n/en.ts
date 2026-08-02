@@ -298,10 +298,17 @@ export const en: Strings = {
   },
 
   about: {
-    eyebrow: "About Me",
-    headline: "N-AI · Neural Analytics & Intelligence",
+    eyebrow: "About",
+    headline: "The mind behind N-AI",
+    founderName: "Nancy Rodríguez",
+    founderRole: "Founder & Principal Data / AI Consultant",
+    founderDisciplines: "Economist · Statistician · Data & AI Leader",
     founderBio:
-      "N-AI was founded by Nancy Rodríguez, a data and AI strategist with experience designing analytical ecosystems, intelligence architectures and AI-powered solutions across complex business environments.",
+      "Nancy Rodríguez is an economist, statistician and Data & AI leader with experience transforming complex business problems into measurable, data-driven solutions.",
+    founderBio2:
+      "Her career spans economic research, statistical methodology, financial and commercial analytics, consumer intelligence, cloud data ecosystems and artificial intelligence.",
+    founderBio3:
+      "She combines rigorous quantitative methods with hands-on implementation — from measurement frameworks and data architecture to predictive analytics, automation and AI-powered decision systems.",
     workCombinesLabel: "Her work combines",
     workAreas: [
       "Artificial Intelligence",
@@ -309,28 +316,30 @@ export const en: Strings = {
       "Data Strategy",
       "Consumer Intelligence",
       "Predictive Modeling",
-      "Governance & Data Maturity",
+      "Data Governance & Maturity",
       "Executive Intelligence Systems",
     ],
     focusBody:
-      "From public procurement intelligence to consumer behavior analytics, the focus of N-AI is not only generating dashboards — but building systems capable of transforming data into actionable intelligence.",
+      "From public procurement intelligence to consumer behavior analytics, N-AI's focus is not just building dashboards — it is building systems that turn data into actionable intelligence.",
     whyTitle: "Why N-AI",
     whyLead: "Most organizations already have data.",
     whyBody:
-      "The challenge is understanding how to structure it, connect it, interpret it and transform it into intelligent systems that support real decisions.",
-    whyClose: "N-AI was created to bridge that gap.",
-    futureTitle: "Future Vision",
-    futureLead: "N-AI is evolving as a space to explore:",
-    futureAreas: [
-      "AI-powered intelligence systems",
-      "Data ecosystems and architectures",
-      "Predictive analytics",
+      "The challenge is knowing how to structure it, connect it, interpret it and turn it into intelligent systems that support real decisions.",
+    whyClose: "N-AI was created to close that gap.",
+    trajectoryTitle: "From research to artificial intelligence",
+    trajectoryLead:
+      "Artificial intelligence is not the starting point of N-AI's methodology. It is the latest layer of a career built on economics, statistics, measurement and business analytics.",
+    trajectorySteps: [
+      "Economic research",
+      "Statistical methodology",
+      "Business analytics",
+      "Data science",
       "Consumer intelligence",
-      "Risk monitoring systems",
-      "Real-world AI prototypes",
+      "Data & AI leadership",
     ],
-    futureClosing:
-      "Building in public through real case studies and applied intelligence projects.",
+    trajectoryQuote: "Data without methodology is just information.",
+    trajectoryClose:
+      "My background in economics and statistics shapes how N-AI approaches artificial intelligence: starting with the business question, defining the measurement framework, validating the data — and only then selecting the technology.",
     portraitAlt: "Portrait of Nancy Rodríguez, founder of N-AI",
   },
 
@@ -481,7 +490,12 @@ export const en: Strings = {
     headlineEnd: ".",
     body:
       "N-AI engages with executive teams, government innovation leads and category-leading organizations. Reach out with the question you can't answer with the system you have today.",
-    primaryCta: "Start a Conversation",
+    primaryCta: "Message on WhatsApp",
+    secondaryCta: "Send an email",
+    whatsappHint: "Fastest reply",
+    emailHint: "For proposals and documents",
+    whatsappMessage:
+      "Hi Nancy, I'm writing from n-ai.dev. I'd like to discuss a data / AI project.",
     mailtoSubject: "Conversation with N-AI",
     mailtoBody:
       "Hi Nancy,\n\nI'd like to start a conversation about an intelligence system project we're scoping.\n\nContext:\n• Organization:\n• Goal:\n• Timeline:\n\nThanks,\n",
