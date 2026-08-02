@@ -18,7 +18,15 @@ import { en } from "@/content/i18n/en";
  * Strings come from the Spanish dictionary (canonical locale). FAQ entries
  * also include English versions so AI answers in either language can cite.
  */
-export default function StructuredData({ siteUrl }: { siteUrl: string }) {
+export default function StructuredData({
+  siteUrl,
+  lang = "es",
+}: {
+  siteUrl: string;
+  /** Idioma de la página que incrusta este bloque. Se usa en inLanguage. */
+  lang?: "es" | "en";
+}) {
+  const inLanguage = lang === "es" ? "es-CR" : "en-US";
   const organization = {
     "@context": "https://schema.org",
     "@type": ["Organization", "ProfessionalService"],
@@ -145,7 +153,7 @@ export default function StructuredData({ siteUrl }: { siteUrl: string }) {
       "Neural Artificial Intelligence",
     ],
     description: "Consultoría ejecutiva de IA e inteligencia de datos.",
-    inLanguage: ["es-CR", "en-US"],
+    inLanguage,
     publisher: { "@id": `${siteUrl}/#organization` },
     potentialAction: {
       "@type": "SearchAction",

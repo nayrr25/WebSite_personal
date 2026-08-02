@@ -7,13 +7,20 @@ import GridGlow from "@/components/backgrounds/GridGlow";
 import { LinkButton } from "@/components/ui/Button";
 import { site } from "@/content/site";
 import { useT } from "@/lib/i18n";
-import { Mail, Linkedin, GraduationCap } from "lucide-react";
+import { Mail, Linkedin, GraduationCap, MessageCircle } from "lucide-react";
 
 export default function Contact() {
   const t = useT();
   const subject = encodeURIComponent(t.contact.mailtoSubject);
   const body = encodeURIComponent(t.contact.mailtoBody);
   const mailto = `mailto:${site.contact.email}?subject=${subject}&body=${body}`;
+  // WhatsApp ya estaba configurado en site.ts pero no se usaba en ninguna
+  // parte del sitio. En Costa Rica es el canal de negocio por defecto y tiene
+  // muchisima menos friccion que abrir un cliente de correo: pasa a ser la
+  // accion principal, con el correo al lado para propuestas y adjuntos.
+  const whatsapp = `${site.contact.whatsapp}?text=${encodeURIComponent(
+    t.contact.whatsappMessage,
+  )}`;
 
   return (
     <Section id="contact" className="relative overflow-hidden">
@@ -37,11 +44,45 @@ export default function Contact() {
 
         <Reveal delay={0.18}>
           <div className="mt-12 flex flex-col items-center gap-4">
-            <LinkButton href={mailto} variant="primary" withArrow>
-              {t.contact.primaryCta}
-            </LinkButton>
+            {/* Dos canales explicitos, uno al lado del otro. Antes habia un
+             * solo boton que decia "Iniciar una conversacion" y abria el
+             * cliente de correo sin avisar. */}
+            <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+              <div className="flex flex-col items-center gap-1.5">
+                <LinkButton
+                  href={whatsapp}
+                  variant="primary"
+                  withArrow
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {t.contact.primaryCta}
+                </LinkButton>
+                <span className="text-[11px] uppercase tracking-eyebrow text-accent-teal">
+                  {t.contact.whatsappHint}
+                </span>
+              </div>
+
+              <div className="flex flex-col items-center gap-1.5">
+                <LinkButton href={mailto} variant="ghost">
+                  {t.contact.secondaryCta}
+                </LinkButton>
+                <span className="text-[11px] uppercase tracking-eyebrow text-text-muted">
+                  {t.contact.emailHint}
+                </span>
+              </div>
+            </div>
 
             <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+              <a
+                href={whatsapp}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
+              >
+                <MessageCircle className="h-4 w-4" aria-hidden />
+                {site.contact.whatsappDisplay}
+              </a>
               <a
                 href={`mailto:${site.contact.email}`}
                 className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"

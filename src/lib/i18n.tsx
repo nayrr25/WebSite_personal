@@ -1,81 +1,72 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { es, type Strings } from "@/content/i18n/es";
 import { en } from "@/content/i18n/en";
 
 export type Lang = "es" | "en";
-const STORAGE_KEY = "n-ai.lang";
-const DEFAULT_LANG: Lang = "es";
+
+export const DEFAULT_LANG: Lang = "es";
 
 const DICTIONARY: Record<Lang, Strings> = { es, en };
+
+/** Ruta de cada idioma. El español vive en la raíz por ser el canónico. */
+export const LANG_PATH: Record<Lang, string> = { es: "/", en: "/en" };
+
+/** El idioma contrario — lo usa el conmutador del nav. */
+export function otherLang(lang: Lang): Lang {
+  return lang === "es" ? "en" : "es";
+}
 
 interface LanguageContextValue {
   lang: Lang;
   t: Strings;
-  setLang: (lang: Lang) => void;
-  toggle: () => void;
+  /** El idioma contrario. */
+  other: Lang;
+  /** Ruta a la versión en el otro idioma. */
+  otherHref: string;
 }
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  // SSR-safe: start with default, hydrate from localStorage on mount.
-  const [lang, setLangState] = useState<Lang>(DEFAULT_LANG);
-  const [ready, setReady] = useState(false);
+/**
+ * El idioma lo determina la RUTA, no el estado del cliente.
+ *
+ * La versión anterior lo guardaba en `localStorage` y lo hidrataba tras el
+ * montaje. Consecuencia: los dos idiomas compartían la URL `/`, el HTML que
+ * recibía Google siempre estaba en español, y la traducción completa al
+ * inglés no existía para los buscadores. Además provocaba un parpadeo en la
+ * primera carga cuando el idioma guardado no era el de por defecto.
+ *
+ * Ahora `lang` llega desde el layout raíz de cada ruta: el HTML sale del
+ * servidor ya en el idioma correcto y el conmutador es un enlace normal.
+ */
+export function LanguageProvider({
+  lang,
+  children,
+}: {
+  lang: Lang;
+  children: ReactNode;
+}) {
+  const value = useMemo<LanguageContextValue>(() => {
+    const other = otherLang(lang);
+    return { lang, t: DICTIONARY[lang], other, otherHref: LANG_PATH[other] };
+  }, [lang]);
 
-  useEffect(() => {
-    try {
-      const stored = window.localStorage.getItem(STORAGE_KEY) as Lang | null;
-      if (stored === "es" || stored === "en") {
-        setLangState(stored);
-      }
-    } catch {
-      // ignore — private mode, etc.
-    }
-    setReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!ready) return;
-    try {
-      window.localStorage.setItem(STORAGE_KEY, lang);
-    } catch {
-      // ignore
-    }
-    // Update <html lang> for accessibility + SEO.
-    if (typeof document !== "undefined") {
-      document.documentElement.lang = lang;
-    }
-  }, [lang, ready]);
-
-  const setLang = (next: Lang) => setLangState(next);
-  const toggle = () => setLangState((prev) => (prev === "es" ? "en" : "es"));
-
-  const value = useMemo<LanguageContextValue>(
-    () => ({ lang, t: DICTIONARY[lang], setLang, toggle }),
-    [lang],
+  return (
+    <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>
   );
-
-  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
 export function useLanguage() {
   const ctx = useContext(LanguageContext);
   if (!ctx) {
-    throw new Error("useLanguage must be used within <LanguageProvider>");
+    throw new Error("useLanguage debe usarse dentro de <LanguageProvider>");
   }
   return ctx;
 }
 
-/** Sugar — just the strings. Convenient when you don't need to toggle. */
+/** Azúcar — solo las cadenas. */
 export function useT(): Strings {
   return useLanguage().t;
 }

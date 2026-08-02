@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/cn";
 import { site } from "@/content/site";
@@ -12,7 +13,7 @@ const HIDE_UNTIL = 80;
 
 export default function Nav() {
   const reduce = useReducedMotion();
-  const { lang, t, toggle } = useLanguage();
+  const { lang, t, otherHref } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
@@ -37,6 +38,7 @@ export default function Nav() {
 
   const switchLabel = lang === "es" ? t.langToggle.switchToEnglish : t.langToggle.switchToSpanish;
   const oppositeLang = lang === "es" ? t.langToggle.en : t.langToggle.es;
+  const oppositeLangCode = lang === "es" ? "en" : "es";
 
   return (
     <motion.header
@@ -89,16 +91,20 @@ export default function Nav() {
 
         <div className="flex items-center gap-2">
           {/* Language toggle */}
-          <button
-            type="button"
-            onClick={toggle}
+          {/* Enlace real, no botón: cada idioma tiene su propia URL, así que
+           * cambiar de idioma es navegar. Google puede seguirlo y descubrir
+           * la otra versión; antes era un onClick y no existía para el
+           * rastreador. `hrefLang` se lo declara explícitamente. */}
+          <Link
+            href={otherHref}
+            hrefLang={oppositeLangCode}
             aria-label={switchLabel}
             title={switchLabel}
             className="group inline-flex h-9 items-center gap-1.5 rounded-md border border-border-subtle bg-bg-glass px-2.5 text-[12px] font-medium text-text-secondary transition-all duration-200 ease-smooth hover:border-accent-cyan/40 hover:text-text-primary"
           >
             <Globe aria-hidden className="h-3.5 w-3.5 text-accent-cyan" />
             <span className="tracking-eyebrow">{oppositeLang}</span>
-          </button>
+          </Link>
 
           <a
             href="#contact"

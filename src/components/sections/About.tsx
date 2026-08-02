@@ -85,7 +85,25 @@ export default function About() {
         </Reveal>
 
         <Reveal delay={0.15} className="flex flex-col justify-center">
-          <p className="text-body max-w-xl text-text-secondary">{t.about.founderBio}</p>
+          {/* Identidad profesional explicita. Antes la bio arrancaba con
+           * "estratega de datos e IA" — una descripcion que puede reclamar
+           * cualquiera. Nombrar economista y estadistica es lo que separa un
+           * perfil senior de un perfil tecnico, y es verificable. */}
+          <div className="mb-7">
+            <p className="text-h3 text-text-primary">{t.about.founderName}</p>
+            <p className="mt-1.5 text-[15px] font-semibold text-accent-teal">
+              {t.about.founderRole}
+            </p>
+            <p className="mt-2 text-[12px] uppercase tracking-eyebrow text-text-muted">
+              {t.about.founderDisciplines}
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <p className="text-body max-w-xl text-text-secondary">{t.about.founderBio}</p>
+            <p className="text-body max-w-xl text-text-secondary">{t.about.founderBio2}</p>
+            <p className="text-body max-w-xl text-text-secondary">{t.about.founderBio3}</p>
+          </div>
 
           <div className="mt-10">
             <p className="text-eyebrow">{t.about.workCombinesLabel}</p>
@@ -127,38 +145,60 @@ export default function About() {
         </div>
       </Reveal>
 
-      {/* Future vision */}
-      <div className="mt-32 grid grid-cols-1 gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
+      {/* Trayectoria profesional.
+       *
+       * Reemplaza a "Vision Futura", que enumeraba lo que N-AI *podria* llegar
+       * a explorar. Prometer capacidades futuras resta credibilidad: se lee
+       * como un portafolio en construccion. La trayectoria previa hace lo
+       * contrario — demuestra que la formacion cuantitativa es anterior al
+       * auge reciente de la IA, que es el argumento mas fuerte que hay aqui. */}
+      <div className="mt-32">
         <Reveal>
-          <div>
-            <Eyebrow>{t.about.futureTitle}</Eyebrow>
-            <p className="text-body mt-6 max-w-md text-text-secondary">{t.about.futureLead}</p>
-            <p className="mt-8 max-w-md font-serif italic text-[18px] leading-relaxed text-accent-cyan">
-              {t.about.futureClosing}
-            </p>
-          </div>
+          <Eyebrow>{t.about.trajectoryTitle}</Eyebrow>
+          <p className="text-body mt-6 max-w-2xl text-text-secondary">
+            {t.about.trajectoryLead}
+          </p>
         </Reveal>
 
+        {/* Linea horizontal en desktop, vertical en movil */}
         <Reveal delay={0.1}>
-          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {t.about.futureAreas.map((area, i) => {
-              const Icon = FUTURE_ICONS[i % FUTURE_ICONS.length];
-              return (
-                <li
-                  key={area}
-                  className="group flex items-start gap-3 rounded-lg border border-border-subtle bg-bg-elevated/40 p-4 transition-all duration-300 ease-smooth hover:border-accent-cyan/30 hover:bg-bg-elevated/70"
+          <ol className="mt-10 flex flex-col gap-3 md:flex-row md:items-stretch md:gap-2">
+            {t.about.trajectorySteps.map((step, i) => (
+              <li
+                key={step}
+                className="group relative flex flex-1 items-center gap-3 rounded-lg border border-border-subtle bg-bg-elevated/50 px-4 py-4 transition-colors duration-300 ease-smooth hover:border-accent-teal/40 md:flex-col md:items-start md:gap-2"
+              >
+                <span
+                  aria-hidden
+                  className="inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-accent-teal/35 bg-accent-teal/[0.07] text-[11px] font-semibold tabular-nums text-accent-teal"
                 >
+                  {i + 1}
+                </span>
+                <span className="text-[13.5px] font-medium leading-snug text-text-primary">
+                  {step}
+                </span>
+                {i < t.about.trajectorySteps.length - 1 && (
                   <span
                     aria-hidden
-                    className="mt-0.5 inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md border border-accent-cyan/30 bg-accent-cyan/[0.06]"
+                    className="pointer-events-none absolute right-2 top-1/2 hidden -translate-y-1/2 text-accent-teal/40 md:block"
                   >
-                    <Icon className="h-3.5 w-3.5 text-accent-cyan" />
+                    →
                   </span>
-                  <span className="text-[14px] leading-snug text-text-primary">{area}</span>
-                </li>
-              );
-            })}
-          </ul>
+                )}
+              </li>
+            ))}
+          </ol>
+        </Reveal>
+
+        <Reveal delay={0.15}>
+          <blockquote className="mt-14 border-l-2 border-accent-teal pl-6">
+            <p className="font-serif text-[24px] italic leading-snug text-text-primary md:text-[28px]">
+              “{t.about.trajectoryQuote}”
+            </p>
+            <p className="text-body mt-5 max-w-2xl text-text-secondary">
+              {t.about.trajectoryClose}
+            </p>
+          </blockquote>
         </Reveal>
       </div>
 
