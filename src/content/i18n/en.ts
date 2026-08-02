@@ -21,11 +21,11 @@ export const en: Strings = {
 
   hero: {
     eyebrowFull: "Nancy Artificial Intelligence · Costa Rica & LATAM",
-    headlineStart: "Transforming complex data ecosystems into",
-    headlineHighlight: "intelligent",
-    headlineEnd: " systems.",
+    headlineStart: "Turning complex data into",
+    headlineHighlight: "intelligent business decisions",
+    headlineEnd: ".",
     subhead:
-      "AI consulting, Business Intelligence and data architecture for companies in Costa Rica and Latin America. Specialists in public procurement intelligence (SICOP), RFM segmentation and consumer profiling for FMCG.",
+      "AI, Business Intelligence and data architecture consulting for companies in Costa Rica and Latin America. Specialists in public procurement intelligence, credit scoring and consumer analytics.",
     primaryCta: "Explore Case Studies",
     secondaryCta: "Work With N-AI",
     proof: [
@@ -392,19 +392,19 @@ export const en: Strings = {
   ],
 
   bip: {
-    eyebrow: "Building in Public",
-    headlineStart: "Real-world case studies, AI prototypes and intelligence systems —",
-    headlineItalic: "open work, in the open.",
+    eyebrow: "Areas of work",
+    headlineStart: "Real cases, AI prototypes and intelligence systems —",
+    headlineItalic: "the work, in the open.",
     body:
-      "N-AI will continue publishing the work as it gets built. Below — what's on the editorial pipeline.",
-    etaLabel: "ETA",
-    forthcomingLabel: "Forthcoming",
+      "The areas N-AI works in and publishes methodology on. No promised dates: each piece ships when it is ready.",
+    etaLabel: "Area",
+    forthcomingLabel: "Work stream",
     upcoming: [
-      { title: "SICOP — Methodology Deep Dive", eta: "Q2 2026", kind: "Case Study" },
-      { title: "HeatSight AI — Beta Architecture", eta: "Q3 2026", kind: "Demo" },
-      { title: "Consumer Intelligence — Field Notes", eta: "Q3 2026", kind: "Essay" },
-      { title: "AI Decision Engine — Concept Spec", eta: "Q4 2026", kind: "Concept" },
-      { title: "Data Governance Intelligence", eta: "Q1 2027", kind: "Concept" },
+      { title: "SICOP — Anomaly detection methodology", eta: "Public procurement", kind: "Case Study" },
+      { title: "HeatSight AI — Demand sensing by geography and SKU", eta: "FMCG", kind: "Demo" },
+      { title: "Consumer intelligence — Field notes", eta: "Retail & FMCG", kind: "Essay" },
+      { title: "AI decision engines — Specification", eta: "Financial services", kind: "Concept" },
+      { title: "Data governance and maturity", eta: "Cross-industry", kind: "Concept" },
     ],
   },
 
