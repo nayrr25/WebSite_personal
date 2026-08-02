@@ -25,12 +25,20 @@ const DEFAULT_GTM_ID = "GTM-P84F759S";
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? DEFAULT_GTM_ID;
 
-const IS_PRODUCTION =
-  process.env.NEXT_PUBLIC_VERCEL_ENV === "production" ||
-  process.env.NEXT_PUBLIC_GTM_FORCE === "1";
+/**
+ * Cuándo se activa — misma lógica que GoogleAnalytics.tsx.
+ *
+ * `NEXT_PUBLIC_VERCEL_ENV` solo existe si el proyecto tiene activada la opción
+ * "Automatically expose System Environment Variables" en Vercel. Cuando está
+ * apagada, la variable es `undefined` y el script jamás se renderiza, sin
+ * error visible. Por eso la base ahora es `NODE_ENV`, que Next define siempre.
+ */
+const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === "preview";
+const FORCED = process.env.NEXT_PUBLIC_GTM_FORCE === "1";
 
-/** GTM solo se carga en producción, y solo si hay un ID. */
-const ENABLED = Boolean(GTM_ID) && IS_PRODUCTION;
+const ENABLED =
+  Boolean(GTM_ID) &&
+  (FORCED || (process.env.NODE_ENV === "production" && !IS_PREVIEW));
 
 /**
  * Snippet 1 — el que GTM pide "lo más arriba posible en <head>".
