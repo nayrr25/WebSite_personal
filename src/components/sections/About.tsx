@@ -206,7 +206,7 @@ function PortraitFallback() {
         <LogoMark size={56} glow />
         <span className="font-serif text-[40px] tracking-tight text-text-primary">NR</span>
         <span className="text-[11px] uppercase tracking-eyebrow text-text-muted">
-          /public/Nancy.png
+          /public/nancy-retrato.jpg
         </span>
       </div>
     </div>
@@ -230,14 +230,28 @@ function FounderPortrait({ alt }: { alt: string }) {
       <div className="relative w-full overflow-hidden rounded-xl border border-border-subtle bg-bg-elevated/40">
         <div className="relative aspect-square w-full">
           {!imgFailed ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src="/Nancy.png"
-              alt={alt}
-              onError={() => setImgFailed(true)}
-              className="absolute inset-0 h-full w-full object-cover"
-              loading="lazy"
-            />
+            /* Recorte cuadrado del retrato. La imagen de marca completa es
+             * apaisada: al meterla en este marco cuadrado con object-cover, el
+             * navegador cortaba medio logo a la izquierda y partia los iconos a
+             * la derecha. Este recorte solo tiene a Nancy sobre el fondo de red.
+             * La composicion completa se conserva en /Nancy.* para compartir en
+             * redes, donde su proporcion si funciona.
+             *
+             * WebP con respaldo JPEG: el PNG original pesaba 1,9 MB para
+             * mostrarse a 320px. */
+            <picture>
+              <source srcSet="/nancy-retrato.webp" type="image/webp" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/nancy-retrato.jpg"
+                alt={alt}
+                onError={() => setImgFailed(true)}
+                className="absolute inset-0 h-full w-full object-cover"
+                loading="lazy"
+                width={880}
+                height={880}
+              />
+            </picture>
           ) : (
             <PortraitFallback />
           )}
