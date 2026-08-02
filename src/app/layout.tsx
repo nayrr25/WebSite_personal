@@ -6,6 +6,10 @@ import Footer from "@/components/layout/Footer";
 import { LanguageProvider } from "@/lib/i18n";
 import SkipToContent from "@/components/layout/SkipToContent";
 import StructuredData from "@/components/seo/StructuredData";
+import {
+  GoogleTagManager,
+  GoogleTagManagerNoScript,
+} from "@/components/analytics/GoogleTagManager";
 
 // Body / UI general — Public Sans (variable). Expuesta como --font-sans.
 const publicSans = Public_Sans({
@@ -181,6 +185,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${publicSans.variable} ${archivo.variable} ${instrumentSerif.variable}`}
     >
       <body className="font-sans antialiased">
+        <GoogleTagManager />
+        <GoogleTagManagerNoScript />
         <StructuredData siteUrl={SITE_URL} />
         <LanguageProvider>
           <SkipToContent />
