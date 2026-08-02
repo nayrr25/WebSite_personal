@@ -1,25 +1,22 @@
-// Icon-only static mapping for capabilities cards. Strings live in i18n (`t.capabilities`).
-// Order MUST match the i18n array.
+// Iconos por vertical. Las cadenas viven en i18n (`t.verticals`).
+// El orden DEBE coincidir con el de los items de cada vertical.
 
 import type { LucideIcon } from "lucide-react";
 import {
-  Brain,
-  Database,
-  LineChart,
   AlertTriangle,
-  Users,
-  LayoutGrid,
+  Landmark,
+  CreditCard,
   Shield,
-  Server,
+  Users,
+  Megaphone,
+  MessageSquare,
+  Database,
 } from "lucide-react";
 
-export const capabilityIcons: LucideIcon[] = [
-  Brain,
-  Database,
-  LineChart,
-  AlertTriangle,
-  Users,
-  LayoutGrid,
-  Shield,
-  Server,
-];
+/** Vertical 01 — institucional y financiera. */
+const institutional: LucideIcon[] = [AlertTriangle, Landmark, CreditCard, Shield];
+
+/** Vertical 02 — comercial y de consumidor. */
+const commercial: LucideIcon[] = [Users, Megaphone, MessageSquare, Database];
+
+export const verticalIcons: LucideIcon[][] = [institutional, commercial];
