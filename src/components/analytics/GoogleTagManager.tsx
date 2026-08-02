@@ -3,18 +3,34 @@ import Script from "next/script";
 /**
  * Google Tag Manager.
  *
- * El ID NO va hardcodeado: se lee de `NEXT_PUBLIC_GTM_ID`. Ventajas:
- *  - el mismo repo sirve para producción y para los previews de Vercel sin
- *    mezclar datos (basta con no definir la variable en preview);
- *  - si algún día cambia el contenedor, no hay que tocar código;
- *  - en local, sin la variable, no se carga nada y no ensuciás las métricas
- *    con tu propio tráfico de desarrollo.
+ * Cero configuración manual: no hay que declarar nada en el panel de Vercel.
  *
- * Si la variable no está definida, ambos componentes devuelven `null` y el
- * sitio funciona exactamente igual.
+ * `NEXT_PUBLIC_VERCEL_ENV` la inyecta Vercel sola en cada build y vale
+ * "production", "preview" o "development". La usamos para cargar GTM
+ * ÚNICAMENTE en producción, de modo que:
+ *  - los previews de cada Pull Request no cuentan como visitas;
+ *  - `pnpm dev` en tu máquina tampoco;
+ *  - las métricas de n-ai.dev quedan limpias de tráfico propio desde el día uno.
+ *
+ * El ID del contenedor puede ir en el código sin problema: es un
+ * identificador público que viaja al navegador en cada visita, no un secreto.
+ * Aun así, `NEXT_PUBLIC_GTM_ID` lo sobreescribe si algún día hay que apuntar
+ * a otro contenedor sin tocar código.
+ *
+ * Para probar GTM en un preview o en local, basta con definir
+ * NEXT_PUBLIC_GTM_FORCE=1 en ese entorno.
  */
 
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+const DEFAULT_GTM_ID = "GTM-P84F759S";
+
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? DEFAULT_GTM_ID;
+
+const IS_PRODUCTION =
+  process.env.NEXT_PUBLIC_VERCEL_ENV === "production" ||
+  process.env.NEXT_PUBLIC_GTM_FORCE === "1";
+
+/** GTM solo se carga en producción, y solo si hay un ID. */
+const ENABLED = Boolean(GTM_ID) && IS_PRODUCTION;
 
 /**
  * Snippet 1 — el que GTM pide "lo más arriba posible en <head>".
@@ -24,7 +40,7 @@ const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
  * bloquee el primer render. GTM funciona igual y el sitio carga más rápido.
  */
 export function GoogleTagManager() {
-  if (!GTM_ID) return null;
+  if (!ENABLED) return null;
 
   return (
     <Script id="gtm-init" strategy="afterInteractive">
@@ -44,7 +60,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  * mínima del tráfico, pero GTM lo pide y no cuesta nada.
  */
 export function GoogleTagManagerNoScript() {
-  if (!GTM_ID) return null;
+  if (!ENABLED) return null;
 
   return (
     <noscript>
