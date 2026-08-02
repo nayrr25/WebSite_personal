@@ -21,11 +21,14 @@ export const es = {
 
   hero: {
     eyebrowFull: "Nancy Artificial Intelligence · Costa Rica & LATAM",
-    headlineStart: "Transformando ecosistemas de datos complejos en sistemas",
-    headlineHighlight: "inteligentes",
+    // El H1 anterior -"...en sistemas inteligentes"- no contenia ningun
+    // termino que alguien busque. "Decisiones" si: es lo que el cliente
+    // quiere comprar, y refleja la regla de marca business first.
+    headlineStart: "Convertimos datos complejos en",
+    headlineHighlight: "decisiones inteligentes",
     headlineEnd: ".",
     subhead:
-      "Consultoría de IA, Business Intelligence y arquitectura de datos para empresas en Costa Rica y Latinoamérica. Especialistas en inteligencia de compras públicas (SICOP), segmentación RFM y perfiles de consumidor para consumo masivo.",
+      "Consultoría de IA, Business Intelligence y arquitectura de datos en Costa Rica y Latinoamérica. Especialistas en inteligencia de compras públicas, scoring crediticio y analítica de consumidor.",
     primaryCta: "Explorar Casos de Estudio",
     secondaryCta: "Trabaja con N-AI",
     proof: [
@@ -402,19 +405,19 @@ export const es = {
   ],
 
   bip: {
-    eyebrow: "Building in Public",
+    eyebrow: "Áreas de trabajo",
     headlineStart: "Casos reales, prototipos de IA y sistemas de inteligencia —",
-    headlineItalic: "trabajo abierto, en abierto.",
+    headlineItalic: "el trabajo, en abierto.",
     body:
-      "N-AI seguirá publicando el trabajo conforme se construye. Abajo — lo que viene en el pipeline editorial.",
-    etaLabel: "ETA",
-    forthcomingLabel: "Próximo",
+      "Las áreas en las que N-AI trabaja y publica metodología. Sin fechas prometidas: cada pieza se publica cuando está lista.",
+    etaLabel: "Área",
+    forthcomingLabel: "Línea de trabajo",
     upcoming: [
-      { title: "SICOP — Deep Dive de Metodología", eta: "Q2 2026", kind: "Caso de Estudio" },
-      { title: "HeatSight AI — Arquitectura Beta", eta: "Q3 2026", kind: "Demo" },
-      { title: "Inteligencia de Consumidor — Notas de Campo", eta: "Q3 2026", kind: "Ensayo" },
-      { title: "Motor de Decisión con IA — Spec Conceptual", eta: "Q4 2026", kind: "Concepto" },
-      { title: "Inteligencia de Gobernanza de Datos", eta: "Q1 2027", kind: "Concepto" },
+      { title: "SICOP — Metodología de detección de anomalías", eta: "Compra pública", kind: "Caso de Estudio" },
+      { title: "HeatSight AI — Sensado de demanda por geografía y SKU", eta: "Consumo masivo", kind: "Demo" },
+      { title: "Inteligencia de consumidor — Notas de campo", eta: "Retail y FMCG", kind: "Ensayo" },
+      { title: "Motores de decisión con IA — Especificación", eta: "Servicios financieros", kind: "Concepto" },
+      { title: "Gobernanza y madurez de datos", eta: "Transversal", kind: "Concepto" },
     ],
   },
 
