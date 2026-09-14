@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N-AI · Maqueta v3 para aprobación</title>
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Serif:ital@1&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A1024; --bg-deep:#070B18; --surf:rgba(255,255,255,.045); --surf-2:rgba(255,255,255,.07);
+  --line:rgba(255,255,255,.10); --line-strong:rgba(255,255,255,.18);
+  --ink:#FFFFFF; --ink-2:#AEB8CF; --muted:#8C98B3;
+  --accent:#8FB4FF; --cyan:#35E0FF; --alert:#FF6B78; --warn:#FFC35D;
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --gutter:clamp(20px,4vw,48px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:linear-gradient(180deg,var(--bg) 0,var(--bg-deep) 100%);color:var(--ink);font:400 17px/1.6 'Public Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(143,180,255,.35)}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif;text-wrap:balance;letter-spacing:-.02em}
+p{text-wrap:pretty}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1240px,100%);margin-inline:auto;padding-inline:var(--gutter)}
+.num{font-variant-numeric:tabular-nums}
+@property --ang{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.8)}}
+@keyframes spin{to{--ang:360deg}}
+
+/* ---------- botones ---------- */
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 15px/1 'Public Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;border:0;cursor:pointer;transition:transform 120ms var(--ease-out),box-shadow 200ms ease,background-color 200ms ease}
+.btn:active{transform:scale(.97)}
+.btn-w{background:#fff;color:var(--bg);box-shadow:0 10px 30px -12px rgba(143,180,255,.6)}
+.btn-o{border:1px solid rgba(255,255,255,.24);color:#fff;background:rgba(255,255,255,.03)}
+@media (hover:hover) and (pointer:fine){
+  .btn-w:hover{box-shadow:0 14px 38px -10px rgba(143,180,255,.85)}
+  .btn-o:hover{background:rgba(255,255,255,.08)}
+  .nav-links a:hover{color:#fff}
+  .tlink:hover .arr{transform:translateX(3px)}
+}
+.tlink{display:inline-flex;align-items:center;gap:8px;font:600 15px 'Public Sans';color:var(--accent);text-decoration:none}
+.tlink .arr{transition:transform 200ms var(--ease-out)}
+
+/* ---------- menú ---------- */
+.nav{position:sticky;top:0;z-index:50;border-bottom:1px solid transparent;transition:background-color 200ms ease,border-color 200ms ease}
+.nav.scrolled{background:rgba(10,16,36,.85);border-color:var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.nav-in{height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 20px Archivo;letter-spacing:-.02em}
+.brand i{font-style:normal;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#fff;color:var(--bg);font-size:16px}
+.nav-links{display:flex;gap:28px;list-style:none;font-size:14px}
+.nav-links a{color:var(--ink-2);text-decoration:none;transition:color 160ms ease}
+.nav-right{display:flex;align-items:center;gap:16px}
+.lang{font:600 13px 'Public Sans';color:var(--ink-2);text-decoration:none}
+.nav .btn{padding:11px 18px;font-size:14px}
+.menu-btn{display:none;background:none;border:1px solid var(--line-strong);color:#fff;font:600 14px 'Public Sans';padding:9px 14px;border-radius:999px;cursor:pointer}
+.menu-panel{display:none;border-top:1px solid var(--line);background:var(--bg)}
+.menu-panel ul{list-style:none;padding:8px var(--gutter) 20px}
+.menu-panel a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;font-size:17px}
+@media (max-width:960px){.nav-links,.nav .btn-desktop{display:none}.menu-btn{display:inline-flex}.nav.open .menu-panel{display:block}}
+
+/* ---------- aparición ---------- */
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity 500ms var(--ease-out),transform 500ms var(--ease-out)}
+.js .rv.in{opacity:1;transform:none}
+.d1{transition-delay:60ms!important}.d2{transition-delay:120ms!important}.d3{transition-delay:180ms!important}.d4{transition-delay:240ms!important}
+
+/* ---------- hero ---------- */
+.hero-bg{position:relative;overflow:hidden;background:radial-gradient(1100px 650px at 78% 18%,#1A2C5E 0%,transparent 70%)}
+.hero-bg::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:48px 48px;-webkit-mask:radial-gradient(ellipse at 70% 40%,#000 20%,transparent 70%);mask:radial-gradient(ellipse at 70% 40%,#000 20%,transparent 70%);pointer-events:none}
+.hero{position:relative;min-height:calc(100svh - 68px);display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);align-items:center;gap:clamp(32px,4vw,56px);padding-block:clamp(24px,4vh,48px) clamp(40px,6vh,72px)}
+.pill{display:inline-flex;gap:10px;align-items:center;padding:8px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);font-size:13px;color:#D3DAEA}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 2s infinite}
+.hero h1{font-size:clamp(40px,4.9vw,74px);line-height:1.02;letter-spacing:-.04em;font-weight:800;margin-top:24px}
+.hero h1 .serif{font:italic 400 1.1em/1 'Instrument Serif',Georgia,serif;letter-spacing:-.01em;background:linear-gradient(90deg,#8FB4FF,#35E0FF);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.08em}
+.hero .sub{max-width:520px;margin-top:24px;font-size:18px;line-height:1.65;color:var(--ink-2)}
+.ctas{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+.mini{display:flex;gap:32px;margin-top:40px;flex-wrap:wrap}
+.mini dd{font:800 34px/1 Archivo;letter-spacing:-.03em;display:block}
+.mini dt span{display:block;font-size:13px;color:var(--muted);margin-top:8px;max-width:16ch;line-height:1.35}
+.mini>div{display:flex;flex-direction:column-reverse;justify-content:flex-end}
+@media (max-width:560px){
+  .pill{font-size:12px}
+  .hero h1{margin-top:18px}
+  .hero .sub{font-size:16px;margin-top:16px}
+  .ctas{margin-top:22px}
+  .mini{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:24px}
+  .mini dd{font-size:26px}
+  .mini dt span{font-size:12px}
+}
+
+/* ---------- tablero ---------- */
+.dash{position:relative;perspective:1600px}
+.panel{position:relative;transform:rotateY(-11deg) rotateX(5deg);border-radius:22px;background:rgba(12,19,40,.82);border:1px solid rgba(255,255,255,.1);box-shadow:0 60px 120px -30px rgba(0,0,0,.75),0 0 80px -20px rgba(79,134,230,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:18px;transition:transform 600ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.dash:hover .panel{transform:rotateY(-4deg) rotateX(2deg)}}
+.phd{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px;color:#C3CBDD;padding:2px 4px 14px;border-bottom:1px solid rgba(255,255,255,.07)}
+.phd .l{display:flex;align-items:center;gap:12px}
+.phd .dots{display:flex;gap:6px}.phd .dots i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18)}
+.phd .r{display:flex;align-items:center;gap:10px}
+.live{display:flex;align-items:center;gap:7px;font:700 12px 'Public Sans';letter-spacing:.12em;color:#FF8F99}
+.live i{width:7px;height:7px;border-radius:50%;background:var(--alert);animation:pulse 1.2s infinite}
+.pause{background:none;border:1px solid rgba(255,255,255,.16);color:#C3CBDD;font:600 12px 'Public Sans';padding:4px 10px;border-radius:999px;cursor:pointer}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:12px 14px}
+.kpi span{font-size:12px;color:var(--muted)}
+.kpi b{display:block;font:700 24px Archivo;margin-top:4px}
+.chartbox{margin-top:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:12px 10px 8px}
+.chartbox .t{font-size:12px;color:var(--muted);padding:0 4px 6px;display:flex;justify-content:space-between;gap:10px}
+.chartbox .t b{color:#fff;font-weight:600}
+.row2{display:grid;grid-template-columns:.8fr 1.2fr;gap:10px;margin-top:10px}
+.gauge,.dimsbox{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:10px 12px}
+.gauge{display:flex;flex-direction:column;align-items:center}
+.gauge .t,.dimsbox .t{font-size:12px;color:var(--muted);align-self:flex-start}
+.dr{display:grid;grid-template-columns:minmax(0,1fr) 70px 26px;align-items:center;gap:8px;font-size:12px;color:#C3CBDD;margin-top:8px}
+.dr .bar{height:6px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
+.dr .bar i{display:block;height:100%;border-radius:4px;transform-origin:left;background:linear-gradient(90deg,var(--accent),var(--cyan))}
+.js .dash .dr .bar i{transform:scaleX(0);transition:transform 900ms var(--ease-out)}
+.js .dash.in .dr .bar i{transform:scaleX(var(--v))}
+.dr span:last-child{text-align:right;color:#fff}
+.caption{margin-top:14px;font-size:12px;color:var(--muted);text-align:right}
+.toast{position:absolute;right:-18px;top:-28px;z-index:5;display:flex;gap:10px;align-items:center;background:#fff;color:var(--bg);border-radius:14px;padding:11px 14px;box-shadow:0 20px 40px -12px rgba(0,0,0,.6);font-size:13px;max-width:310px;transition:opacity 450ms var(--ease-out),transform 450ms var(--ease-out)}
+.toast.hide{opacity:0;transform:translateY(-10px)}
+.toast .ic{width:28px;height:28px;border-radius:9px;background:#FFE3E6;color:#B42335;display:grid;place-items:center;font-weight:800;flex:none}
+.toast b{display:block;font-size:13px}
+.toast small{color:#475569;font-size:12px}
+@media (max-width:1000px){.hero{grid-template-columns:1fr}.panel{transform:none}.toast{right:8px;top:-20px}}
+@media (max-width:560px){.kpis{grid-template-columns:1fr 1fr}.kpis .kpi:last-child{display:none}.row2{grid-template-columns:1fr}.gauge{display:none}}
+
+/* ---------- secciones ---------- */
+section{scroll-margin-top:76px}
+.sec{padding-block:clamp(88px,10vw,128px)}
+.eyebrow{font:600 12px 'Public Sans';letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.h2{font-size:clamp(32px,4.4vw,58px);line-height:1.03;letter-spacing:-.04em;font-weight:800;margin-top:14px;max-width:19ch}
+.lead{color:var(--ink-2);font-size:18px;line-height:1.6;max-width:62ch;margin-top:18px}
+
+/* servicios */
+.srv{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:48px}
+.sv{--mx:50%;--my:50%;position:relative;overflow:hidden;background:var(--surf);border:1px solid var(--line);border-radius:22px;padding:26px;min-height:360px;display:flex;flex-direction:column;transition:transform 350ms var(--ease-out),border-color 350ms ease}
+.sv::after{content:"";position:absolute;inset:0;background:radial-gradient(380px circle at var(--mx) var(--my),rgba(143,180,255,.18),transparent 45%);opacity:0;transition:opacity 300ms ease;pointer-events:none}
+@media (hover:hover) and (pointer:fine){.sv:hover{transform:translateY(-6px);border-color:rgba(143,180,255,.5)}.sv:hover::after{opacity:1}}
+.sv .ico{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;background:rgba(143,180,255,.14);color:var(--accent)}
+.sv .n{position:absolute;top:26px;right:26px;font:700 13px Archivo;color:var(--muted)}
+.sv h3{font-size:22px;line-height:1.18;font-weight:700;margin-top:auto;padding-top:32px}
+.sv p{color:var(--ink-2);font-size:15px;line-height:1.55;margin-top:10px}
+.sv .ev{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:#D3DAEA}
+.sv .ev b{color:var(--cyan);font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tags span{font-size:12px;padding:4px 9px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2)}
+.sectors{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:center;margin-top:36px;padding-top:26px;border-top:1px solid var(--line);font:600 16px 'Public Sans'}
+.sectors b{color:var(--muted);font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+@media (max-width:1000px){.srv{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.srv{grid-template-columns:1fr}.sv{min-height:0}}
+
+/* banda SICOP */
+.case{position:relative;overflow:hidden;border-radius:32px;border:1px solid var(--line);background:radial-gradient(70% 100% at 85% 0%,#233E85 0%,transparent 70%),#0F1A3A;padding:clamp(32px,5vw,64px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,5vw,72px);align-items:center}
+.case .ctx{color:var(--ink-2);font-size:18px;margin-top:20px;max-width:52ch}
+.result{margin-top:24px;padding-left:16px;border-left:2px solid var(--cyan);max-width:50ch}
+.result span{display:block;font-size:13px;color:var(--muted)}
+.result p{font-size:18px;margin-top:4px}
+.case .ctas{margin-top:30px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fact{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:18px;padding:22px}
+.fact b{font:800 clamp(40px,4.4vw,56px)/1 Archivo;letter-spacing:-.04em;background:linear-gradient(180deg,#fff,#AFC6FF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fact span{display:block;font-size:14px;color:var(--ink-2);margin-top:10px}
+@media (max-width:900px){.case{grid-template-columns:1fr}}
+
+/* demos */
+.demos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:48px}
+.demo{position:relative;background:var(--surf);border:1px solid var(--line);border-radius:22px;padding:24px;display:flex;flex-direction:column;min-height:300px;transition:transform 350ms var(--ease-out),border-color 350ms ease}
+@media (hover:hover) and (pointer:fine){.demo:hover{transform:translateY(-4px);border-color:rgba(143,180,255,.4)}}
+.badge{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font:600 12px 'Public Sans';padding:5px 11px;border-radius:999px;border:1px solid var(--line)}
+.badge i{width:7px;height:7px;border-radius:50%}
+.badge.live{color:#7FF0C8;border-color:rgba(127,240,200,.3)}.badge.live i{background:#7FF0C8;box-shadow:0 0 10px #7FF0C8;animation:pulse 2s infinite}
+.badge.build{color:var(--warn);border-color:rgba(255,195,93,.3)}.badge.build i{background:var(--warn)}
+.badge.concept{color:var(--ink-2)}.badge.concept i{background:var(--muted)}
+.demo h3{font-size:20px;line-height:1.25;font-weight:700;margin-top:18px}
+.demo p{font-size:15px;color:var(--ink-2);margin-top:8px}
+.demo svg{margin-top:auto;padding-top:20px;width:100%;height:auto;max-height:84px}
+.demo .tlink{margin-top:14px;font-size:14px}
+@media (max-width:1000px){.demos{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.demos{grid-template-columns:1fr}}
+
+/* método */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:60px;position:relative;list-style:none}
+.steps::before{content:"";position:absolute;top:27px;left:6%;right:6%;height:2px;background:linear-gradient(90deg,var(--accent),var(--cyan));opacity:.35}
+.steps .beam{position:absolute;top:25px;left:6%;width:14%;height:6px;border-radius:6px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);filter:blur(1px);opacity:0}
+.steps.in .beam{animation:beam 2.2s var(--ease-out) 2 forwards}
+@keyframes beam{0%{left:6%;opacity:1}90%{opacity:1}100%{left:80%;opacity:0}}
+.step{padding-right:22px;position:relative}
+.step .n{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:2px solid var(--accent);font:800 18px Archivo;position:relative;z-index:1}
+.step h3{font-size:21px;margin-top:22px}
+.step p{color:var(--ink-2);font-size:15px;line-height:1.55;margin-top:8px}
+.step .out{display:inline-block;margin-top:14px;font-size:12px;font-weight:600;color:var(--accent);border:1px solid rgba(143,180,255,.35);border-radius:999px;padding:4px 10px}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:36px}.steps::before,.steps .beam{display:none}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* quién lidera */
+.lead-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:14px;margin-top:48px}
+.person{background:var(--surf);border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
+.person .pic{aspect-ratio:4/4.2;background:linear-gradient(135deg,rgba(143,180,255,.25),rgba(53,224,255,.12))}
+.person .pic img{width:100%;height:100%;object-fit:cover;object-position:center 22%}
+.person .body{padding:20px 22px 24px}
+.person h3{font-size:22px}
+.person .role{color:var(--accent);font-size:14px;font-weight:600;margin-top:4px}
+.person p{color:var(--ink-2);font-size:14px;margin-top:8px}
+.bio{background:var(--surf);border:1px solid var(--line);border-radius:22px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column}
+.bio p{color:var(--ink-2);font-size:17px}
+blockquote{margin-top:24px;padding-left:18px;border-left:2px solid var(--cyan);font:italic 400 clamp(26px,2.6vw,34px)/1.2 'Instrument Serif',Georgia,serif;color:#fff}
+.areas{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.areas span{font-size:13px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:#D3DAEA}
+.socials{display:flex;gap:22px;flex-wrap:wrap;margin-top:auto;padding-top:24px}
+.creds{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:14px}
+.cr{background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:22px}
+.cr b{font:800 36px/1 Archivo;letter-spacing:-.035em}
+.cr span{display:block;color:var(--ink-2);font-size:14px;margin-top:8px;line-height:1.4}
+@media (max-width:1000px){.lead-grid{grid-template-columns:1fr}.creds{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.creds{grid-template-columns:1fr}}
+
+/* preguntas */
+.faq-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(32px,5vw,80px)}
+.qas{display:grid;gap:14px}
+.qa{background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:22px 24px}
+.qa h3{font-size:19px;line-height:1.3}
+.qa p{color:var(--ink-2);margin-top:8px;font-size:16px}
+details{border-bottom:1px solid var(--line)}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:24px;padding-block:18px;font:600 17px 'Public Sans'}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:400 24px/1 'Public Sans';color:var(--accent)}
+details[open] summary::after{content:"–"}
+details p{color:var(--ink-2);padding-bottom:20px}
+.more{margin-top:28px}
+.more .lbl{font-size:14px;color:var(--muted);margin-bottom:8px}
+@media (max-width:860px){.faq-grid{grid-template-columns:1fr}}
+
+/* contacto */
+.cta{position:relative;overflow:hidden;border-radius:32px;border:1px solid var(--line);background:radial-gradient(60% 90% at 15% 0%,rgba(47,98,200,.55),transparent 70%),radial-gradient(50% 80% at 95% 100%,rgba(53,224,255,.18),transparent 70%),#0E1834;padding:clamp(32px,5vw,64px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,5vw,72px);align-items:center}
+.cta .direct{margin-top:20px;font-size:15px;color:var(--ink-2)}
+.next{list-style:none;counter-reset:s;display:grid;gap:10px}
+.next li{counter-increment:s;display:grid;grid-template-columns:40px 1fr;gap:4px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.next li::before{content:counter(s);width:28px;height:28px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--accent);color:var(--accent);font:700 13px Archivo}
+.next b{font-weight:600}
+.next span{display:block;color:var(--ink-2);font-size:14px}
+@media (max-width:900px){.cta{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--line);padding-block:48px;margin-top:clamp(88px,10vw,128px)}
+.foot{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.foot ul{list-style:none;display:flex;gap:22px;flex-wrap:wrap;font-size:14px}
+.foot a{color:var(--ink-2);text-decoration:none}
+.foot small{display:block;font-size:13px;color:var(--muted);margin-top:10px}
+
+/* pendientes */
+.pend{display:none;margin-top:12px;padding:8px 12px;border:1px dashed var(--warn);border-radius:8px;font-size:13px;color:#fff;max-width:52ch}
+.show-notes .pend{display:block}
+.notes-toggle{position:fixed;left:16px;bottom:16px;z-index:70;background:#111933;color:#fff;border:1px solid var(--line-strong);font:600 13px 'Public Sans';padding:10px 14px;border-radius:999px;cursor:pointer}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important}
+  .js .rv{transform:none!important;transition:opacity 150ms ease!important}
+  .js .dash .dr .bar i{transition:none!important}
+  .panel,.sv,.demo,.btn{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="N-AI, inicio"><i>N</i>N-AI</a>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#caso-sicop">Caso SICOP</a></li>
+      <li><a href="#demos">Demos</a></li>
+      <li><a href="#metodo">Método</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="lang" href="#" hreflang="en" lang="en" aria-label="Switch to English">EN</a>
+      <a class="btn btn-w btn-desktop" href="#contact">Agendar diagnóstico</a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <nav class="menu-panel" id="menuPanel" aria-label="Menú principal">
+    <ul>
+      <li><a href="#servicios">Servicios</a></li><li><a href="#caso-sicop">Caso SICOP</a></li><li><a href="#demos">Demos</a></li><li><a href="#metodo">Método</a></li><li><a href="#contact">Agendar diagnóstico</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- 1 · HERO -->
+  <div class="hero-bg">
+    <section class="wrap hero" aria-labelledby="h1">
+      <div>
+        <div class="pill rv"><span class="dot" aria-hidden="true"></span>Consultoría de IA y analítica avanzada · Costa Rica y Latinoamérica</div>
+        <h1 id="h1" class="rv d1">Consultoría experta en IA, automatización y <span class="serif">analítica avanzada.</span></h1>
+        <p class="sub rv d2">N-AI diseña, construye y pone en producción soluciones de datos para empresas e instituciones en Costa Rica y Latinoamérica.</p>
+        <div class="ctas rv d3">
+          <a class="btn btn-w" href="#contact">Agendar un diagnóstico <span aria-hidden="true">→</span></a>
+          <a class="btn btn-o" href="#caso-sicop">Ver el caso SICOP</a>
+        </div>
+        <dl class="mini rv d4">
+          <div><dt><span>créditos colocados</span></dt><dd class="num">+400%</dd></div>
+          <div><dt><span>registros de compra pública analizados</span></dt><dd class="num">&gt;2.4M</dd></div>
+          <div><dt><span>patrones de anomalía modelados</span></dt><dd class="num">47</dd></div>
+        </dl>
+      </div>
+
+      <div class="dash rv d2" id="dash">
+        <div class="toast" id="toast" role="status" aria-live="polite"><div class="ic" aria-hidden="true">!</div><div><b id="toastT">Riesgo crítico detectado</b><small id="toastS">Institución L · 91/100</small></div></div>
+        <div class="panel">
+          <div class="phd">
+            <div class="l"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>Caso SICOP · monitor de riesgo</div>
+            <div class="r"><span class="live"><i aria-hidden="true"></i>EN VIVO</span><button class="pause" id="pause" aria-pressed="false">Pausar</button></div>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><span>Registros analizados</span><b class="num" data-count="2.4" data-dec="1" data-pre="&gt;" data-suf="M">&gt;2.4M</b></div>
+            <div class="kpi"><span>Patrones de anomalía</span><b class="num" data-count="47">47</b></div>
+            <div class="kpi"><span>Riesgo compuesto</span><b class="num"><span data-count="62">62</span><small style="font-size:.55em;color:#8C98B3">/100</small></b></div>
+          </div>
+          <div class="chartbox">
+            <div class="t"><span>Puntaje de riesgo · 12 instituciones anonimizadas</span><span><b id="scanLbl">Institución A · 23</b></span></div>
+            <svg id="chart" viewBox="0 0 560 170" width="100%" height="170" preserveAspectRatio="none" aria-hidden="true">
+              <defs><linearGradient id="gA" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#4F86E6" stop-opacity=".45"/><stop offset="1" stop-color="#4F86E6" stop-opacity="0"/></linearGradient></defs>
+              <line x1="20" x2="540" y1="48" y2="48" stroke="rgba(255,107,120,.35)" stroke-dasharray="4 5"/>
+              <path id="area" fill="url(#gA)"/>
+              <path id="line" fill="none" stroke="#8FB4FF" stroke-width="2.2"/>
+              <g id="pts"></g>
+              <g id="cursor"><line x1="0" x2="0" y1="8" y2="162" stroke="#35E0FF" stroke-opacity=".6"/><circle id="cdot" r="7" fill="none" stroke="#35E0FF" stroke-width="2"/></g>
+            </svg>
+          </div>
+          <div class="row2">
+            <div class="gauge"><span class="t">Compuesto de 8 dimensiones</span>
+              <svg width="150" height="92" viewBox="0 0 150 92" aria-hidden="true"><defs><linearGradient id="gG"><stop offset="0" stop-color="#35E0FF"/><stop offset=".6" stop-color="#FFC35D"/><stop offset="1" stop-color="#FF6B78"/></linearGradient></defs><path d="M15 80 A60 60 0 0 1 135 80" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="12" stroke-linecap="round"/><path id="arc" d="M15 80 A60 60 0 0 1 135 80" fill="none" stroke="url(#gG)" stroke-width="12" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="188.5" style="transition:stroke-dashoffset 1.2s cubic-bezier(.23,1,.32,1)"/><text x="75" y="76" text-anchor="middle" fill="#fff" font-family="Archivo" font-weight="800" font-size="26">62</text></svg>
+            </div>
+            <div class="dimsbox"><span class="t">Dimensiones con mayor puntaje</span><div id="dims"></div></div>
+          </div>
+        </div>
+        <p class="caption">Recorrido animado sobre los resultados reales del caso SICOP · instituciones anonimizadas</p>
+        <p class="pend">Pendiente I1: si existe una serie temporal real y publicable, el gráfico puede mostrar la evolución en el tiempo.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- 2 · SERVICIOS -->
+  <section class="sec wrap" id="servicios" aria-labelledby="h-serv">
+    <div class="eyebrow rv">Servicios</div>
+    <h2 class="h2 rv" id="h-serv">Lo que N-AI hace por tu organización.</h2>
+    <p class="lead rv">Cuatro líneas de servicio con un mismo estándar: cada solución se mide por su impacto en el negocio, no por la tecnología que usa.</p>
+    <div class="srv">
+      <article class="sv rv"><span class="n num">01</span><span class="ico" data-icon="ai"></span><h3>Inteligencia artificial y machine learning</h3><p>Modelos predictivos, detección de anomalías, scoring de riesgo e IA generativa aplicada a tu operación.</p><div class="tags"><span>Predicción</span><span>Scoring</span><span>IA generativa</span></div><p class="ev"><b>Evidencia:</b> caso SICOP, 47 patrones y 8 dimensiones de riesgo.</p></article>
+      <article class="sv rv d1"><span class="n num">02</span><span class="ico" data-icon="auto"></span><h3>Automatización inteligente</h3><p>Procesos que hoy son manuales, resueltos con flujos y agentes de IA conectados a tus sistemas.</p><div class="tags"><span>Agentes de IA</span><span>Flujos</span><span>Integraciones</span></div><p class="ev"><b>Evidencia:</b> ingesta, reportes y pronósticos automatizados para consumo masivo.</p></article>
+      <article class="sv rv d2"><span class="n num">03</span><span class="ico" data-icon="chart"></span><h3>Analítica avanzada y BI</h3><p>Tableros ejecutivos, segmentación de clientes, pronósticos y medición del desempeño de campañas.</p><div class="tags"><span>Dashboards</span><span>RFM</span><span>Pronósticos</span></div></article>
+      <article class="sv rv d3"><span class="n num">04</span><span class="ico" data-icon="data"></span><h3>Arquitectura y gobierno de datos</h3><p>Ingesta, calidad y gobierno en la nube, para que la IA trabaje sobre datos confiables.</p><div class="tags"><span>Nube</span><span>Calidad</span><span>Gobierno</span></div></article>
+    </div>
+    <div class="sectors rv"><b>Sectores</b><span>Sector público</span><span>Banca y crédito</span><span>Consumo masivo</span><span>Retail</span><span>Marketing y medios</span></div>
+  </section>
+
+  <!-- 3 · CASO SICOP -->
+  <section class="wrap" id="caso-sicop" aria-labelledby="h-case">
+    <div class="case rv">
+      <div>
+        <div class="eyebrow">Caso destacado</div>
+        <h2 class="h2" id="h-case">Inteligencia de compras públicas para la Contraloría General de la República.</h2>
+        <p class="ctx">La supervisión de las compras públicas era reactiva: las irregularidades aparecían después del daño, con datos repartidos en fuentes y taxonomías distintas.</p>
+        <div class="result"><span>Resultado</span><p>El riesgo se vuelve visible antes de convertirse en un caso legal: los auditores actúan sobre señales, no sobre hallazgos.</p></div>
+        <p class="pend">Pendiente I5: rol de Nancy, resultado publicable y periodo del proyecto.</p>
+        <div class="ctas"><a class="btn btn-w" href="#">Leer el caso completo <span aria-hidden="true">→</span></a></div>
+      </div>
+      <div class="facts">
+        <div class="fact"><b class="num">7</b><span>fuentes de datos unificadas</span></div>
+        <div class="fact"><b class="num">47</b><span>patrones de anomalía</span></div>
+        <div class="fact"><b class="num">8</b><span>dimensiones de riesgo institucional</span></div>
+        <div class="fact"><b class="num">&lt;1 s</b><span>para calcular un puntaje de riesgo</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · DEMOS -->
+  <section class="sec wrap" id="demos" aria-labelledby="h-demos">
+    <div class="eyebrow rv">Demos</div>
+    <h2 class="h2 rv" id="h-demos">Sistemas en producción y en construcción.</h2>
+    <p class="lead rv">Cada sistema responde una pregunta real de negocio.</p>
+    <div class="demos">
+      <article class="demo rv"><span class="badge live"><i aria-hidden="true"></i>En vivo</span><h3>Inteligencia de compras públicas</h3><p>Detección de anomalías, scoring de riesgo y monitoreo preventivo sobre SICOP.</p>
+        <svg viewBox="0 0 240 64" aria-hidden="true"><defs><linearGradient id="d1" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#4F86E6" stop-opacity=".4"/><stop offset="1" stop-color="#4F86E6" stop-opacity="0"/></linearGradient></defs><path d="M0 46 L24 40 L48 44 L72 34 L96 38 L120 30 L144 40 L168 22 L192 34 L216 12 L240 26 L240 64 L0 64Z" fill="url(#d1)"/><polyline points="0,46 24,40 48,44 72,34 96,38 120,30 144,40 168,22 192,34 216,12 240,26" fill="none" stroke="#8FB4FF" stroke-width="1.8"/><circle cx="216" cy="12" r="4" fill="#FF6B78"/><circle cx="168" cy="22" r="4" fill="#FF6B78"/></svg>
+        <a class="tlink" href="#caso-sicop">Ver el caso <span class="arr" aria-hidden="true">→</span></a></article>
+      <article class="demo rv d1"><span class="badge live"><i aria-hidden="true"></i>En vivo</span><h3>Ingesta, reportes y pronósticos automatizados</h3><p>Para una empresa regional de consumo masivo: los datos de varias fuentes se centralizan, limpian y unifican solos, y los reportes se actualizan, analizan y proyectan sin trabajo manual.</p>
+        <svg viewBox="0 0 240 64" aria-hidden="true"><g fill="none" stroke="rgba(143,180,255,.55)"><path d="M14 10h36M14 32h36M14 54h36M50 10l28 22M50 54l28-22M50 32h28M104 32h14"/></g><g fill="#8FB4FF"><circle cx="10" cy="10" r="4"/><circle cx="10" cy="32" r="4"/><circle cx="10" cy="54" r="4"/></g><rect x="80" y="22" width="24" height="20" rx="4" fill="#35E0FF" fill-opacity=".85"/><g fill="#8FB4FF" fill-opacity=".8"><rect x="124" y="40" width="10" height="20"/><rect x="138" y="30" width="10" height="30"/><rect x="152" y="34" width="10" height="26"/><rect x="166" y="22" width="10" height="38"/></g><path d="M176 22l16-6 16-4 16-6" fill="none" stroke="#35E0FF" stroke-width="2" stroke-dasharray="4 4"/></svg>
+        <p class="pend">Pendiente I9: volumen ingestado, tiempo ahorrado y frecuencia de reportes.</p></article>
+      <article class="demo rv d2"><span class="badge live"><i aria-hidden="true"></i>En vivo</span><h3>Crédito preaprobado · motor de decisión</h3><p>Preaprobación automática para una entidad financiera regulada: más de 200 reglas de negocio (NIF y SUGEF) y decisión en menos de un segundo. Resultado: +400% de créditos colocados.</p>
+        <svg viewBox="0 0 240 64" aria-hidden="true"><g fill="rgba(143,180,255,.12)" stroke="#8FB4FF"><rect x="8" y="22" width="44" height="20" rx="4"/><rect x="104" y="6" width="44" height="20" rx="4"/><rect x="104" y="38" width="44" height="20" rx="4"/></g><path d="M52 32h28M80 32l24-16M80 32l24 16M148 48h40" stroke="rgba(143,180,255,.5)" fill="none"/><rect x="188" y="38" width="44" height="20" rx="4" fill="rgba(53,224,255,.2)" stroke="#35E0FF"/></svg></article>
+      <article class="demo rv"><span class="badge build"><i aria-hidden="true"></i>En construcción</span><h3>HeatSight AI</h3><p>Demanda del consumidor por geografía y SKU: micro-tendencias visibles antes de que lleguen al reporte.</p><svg viewBox="0 0 240 64" aria-hidden="true" id="heat"></svg></article>
+      <article class="demo rv d1"><span class="badge build"><i aria-hidden="true"></i>En construcción</span><h3>Inteligencia de consumidor</h3><p>Segmentación de comportamiento y preferencias reveladas para líderes de categoría y retail.</p>
+        <svg viewBox="0 0 240 64" aria-hidden="true"><g fill="#8FB4FF" fill-opacity=".55"><rect x="0" y="40" width="30" height="24" rx="3"/><rect x="40" y="26" width="30" height="38" rx="3"/><rect x="120" y="30" width="30" height="34" rx="3"/><rect x="160" y="44" width="30" height="20" rx="3"/><rect x="200" y="36" width="30" height="28" rx="3"/></g><rect x="80" y="10" width="30" height="54" rx="3" fill="#35E0FF"/></svg></article>
+      <article class="demo rv d2"><span class="badge concept"><i aria-hidden="true"></i>Concepto</span><h3>Inteligencia de gobierno de datos</h3><p>Linaje, calidad, responsables y postura regulatoria de los datos, visibles a escala institucional.</p>
+        <svg viewBox="0 0 240 64" aria-hidden="true"><g stroke="rgba(143,180,255,.35)"><line x1="30" y1="14" x2="80" y2="44"/><line x1="80" y1="44" x2="130" y2="14"/><line x1="130" y1="14" x2="180" y2="46"/><line x1="180" y1="46" x2="220" y2="18"/><line x1="55" y1="54" x2="105" y2="26"/><line x1="105" y1="26" x2="155" y2="54"/></g><g fill="#8FB4FF"><circle cx="30" cy="14" r="4"/><circle cx="80" cy="44" r="4"/><circle cx="130" cy="14" r="4"/><circle cx="180" cy="46" r="4"/><circle cx="55" cy="54" r="4"/><circle cx="105" cy="26" r="4"/><circle cx="155" cy="54" r="4"/></g><circle cx="220" cy="18" r="5" fill="#35E0FF"/></svg></article>
+    </div>
+  </section>
+
+  <!-- 5 · MÉTODO -->
+  <section class="sec wrap" id="metodo" aria-labelledby="h-met" style="padding-top:0">
+    <div class="eyebrow rv">Cómo trabajamos</div>
+    <h2 class="h2 rv" id="h-met">Del diagnóstico a la operación.</h2>
+    <ol class="steps" id="steps">
+      <span class="beam" aria-hidden="true"></span>
+      <li class="step rv"><div class="n num">01</div><h3>Diagnóstico</h3><p>Entender el problema de negocio y evaluar los datos disponibles.</p><span class="out">Mapa de oportunidades</span></li>
+      <li class="step rv d1"><div class="n num">02</div><h3>Diseño</h3><p>Definir la solución, las métricas de éxito y el plan de trabajo.</p><span class="out">Arquitectura y plan</span></li>
+      <li class="step rv d2"><div class="n num">03</div><h3>Construcción</h3><p>Desarrollar y validar con datos reales, en ciclos cortos.</p><span class="out">Solución probada</span></li>
+      <li class="step rv d3"><div class="n num">04</div><h3>Operación</h3><p>Poner en producción, medir resultados y mejorar.</p><span class="out">Impacto medido</span></li>
+    </ol>
+    <p class="pend">Pendiente I7: duración típica de cada fase.</p>
+  </section>
+
+  <!-- 6 · QUIÉN LIDERA -->
+  <section class="sec wrap" id="quien-lidera" aria-labelledby="h-who" style="padding-top:0">
+    <div class="eyebrow rv">Quién lidera</div>
+    <h2 class="h2 rv" id="h-who">Primero la pregunta de negocio. Al final, la tecnología.</h2>
+    <div class="lead-grid">
+      <article class="person rv"><div class="pic"><img class="photo" alt="Retrato de Nancy Rodríguez, fundadora de N-AI" width="900" height="900"></div><div class="body"><h3>Nancy Rodríguez</h3><div class="role">Fundadora · Principal Data &amp; AI Consultant</div><p>Economista · Estadística · Data &amp; AI Leader</p></div></article>
+      <div class="bio rv d1">
+        <p>Nancy Rodríguez es economista, estadística y líder de datos e IA, con experiencia transformando problemas complejos de negocio en soluciones medibles basadas en datos. Cada proyecto de N-AI lo lleva ella directamente.</p>
+        <blockquote>Datos sin metodología son solo información.</blockquote>
+        <div class="areas" aria-label="Áreas de trabajo"><span>Inteligencia artificial</span><span>Analítica avanzada</span><span>Estrategia de datos</span><span>Inteligencia de consumidor</span><span>Modelado predictivo</span><span>Gobierno de datos</span></div>
+        <div class="socials">
+          <a class="tlink" href="https://www.linkedin.com/in/nancy-raquel-rodríguez-ramos">LinkedIn <span class="arr" aria-hidden="true">↗</span></a>
+          <a class="tlink" href="https://scholar.google.com/citations?hl=es&amp;user=8_wBYo4AAAAJ">Google Scholar <span class="arr" aria-hidden="true">↗</span></a>
+          <a class="tlink" href="https://github.com/nayrr25">GitHub <span class="arr" aria-hidden="true">↗</span></a>
+        </div>
+        <p class="pend">Pendiente I8: lista de publicaciones confirmadas (título y año).</p>
+      </div>
+    </div>
+    <div class="creds">
+      <div class="cr rv"><b class="num">+400%</b><span>créditos colocados con motores de decisión</span></div>
+      <div class="cr rv d1"><b class="num">&gt;2.4M</b><span>registros de compra pública analizados</span></div>
+      <div class="cr rv d2"><b class="num">47</b><span>patrones de anomalía modelados</span></div>
+      <div class="cr rv d3"><b>Investigación</b><span>publicaciones académicas en economía y estadística</span></div>
+    </div>
+  </section>
+
+  <!-- 7 · PREGUNTAS CLAVE -->
+  <section class="sec wrap" id="faq" aria-labelledby="h-faq" style="padding-top:0">
+    <div class="faq-grid">
+      <div><div class="eyebrow rv">Preguntas clave</div><h2 class="h2 rv" id="h-faq">Lo que conviene saber antes de empezar.</h2></div>
+      <div>
+        <div class="qas">
+          <div class="qa rv"><h3>¿Cómo se cobra una consultoría con N-AI?</h3><p>Cada proyecto se cotiza según su alcance, profundidad técnica y duración. Hay tres modalidades: proyecto cerrado (de la idea a la puesta en producción), acompañamiento mensual o asesoría por horas.</p></div>
+          <div class="qa rv d1"><h3>¿Cómo empieza un proyecto?</h3><p>Con una conversación inicial sin compromiso para entender el problema y los datos disponibles. De ahí sale una propuesta con alcance, modalidad y plan.</p><p class="pend">Pendiente I6: duración y costo del diagnóstico, y qué recibe el cliente.</p></div>
+          <div class="qa rv d2"><h3>¿Qué hace diferente a N-AI?</h3><p>Cada proyecto lo lleva directamente la fundadora, no un equipo junior. Une el método cuantitativo de una economista y estadística con experiencia técnica en ciencia de datos, machine learning y arquitectura.</p></div>
+        </div>
+        <div class="more rv">
+          <p class="lbl">Más preguntas</p>
+          <details><summary>¿Qué servicios ofrece N-AI?</summary><p>Inteligencia artificial y machine learning, automatización inteligente, analítica avanzada y BI, y arquitectura y gobierno de datos.</p></details>
+          <details><summary>¿Quién hace consultoría de IA en Costa Rica?</summary><p>N-AI (n-ai.dev), fundada por Nancy Rodríguez, ofrece consultoría de IA, automatización, analítica avanzada y arquitectura de datos para empresas e instituciones en Costa Rica y Latinoamérica.</p></details>
+          <details><summary>¿Quién hace inteligencia de compras públicas en Costa Rica?</summary><p>N-AI desarrolló la arquitectura de inteligencia para SICOP con la Contraloría General de la República: detección de anomalías sobre 47 patrones, scoring de riesgo en 8 dimensiones institucionales y monitoreo preventivo.</p></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · CONTACTO -->
+  <section class="wrap" id="contact" aria-labelledby="h-contact">
+    <div class="cta rv">
+      <div>
+        <div class="eyebrow" style="color:#D3DAEA">Agendar un diagnóstico</div>
+        <h2 class="h2" id="h-contact">¿Tienes un problema de datos que vale la pena resolver?</h2>
+        <p class="lead">En una conversación inicial se identifica dónde la IA, la automatización o la analítica avanzada pueden generar impacto en tu organización.</p>
+        <div class="ctas"><a class="btn btn-w" href="https://wa.me/50660028160">Escribir por WhatsApp <span aria-hidden="true">→</span></a><a class="btn btn-o" href="mailto:nanyrr25@gmail.com">Escribir por correo</a></div>
+        <p class="direct"><span class="num">+506 6002 8160</span> · nanyrr25@gmail.com</p>
+      </div>
+      <div>
+        <ol class="next" aria-label="Qué pasa después">
+          <li><div><b>Escribes</b><span>Por WhatsApp (respuesta más rápida) o por correo (propuestas y documentos).</span></div></li>
+          <li><div><b>Nancy te responde</b><span>Para coordinar la conversación inicial.</span></div></li>
+          <li><div><b>Conversación inicial</b><span>Sin compromiso: el problema, los datos y el siguiente paso.</span></div></li>
+        </ol>
+        <p class="pend">Pendiente I6: plazo de respuesta y duración de la conversación.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div><a class="brand" href="#top"><i>N</i>N-AI</a><small>© 2026 N-AI · San José, Costa Rica</small></div>
+    <ul><li><a href="#servicios">Servicios</a></li><li><a href="#caso-sicop">Caso SICOP</a></li><li><a href="#demos">Demos</a></li><li><a href="#metodo">Método</a></li><li><a href="#contact">Contacto</a></li></ul>
+    <ul><li><a href="https://www.linkedin.com/in/nancy-raquel-rodríguez-ramos">LinkedIn</a></li><li><a href="https://scholar.google.com/citations?hl=es&amp;user=8_wBYo4AAAAJ">Google Scholar</a></li><li><a href="https://github.com/nayrr25">GitHub</a></li></ul>
+  </div>
+</footer>
+
+<button class="notes-toggle" id="notesBtn" aria-pressed="false">Mostrar pendientes (6)</button>
+
+<script>
+const PHOTO = "__PHOTO__";
+document.querySelectorAll('img.photo').forEach(i => i.src = PHOTO);
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const ICONS = {
+  ai:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l1.8 4.7 4.7 1.8-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg>',
+  auto:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M6.5 10v3.5a2 2 0 0 0 2 2H14"/><path d="M17.5 10V6.5a2 2 0 0 0-2-2H10"/></svg>',
+  chart:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>',
+  data:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>'
+};
+document.querySelectorAll('[data-icon]').forEach(el => el.innerHTML = ICONS[el.dataset.icon]);
+document.querySelectorAll('.sv').forEach(c => c.addEventListener('pointermove', e => {
+  const r = c.getBoundingClientRect(); c.style.setProperty('--mx',(e.clientX-r.left)+'px'); c.style.setProperty('--my',(e.clientY-r.top)+'px');
+}));
+
+/* ===== Datos reales del caso SICOP (tal como están hoy en el sitio) ===== */
+const INST = [["A",23,"low"],["B",31,"low"],["C",28,"low"],["D",47,"medium"],["E",52,"medium"],["F",58,"medium"],["G",49,"medium"],["H",71,"high"],["I",76,"high"],["J",68,"high"],["K",84,"critical"],["L",91,"critical"]];
+const DIMS = [["Velocidad de contratación",78],["Concentración de proveedores",62],["Dispersión de precios",71],["Exposición a adendas",55],["Proximidad a sanciones",34],["Postura de transparencia",82],["Madurez de controles",49],["Densidad de señales",67]];
+const COMP = Math.round(DIMS.reduce((s,d)=>s+d[1],0)/DIMS.length); // 62
+const TIER = {low:"bajo",medium:"medio",high:"alto",critical:"crítico"};
+const COLOR = {low:"#35E0FF",medium:"#8FB4FF",high:"#FFC35D",critical:"#FF6B78"};
+
+const X = i => 20 + i*(520/11), Y = v => 162 - v/100*150;
+const pts = INST.map((d,i)=>[X(i),Y(d[1])]);
+const d = 'M'+pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L');
+document.getElementById('line').setAttribute('d', d);
+document.getElementById('area').setAttribute('d', d+' L540 170 L20 170 Z');
+document.getElementById('pts').innerHTML = INST.map((r,i)=>`<circle cx="${pts[i][0]}" cy="${pts[i][1]}" r="${r[2]==='critical'?5:4}" fill="${COLOR[r[2]]}"/>`).join('');
+document.getElementById('dims').innerHTML = [...DIMS].sort((a,b)=>b[1]-a[1]).slice(0,4)
+  .map(x=>`<div class="dr"><span>${x[0]}</span><span class="bar"><i style="--v:${x[1]/100}"></i></span><span class="num">${x[1]}</span></div>`).join('');
+
+const cursor = document.getElementById('cursor'), cdot = document.getElementById('cdot'), lbl = document.getElementById('scanLbl');
+const toast = document.getElementById('toast'), tT = document.getElementById('toastT'), tS = document.getElementById('toastS');
+let idx = 0, timer = null, paused = reduce, visible = false;
+function place(i){
+  const r = INST[i];
+  cursor.setAttribute('transform', `translate(${pts[i][0]},0)`);
+  cdot.setAttribute('cy', pts[i][1]); cdot.setAttribute('stroke', COLOR[r[2]]);
+  lbl.textContent = `Institución ${r[0]} · ${r[1]}`;
+  if (r[2]==='high' || r[2]==='critical'){
+    toast.classList.add('hide');
+    setTimeout(()=>{ tT.textContent = r[2]==='critical' ? 'Riesgo crítico detectado' : 'Riesgo alto detectado'; tS.textContent = `Institución ${r[0]} · ${r[1]}/100 · nivel ${TIER[r[2]]}`; toast.classList.remove('hide'); }, reduce?0:300);
+  }
+}
+function tick(){ idx = (idx+1) % INST.length; place(idx); }
+function run(){ clearInterval(timer); if(!paused && visible && !document.hidden) timer = setInterval(tick, 1100); }
+place(reduce ? 11 : 0);
+const pauseBtn = document.getElementById('pause');
+if (reduce){ pauseBtn.hidden = true; }
+pauseBtn.addEventListener('click', ()=>{ paused = !paused; pauseBtn.setAttribute('aria-pressed', paused); pauseBtn.textContent = paused ? 'Reanudar' : 'Pausar'; run(); });
+document.addEventListener('visibilitychange', run);
+
+function countUp(el){
+  const to = +el.dataset.count, dec = +(el.dataset.dec||0), pre = el.dataset.pre||'', suf = el.dataset.suf||'';
+  if (reduce) return;
+  const t0 = performance.now();
+  (function f(t){ const p = Math.min(1,(t-t0)/1200), e = 1-Math.pow(1-p,4); el.textContent = pre+(to*e).toFixed(dec)+suf; if(p<1) requestAnimationFrame(f); })(t0);
+}
+
+const dash = document.getElementById('dash');
+new IntersectionObserver(es=>es.forEach(e=>{
+  visible = e.isIntersecting;
+  if (visible && !dash.dataset.started){
+    dash.dataset.started = 1; dash.classList.add('in');
+    dash.querySelectorAll('[data-count]').forEach(countUp);
+    document.getElementById('arc').style.strokeDashoffset = 188.5*(1-COMP/100);
+  }
+  run();
+}),{threshold:.25}).observe(dash);
+
+document.getElementById('heat').innerHTML = Array.from({length:36},(_,i)=>{
+  const x=(i%12)*20, y=Math.floor(i/12)*21, v=(Math.sin(i*.7)+1)/2;
+  return `<rect x="${x}" y="${y}" width="18" height="19" rx="3" fill="${v>.93?'#35E0FF':'#8FB4FF'}" fill-opacity="${v>.93?1:(.1+v*.6).toFixed(2)}"/>`;
+}).join('');
+
+/* aparición una sola vez */
+const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv,#steps').forEach(el=>io.observe(el));
+
+/* menú */
+const nav = document.getElementById('nav'), menuBtn = document.getElementById('menuBtn');
+const onScroll = () => nav.classList.toggle('scrolled', scrollY > 8);
+addEventListener('scroll', onScroll, {passive:true}); onScroll();
+function setMenu(open){ nav.classList.toggle('open',open); menuBtn.setAttribute('aria-expanded',open); menuBtn.textContent = open ? 'Cerrar' : 'Menú'; }
+menuBtn.addEventListener('click', ()=>setMenu(!nav.classList.contains('open')));
+document.getElementById('menuPanel').addEventListener('click', e=>{ if(e.target.tagName==='A') setMenu(false); });
+addEventListener('keydown', e=>{ if(e.key==='Escape' && nav.classList.contains('open')){ setMenu(false); menuBtn.focus(); } });
+
+/* pendientes */
+const nb = document.getElementById('notesBtn');
+nb.addEventListener('click', ()=>{ const on = document.body.classList.toggle('show-notes'); nb.setAttribute('aria-pressed',on); nb.textContent = on ? 'Ocultar pendientes' : 'Mostrar pendientes (6)'; });
+</script>
+</body>
+</html>
