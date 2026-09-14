@@ -21,10 +21,11 @@ Que quien entra a n-ai.dev entienda en el primer pantallazo que N-AI es una **co
 ## Restricciones
 
 1. **Solo la fundadora.** No se muestran personas inventadas ni se dice "equipo", "nuestros expertos" ni se usa el plural de equipo. Voz de marca en tercera persona ("N-AI diseña…"); llamados a la acción en imperativo con **tú**.
-2. **Cero datos inventados.** Solo se publican cifras reales y datos agregados que entregue Nancy (ver Insumos). Se eliminan los valores ilustrativos sin rótulo que hoy tiene el caso:
-   - la serie aleatoria de `AnomalyChart`;
-   - "Institución A–L" con sus puntajes;
-   - los valores de las 8 dimensiones de riesgo.
+2. **Cero datos inventados.** Se publican las cifras reales y los resultados del caso SICOP que ya están en el sitio, confirmados por Nancy el 2026-09-14:
+   - los puntajes de las 8 dimensiones de riesgo (`sicop.riskDimensions`);
+   - los puntajes de las 12 instituciones anonimizadas (`caseStudy.sicop.ts`).
+
+   Se elimina la serie de 60 semanas de `AnomalyChart`: el código la genera con números aleatorios (`mulberry32`) y no es un dato del proyecto.
 3. **Español e inglés** con las mismas claves en `es.ts` y `en.ts`; TypeScript lo verifica.
 4. **Mismo stack:** Next.js 14, Tailwind 3.4, framer-motion 11. Sin dependencias nuevas. Recharts se elimina (gráficos en SVG propio). Los patrones de 21st.dev se usan como referencia y se reescriben.
 5. **Accesibilidad AA:**
@@ -41,16 +42,13 @@ Cada insumo tiene una alternativa explícita, para que su ausencia no bloquee el
 
 | # | Insumo | Formato | Si no llega a tiempo |
 |---|---|---|---|
-| I1 | Serie agregada de SICOP: `periodo` (mes), `registros_analizados`, `anomalias_detectadas` | CSV/Excel | El panel del hero muestra la **ficha técnica** (ver 1) sin gráfico |
-| I2 | Frecuencia de los principales patrones de anomalía: `patron` (nombre publicable), `casos` (top 8) | CSV/Excel | Se omite el gráfico de patrones |
-| I3 | Distribución de riesgo por tipo de institución, anonimizada: `grupo`, `puntaje_promedio`, `n_instituciones` (mínimo 5 instituciones por grupo, para evitar reidentificación) | CSV/Excel | Se omite en `/casos/sicop` |
-| I4 | Periodo cubierto, fecha de corte y confirmación de que la Contraloría permite publicarlo | Texto | **Sin I4 no se publica I1–I3**, aunque existan |
+| I1 | Serie temporal real de anomalías (por mes o semana), solo si existe y es publicable | CSV/Excel | No hay gráfico temporal; el panel usa las 8 dimensiones y la distribución de instituciones |
 | I5 | Ficha del caso: contexto, rol de Nancy, resultado publicable, periodo del proyecto | Texto | La banda del caso usa solo los hechos ya publicados (7 fuentes, pipeline de 7 etapas, 47 patrones, 8 dimensiones, <1 s) |
 | I6 | Diagnóstico: duración, costo (o "sin costo") y qué recibe el cliente | Texto | El contacto dice "conversación inicial" sin prometer duración ni costo |
 | I7 | Duración típica de cada fase del método | Texto | La línea de tiempo muestra entregables sin duraciones |
 | I8 | Publicaciones confirmadas (título, año, enlace), excluyendo las 4 de homónimos que aparecen en Scholar | Lista | Solo el enlace al perfil de Google Scholar |
 
-Los CSV se convierten a `src/content/data/sicop.*.json`, versionados en el repositorio, con la fecha de corte y la fuente como metadatos.
+Los datos del caso se reúnen en `src/content/data/sicop.json`, versionado en el repositorio: hechos, 8 dimensiones, 12 instituciones anonimizadas y, si llega I1, la serie temporal. La fuente va como metadato.
 
 ## Arquitectura de páginas
 
@@ -83,13 +81,11 @@ La portada pasa de 11 secciones a 8, en este orden:
 - **Botones:** "Agendar un diagnóstico" (primario, relleno de acento) → `#contact`; "Ver el caso SICOP" (enlace de texto con flecha) → `/casos/sicop`.
 - **Cifras:** 56–72 px con `tabular-nums` y la unidad en peso menor. +400% créditos colocados · >2.4M registros de compra pública analizados · 47 patrones de anomalía modelados.
 - **Panel de prueba `ProofPanel`** (plano, sin inclinación ni brillo):
-  - **Con I1 + I4:**
-    - cabecera "Caso SICOP · datos agregados" y línea de estado en texto: "Corte: {fecha} · Fuente: proyecto SICOP";
-    - KPI de registros analizados (valor real, estático);
-    - KPI de anomalías detectadas en el periodo (suma de I1);
-    - gráfico de líneas mensual de I1 con los picos marcados en acento;
-    - con I2, barras horizontales del top 5 de patrones.
-  - **Sin I1:** ficha técnica. Diagrama estático de 5 pasos con hechos reales: 7 fuentes → pipeline de 7 etapas → 47 patrones → 8 dimensiones → scoring <1 s.
+  - **Cabecera:** "Caso SICOP · compras públicas", con la línea de estado en texto "Resultados del proyecto · instituciones anonimizadas".
+  - **KPI estáticos:** >2.4M registros analizados · 47 patrones de anomalía.
+  - **Barras horizontales** con las 8 dimensiones de riesgo (escala 0–100) y su compuesto.
+  - **Distribución de las 12 instituciones anonimizadas** por nivel (bajo, medio, alto, crítico), con las 2 críticas marcadas en acento.
+  - **Si llega I1,** se agrega el gráfico temporal sin reemplazar nada.
   - **Animación:** una sola vez al entrar en pantalla (la línea se dibuja y las barras crecen con `scaleX`), ≤1,2 s en total, sin bucles, sin contadores que suben y sin avisos rotando. Como no dura más de 5 s, no requiere control de pausa (WCAG 2.2.2).
   - **Móvil:** versión compacta con un KPI y un gráfico de 120 px de alto, justo debajo de las cifras.
 - **Fondo:** base oscura neutra y grano sutil del 3%. Sin halos, cuadrícula ni partículas. Altura `min-height: 100svh`.
@@ -166,8 +162,8 @@ La portada pasa de 11 secciones a 8, en este orden:
   - resumen (contexto, rol, resultado, periodo);
   - el reto;
   - fuentes y arquitectura (las 7 fuentes y el pipeline de 7 etapas, con el texto del Pipeline actual reescrito sin jerga);
-  - capa de IA (47 patrones, 8 dimensiones, qué mide cada una **sin valores inventados**);
-  - gráficos reales (I1–I3, con fecha de corte y fuente);
+  - capa de IA (47 patrones y las 8 dimensiones con sus puntajes reales y qué mide cada una);
+  - gráficos del caso: dimensiones de riesgo y distribución de las 12 instituciones anonimizadas (más la serie temporal si llega I1);
   - impacto estratégico;
   - llamado a agendar un diagnóstico.
 - **Navegación:** índice lateral fijo en escritorio (se reutiliza el patrón actual) y enlace "Volver al inicio".
@@ -230,7 +226,7 @@ Coral de alerta, derivado del concepto de "señal" de SICOP. Los tokens se renom
   - `src/components/charts/LineSeries.tsx` y `BarList.tsx` (SVG);
   - `src/app/(es)/casos/sicop/page.tsx` y `src/app/(en)/en/cases/sicop/page.tsx`, con su componente compartido en `src/app/_shell/CaseSicop.tsx`;
   - `src/content/services.ts`;
-  - `src/content/data/` (JSON de I1–I3, cuando lleguen);
+  - `src/content/data/sicop.json`;
   - `src/components/ui/Grain.tsx`.
 - **Modificados:**
   - `Hero.tsx`, `DemoShowcase.tsx`, `FAQ.tsx`, `Contact.tsx`, `Nav.tsx`, `Footer.tsx`;
@@ -274,15 +270,15 @@ Coral de alerta, derivado del concepto de "señal" de SICOP. Los tokens se renom
    - Lighthouse móvil sin bajar más de 5 puntos frente a la medición previa a los cambios.
 7. **Honestidad del contenido:**
    - búsqueda de "equipo", "nuestro", "nuestros" y del plural de equipo en `es.ts` y `en.ts`;
-   - ningún número en pantalla que no venga de las cifras reales o de I1–I3;
-   - I1–I3 solo se publican si I4 está confirmado.
+   - ningún número en pantalla que no venga de las cifras reales, de `sicop.json` o de I1;
+   - ningún generador de números aleatorios (`Math.random`, `mulberry32`) alimenta un gráfico visible.
 
 ## Entrega
 
-1. **Maqueta v2:** hero, banda SICOP y servicios, con la paleta nueva y la ficha técnica en lugar de datos. Se sube a `docs/superpowers/specs/assets/` para aprobación visual antes de implementar.
+1. **Maqueta v2:** hero, banda SICOP y servicios, con la paleta nueva y el panel con los datos reales del caso. Se sube a `docs/superpowers/specs/assets/` para aprobación visual antes de implementar.
 2. **Plan de implementación** en `docs/superpowers/plans/`.
 3. **Commits en `feat/rediseno-consultora`**, subidos a GitHub después de cada entregable → PR a `main` → vista previa de Vercel → revisión de Nancy → merge solo con su aprobación.
-4. **Cuando lleguen I1–I8,** se incorporan en commits propios, sin rehacer el diseño.
+4. **Cuando lleguen I1 e I5–I8,** se incorporan en commits propios, sin rehacer el diseño.
 
 ## Fuera de alcance
 
