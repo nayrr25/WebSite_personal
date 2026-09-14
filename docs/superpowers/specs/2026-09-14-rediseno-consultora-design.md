@@ -75,7 +75,7 @@ La portada pasa de 11 secciones a 8, en este orden:
 ### 1. Hero
 
 - **H1:** "Consultoría experta en IA, automatización y *analítica avanzada.*". El final va en Instrument Serif itálica **color sólido** `text.primary`, sin degradado.
-- **Escala:** H1 `clamp(44px, 6.4vw, 96px)`, interlineado 0.95, tracking −0.035em.
+- **Escala:** H1 `clamp(42px, 5.4vw, 78px)`, interlineado 0.95, tracking −0.035em. El tope de 78 px viene de la maqueta v2: con más tamaño, el panel de prueba no cabe en 1440×900.
 - **Etiqueta:** una sola línea en sentence case, sin mayúsculas ni punto pulsante: "Consultoría de IA y analítica avanzada · Costa Rica y Latinoamérica".
 - **Subtítulo:** "N-AI diseña, construye y pone en producción soluciones de datos para empresas e instituciones."
 - **Botones:** "Agendar un diagnóstico" (primario, relleno de acento) → `#contact`; "Ver el caso SICOP" (enlace de texto con flecha) → `/casos/sicop`.
@@ -154,6 +154,7 @@ La portada pasa de 11 secciones a 8, en este orden:
 - **H2:** "¿Tienes un problema de datos que vale la pena resolver?"
 - **Qué pasa después:** 3 pasos en texto. Escribes → respuesta en {plazo I6} → diagnóstico ({duración y costo I6} o "conversación inicial").
 - **Botones:** se conservan WhatsApp (primario) y correo, con sus indicaciones.
+- **Correo de contacto:** `nanyrr25@gmail.com` en todo el sitio (`site.contact.email`, `mailto`, JSON-LD, `llms.txt`). Reemplaza a `nancyrodriguez@n-ai.dev` por decisión de Nancy del 2026-09-14, porque no hay certeza de que el reenvío del dominio funcione.
 - `whatsappMessage`: "Hola Nancy, te escribo desde n-ai.dev. Me interesa agendar un diagnóstico para un proyecto de datos / IA."
 
 ### `/casos/sicop` y `/en/cases/sicop`
@@ -203,7 +204,7 @@ Coral de alerta, derivado del concepto de "señal" de SICOP. Los tokens se renom
 ### Tipografía
 
 - **Archivo** para titulares, **Public Sans** para el texto, **Instrument Serif** itálica solo en el acento del H1 y en citas.
-- **Escala de títulos:** H1 hasta 96 px; H2 `clamp(32px, 4.4vw, 56px)`.
+- **Escala de títulos:** H1 hasta 78 px; H2 `clamp(32px, 4.4vw, 56px)`.
 - **Texto:** 17–18 px, máximo 68 caracteres por línea.
 - **Texto funcional:** mínimo 12 px, `tabular-nums` en todas las cifras.
 - **Etiquetas en mayúsculas:** máximo 2 en toda la portada, con tracking ≤0.08em.
@@ -229,7 +230,7 @@ Coral de alerta, derivado del concepto de "señal" de SICOP. Los tokens se renom
   - `src/content/data/sicop.json`;
   - `src/components/ui/Grain.tsx`.
 - **Modificados:**
-  - `Hero.tsx`, `DemoShowcase.tsx`, `FAQ.tsx`, `Contact.tsx`, `Nav.tsx`, `Footer.tsx`;
+  - `Hero.tsx`, `DemoShowcase.tsx`, `FAQ.tsx`, `Contact.tsx`, `Nav.tsx`, `Footer.tsx`, `src/content/site.ts` (correo);
   - `HomeSections.tsx`, `tailwind.config.ts`, `src/styles/tokens.css`, `src/app/globals.css`;
   - `es.ts`, `en.ts`;
   - `StructuredData.tsx`, `opengraph-image.tsx`, `sitemap.ts`, los dos `layout.tsx` (description y `metadataBase`);

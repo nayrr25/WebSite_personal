@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N-AI · Maqueta v2 para aprobación</title>
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Serif:ital@1&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-base:#0F1013; --bg-deep:#0A0B0D; --bg-raised:#17191D;
+  --line-subtle:rgba(242,239,234,.10); --line-strong:rgba(242,239,234,.18);
+  --ink-primary:#F2EFEA; --ink-secondary:#B5AFA6; --ink-muted:#8C867E;
+  --accent:#FF6A4D; --accent-hover:#FF7F66; --accent-ink:#0F1013; --data-neutral:#C9C3BA;
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --gutter:clamp(20px,4vw,48px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg-base);color:var(--ink-primary);font:400 17px/1.6 'Public Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.03;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+::selection{background:rgba(255,106,77,.3);color:var(--ink-primary)}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif;text-wrap:balance;font-weight:700;letter-spacing:-.02em}
+p{text-wrap:pretty}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{width:min(1240px,100%);margin-inline:auto;padding-inline:var(--gutter)}
+.num{font-variant-numeric:tabular-nums}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- botones y enlaces ---------- */
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 15px/1 'Public Sans',sans-serif;padding:15px 22px;border-radius:10px;text-decoration:none;border:0;cursor:pointer;transition:transform 120ms var(--ease-out),background-color 160ms ease}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.tlink{display:inline-flex;align-items:center;gap:8px;font:600 15px 'Public Sans',sans-serif;color:var(--ink-primary);text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:6px;transition:text-decoration-color 160ms ease}
+.tlink .arr{display:inline-block;transition:transform 200ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){
+  .btn-primary:hover{background:var(--accent-hover)}
+  .tlink:hover{text-decoration-color:var(--accent)}
+  .tlink:hover .arr{transform:translateX(3px)}
+  .nav-links a:hover{color:var(--ink-primary)}
+}
+
+/* ---------- menú ---------- */
+.nav{position:sticky;top:0;z-index:50;border-bottom:1px solid transparent;transition:background-color 200ms ease,border-color 200ms ease}
+.nav.scrolled{background:rgba(15,16,19,.88);border-color:var(--line-subtle);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.nav-in{height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 19px Archivo;letter-spacing:-.02em}
+.brand svg{width:26px;height:26px}
+.nav-links{display:flex;gap:28px;list-style:none;font-size:14px}
+.nav-links a{color:var(--ink-secondary);text-decoration:none;transition:color 160ms ease}
+.nav-right{display:flex;align-items:center;gap:18px}
+.lang{font:600 13px 'Public Sans';color:var(--ink-secondary);text-decoration:none}
+.nav .btn{padding:11px 16px;font-size:14px}
+.menu-btn{display:none;background:none;border:1px solid var(--line-strong);color:var(--ink-primary);font:600 14px 'Public Sans';padding:9px 14px;border-radius:8px;cursor:pointer}
+.menu-panel{display:none;border-top:1px solid var(--line-subtle);background:var(--bg-base)}
+.menu-panel ul{list-style:none;padding:8px var(--gutter) 20px}
+.menu-panel a{display:block;padding:14px 0;border-bottom:1px solid var(--line-subtle);text-decoration:none;font-size:17px}
+@media (max-width:960px){.nav-links,.nav .btn-desktop{display:none}.menu-btn{display:inline-flex}.nav.open .menu-panel{display:block}}
+
+/* ---------- aparición al entrar (una sola vez) ---------- */
+.js .rv{opacity:0;transform:translateY(12px);transition:opacity 480ms var(--ease-out),transform 480ms var(--ease-out)}
+.js .rv.in{opacity:1;transform:none}
+.d1{transition-delay:50ms!important}.d2{transition-delay:100ms!important}.d3{transition-delay:150ms!important}.d4{transition-delay:200ms!important}
+
+/* ---------- hero ---------- */
+.hero{min-height:calc(100svh - 64px);display:flex;flex-direction:column;justify-content:center;padding-block:clamp(20px,3vh,40px) clamp(36px,6vh,64px)}
+.eyebrow{font-size:14px;color:var(--ink-secondary)}
+.eyebrow b{color:var(--ink-primary);font-weight:600}
+.hero h1{font-size:clamp(42px,5.4vw,78px);line-height:.95;letter-spacing:-.035em;font-weight:800;margin-top:14px;max-width:17ch}
+.hero h1 em{font:italic 400 1.08em/1 'Instrument Serif',Georgia,serif;letter-spacing:-.01em}
+.hero-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,4vw,64px);align-items:start;margin-top:clamp(24px,3.5vh,32px)}
+.hero .sub{font-size:19px;line-height:1.55;color:var(--ink-secondary);max-width:40ch}
+.ctas{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-top:28px}
+.figs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line-subtle)}
+.fig dd{font:700 clamp(34px,4vw,58px)/1 Archivo;letter-spacing:-.04em}
+.fig dd small{font-size:.52em;font-weight:500;letter-spacing:0;margin-left:2px}
+.fig dd small.pre{margin:0 2px 0 0}
+.fig dt{font-size:13px;line-height:1.4;color:var(--ink-secondary);margin-top:10px;max-width:18ch}
+
+/* ---------- panel de prueba ---------- */
+.panel{background:var(--bg-raised);border:1px solid var(--line-subtle);border-radius:16px;padding:22px 24px 24px}
+.panel-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid var(--line-subtle)}
+.panel-h strong{font:600 14px 'Public Sans'}
+.panel-h span{font-size:12px;color:var(--ink-muted)}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-block:12px;border-bottom:1px solid var(--line-subtle)}
+.kpi b{display:block;font:700 30px/1 Archivo;letter-spacing:-.03em}
+.kpi span{display:block;font-size:13px;color:var(--ink-secondary);margin-top:6px}
+.blk-h{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 8px;font-size:13px;color:var(--ink-secondary)}
+.blk-h b{color:var(--ink-primary);font-weight:600}
+.blk-h .comp{display:inline-flex;align-items:center;gap:8px}
+.blk-h .comp i{width:14px;height:0;border-top:2px dashed var(--accent)}
+.dims{position:relative;list-style:none}
+.dims li{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 28px;align-items:center;gap:12px;height:22px;font-size:13px;color:var(--ink-secondary)}
+.dims li span:last-child{text-align:right;color:var(--ink-primary)}
+.track{position:relative;height:8px;background:var(--line-subtle);border-radius:2px}
+.fill{position:absolute;inset:0 auto 0 0;background:var(--data-neutral);border-radius:2px;transform-origin:left center}
+.js .panel .fill{transform:scaleX(0);transition:transform 700ms var(--ease-out)}
+.js .panel.in .fill{transform:scaleX(1)}
+.compline{position:absolute;top:-6px;bottom:-6px;border-left:2px dashed var(--accent)}
+.strip{position:relative;height:48px;margin-top:2px}
+.strip .axis{position:absolute;left:0;right:0;top:20px;border-top:1px solid var(--line-strong)}
+.strip .tick{position:absolute;top:28px;font-size:12px;color:var(--ink-muted);transform:translateX(-50%)}
+.dot{position:absolute;top:14px;width:12px;height:12px;border-radius:50%;margin-left:-6px;border:2px solid var(--bg-raised)}
+.dot.low{background:#6F6A63}.dot.medium{background:#9C968D}.dot.high{background:var(--data-neutral)}.dot.critical{background:var(--accent)}
+.js .panel .dot{opacity:0;transform:scale(.9);transition:opacity 300ms var(--ease-out),transform 300ms var(--ease-out)}
+.js .panel.in .dot{opacity:1;transform:none}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:8px;font-size:12px;color:var(--ink-secondary)}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:1fr}
+  .panel .dims,.panel .blk-dims{display:none}
+  .kpis{grid-template-columns:1fr}
+  .kpis .kpi:last-child{display:none}
+}
+
+/* ---------- secciones ---------- */
+section{scroll-margin-top:72px}
+.sec{padding-block:clamp(88px,11vw,136px) clamp(100px,12vw,152px)}
+.h2{font-size:clamp(32px,4.4vw,56px);line-height:1.02;letter-spacing:-.035em;max-width:18ch}
+.lead{font-size:18px;color:var(--ink-secondary);max-width:58ch;margin-top:18px}
+.kicker{font:600 12px 'Public Sans';letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+
+/* servicios */
+.anchor{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,5vw,80px);margin-top:56px;padding-top:40px;border-top:1px solid var(--line-strong)}
+.idx{font:600 13px 'Public Sans';color:var(--ink-muted)}
+.anchor h3{font-size:clamp(28px,3vw,40px);line-height:1.08;margin-top:12px;max-width:16ch}
+.anchor p{font-size:18px;color:var(--ink-secondary);margin-top:16px;max-width:46ch}
+.tags{font-size:14px;color:var(--ink-secondary);margin-top:18px}
+.tags b{color:var(--ink-primary);font-weight:600}
+.evidence{border-top:2px solid var(--accent);padding-top:18px;align-self:start}
+.evidence .lbl{font-size:13px;color:var(--ink-secondary)}
+.evidence p{font-size:17px;color:var(--ink-primary);margin:10px 0 18px;max-width:40ch}
+.rows{list-style:none;margin-top:56px}
+.rows li{display:grid;grid-template-columns:64px minmax(0,4fr) minmax(0,6fr);gap:24px;padding-block:28px;border-top:1px solid var(--line-subtle)}
+.rows li:last-child{border-bottom:1px solid var(--line-subtle)}
+.rows h3{font-size:22px;line-height:1.2}
+.rows p{color:var(--ink-secondary);font-size:16px}
+.rows .tags{margin-top:10px}
+.sectors{margin-top:36px;font-size:15px;color:var(--ink-secondary)}
+.sectors b{color:var(--ink-primary);font-weight:600;margin-right:6px}
+@media (max-width:860px){.anchor{grid-template-columns:1fr}.rows li{grid-template-columns:44px 1fr}.rows li>div:last-child{grid-column:2}}
+
+/* banda SICOP */
+.band{background:var(--bg-raised);border-block:1px solid var(--line-subtle)}
+.band-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(40px,6vw,96px);align-items:start}
+.band h2{margin-top:16px;max-width:20ch}
+.band .ctx{font-size:18px;color:var(--ink-secondary);margin-top:22px;max-width:52ch}
+.result{margin-top:26px;padding-left:18px;border-left:2px solid var(--accent);max-width:50ch}
+.result span{display:block;font-size:13px;color:var(--ink-secondary)}
+.result p{font-size:18px;margin-top:4px}
+.band .tlink{margin-top:30px}
+.facts{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line-strong)}
+.facts div{padding:26px 0 26px;border-bottom:1px solid var(--line-subtle)}
+.facts div:nth-child(odd){padding-right:20px;border-right:1px solid var(--line-subtle)}
+.facts div:nth-child(even){padding-left:24px}
+.facts b{display:block;font:700 clamp(40px,4.4vw,60px)/1 Archivo;letter-spacing:-.04em}
+.facts b small{font-size:.5em;font-weight:500;letter-spacing:0}
+.facts span{display:block;font-size:14px;color:var(--ink-secondary);margin-top:10px}
+@media (max-width:860px){.band-grid{grid-template-columns:1fr}}
+
+/* demos */
+.demos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:48px}
+.demo{background:var(--bg-raised);border-radius:12px;padding:24px;display:flex;flex-direction:column;min-height:280px}
+.demo.wide{grid-column:span 2}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-secondary)}
+.status i{width:8px;height:8px;border-radius:1px}
+.status.live i{background:var(--accent)}.status.build i{background:var(--data-neutral)}.status.concept i{background:#6F6A63}
+.demo h3{font-size:20px;line-height:1.25;margin-top:18px}
+.demo p{font-size:15px;color:var(--ink-secondary);margin-top:8px;max-width:46ch}
+.demo svg{margin-top:auto;padding-top:22px;width:100%;height:auto;max-height:84px}
+.demo .tlink{margin-top:16px;font-size:14px}
+@media (max-width:960px){.demos{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.demos{grid-template-columns:1fr}.demo.wide{grid-column:auto}}
+
+/* método */
+.steps{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;margin-top:64px;list-style:none;padding-top:36px}
+.steps::before{content:"";position:absolute;left:0;right:0;top:0;border-top:1px solid var(--line-strong);transform-origin:left center}
+.js .steps::before{transform:scaleX(0);transition:transform 900ms var(--ease-out)}
+.js .steps.in::before{transform:scaleX(1)}
+.steps li{position:relative}
+.steps li::before{content:"";position:absolute;top:-41px;left:0;width:10px;height:10px;background:var(--accent);border-radius:1px}
+.steps .ph{font-size:13px;color:var(--ink-muted)}
+.steps h3{font-size:24px;margin-top:6px}
+.steps p{font-size:16px;color:var(--ink-secondary);margin-top:8px}
+.deliv{margin-top:16px;font-size:14px;color:var(--ink-primary)}
+.deliv span{color:var(--ink-secondary)}
+@media (max-width:860px){.steps{grid-template-columns:1fr;padding-top:0;padding-left:28px;gap:36px}.steps::before{top:0;bottom:0;right:auto;left:4px;border-top:0;border-left:1px solid var(--line-strong)}.steps li::before{top:8px;left:-28px}}
+
+/* quién lidera */
+.lead-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:clamp(40px,6vw,96px);align-items:start}
+.portrait{aspect-ratio:4/5;border-radius:6px;overflow:hidden;background:var(--bg-raised)}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:center 22%}
+.who{max-width:640px}
+.person{margin-top:28px}
+.person b{font:700 20px Archivo}
+.person span{display:block;font-size:14px;color:var(--ink-secondary);margin-top:2px}
+.who p.bio{font-size:18px;color:var(--ink-secondary);margin-top:18px}
+blockquote{margin-top:32px;padding-left:20px;border-left:2px solid var(--accent);font:italic 400 clamp(26px,2.6vw,34px)/1.2 'Instrument Serif',Georgia,serif;color:var(--ink-primary)}
+.areas{margin-top:28px;font-size:15px;color:var(--ink-secondary)}
+.areas b{color:var(--ink-primary);font-weight:600;display:block;margin-bottom:4px}
+.socials{display:flex;gap:24px;flex-wrap:wrap;margin-top:28px}
+@media (max-width:860px){.lead-grid{grid-template-columns:1fr}.portrait{max-width:360px}}
+
+/* preguntas */
+.faq-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(40px,6vw,96px)}
+.qa{padding-block:26px;border-top:1px solid var(--line-subtle)}
+.qa:first-child{border-top-color:var(--line-strong);padding-top:0;border-top:0}
+.qa h3{font-size:21px;line-height:1.3}
+.qa p{color:var(--ink-secondary);margin-top:10px;max-width:62ch}
+details{border-top:1px solid var(--line-subtle)}
+details:last-of-type{border-bottom:1px solid var(--line-subtle)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:24px;padding-block:20px;font:600 17px 'Public Sans'}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:400 24px/1 'Public Sans';color:var(--ink-secondary)}
+details[open] summary::after{content:"–"}
+details p{color:var(--ink-secondary);padding-bottom:22px;max-width:62ch}
+.more{margin-top:36px}
+.more .lbl{font-size:14px;color:var(--ink-secondary);margin-bottom:6px}
+@media (max-width:860px){.faq-grid{grid-template-columns:1fr}}
+
+/* contacto */
+.contact-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(40px,6vw,96px);align-items:start}
+.contact h2{max-width:16ch}
+.next{list-style:none;counter-reset:s}
+.next li{counter-increment:s;display:grid;grid-template-columns:40px 1fr;padding-block:18px;border-top:1px solid var(--line-subtle)}
+.next li::before{content:counter(s);font:700 15px Archivo;color:var(--accent)}
+.next li b{font-weight:600}
+.next li span{display:block;color:var(--ink-secondary);font-size:15px}
+.contact .ctas{margin-top:32px}
+.direct{margin-top:22px;font-size:15px;color:var(--ink-secondary)}
+@media (max-width:860px){.contact-grid{grid-template-columns:1fr}}
+
+/* pie */
+footer{background:var(--bg-deep);border-top:1px solid var(--line-subtle);padding-block:48px}
+.foot{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:flex-start}
+.foot ul{list-style:none;display:flex;gap:22px;flex-wrap:wrap;font-size:14px}
+.foot a{color:var(--ink-secondary);text-decoration:none}
+.foot small{display:block;font-size:13px;color:var(--ink-muted);margin-top:10px}
+
+/* ---------- pendientes de la maqueta (ocultos por defecto) ---------- */
+.pend{display:none;margin-top:14px;padding:8px 12px;border:1px dashed var(--accent);border-radius:6px;font-size:13px;color:var(--ink-primary);max-width:52ch}
+.show-notes .pend{display:block}
+.notes-toggle{position:fixed;left:16px;bottom:16px;z-index:70;background:var(--bg-raised);color:var(--ink-primary);border:1px solid var(--line-strong);font:600 13px 'Public Sans';padding:10px 14px;border-radius:8px;cursor:pointer}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rv,.js .panel .fill,.js .panel .dot,.js .steps::before{transform:none!important;transition:opacity 150ms ease!important}
+  .btn:active{transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="N-AI, inicio">
+      <svg viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="1" width="24" height="24" rx="6" fill="none" stroke="#F2EFEA" stroke-opacity=".35"/><path d="M8 18V8l10 10V8" fill="none" stroke="#F2EFEA" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="8" r="2" fill="#FF6A4D"/></svg>
+      N-AI
+    </a>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#caso-sicop">Caso SICOP</a></li>
+      <li><a href="#demos">Demos</a></li>
+      <li><a href="#metodo">Método</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="lang" href="#" hreflang="en" lang="en" aria-label="Switch to English">EN</a>
+      <a class="btn btn-primary btn-desktop" href="#contact">Agendar diagnóstico</a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <nav class="menu-panel" id="menuPanel" aria-label="Menú principal">
+    <ul>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#caso-sicop">Caso SICOP</a></li>
+      <li><a href="#demos">Demos</a></li>
+      <li><a href="#metodo">Método</a></li>
+      <li><a href="#contact">Agendar diagnóstico</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- 1 · HERO -->
+  <section class="wrap hero" aria-labelledby="h1">
+    <p class="eyebrow rv"><b>Consultoría de IA y analítica avanzada</b> · Costa Rica y Latinoamérica</p>
+    <h1 id="h1" class="rv d1">Consultoría experta en IA, automatización y <em>analítica avanzada.</em></h1>
+    <div class="hero-grid">
+      <div>
+        <p class="sub rv d2">N-AI diseña, construye y pone en producción soluciones de datos para empresas e instituciones.</p>
+        <div class="ctas rv d3">
+          <a class="btn btn-primary" href="#contact">Agendar un diagnóstico</a>
+          <a class="tlink" href="#caso-sicop">Ver el caso SICOP <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+        <dl class="figs rv d4">
+          <div class="fig"><dd class="num"><small class="pre">+</small>400<small>%</small></dd><dt>créditos colocados con motores de decisión</dt></div>
+          <div class="fig"><dd class="num"><small class="pre">&gt;</small>2.4<small>M</small></dd><dt>registros de compra pública analizados</dt></div>
+          <div class="fig"><dd class="num">47</dd><dt>patrones de anomalía modelados</dt></div>
+        </dl>
+      </div>
+
+      <figure class="panel rv d2" id="panel" aria-labelledby="panel-title">
+        <div class="panel-h">
+          <strong id="panel-title">Caso SICOP · compras públicas</strong>
+          <span>Resultados del proyecto · instituciones anonimizadas</span>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><b class="num">&gt;2.4M</b><span>registros analizados</span></div>
+          <div class="kpi"><b class="num">47</b><span>patrones de anomalía</span></div>
+        </div>
+        <div class="blk-h blk-dims"><b>Dimensiones de riesgo institucional</b><span class="comp"><i aria-hidden="true"></i>Compuesto <b class="num">62</b>/100</span></div>
+        <ul class="dims" id="dims" aria-label="Puntaje de las 8 dimensiones de riesgo, escala 0 a 100"></ul>
+        <div class="blk-h"><b>12 instituciones por puntaje de riesgo</b><span>escala 0–100</span></div>
+        <div class="strip" id="strip" role="img" aria-label="Puntajes de 12 instituciones anonimizadas: 3 bajo, 4 medio, 3 alto y 2 crítico, con 84 y 91 como los más altos"></div>
+        <div class="legend" aria-hidden="true"><span><i style="background:#6F6A63"></i>bajo · 3</span><span><i style="background:#9C968D"></i>medio · 4</span><span><i style="background:#C9C3BA"></i>alto · 3</span><span><i style="background:#FF6A4D"></i>crítico · 2</span></div>
+        <p class="pend">Pendiente I1: si existe una serie temporal real y publicable, se agrega aquí un gráfico mensual.</p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 2 · SERVICIOS -->
+  <section class="sec wrap" id="servicios" aria-labelledby="h-serv">
+    <h2 class="h2 rv" id="h-serv">Lo que N-AI hace por tu organización.</h2>
+    <div class="anchor rv">
+      <div>
+        <span class="idx num">01</span>
+        <h3>Inteligencia artificial y machine learning</h3>
+        <p>Modelos predictivos, detección de anomalías, scoring de riesgo e IA generativa aplicada a la operación de tu organización.</p>
+        <p class="tags"><b>Incluye:</b> predicción · scoring de riesgo · detección de anomalías · IA generativa</p>
+      </div>
+      <aside class="evidence" aria-label="Evidencia">
+        <span class="lbl">Evidencia</span>
+        <p>Caso SICOP: detección de anomalías sobre 47 patrones y scoring de riesgo en 8 dimensiones para la Contraloría General de la República.</p>
+        <a class="tlink" href="#caso-sicop">Leer el caso <span class="arr" aria-hidden="true">→</span></a>
+      </aside>
+    </div>
+    <ul class="rows">
+      <li class="rv"><span class="idx num">02</span><h3>Automatización inteligente</h3><div><p>Procesos que hoy son manuales, resueltos con flujos y agentes de IA conectados a tus sistemas.</p><p class="tags">agentes de IA · flujos · integraciones</p></div></li>
+      <li class="rv"><span class="idx num">03</span><h3>Analítica avanzada y BI</h3><div><p>Tableros ejecutivos, segmentación de clientes, pronósticos y medición del desempeño de campañas.</p><p class="tags">dashboards · segmentación RFM · pronósticos</p></div></li>
+      <li class="rv"><span class="idx num">04</span><h3>Arquitectura y gobierno de datos</h3><div><p>Ingesta, calidad y gobierno en la nube, para que la IA trabaje sobre datos confiables.</p><p class="tags">nube · calidad · gobierno</p></div></li>
+    </ul>
+    <p class="sectors rv"><b>Sectores:</b> sector público · banca y crédito · consumo masivo · retail · marketing y medios</p>
+  </section>
+
+  <!-- 3 · BANDA SICOP -->
+  <section class="band" id="caso-sicop" aria-labelledby="h-case">
+    <div class="wrap sec band-grid">
+      <div>
+        <p class="kicker rv">Caso destacado</p>
+        <h2 class="h2 rv" id="h-case">Inteligencia de compras públicas para la Contraloría General de la República.</h2>
+        <p class="ctx rv">La supervisión de las compras públicas era reactiva: las irregularidades aparecían después del daño, con datos repartidos en fuentes y taxonomías distintas.</p>
+        <div class="result rv"><span>Resultado</span><p>El riesgo se vuelve visible antes de convertirse en un caso legal: los auditores actúan sobre señales, no sobre hallazgos.</p></div>
+        <p class="pend">Pendiente I5: rol de Nancy, resultado publicable y periodo del proyecto.</p>
+        <a class="tlink rv" href="#">Leer el caso completo <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+      <div class="facts rv" role="list">
+        <div role="listitem"><b class="num">7</b><span>fuentes de datos unificadas</span></div>
+        <div role="listitem"><b class="num">47</b><span>patrones de anomalía</span></div>
+        <div role="listitem"><b class="num">8</b><span>dimensiones de riesgo institucional</span></div>
+        <div role="listitem"><b class="num">&lt;1<small> s</small></b><span>para calcular un puntaje de riesgo</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · DEMOS -->
+  <section class="sec wrap" id="demos" aria-labelledby="h-demos">
+    <h2 class="h2 rv" id="h-demos">Sistemas en producción y en construcción.</h2>
+    <p class="lead rv">Cada sistema responde una pregunta real de negocio.</p>
+    <div class="demos">
+      <article class="demo rv">
+        <span class="status live"><i aria-hidden="true"></i>En vivo</span>
+        <h3>Inteligencia de compras públicas</h3>
+        <p>Detección de anomalías, scoring de riesgo y monitoreo preventivo sobre SICOP.</p>
+        <svg viewBox="0 0 240 64" aria-hidden="true"><polyline points="0,46 24,40 48,44 72,34 96,38 120,30 144,40 168,24 192,34 216,14 240,26" fill="none" stroke="#C9C3BA" stroke-width="1.5"/><circle cx="216" cy="14" r="4" fill="#FF6A4D"/><circle cx="168" cy="24" r="4" fill="#FF6A4D"/></svg>
+        <a class="tlink" href="#caso-sicop">Ver el caso <span class="arr" aria-hidden="true">→</span></a>
+      </article>
+      <article class="demo rv d1">
+        <span class="status live"><i aria-hidden="true"></i>En vivo</span>
+        <h3>Crédito preaprobado · motor de decisión</h3>
+        <p>Preaprobación automática para una entidad financiera regulada: más de 200 reglas de negocio (NIF y SUGEF) y decisión en menos de un segundo. Resultado: +400% de créditos colocados.</p>
+        <svg viewBox="0 0 240 64" aria-hidden="true"><rect x="8" y="22" width="44" height="20" rx="3" fill="none" stroke="#C9C3BA"/><path d="M52 32h28M80 32l24-16M80 32l24 16" stroke="#8C867E" fill="none"/><rect x="104" y="6" width="44" height="20" rx="3" fill="none" stroke="#C9C3BA"/><rect x="104" y="38" width="44" height="20" rx="3" fill="none" stroke="#C9C3BA"/><path d="M148 48h40" stroke="#8C867E"/><rect x="188" y="38" width="44" height="20" rx="3" fill="#FF6A4D" fill-opacity=".85"/></svg>
+      </article>
+      <article class="demo rv d2">
+        <span class="status build"><i aria-hidden="true"></i>En construcción</span>
+        <h3>HeatSight AI</h3>
+        <p>Demanda del consumidor por geografía y SKU: micro-tendencias visibles antes de que lleguen al reporte.</p>
+        <svg viewBox="0 0 240 64" aria-hidden="true" id="heat"></svg>
+      </article>
+      <article class="demo rv">
+        <span class="status build"><i aria-hidden="true"></i>En construcción</span>
+        <h3>Inteligencia de consumidor</h3>
+        <p>Segmentación de comportamiento y preferencias reveladas para líderes de categoría y retail.</p>
+        <svg viewBox="0 0 240 64" aria-hidden="true"><g fill="#C9C3BA"><rect x="0" y="40" width="30" height="24"/><rect x="40" y="26" width="30" height="38"/><rect x="80" y="10" width="30" height="54" fill="#FF6A4D"/><rect x="120" y="30" width="30" height="34"/><rect x="160" y="44" width="30" height="20"/><rect x="200" y="36" width="30" height="28"/></g></svg>
+      </article>
+      <article class="demo wide rv d1">
+        <span class="status concept"><i aria-hidden="true"></i>Concepto</span>
+        <h3>Inteligencia de gobierno de datos</h3>
+        <p>Linaje, calidad, responsables y postura regulatoria de los datos, visibles a escala institucional.</p>
+        <svg viewBox="0 0 480 64" aria-hidden="true"><g stroke="#8C867E" fill="none"><path d="M20 32h90M130 32l60-20M130 32l60 20M210 12h80M210 52h80M310 12l60 20M310 52l60-20M390 32h70"/></g><g fill="#C9C3BA"><circle cx="20" cy="32" r="5"/><circle cx="120" cy="32" r="5"/><circle cx="200" cy="12" r="5"/><circle cx="200" cy="52" r="5"/><circle cx="300" cy="12" r="5"/><circle cx="300" cy="52" r="5"/><circle cx="380" cy="32" r="5"/></g><circle cx="460" cy="32" r="6" fill="#FF6A4D"/></svg>
+      </article>
+    </div>
+  </section>
+
+  <!-- 5 · MÉTODO -->
+  <section class="sec wrap" id="metodo" aria-labelledby="h-met">
+    <h2 class="h2 rv" id="h-met">Del diagnóstico a la operación.</h2>
+    <ol class="steps" id="steps">
+      <li class="rv"><span class="ph">Fase 1</span><h3>Diagnóstico</h3><p>Entender el problema de negocio y evaluar los datos disponibles.</p><p class="deliv"><span>Entregable:</span> mapa de oportunidades</p></li>
+      <li class="rv d1"><span class="ph">Fase 2</span><h3>Diseño</h3><p>Definir la solución, las métricas de éxito y el plan de trabajo.</p><p class="deliv"><span>Entregable:</span> arquitectura y plan</p></li>
+      <li class="rv d2"><span class="ph">Fase 3</span><h3>Construcción</h3><p>Desarrollar y validar con datos reales, en ciclos cortos.</p><p class="deliv"><span>Entregable:</span> solución probada</p></li>
+      <li class="rv d3"><span class="ph">Fase 4</span><h3>Operación</h3><p>Poner en producción, medir resultados y mejorar.</p><p class="deliv"><span>Entregable:</span> impacto medido</p></li>
+    </ol>
+    <p class="pend">Pendiente I7: duración típica de cada fase.</p>
+  </section>
+
+  <!-- 6 · QUIÉN LIDERA -->
+  <section class="sec wrap" id="quien-lidera" aria-labelledby="h-who" style="padding-top:0">
+    <div class="lead-grid">
+      <div class="portrait rv"><img class="photo" alt="Retrato de Nancy Rodríguez, fundadora de N-AI" width="900" height="900"></div>
+      <div class="who">
+        <h2 class="h2 rv" id="h-who">Primero la pregunta de negocio. Al final, la tecnología.</h2>
+        <div class="person rv"><b>Nancy Rodríguez</b><span>Fundadora · Principal Data &amp; AI Consultant · Economista y estadística</span></div>
+        <p class="bio rv">Nancy Rodríguez es economista, estadística y líder de datos e IA, con experiencia transformando problemas complejos de negocio en soluciones medibles basadas en datos. Cada proyecto de N-AI lo lleva ella directamente.</p>
+        <blockquote class="rv">Datos sin metodología son solo información.</blockquote>
+        <p class="areas rv"><b>Su trabajo combina</b>inteligencia artificial · analítica avanzada · estrategia de datos · inteligencia de consumidor · modelado predictivo · gobierno y madurez de datos</p>
+        <div class="socials rv">
+          <a class="tlink" href="https://www.linkedin.com/in/nancy-raquel-rodríguez-ramos">LinkedIn <span class="arr" aria-hidden="true">↗</span></a>
+          <a class="tlink" href="https://scholar.google.com/citations?hl=es&amp;user=8_wBYo4AAAAJ">Google Scholar <span class="arr" aria-hidden="true">↗</span></a>
+          <a class="tlink" href="https://github.com/nayrr25">GitHub <span class="arr" aria-hidden="true">↗</span></a>
+        </div>
+        <p class="pend">Pendiente I8: lista de publicaciones confirmadas (título y año).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · PREGUNTAS CLAVE -->
+  <section class="sec wrap" id="faq" aria-labelledby="h-faq" style="padding-top:0">
+    <div class="faq-grid">
+      <h2 class="h2 rv" id="h-faq">Preguntas clave.</h2>
+      <div>
+        <div class="qa rv"><h3>¿Cómo se cobra una consultoría con N-AI?</h3><p>Cada proyecto se cotiza según su alcance, profundidad técnica y duración. Hay tres modalidades: proyecto cerrado (de la idea a la puesta en producción), acompañamiento mensual o asesoría por horas.</p></div>
+        <div class="qa rv"><h3>¿Cómo empieza un proyecto?</h3><p>Con una conversación inicial sin compromiso para entender el problema y los datos disponibles. De ahí sale una propuesta con alcance, modalidad y plan.</p><p class="pend">Pendiente I6: duración y costo del diagnóstico, y qué recibe el cliente.</p></div>
+        <div class="qa rv"><h3>¿Qué hace diferente a N-AI?</h3><p>Cada proyecto lo lleva directamente la fundadora, no un equipo junior. Une el método cuantitativo de una economista y estadística con experiencia técnica en ciencia de datos, machine learning y arquitectura.</p></div>
+        <div class="more rv">
+          <p class="lbl">Más preguntas</p>
+          <details><summary>¿Qué servicios ofrece N-AI?</summary><p>Inteligencia artificial y machine learning, automatización inteligente, analítica avanzada y BI, y arquitectura y gobierno de datos.</p></details>
+          <details><summary>¿Quién hace consultoría de IA en Costa Rica?</summary><p>N-AI (n-ai.dev), fundada por Nancy Rodríguez, ofrece consultoría de IA, automatización, analítica avanzada y arquitectura de datos para empresas e instituciones en Costa Rica y Latinoamérica.</p></details>
+          <details><summary>¿Quién hace inteligencia de compras públicas en Costa Rica?</summary><p>N-AI desarrolló la arquitectura de inteligencia para SICOP con la Contraloría General de la República: detección de anomalías sobre 47 patrones, scoring de riesgo en 8 dimensiones institucionales y monitoreo preventivo.</p></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · CONTACTO -->
+  <section class="band contact" id="contact" aria-labelledby="h-contact">
+    <div class="wrap sec contact-grid">
+      <div>
+        <h2 class="h2 rv" id="h-contact">¿Tienes un problema de datos que vale la pena resolver?</h2>
+        <p class="lead rv">En una conversación inicial se identifica dónde la IA, la automatización o la analítica avanzada pueden generar impacto en tu organización.</p>
+        <div class="ctas rv">
+          <a class="btn btn-primary" href="https://wa.me/50660028160">Escribir por WhatsApp</a>
+          <a class="tlink" href="mailto:nanyrr25@gmail.com">Escribir por correo <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+        <p class="direct rv"><span class="num">+506 6002 8160</span> · nanyrr25@gmail.com</p>
+      </div>
+      <div>
+        <ol class="next rv" aria-label="Qué pasa después">
+          <li><div><b>Escribes</b><span>Por WhatsApp (respuesta más rápida) o por correo (propuestas y documentos).</span></div></li>
+          <li><div><b>Nancy te responde</b><span>Para coordinar la conversación inicial.</span></div></li>
+          <li><div><b>Conversación inicial</b><span>Sin compromiso: el problema, los datos y el siguiente paso.</span></div></li>
+        </ol>
+        <p class="pend">Pendiente I6: plazo de respuesta y duración de la conversación.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a class="brand" href="#top">N-AI</a>
+      <small>© 2026 N-AI · San José, Costa Rica</small>
+    </div>
+    <ul>
+      <li><a href="#servicios">Servicios</a></li><li><a href="#caso-sicop">Caso SICOP</a></li><li><a href="#demos">Demos</a></li><li><a href="#metodo">Método</a></li><li><a href="#contact">Contacto</a></li>
+    </ul>
+    <ul>
+      <li><a href="https://www.linkedin.com/in/nancy-raquel-rodríguez-ramos">LinkedIn</a></li><li><a href="https://scholar.google.com/citations?hl=es&amp;user=8_wBYo4AAAAJ">Google Scholar</a></li><li><a href="https://github.com/nayrr25">GitHub</a></li>
+    </ul>
+  </div>
+</footer>
+
+<button class="notes-toggle" id="notesBtn" aria-pressed="false">Mostrar pendientes (5)</button>
+
+<script>
+const PHOTO = "__PHOTO__";
+document.querySelectorAll('img.photo').forEach(i => i.src = PHOTO);
+
+/* Datos reales del caso SICOP (tal como están hoy en el sitio) */
+const DIMS = [["Velocidad de contratación",78],["Concentración de proveedores",62],["Dispersión de precios",71],["Exposición a adendas",55],["Proximidad a sanciones",34],["Postura de transparencia",82],["Madurez de controles",49],["Densidad de señales",67]];
+const INST = [[23,"low"],[31,"low"],[28,"low"],[47,"medium"],[52,"medium"],[58,"medium"],[49,"medium"],[71,"high"],[76,"high"],[68,"high"],[84,"critical"],[91,"critical"]];
+const COMP = Math.round(DIMS.reduce((s,d)=>s+d[1],0)/DIMS.length);
+
+const dims = document.getElementById('dims');
+dims.innerHTML = DIMS.map((d,i)=>`<li><span>${d[0]}</span><span class="track"><span class="fill" style="width:${d[1]}%;transition-delay:${i*40}ms"></span></span><span class="num">${d[1]}</span></li>`).join('');
+// línea del compuesto sobre las barras
+requestAnimationFrame(()=>{
+  const t = dims.querySelector('.track'); if(!t) return;
+  const left = t.offsetLeft + t.offsetWidth*COMP/100;
+  const l = document.createElement('span'); l.className='compline'; l.style.left = left+'px'; l.setAttribute('aria-hidden','true'); dims.appendChild(l);
+});
+const strip = document.getElementById('strip');
+strip.innerHTML = '<span class="axis"></span>' + [0,25,50,75,100].map(v=>`<span class="tick num" style="left:${v}%">${v}</span>`).join('')
+  + INST.sort((a,b)=>a[0]-b[0]).map((d,i)=>`<span class="dot ${d[1]}" style="left:${d[0]}%;transition-delay:${500+i*30}ms" title="${d[0]}"></span>`).join('');
+
+document.getElementById('heat').innerHTML = Array.from({length:36},(_,i)=>{
+  const x=(i%12)*20, y=Math.floor(i/12)*21, v=(Math.sin(i*.7)+1)/2;
+  return `<rect x="${x}" y="${y}" width="18" height="19" rx="2" fill="${v>.93?'#FF6A4D':'#C9C3BA'}" fill-opacity="${v>.93?1:(.12+v*.6).toFixed(2)}"/>`;
+}).join('');
+
+/* aparición una sola vez */
+const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv,#steps').forEach(el=>io.observe(el));
+
+/* menú */
+const nav = document.getElementById('nav'), menuBtn = document.getElementById('menuBtn');
+const onScroll = () => nav.classList.toggle('scrolled', scrollY > 8);
+addEventListener('scroll', onScroll, {passive:true}); onScroll();
+function setMenu(open){ nav.classList.toggle('open',open); menuBtn.setAttribute('aria-expanded',open); menuBtn.textContent = open ? 'Cerrar' : 'Menú'; }
+menuBtn.addEventListener('click', ()=>setMenu(!nav.classList.contains('open')));
+document.getElementById('menuPanel').addEventListener('click', e=>{ if(e.target.tagName==='A') setMenu(false); });
+addEventListener('keydown', e=>{ if(e.key==='Escape' && nav.classList.contains('open')){ setMenu(false); menuBtn.focus(); } });
+
+/* pendientes */
+const nb = document.getElementById('notesBtn');
+nb.addEventListener('click', ()=>{ const on = document.body.classList.toggle('show-notes'); nb.setAttribute('aria-pressed',on); nb.textContent = on ? 'Ocultar pendientes' : 'Mostrar pendientes (5)'; });
+</script>
+</body>
+</html>
