@@ -1,185 +1,289 @@
-# Rediseño de n-ai.dev: consultora con tablero en vivo
+# Rediseño de n-ai.dev: consultora con prueba en vivo
 
-- **Fecha:** 2026-09-14
-- **Estado:** diseño aprobado en conversación; pendiente de revisión de este documento
+- **Fecha:** 2026-09-14 (revisión 2, tras la [crítica de impeccable](../reviews/2026-09-14-critica-impeccable.md))
+- **Estado:** decisiones aprobadas en conversación; pendiente de revisión de este documento
 - **Rama:** `feat/rediseno-consultora`
-- **Referencia visual:** [maqueta, estilo C](assets/2026-09-14-maqueta-propuestas.html) (abrir con `#c`). La maqueta es orientativa: los textos que manda son los de este documento.
+- **Referencia visual:** [maqueta v1](assets/2026-09-14-maqueta-propuestas.html), estilo C. **Queda superada** en color, efectos y datos; manda este documento. Antes de implementar se hace una maqueta v2 (ver Entrega).
 
 ## Objetivo
 
-Que quien entra a n-ai.dev entienda en el primer pantallazo que N-AI es una **consultora experta en IA, automatización y analítica avanzada**, y que la página sea visualmente mucho más llamativa que la actual (tema claro, marca personal).
+Que quien entra a n-ai.dev entienda en el primer pantallazo que N-AI es una **consultora experta en IA, automatización y analítica avanzada**, con prueba creíble, y que la página se vea de **nivel senior**: propia de N-AI, no una plantilla de sitio de IA.
 
-**Criterio de éxito:** en el primer pantallazo, a 1440×900 y a 375×812, se ven sin hacer scroll las tres cosas: qué hace N-AI (titular), la prueba (cifras reales y tablero) y la acción (botón "Agendar un diagnóstico").
+**Criterios de éxito**
+
+1. **Primer pantallazo, a 1440×900 y a 375×812:** se ven sin scroll el H1, el botón "Agendar un diagnóstico" y al menos una prueba real (la fila de cifras). En escritorio también se ve el panel de prueba. En móvil, su versión compacta empieza justo debajo.
+2. **Detector:** `impeccable detect` sobre la vista previa de Vercel da **0 hallazgos** en estas reglas:
+   - `gradient-text`, `radial-spotlight-glow`, `radial-halo`, `dark-glow`, `pulsing-dot`, `ai-color-palette`, `marquee`, `codex-grid-background`;
+   - `undersized-ui-text`, `tiny-text`, `low-contrast`, `nested-cards`.
+3. **Puntaje:** una nueva `/impeccable critique` de la portada da **≥ 28/36** (hoy 18/36).
+4. **Portada:** en móvil mide **≤ 9.000 px** (hoy unos 30.000).
 
 ## Restricciones
 
-1. **Solo la fundadora.** No se muestran personas inventadas ni perfiles de ejemplo. Ningún texto dice "equipo", "nuestros expertos" ni equivalentes. Los textos que se conservan se revisan con ese criterio.
-2. **Solo cifras reales:** +400% (créditos colocados), >2.4M (registros de compra pública analizados), 47 (patrones de anomalía modelados).
-3. **El tablero usa datos simulados** y lo dice en pantalla ("Visualización ilustrativa con datos simulados"). Instituciones genéricas ("Institución A–D") y códigos de contrato ficticios.
-4. **Español e inglés** con las mismas claves en `es.ts` y `en.ts`; TypeScript lo verifica. El registro se mantiene en **tú**, como el sitio actual.
-5. **Mismo stack:** Next.js 14, Tailwind 3.4, framer-motion 11, lucide-react. Sin dependencias nuevas. Los componentes de 21st.dev se usan como referencia de patrones y se reescriben: están hechos para shadcn/Tailwind 4 y la cuenta gratuita permite 2 descargas diarias.
-6. **Accesibilidad:** con `prefers-reduced-motion` todo queda estático. Contraste AA sobre fondo oscuro. El tablero es decorativo (`aria-hidden`) y su contenido no es necesario para entender la página.
-7. **Nada llega a producción sin aprobación:** PR hacia `main` con vista previa de Vercel. Hacer merge equivale a publicar en n-ai.dev.
+1. **Solo la fundadora.** No se muestran personas inventadas ni se dice "equipo", "nuestros expertos" ni se usa el plural de equipo. Voz de marca en tercera persona ("N-AI diseña…"); llamados a la acción en imperativo con **tú**.
+2. **Cero datos inventados.** Solo se publican cifras reales y datos agregados que entregue Nancy (ver Insumos). Se eliminan los valores ilustrativos sin rótulo que hoy tiene el caso:
+   - la serie aleatoria de `AnomalyChart`;
+   - "Institución A–L" con sus puntajes;
+   - los valores de las 8 dimensiones de riesgo.
+3. **Español e inglés** con las mismas claves en `es.ts` y `en.ts`; TypeScript lo verifica.
+4. **Mismo stack:** Next.js 14, Tailwind 3.4, framer-motion 11. Sin dependencias nuevas. Recharts se elimina (gráficos en SVG propio). Los patrones de 21st.dev se usan como referencia y se reescriben.
+5. **Accesibilidad AA:**
+   - contraste de al menos 4,5:1 en todo el texto;
+   - texto funcional de al menos 12 px;
+   - foco visible;
+   - menú usable en el primer pantallazo en móvil;
+   - movimiento reducido: sin desplazamientos, con fundidos ≤150 ms.
+6. **Nada llega a producción sin aprobación:** PR hacia `main` con vista previa de Vercel. Hacer merge equivale a publicar.
 
-## Estructura de la portada
+## Insumos que debe entregar Nancy
 
-| # | Sección | `id` | Base |
+Cada insumo tiene una alternativa explícita, para que su ausencia no bloquee el resto del trabajo.
+
+| # | Insumo | Formato | Si no llega a tiempo |
 |---|---|---|---|
-| 1 | Hero con tablero en vivo | `top` | `Hero.tsx` reescrito + `LiveDashboard.tsx` nuevo |
-| 2 | Servicios | `servicios` | `Services.tsx` nuevo (reemplaza Capacidades) |
-| 3 | Demos | `demos` | `DemoShowcase.tsx` con nuevo estilo |
-| 4 | Cómo trabajamos | `metodo` | `Method.tsx` nuevo |
-| 5 | Quién lidera | `quien-lidera` | `Leadership.tsx` nuevo (reemplaza Sobre mí) |
-| 6 | FAQ compacta | `faq` | `FAQ.tsx` reducida |
-| 7 | Contacto | `contact` | `Contact.tsx` con nuevo estilo y textos |
+| I1 | Serie agregada de SICOP: `periodo` (mes), `registros_analizados`, `anomalias_detectadas` | CSV/Excel | El panel del hero muestra la **ficha técnica** (ver 1) sin gráfico |
+| I2 | Frecuencia de los principales patrones de anomalía: `patron` (nombre publicable), `casos` (top 8) | CSV/Excel | Se omite el gráfico de patrones |
+| I3 | Distribución de riesgo por tipo de institución, anonimizada: `grupo`, `puntaje_promedio`, `n_instituciones` (mínimo 5 instituciones por grupo, para evitar reidentificación) | CSV/Excel | Se omite en `/casos/sicop` |
+| I4 | Periodo cubierto, fecha de corte y confirmación de que la Contraloría permite publicarlo | Texto | **Sin I4 no se publica I1–I3**, aunque existan |
+| I5 | Ficha del caso: contexto, rol de Nancy, resultado publicable, periodo del proyecto | Texto | La banda del caso usa solo los hechos ya publicados (7 fuentes, pipeline de 7 etapas, 47 patrones, 8 dimensiones, <1 s) |
+| I6 | Diagnóstico: duración, costo (o "sin costo") y qué recibe el cliente | Texto | El contacto dice "conversación inicial" sin prometer duración ni costo |
+| I7 | Duración típica de cada fase del método | Texto | La línea de tiempo muestra entregables sin duraciones |
+| I8 | Publicaciones confirmadas (título, año, enlace), excluyendo las 4 de homónimos que aparecen en Scholar | Lista | Solo el enlace al perfil de Google Scholar |
 
-**Salen de la portada:** Sobre mí, Caso SICOP (hero y análisis a fondo), Pipeline, Capacidades, Building in Public y las bandas de red (`NetworkBand`).
+Los CSV se convierten a `src/content/data/sicop.*.json`, versionados en el repositorio, con la fecha de corte y la fuente como metadatos.
+
+## Arquitectura de páginas
+
+| Ruta ES | Ruta EN | Contenido |
+|---|---|---|
+| `/` | `/en` | Portada (ver abajo) |
+| `/casos/sicop` | `/en/cases/sicop` | Caso completo, **nueva página** |
+
+La portada pasa de 11 secciones a 8, en este orden:
+
+| # | Sección | `id` |
+|---|---|---|
+| 1 | Hero con panel de prueba | `top` |
+| 2 | Servicios | `servicios` |
+| 3 | Caso destacado SICOP (banda) | `caso-sicop` |
+| 4 | Demos | `demos` |
+| 5 | Cómo trabajamos | `metodo` |
+| 6 | Quién lidera | `quien-lidera` |
+| 7 | Preguntas clave | `faq` |
+| 8 | Contacto | `contact` |
+
+**Salen de la portada:** Sobre mí, CaseStudyHero, CaseStudyDeepDive, Pipeline, Capacidades, Building in Public y NetworkBand. El contenido útil del caso y del Pipeline se muda a `/casos/sicop`.
 
 ### 1. Hero
 
-- **Etiqueta:** "Consultoría de IA y analítica avanzada · Costa Rica & LATAM"
-- **H1:** "Consultoría experta en IA, automatización y *analítica avanzada.*". La parte final va en Instrument Serif itálica con degradado azul→cian.
-- **Subtítulo:** "Diseñamos, construimos y ponemos en producción soluciones de datos para empresas e instituciones en Costa Rica y Latinoamérica."
-- **Botones:** primario "Agendar un diagnóstico" → `#contact`; secundario "Ver demos" → `#demos`.
-- **Cifras:** fila con las 3 cifras reales.
-- **`LiveDashboard`** (columna derecha):
-  - Cabecera "Monitor de riesgo · compras públicas" con indicador "EN VIVO".
-  - 3 KPI:
-    - registros analizados: arranca en 2,401,338 y suma de a poco;
-    - alertas de hoy;
-    - riesgo promedio.
-  - Gráfico de línea en SVG que se desplaza cada 700 ms. Los picos anómalos se marcan en rojo.
-  - Medidor de riesgo en 0.82.
-  - Barras de 4 instituciones.
-  - Aviso emergente que rota entre 4 mensajes cada 3.4 s.
-  - Leyenda de datos simulados.
-  - **Rendimiento:** la animación se pausa cuando el tablero sale de pantalla o la pestaña está oculta. SVG propio, sin Recharts.
-  - **Carga:** el H1 se renderiza en el servidor. El tablero es componente cliente con un contenedor de tamaño fijo, para no mover el layout (CLS).
-- **Diseño:**
-  - Escritorio (≥1024 px): dos columnas; tablero con inclinación 3D que se reduce al pasar el mouse.
-  - Menos de 1024 px: el tablero va debajo del texto, sin inclinación, y el aviso emergente queda dentro del panel.
-- **Movimiento reducido:** tablero estático en su primer estado, sin avisos rotando.
+- **H1:** "Consultoría experta en IA, automatización y *analítica avanzada.*". El final va en Instrument Serif itálica **color sólido** `text.primary`, sin degradado.
+- **Escala:** H1 `clamp(44px, 6.4vw, 96px)`, interlineado 0.95, tracking −0.035em.
+- **Etiqueta:** una sola línea en sentence case, sin mayúsculas ni punto pulsante: "Consultoría de IA y analítica avanzada · Costa Rica y Latinoamérica".
+- **Subtítulo:** "N-AI diseña, construye y pone en producción soluciones de datos para empresas e instituciones."
+- **Botones:** "Agendar un diagnóstico" (primario, relleno de acento) → `#contact`; "Ver el caso SICOP" (enlace de texto con flecha) → `/casos/sicop`.
+- **Cifras:** 56–72 px con `tabular-nums` y la unidad en peso menor. +400% créditos colocados · >2.4M registros de compra pública analizados · 47 patrones de anomalía modelados.
+- **Panel de prueba `ProofPanel`** (plano, sin inclinación ni brillo):
+  - **Con I1 + I4:**
+    - cabecera "Caso SICOP · datos agregados" y línea de estado en texto: "Corte: {fecha} · Fuente: proyecto SICOP";
+    - KPI de registros analizados (valor real, estático);
+    - KPI de anomalías detectadas en el periodo (suma de I1);
+    - gráfico de líneas mensual de I1 con los picos marcados en acento;
+    - con I2, barras horizontales del top 5 de patrones.
+  - **Sin I1:** ficha técnica. Diagrama estático de 5 pasos con hechos reales: 7 fuentes → pipeline de 7 etapas → 47 patrones → 8 dimensiones → scoring <1 s.
+  - **Animación:** una sola vez al entrar en pantalla (la línea se dibuja y las barras crecen con `scaleX`), ≤1,2 s en total, sin bucles, sin contadores que suben y sin avisos rotando. Como no dura más de 5 s, no requiere control de pausa (WCAG 2.2.2).
+  - **Móvil:** versión compacta con un KPI y un gráfico de 120 px de alto, justo debajo de las cifras.
+- **Fondo:** base oscura neutra y grano sutil del 3%. Sin halos, cuadrícula ni partículas. Altura `min-height: 100svh`.
 
 ### 2. Servicios
 
-- **Eyebrow:** "Servicios". **H2:** "Lo que hacemos por tu organización."
-- **Entrada:** "Cuatro líneas de servicio con un mismo estándar: cada solución se mide por su impacto en el negocio, no por la tecnología que usa."
-- **4 tarjetas:** número, ícono lucide, título, descripción y 3 etiquetas. Datos estáticos en `src/content/services.ts`; textos en i18n.
-  1. **Inteligencia artificial y machine learning:** modelos predictivos, detección de anomalías, scoring de riesgo e IA generativa aplicada a tu operación. Etiquetas: Predicción · Scoring · IA generativa.
-  2. **Automatización inteligente:** procesos que hoy son manuales, resueltos con flujos y agentes de IA conectados a tus sistemas. Etiquetas: Agentes de IA · Flujos · Integraciones.
-  3. **Analítica avanzada y BI:** tableros ejecutivos, segmentación de clientes, pronósticos y medición del desempeño de campañas. Etiquetas: Dashboards · RFM · Pronósticos.
-  4. **Arquitectura y gobierno de datos:** ingesta, calidad y gobierno en la nube, para que la IA trabaje sobre datos confiables. Etiquetas: Nube · Calidad · Gobierno.
-- **Franja de sectores:** Sector público · Banca y crédito · Consumo masivo · Retail · Marketing y medios.
-- **Interacción:** luz que sigue al mouse en cada tarjeta y leve elevación al pasar encima.
+- **H2:** "Lo que N-AI hace por tu organización." Sin etiqueta en mayúsculas; numeración editorial.
+- **Servicio ancla** (bloque ancho, dos columnas): **Inteligencia artificial y machine learning**. Descripción: modelos predictivos, detección de anomalías, scoring de riesgo e IA generativa aplicada. A la derecha, el caso SICOP como evidencia (una línea de resultado y enlace).
+- **Los otros 3, en lista editorial** (filas separadas por una línea, sin tarjetas ni íconos):
+  - **Automatización inteligente:** procesos manuales resueltos con flujos y agentes de IA conectados a tus sistemas.
+  - **Analítica avanzada y BI:** tableros ejecutivos, segmentación de clientes, pronósticos y medición de campañas.
+  - **Arquitectura y gobierno de datos:** ingesta, calidad y gobierno en la nube, para que la IA trabaje sobre datos confiables.
+- **Etiquetas** de cada servicio en texto separado por "·", no en píldoras.
+- **Sectores** al pie, en una línea de texto: Sector público · Banca y crédito · Consumo masivo · Retail · Marketing y medios.
+- **Interacción:** en filas, cambio de color del título y desplazamiento de la flecha (≤200 ms, solo con `hover: hover`). Sin luz que sigue al mouse.
 
-### 3. Demos
+### 3. Caso destacado SICOP (banda)
 
-- Se conservan las 5 demos, sus textos y sus estados (En vivo / En construcción / Concepto).
-- Tarjetas con el nuevo estilo oscuro. Las mini-visualizaciones actuales se recolorean con los tokens nuevos.
-- **Corrección:** hoy cada tarjeta es un enlace a `#<slug>`, pero esos ids no existen. Pasan a ser `<article>` sin enlace y se quita el texto "Ver caso de estudio".
+- **Banda de ancho completo**, con superficie un tono más clara que la base. Es el único cambio de densidad fuerte de la portada.
+- **Estructura:** contexto → rol de Nancy → resultado → periodo (de I5; si falta, los hechos publicados).
+- **Contenido:** 4 hechos en fila (7 fuentes · 47 patrones · 8 dimensiones · <1 s) y enlace "Leer el caso completo" → `/casos/sicop`.
 
-### 4. Cómo trabajamos
+### 4. Demos
 
-- **Eyebrow:** "Cómo trabajamos". **H2:** "Un método probado, del diagnóstico a la operación."
-- **4 pasos**, cada uno con su entregable:
-  1. **Diagnóstico:** entendemos el problema de negocio y evaluamos los datos disponibles. Entregable: mapa de oportunidades.
-  2. **Diseño:** definimos la solución, las métricas de éxito y el plan de trabajo. Entregable: arquitectura y plan.
-  3. **Construcción:** desarrollamos y validamos con datos reales, en ciclos cortos. Entregable: solución probada.
-  4. **Operación:** ponemos en producción, medimos resultados y mejoramos. Entregable: impacto medido.
-- **Diseño:** en escritorio, línea horizontal con un destello que la recorre. En tablet, 2 columnas; en celular, 1 columna sin línea.
+- Se conservan las 5 demos y sus estados.
+- **Tarjetas sin tarjeta anidada:** superficie única, sin borde interior. Las mini-visualizaciones se recolorean con los tokens nuevos.
+- **Enlaces:** la tarjeta de compras públicas enlaza a `/casos/sicop`. Las demás son `<article>` sin enlace ni texto "Ver caso de estudio".
 
-### 5. Quién lidera
+### 5. Cómo trabajamos
 
-- **Eyebrow:** "Quién lidera". **H2:** "Primero la pregunta de negocio. Al final, la tecnología."
-- Retrato (`public/nancy-retrato.webp`), "Nancy Rodríguez", rol "Fundadora · Principal Data & AI Consultant", disciplinas "Economista · Estadística · Data & AI Leader".
-- Un párrafo de bio (`about.founderBio`) y las áreas de trabajo (`about.workAreas`) como etiquetas.
-- Se conserva el bloque `capsule` (cápsula de cita para buscadores con IA).
-- **4 credenciales:** +400% créditos colocados · >2.4M registros de compra pública analizados · 47 patrones de anomalía modelados · "Investigación: publicaciones académicas en economía y estadística", con enlace a Google Scholar.
-- Enlaces a LinkedIn, Google Scholar y GitHub (`site.contact`).
+- **H2:** "Del diagnóstico a la operación."
+- **Línea de tiempo horizontal** en escritorio y vertical en móvil. Cada fase tiene nombre, una frase, duración (I7) y entregable.
+  1. **Diagnóstico:** entender el problema de negocio y evaluar los datos disponibles. Entregable: mapa de oportunidades.
+  2. **Diseño:** definir la solución, las métricas de éxito y el plan. Entregable: arquitectura y plan.
+  3. **Construcción:** desarrollar y validar con datos reales, en ciclos cortos. Entregable: solución probada.
+  4. **Operación:** poner en producción, medir y mejorar. Entregable: impacto medido.
+- **Animación:** la línea se dibuja una sola vez al entrar en pantalla. Sin destello en bucle.
 
-### 6. FAQ compacta
+### 6. Quién lidera
 
-Acordeón accesible (`<details>`/`<summary>`) con estas 6 preguntas, tomadas de `faq.items` y equivalentes en inglés:
+- **Diseño:** columna estrecha (máximo 720 px) con retrato a un lado. Estructura distinta a las demás secciones, para romper la simetría.
+- **H2:** "Primero la pregunta de negocio. Al final, la tecnología."
+- **Contenido:**
+  - Nancy Rodríguez · Fundadora · Principal Data & AI Consultant · Economista y estadística.
+  - Un párrafo de bio y el bloque `capsule`.
+  - Áreas de trabajo en texto separado por "·".
+  - Publicaciones (I8) como lista con título y año, o el enlace a Scholar.
+  - LinkedIn, Scholar y GitHub.
 
-1. ¿Qué hace N-AI?
-2. ¿Qué servicios ofrece N-AI?
-3. ¿Quién hace consultoría de IA en Costa Rica?
-4. ¿Quién hace SICOP analytics o inteligencia de compras públicas en Costa Rica?
-5. ¿Qué hace que N-AI sea diferente de otras consultorías?
-6. ¿Cómo se cobra una consultoría con N-AI?
+### 7. Preguntas clave
 
-- Las respuestas se revisan con la restricción 1 (nada de "equipo") y deben mencionar automatización y analítica avanzada donde corresponda.
-- Las 9 preguntas restantes se eliminan de i18n.
-- **Datos estructurados:** el `FAQPage` se genera con estas mismas 6 preguntas por idioma, para que coincida con lo visible.
+- **Tres preguntas abiertas en dos columnas:**
+  1. ¿Cómo se cobra una consultoría con N-AI?
+  2. ¿Cómo empieza un proyecto? (diagnóstico, I6)
+  3. ¿Qué hace que N-AI sea diferente de otras consultorías?
+- **Tres más en acordeón** (`<details>`):
+  4. ¿Qué servicios ofrece N-AI?
+  5. ¿Quién hace consultoría de IA en Costa Rica?
+  6. ¿Quién hace inteligencia de compras públicas en Costa Rica?
+- Las respuestas se reescriben en lenguaje claro, sin jerga y cumpliendo la restricción 1.
+- Las otras 9 preguntas salen de i18n.
+- **Datos estructurados:** `FAQPage` con exactamente estas 6 por idioma.
 
-### 7. Contacto
+### 8. Contacto
 
-- **Eyebrow:** "Agendar un diagnóstico". **H2:** "¿Tienes un problema de datos que vale la pena resolver?"
-- **Texto:** "En una conversación inicial identificamos dónde la IA, la automatización o la analítica avanzada pueden generar impacto en tu organización."
-- Se conservan los botones de WhatsApp y correo con sus indicaciones.
-- `whatsappMessage` cambia a: "Hola Nancy, te escribo desde n-ai.dev. Me interesa agendar un diagnóstico para un proyecto de datos / IA."
+- **H2:** "¿Tienes un problema de datos que vale la pena resolver?"
+- **Qué pasa después:** 3 pasos en texto. Escribes → respuesta en {plazo I6} → diagnóstico ({duración y costo I6} o "conversación inicial").
+- **Botones:** se conservan WhatsApp (primario) y correo, con sus indicaciones.
+- `whatsappMessage`: "Hola Nancy, te escribo desde n-ai.dev. Me interesa agendar un diagnóstico para un proyecto de datos / IA."
+
+### `/casos/sicop` y `/en/cases/sicop`
+
+- **Estructura:**
+  - resumen (contexto, rol, resultado, periodo);
+  - el reto;
+  - fuentes y arquitectura (las 7 fuentes y el pipeline de 7 etapas, con el texto del Pipeline actual reescrito sin jerga);
+  - capa de IA (47 patrones, 8 dimensiones, qué mide cada una **sin valores inventados**);
+  - gráficos reales (I1–I3, con fecha de corte y fuente);
+  - impacto estratégico;
+  - llamado a agendar un diagnóstico.
+- **Navegación:** índice lateral fijo en escritorio (se reutiliza el patrón actual) y enlace "Volver al inicio".
+- **Datos:** metadata propia, `Article` en JSON-LD y entrada en `sitemap.ts`.
 
 ### Menú y pie de página
 
-- **Menú:** Servicios · Demos · Método · Quién lidera · FAQ · Contacto. Botón "Agendar diagnóstico" → `#contact`. Se mantiene el selector de idioma.
-- **Pie de página:** mismo contenido, con el nuevo estilo y los enlaces nuevos.
+- **Menú siempre visible** desde el primer pantallazo; al hacer scroll solo cambia el fondo.
+- **5 enlaces:** Servicios · Caso SICOP · Demos · Método · Contacto. Además, el botón "Agendar diagnóstico" y el selector de idioma.
+- **Móvil:** el botón de menú funciona desde el primer pantallazo y el panel se cierra con Escape.
+- **Pie de página:** los mismos enlaces, datos de contacto, © y enlaces a LinkedIn, Scholar y GitHub. Se elimina `themeLabel` ("Tema · Oscuro").
 
 ## Sistema visual
 
-Se cambian los **valores** de los tokens en `tailwind.config.ts` y `src/styles/tokens.css`, sin renombrarlos, para que todos los componentes cambien de forma pareja.
+### Color: base oscura neutra con un solo acento propio
 
-| Token | Valor |
-|---|---|
-| `bg.base` | `#0A1024` |
-| `bg.deep` (nuevo) | `#070B18` |
-| `bg.elevated` | `rgba(255,255,255,0.045)` |
-| `border.subtle` / `border.strong` | `rgba(255,255,255,0.10)` / `rgba(255,255,255,0.16)` |
-| `text.primary` / `secondary` / `muted` | `#FFFFFF` / `#9AA6BF` / `#7F8AA3` |
-| `accent.cyan` (acento primario) | `#8FB4FF` |
-| `accent.mint` (degradados) | `#35E0FF` |
-| `accent.deep` | `#1A2C5E` |
-| `danger` / `warn` (nuevo) | `#FF5D6C` / `#FFC35D` (solo en el tablero) |
+Coral de alerta, derivado del concepto de "señal" de SICOP. Los tokens se renombran a nombres semánticos y se actualizan todos los usos; TypeScript y la búsqueda de clases viejas lo verifican.
 
-- **Fondo:** degradado vertical `bg.base` → `bg.deep`. El hero agrega un halo radial azul arriba a la derecha y una cuadrícula de 48 px con máscara radial.
-- **Tipografía:** sin cambios (Public Sans, Archivo, Instrument Serif).
-- **Botones:** primario blanco con texto `bg.base`; secundario con borde blanco translúcido.
-- **Tarjetas:** superficie `bg.elevated`, borde `border.subtle`, radio de 22 px.
-- **Imagen OG** (`opengraph-image.tsx`): paleta nueva y titular nuevo.
-- **Metadata:** se mantiene el título SEO; la descripción agrega automatización y analítica avanzada.
+| Token | Valor | Uso |
+|---|---|---|
+| `bg.base` | `#0F1013` | Fondo |
+| `bg.deep` | `#0A0B0D` | Pie de página |
+| `bg.raised` | `#17191D` | Banda SICOP, panel de prueba, demos |
+| `line.subtle` / `line.strong` | `rgba(242,239,234,0.10)` / `rgba(242,239,234,0.18)` | Bordes y separadores |
+| `ink.primary` | `#F2EFEA` | Texto principal |
+| `ink.secondary` | `#B5AFA6` | Texto secundario |
+| `ink.muted` | `#8C867E` | Texto tenue (debe medir ≥4,5:1 sobre `bg.base` y `bg.raised`) |
+| `accent` | `#FF6A4D` | Botón primario, foco, picos en gráficos, enlaces activos |
+| `accent.ink` | `#0F1013` | Texto sobre acento |
+| `data.neutral` | `#C9C3BA` | Líneas base de gráficos |
+
+- **Un solo acento.** No hay degradados de texto ni de fondo.
+- **Sombras:** tintadas con `rgba(5,5,6,…)`.
+- **Grano:** SVG de ruido como data URI, opacidad 3%, fijo, `pointer-events: none`.
+- **Detalles:** `::selection` en acento al 30%. La barra de scroll se redefine para el tema oscuro.
+
+### Tipografía
+
+- **Archivo** para titulares, **Public Sans** para el texto, **Instrument Serif** itálica solo en el acento del H1 y en citas.
+- **Escala de títulos:** H1 hasta 96 px; H2 `clamp(32px, 4.4vw, 56px)`.
+- **Texto:** 17–18 px, máximo 68 caracteres por línea.
+- **Texto funcional:** mínimo 12 px, `tabular-nums` en todas las cifras.
+- **Etiquetas en mayúsculas:** máximo 2 en toda la portada, con tracking ≤0.08em.
+- `text-wrap: balance` en títulos y `pretty` en párrafos.
+
+### Movimiento (principios de Emil Kowalski)
+
+- **Tokens:** `--ease-out: cubic-bezier(0.23, 1, 0.32, 1)` y `--ease-in-out: cubic-bezier(0.77, 0, 0.175, 1)`.
+- **Duraciones:** interacción de UI ≤200 ms; entradas al scroll ≤500 ms, una sola vez y con desfase de 40–60 ms.
+- **Propiedades:** solo `transform` y `opacity`. Nada de `transition-all`.
+- **Botones:** `active:scale-[0.97]` de 120 ms.
+- **Hover:** solo con `(hover: hover)`, vía `future.hoverOnlyWhenSupported: true` en Tailwind.
+- **Movimiento reducido:** sin desplazamientos ni dibujo de gráficos; fundidos ≤150 ms y gráficos en su estado final.
+- **Foco:** anillo de 2 px en acento con separación de 2 px.
 
 ## Archivos
 
-- **Nuevos:** `src/components/sections/LiveDashboard.tsx`, `Services.tsx`, `Method.tsx`, `Leadership.tsx`; `src/content/services.ts`.
-- **Modificados:** `Hero.tsx`, `DemoShowcase.tsx`, `FAQ.tsx`, `Contact.tsx`, `Nav.tsx`, `Footer.tsx`, `src/app/_shell/HomeSections.tsx`, `tailwind.config.ts`, `src/styles/tokens.css`, `src/app/globals.css`, `src/content/i18n/es.ts`, `src/content/i18n/en.ts`, `src/components/seo/StructuredData.tsx`, `src/app/opengraph-image.tsx`, los dos `layout.tsx` (description), `public/llms.txt`, `HANDOFF.md`.
-- **Eliminados si quedan sin uso** (verificar con búsqueda antes de borrar): `About.tsx`, `CaseStudyHero.tsx`, `CaseStudyDeepDive.tsx`, `IntelligencePipeline.tsx`, `Capabilities.tsx`, `BuildingInPublic.tsx`, `NetworkBand.tsx`, `ParticleNetwork.tsx`, `AuroraGradient.tsx`, `GridGlow.tsx`, `charts/*`, `content/caseStudy.sicop.ts`, `content/capabilities.ts` y sus claves de i18n. Si Recharts queda sin uso, se quita de `package.json`.
+- **Nuevos:**
+  - `src/components/sections/ProofPanel.tsx`, `Services.tsx`, `CaseBand.tsx`, `Method.tsx`, `Leadership.tsx`;
+  - `src/components/charts/LineSeries.tsx` y `BarList.tsx` (SVG);
+  - `src/app/(es)/casos/sicop/page.tsx` y `src/app/(en)/en/cases/sicop/page.tsx`, con su componente compartido en `src/app/_shell/CaseSicop.tsx`;
+  - `src/content/services.ts`;
+  - `src/content/data/` (JSON de I1–I3, cuando lleguen);
+  - `src/components/ui/Grain.tsx`.
+- **Modificados:**
+  - `Hero.tsx`, `DemoShowcase.tsx`, `FAQ.tsx`, `Contact.tsx`, `Nav.tsx`, `Footer.tsx`;
+  - `HomeSections.tsx`, `tailwind.config.ts`, `src/styles/tokens.css`, `src/app/globals.css`;
+  - `es.ts`, `en.ts`;
+  - `StructuredData.tsx`, `opengraph-image.tsx`, `sitemap.ts`, los dos `layout.tsx` (description y `metadataBase`);
+  - `public/llms.txt`, `HANDOFF.md`.
+- **Eliminados si quedan sin uso** (verificar con búsqueda antes de borrar):
+  - componentes `About`, `CaseStudyHero`, `CaseStudyDeepDive`, `IntelligencePipeline`, `Capabilities`, `BuildingInPublic`;
+  - fondos `NetworkBand`, `ParticleNetwork`, `AuroraGradient`, `GridGlow`;
+  - `AnomalyChart`, `RiskScoreGauge`, `PipelineDiagram`;
+  - datos `content/caseStudy.sicop.ts`, `content/capabilities.ts`;
+  - `GradientText`, `MagneticHover`;
+  - la dependencia `recharts`.
 
 ## SEO y buscadores con IA
 
-- **`Service`:** una entidad por cada uno de los 4 servicios (antes 8 capacidades); las etiquetas van en la descripción.
-- **`FAQPage`:** las 6 preguntas visibles por idioma.
-- **`Organization`, `Person` y `WebSite`:** sin cambios, salvo la descripción.
-- **`llms.txt`:**
-  - quitar los enlaces a `#case-study` y `#pipeline`;
-  - agregar `#servicios`, `#metodo` y `#quien-lidera`;
-  - agregar automatización y analítica avanzada a la descripción;
-  - mantener el texto del caso SICOP, que sigue siendo verdadero.
-- Se mantienen las palabras clave de SICOP en metadata: el caso sigue presente en Demos y en la FAQ.
+- **`metadataBase`:** `https://n-ai.dev` en ambos layouts. Hoy la imagen OG se resuelve con `localhost:3000`.
+- **Datos estructurados:**
+  - `Service` ×4;
+  - `FAQPage` con las 6 visibles por idioma;
+  - `Article` en la página del caso;
+  - `Organization`, `Person` y `WebSite` con la nueva descripción.
+- **`llms.txt`:** enlaces a `/casos/sicop`, `#servicios`, `#metodo` y `#quien-lidera`; quitar `#case-study` y `#pipeline`; agregar automatización y analítica avanzada.
+- **`sitemap.ts`:** incluye las 2 páginas del caso con `alternates` de idioma.
 
 ## Verificación
 
-1. `pnpm lint` y `pnpm build` sin errores.
-2. Revisión visual en español e inglés a 1440, 768 y 375 px, que confirme el criterio de éxito.
-3. Con `prefers-reduced-motion` no hay animaciones en marcha.
-4. Sin errores en la consola. Todos los enlaces internos (`#…`) llevan a una sección existente.
-5. El tablero deja de animarse fuera de pantalla (verificado con el panel de rendimiento o un contador).
-6. Lighthouse móvil: se mide antes de empezar, y el rendimiento no baja más de 5 puntos frente a esa medición.
-7. Los datos estructurados se validan: cada `FAQPage` tiene exactamente las preguntas visibles de su idioma.
-8. Se revisan todos los textos para confirmar que ninguno afirma que hay un equipo.
+1. `pnpm lint` y `pnpm build` sin errores ni avisos de `metadataBase`, con Node 22.
+2. **Revisión visual:** español e inglés, portada y caso, a 1440, 768 y 375 px, contra el criterio de éxito 1.
+3. **Detector:** `impeccable detect --json <URL de la vista previa>` para la portada y el caso, en los dos idiomas, contra el criterio de éxito 2. El resultado se guarda en `docs/superpowers/reviews/`.
+4. **Crítica:** `/impeccable critique` de la portada, contra el criterio 3; la trayectoria del puntaje queda en `.impeccable/critique/`.
+5. **Accesibilidad:**
+   - navegación completa con teclado (menú, acordeón, enlaces);
+   - foco visible;
+   - contraste medido de `ink.muted` y `accent` sobre cada superficie;
+   - movimiento reducido activo.
+6. **Enlaces y rendimiento:**
+   - todos los enlaces internos llegan a una sección o página existente;
+   - sin errores en la consola;
+   - Lighthouse móvil sin bajar más de 5 puntos frente a la medición previa a los cambios.
+7. **Honestidad del contenido:**
+   - búsqueda de "equipo", "nuestro", "nuestros" y del plural de equipo en `es.ts` y `en.ts`;
+   - ningún número en pantalla que no venga de las cifras reales o de I1–I3;
+   - I1–I3 solo se publican si I4 está confirmado.
 
 ## Entrega
 
-Commits en `feat/rediseno-consultora` → PR a `main` → vista previa de Vercel → revisión de Nancy → merge solo con su aprobación.
+1. **Maqueta v2:** hero, banda SICOP y servicios, con la paleta nueva y la ficha técnica en lugar de datos. Se sube a `docs/superpowers/specs/assets/` para aprobación visual antes de implementar.
+2. **Plan de implementación** en `docs/superpowers/plans/`.
+3. **Commits en `feat/rediseno-consultora`**, subidos a GitHub después de cada entregable → PR a `main` → vista previa de Vercel → revisión de Nancy → merge solo con su aprobación.
+4. **Cuando lleguen I1–I8,** se incorporan en commits propios, sin rehacer el diseño.
 
 ## Fuera de alcance
 
-Páginas individuales por servicio, blog, agenda o calendario real para el diagnóstico, fotos de equipo, cambios de dominio, analytics o DNS.
+Páginas individuales por servicio, blog, agenda o calendario real, fotos de equipo, cambios de dominio, analytics o DNS, e ingesta de datos abiertos de SICOP.
