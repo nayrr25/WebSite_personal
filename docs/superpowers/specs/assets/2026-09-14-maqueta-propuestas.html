@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N-AI · Propuestas visuales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Instrument+Serif:ital@0;1&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Public Sans',system-ui,sans-serif;background:#05070d;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+.wrap{width:min(1180px,100%);margin:0 auto;padding-inline:24px}
+.variant{display:none}.variant.on{display:block}
+@property --ang{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes spin{to{--ang:360deg}}
+@keyframes shift{to{background-position:300% 0}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.8)}}
+@keyframes drift{to{transform:translate3d(5%,-4%,0) scale(1.1)}}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -10px}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes beam{from{left:6%}to{left:80%}}
+.in{animation:up .9s cubic-bezier(.22,1,.36,1) both}
+.d1{animation-delay:.08s}.d2{animation-delay:.18s}.d3{animation-delay:.28s}.d4{animation-delay:.4s}
+
+/* ---------- selector ---------- */
+.switcher{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:100;display:flex;gap:4px;padding:5px;background:rgba(12,15,24,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14);border-radius:999px;box-shadow:0 14px 40px rgba(0,0,0,.4);max-width:calc(100% - 24px);overflow-x:auto}
+.switcher button{font:600 13px 'Public Sans',sans-serif;color:#b9c2d6;background:transparent;border:0;padding:10px 16px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.switcher button.on{background:#fff;color:#0b0d12}
+.switcher button span{opacity:.55;margin-right:6px}
+
+/* ---------- tema por propuesta ---------- */
+.a{--solid:#05070d;--surf:rgba(255,255,255,.045);--bd:rgba(255,255,255,.09);--tx:#fff;--mu:#8d98b1;--ac:#35e0ff;--ac2:#a58bff;background:#05070d;color:#e8ecf5}
+.b{--solid:#f5f7fb;--surf:#fff;--bd:rgba(11,18,32,.09);--tx:#0b1220;--mu:#5b6678;--ac:#2f62c8;--ac2:#35b8e0;background:#f5f7fb;color:#0b1220}
+.c{--solid:#0a1024;--surf:rgba(255,255,255,.045);--bd:rgba(255,255,255,.1);--tx:#fff;--mu:#9aa6bf;--ac:#8fb4ff;--ac2:#35e0ff;background:linear-gradient(180deg,#0a1024 0,#070b18 100%);color:#e8ecf5}
+
+/* ---------- nav ---------- */
+.nav{position:absolute;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:22px max(24px,4vw)}
+.logo{font:800 20px Archivo;letter-spacing:-.02em;display:flex;align-items:center;gap:10px;color:var(--tx)}
+.logo i{font-style:normal;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;font-size:16px}
+.links{display:flex;gap:28px;font-size:14px;color:var(--tx)}
+.links a{opacity:.72}
+.navcta{font:600 14px 'Public Sans';padding:10px 18px;border-radius:999px;text-decoration:none}
+@media (max-width:900px){.links{display:none}}
+.a .nav .logo i{background:linear-gradient(135deg,#2f62c8,#7c5cff);color:#fff;box-shadow:0 0 24px rgba(79,134,230,.6)}
+.a .navcta{border:1px solid rgba(255,255,255,.18);color:#fff;background:rgba(255,255,255,.05)}
+.b .nav .logo i{background:#0b1220;color:#fff}.b .navcta{background:#0b1220;color:#fff}
+.c .nav .logo i{background:#fff;color:#0a1024}.c .navcta{background:#fff;color:#0a1024}
+
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 15px 'Public Sans';padding:15px 24px;border-radius:999px;text-decoration:none;cursor:pointer;transition:transform .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px)}
+.pill{display:inline-flex;gap:9px;align-items:center;padding:8px 15px;border-radius:999px;font-size:13px}
+.pill .dot{width:7px;height:7px;border-radius:50%;animation:pulse 2s infinite}
+.eyebrow{font:600 12px 'Public Sans';letter-spacing:.22em;text-transform:uppercase;color:var(--ac)}
+
+/* =========================================================
+   HERO A · NEURAL OSCURO
+   ========================================================= */
+.a-hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 24px 90px;overflow:hidden;isolation:isolate}
+.a-hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.aurora{position:absolute;inset:-20%;z-index:-2;background:radial-gradient(38% 34% at 28% 32%,rgba(47,98,200,.55),transparent 70%),radial-gradient(34% 30% at 74% 38%,rgba(124,92,255,.42),transparent 70%),radial-gradient(30% 28% at 52% 85%,rgba(53,224,255,.2),transparent 70%);filter:blur(50px);animation:drift 16s ease-in-out infinite alternate}
+.a-hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at center,transparent 40%,#05070d 92%);pointer-events:none}
+.a .pill{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);backdrop-filter:blur(8px);color:#c9d3ea}
+.a .pill .dot{background:#35e0ff;box-shadow:0 0 12px #35e0ff}
+.a h1{font:800 clamp(42px,6.6vw,92px)/.98 Archivo;letter-spacing:-.045em;max-width:15ch;margin-top:28px;color:#fff}
+.grad{background:linear-gradient(90deg,#4f86e6,#35e0ff,#a58bff,#4f86e6);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shift 7s linear infinite}
+.a .sub{max-width:660px;margin-top:28px;font-size:18px;line-height:1.65;color:#9aa6bf}
+.a .ctas{display:flex;gap:12px;margin-top:38px;flex-wrap:wrap;justify-content:center}
+.a .btn-p{background:linear-gradient(180deg,#3d78e6,#2350b6);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 12px 44px -10px rgba(53,120,255,.85)}
+.a .btn-g{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#e8ecf5}
+.a-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:70px;width:min(860px,100%)}
+.stat{position:relative;border-radius:20px;padding:24px 20px;background:rgba(10,14,26,.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.07)}
+.stat::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:conic-gradient(from var(--ang),transparent 0 70%,#35e0ff 84%,#a58bff 90%,transparent 96%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 5s linear infinite}
+.stat:nth-child(2)::before{animation-delay:-1.6s}.stat:nth-child(3)::before{animation-delay:-3.2s}
+.stat b{font:800 46px/1 Archivo;letter-spacing:-.035em;display:block;color:#fff}
+.stat span{display:block;margin-top:10px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7f8aa3}
+@media (max-width:700px){.a-stats{grid-template-columns:1fr}}
+
+/* =========================================================
+   HERO B · CLARO ELÉCTRICO
+   ========================================================= */
+.b-hero{position:relative;min-height:100vh;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:56px;padding:130px max(24px,6vw) 80px;overflow:hidden;isolation:isolate}
+.b-hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.b .glow{position:absolute;z-index:-1;width:720px;height:720px;border-radius:50%;background:radial-gradient(circle,rgba(47,98,200,.20),transparent 62%);transform:translate(-50%,-50%);left:30%;top:40%;pointer-events:none;transition:left .25s ease-out,top .25s ease-out}
+.b .pill{border:1px solid rgba(11,18,32,.12);background:#fff;color:#334155;box-shadow:0 2px 10px rgba(11,18,32,.05)}
+.b .pill .dot{background:#2f62c8;box-shadow:0 0 10px #2f62c8}
+.b h1{font:900 clamp(44px,6.4vw,100px)/.94 Archivo;letter-spacing:-.05em;margin-top:26px}
+.rot{display:block;position:relative;color:#2f62c8;width:max-content;max-width:100%}
+.rot em{font-style:normal;display:inline-block;transition:transform .5s cubic-bezier(.22,1,.36,1),opacity .5s}
+.rot em.out{transform:translateY(-40%);opacity:0}
+.rot em.pre{transform:translateY(40%);opacity:0;transition:none}
+.rot::after{content:"";position:absolute;left:0;right:0;bottom:.02em;height:.13em;background:#9fe6ff;z-index:-1;border-radius:4px}
+.b .sub{max-width:580px;margin-top:28px;font-size:19px;line-height:1.6;color:#475569}
+.b .ctas{display:flex;gap:12px;margin-top:38px;flex-wrap:wrap}
+.b .btn-p{background:#2f62c8;color:#fff;box-shadow:0 16px 36px -14px rgba(47,98,200,.8)}
+.b .btn-g{background:#fff;color:#0b1220;border:1px solid rgba(11,18,32,.14)}
+.stack{position:relative;height:480px;width:min(440px,100%);justify-self:center}
+.sc{position:absolute;background:#fff;border:1px solid rgba(11,18,32,.08);border-radius:24px;padding:20px 22px;box-shadow:0 34px 60px -30px rgba(11,18,32,.45);animation:float 6s ease-in-out infinite}
+.sc.s1{top:0;left:-20px;right:60px}.sc.s2{top:160px;left:40px;right:-20px;animation-delay:-2s}.sc.s3{top:320px;left:-6px;right:34px;animation-delay:-4s}
+.sc .h{display:flex;align-items:center;gap:10px;font:700 15px Archivo;color:#0b1220}
+.sc .h .ico{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:#e8effc;color:#2f62c8}
+.sc .h small{margin-left:auto;font:600 11px 'Public Sans';color:#16a34a;background:#dcfce7;padding:3px 8px;border-radius:999px}
+.flow{display:flex;align-items:center;gap:6px;margin-top:14px;font-size:12px;color:#334155;flex-wrap:wrap}
+.flow span{padding:6px 10px;border-radius:10px;background:#f1f5fb;border:1px solid rgba(11,18,32,.06)}
+.flow i{font-style:normal;color:#2f62c8}
+.minibars{display:flex;align-items:flex-end;gap:7px;height:54px;margin-top:14px}
+.minibars i{flex:1;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,#5b8ef0,#2f62c8)}
+.chip{position:absolute;z-index:2;background:#0b1220;color:#fff;border-radius:18px;padding:13px 16px;box-shadow:0 20px 40px -18px rgba(11,18,32,.5);animation:float 5s ease-in-out infinite}
+.chip b{display:block;font:800 26px/1 Archivo;letter-spacing:-.03em;color:#6fe0ff}
+.chip span{font-size:12px;color:#aab4c8}
+.chip.k1{right:-40px;top:112px;animation-delay:-1s}.chip.k2{left:-60px;bottom:118px;animation-delay:-3s}
+@media (max-width:980px){.b-hero{grid-template-columns:1fr}.chip.k1{right:0}.chip.k2{left:0}.sc.s1,.sc.s3{left:0}.sc.s2{right:0}}
+.band{background:#0b1220;color:#fff;overflow:hidden;padding:28px 0;transform:rotate(-1.5deg);margin:10px -20px 0;box-shadow:0 30px 60px -30px rgba(11,18,32,.6)}
+.band .track{display:flex;gap:40px;width:max-content;animation:marquee 34s linear infinite}
+.band span{font:800 clamp(26px,3.6vw,48px) Archivo;letter-spacing:-.03em;white-space:nowrap;display:flex;align-items:center;gap:40px}
+.band span:nth-child(even){color:transparent;-webkit-text-stroke:1.5px #6f9cff}
+.band span::after{content:"✦";color:#35e0ff;-webkit-text-stroke:0;font-size:.6em}
+
+/* =========================================================
+   HERO C · DASHBOARD VIVO
+   ========================================================= */
+.c-hero{position:relative;min-height:100vh;display:grid;grid-template-columns:.95fr 1.05fr;align-items:center;gap:48px;padding:130px max(24px,5vw) 80px;overflow:hidden;background:radial-gradient(1100px 650px at 78% 22%,#1a2c5e 0%,transparent 70%)}
+.c-hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:48px 48px;-webkit-mask:radial-gradient(ellipse at 70% 40%,#000 20%,transparent 70%);mask:radial-gradient(ellipse at 70% 40%,#000 20%,transparent 70%);pointer-events:none}
+.c .pill{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#c9d3ea}
+.c .pill .dot{background:#ff5d6c;box-shadow:0 0 12px #ff5d6c}
+.c h1{font:800 clamp(40px,5.2vw,76px)/1.02 Archivo;letter-spacing:-.04em;margin-top:26px;color:#fff}
+.c h1 .serif{font:400 italic 1.1em/1 'Instrument Serif',serif;letter-spacing:-.01em;background:linear-gradient(90deg,#8fb4ff,#35e0ff);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.08em}
+.c .sub{max-width:540px;margin-top:26px;font-size:18px;line-height:1.65;color:#9aa6bf}
+.c .ctas{display:flex;gap:12px;margin-top:36px;flex-wrap:wrap}
+.c .btn-p{background:#fff;color:#0a1024}
+.c .btn-g{border:1px solid rgba(255,255,255,.2);color:#fff}
+.c .mini{display:flex;gap:28px;margin-top:44px;flex-wrap:wrap}
+.c .mini b{font:800 30px Archivo;color:#fff;letter-spacing:-.03em;display:block}
+.c .mini span{font-size:12px;color:#7f8aa3}
+.dash{position:relative;perspective:1600px}
+.panel{position:relative;transform:rotateY(-11deg) rotateX(5deg);border-radius:22px;background:rgba(12,19,40,.8);border:1px solid rgba(255,255,255,.1);box-shadow:0 60px 120px -30px rgba(0,0,0,.75),0 0 80px -20px rgba(79,134,230,.35);backdrop-filter:blur(12px);padding:18px;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.dash:hover .panel{transform:rotateY(-4deg) rotateX(2deg)}
+.phd{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:#aeb8cf;padding:2px 4px 14px;border-bottom:1px solid rgba(255,255,255,.07)}
+.phd .dots{display:flex;gap:6px;margin-right:12px}.phd .dots i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18)}
+.live{display:flex;align-items:center;gap:7px;font:700 11px 'Public Sans';letter-spacing:.14em;color:#ff7b87}
+.live i{width:7px;height:7px;border-radius:50%;background:#ff5d6c;animation:pulse 1.2s infinite}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:12px 14px}
+.kpi span{font-size:11px;color:#7f8aa3}
+.kpi b{display:block;font:700 22px Archivo;color:#fff;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi b.red{color:#ff7b87}
+.chartbox{margin-top:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:12px 10px 6px}
+.chartbox .t{font-size:11px;color:#7f8aa3;padding:0 4px 6px;display:flex;justify-content:space-between}
+.row2{display:grid;grid-template-columns:.8fr 1.2fr;gap:10px;margin-top:10px}
+.gauge,.inst{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:10px 12px}
+.gauge{display:flex;flex-direction:column;align-items:center}
+.gauge .t,.inst .t{font-size:11px;color:#7f8aa3;align-self:flex-start}
+.ir{display:grid;grid-template-columns:90px 1fr 34px;align-items:center;gap:8px;font-size:11px;color:#aeb8cf;margin-top:9px}
+.ir .bar{height:6px;border-radius:4px;background:rgba(255,255,255,.07);overflow:hidden}
+.ir .bar i{display:block;height:100%;border-radius:4px;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.toast{position:absolute;right:-18px;top:-26px;z-index:5;display:flex;gap:10px;align-items:center;background:#fff;color:#0a1024;border-radius:14px;padding:11px 14px;box-shadow:0 20px 40px -12px rgba(0,0,0,.6);font-size:12.5px;max-width:300px;transition:opacity .45s,transform .45s cubic-bezier(.22,1,.36,1)}
+.toast.hide{opacity:0;transform:translateY(-10px)}
+.toast .ic{width:28px;height:28px;border-radius:9px;background:#ffe3e6;color:#e5394b;display:grid;place-items:center;font-weight:800;flex:none}
+.toast b{display:block;font-size:12.5px}
+.toast small{color:#64748b}
+@media (max-width:1000px){.c-hero{grid-template-columns:1fr}.panel{transform:none}.toast{right:8px}}
+
+/* =========================================================
+   SECCIONES COMPARTIDAS (toman los colores de cada propuesta)
+   ========================================================= */
+.sec{padding:110px 0}
+.sec h2{font:800 clamp(32px,4.4vw,58px)/1.03 Archivo;letter-spacing:-.04em;color:var(--tx);margin-top:14px;max-width:19ch}
+.b .sec h2{font-weight:900;letter-spacing:-.05em}
+.lead{color:var(--mu);font-size:18px;line-height:1.6;max-width:62ch;margin-top:18px}
+.srv{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}
+.sv{--mx:50%;--my:50%;position:relative;overflow:hidden;background:var(--surf);border:1px solid var(--bd);border-radius:22px;padding:26px;min-height:330px;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .35s}
+.sv::after{content:"";position:absolute;inset:0;background:radial-gradient(380px circle at var(--mx) var(--my),color-mix(in srgb,var(--ac) 20%,transparent),transparent 45%);opacity:0;transition:opacity .3s;pointer-events:none}
+.sv:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--ac) 55%,transparent)}
+.sv:hover::after{opacity:1}
+.b .sv{box-shadow:0 1px 2px rgba(11,18,32,.04),0 20px 40px -28px rgba(11,18,32,.3)}
+.b .sv.feat{background:#2f62c8;border-color:#2f62c8;--tx:#fff;--mu:#d5e1fb;--ac:#fff;--bd:rgba(255,255,255,.25)}
+.sv .ico{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--ac) 15%,transparent);color:var(--ac)}
+.sv .num{position:absolute;top:26px;right:26px;font:700 13px Archivo;color:var(--mu)}
+.sv h3{font:700 22px/1.18 Archivo;letter-spacing:-.015em;color:var(--tx);margin-top:auto;padding-top:36px}
+.sv p{color:var(--mu);font-size:14.5px;line-height:1.55;margin-top:10px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.tags span{font-size:11.5px;padding:4px 9px;border-radius:999px;border:1px solid var(--bd);color:var(--mu)}
+.sectors{display:flex;flex-wrap:wrap;gap:12px 30px;align-items:center;margin-top:36px;padding-top:26px;border-top:1px solid var(--bd);color:var(--tx);font:600 16px 'Public Sans';opacity:.9}
+.sectors b{color:var(--mu);font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600}
+@media (max-width:1000px){.srv{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.srv{grid-template-columns:1fr}}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);margin-top:60px;position:relative}
+.steps::before{content:"";position:absolute;top:27px;left:6%;right:6%;height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));opacity:.35}
+.steps::after{content:"";position:absolute;top:25px;left:6%;width:14%;height:6px;border-radius:6px;background:linear-gradient(90deg,transparent,var(--ac2),transparent);filter:blur(1px);animation:beam 4.5s linear infinite}
+.step{padding-right:22px;position:relative}
+.step .n{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--solid);border:2px solid var(--ac);color:var(--tx);font:800 18px Archivo;position:relative;z-index:1}
+.step h3{font:700 21px Archivo;color:var(--tx);margin-top:22px;letter-spacing:-.01em}
+.step p{color:var(--mu);font-size:14.5px;line-height:1.55;margin-top:8px}
+.step .out{display:inline-block;margin-top:14px;font-size:12px;font-weight:600;color:var(--ac);border:1px solid color-mix(in srgb,var(--ac) 35%,transparent);border-radius:999px;padding:4px 10px}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:36px}.steps::before,.steps::after{display:none}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+.team{display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:14px;margin-top:48px}
+.tm{background:var(--surf);border:1px solid var(--bd);border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
+.b .tm{box-shadow:0 20px 40px -30px rgba(11,18,32,.35)}
+.tm .pic{aspect-ratio:1/1;position:relative;display:grid;place-items:center;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 22%,transparent),color-mix(in srgb,var(--ac2) 14%,transparent))}
+.tm.lead .pic{aspect-ratio:auto;flex:1;min-height:280px}
+.tm .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.tm .pic svg{width:44%;height:44%;color:var(--tx);opacity:.22}
+.tm .ej{position:absolute;top:12px;left:12px;font-size:10.5px;font-weight:600;padding:4px 9px;border-radius:999px;background:rgba(11,18,32,.7);color:#fff;letter-spacing:.03em}
+.tm .body{padding:18px 20px 22px}
+.tm h3{font:700 18px Archivo;color:var(--tx)}
+.tm .role{color:var(--ac);font-size:13px;font-weight:600;margin-top:4px}
+.tm p{color:var(--mu);font-size:13.5px;line-height:1.5;margin-top:10px}
+.creds{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px}
+.cr{background:var(--surf);border:1px solid var(--bd);border-radius:18px;padding:22px}
+.cr b{font:800 36px/1 Archivo;color:var(--tx);letter-spacing:-.035em}
+.cr span{display:block;color:var(--mu);font-size:13px;margin-top:8px;line-height:1.4}
+@media (max-width:1000px){.team{grid-template-columns:1fr 1fr}.tm.lead{grid-column:span 2}.creds{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.team,.creds{grid-template-columns:1fr}.tm.lead{grid-column:auto}}
+
+.cta{border-radius:32px;padding:72px 32px;text-align:center;position:relative;overflow:hidden;color:#fff}
+.cta h2{margin:14px auto 0;color:#fff;max-width:20ch}
+.cta .lead{margin-inline:auto;color:rgba(255,255,255,.75)}
+.cta .eyebrow{color:rgba(255,255,255,.8)}
+.cta .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.cta .btn-w{background:#fff;color:#0b1220}
+.cta .btn-o{border:1px solid rgba(255,255,255,.35);color:#fff}
+.a .cta{background:radial-gradient(60% 90% at 20% 0%,rgba(47,98,200,.7),transparent 70%),radial-gradient(50% 80% at 90% 100%,rgba(124,92,255,.55),transparent 70%),#0a0f1f;border:1px solid rgba(255,255,255,.1)}
+.b .cta{background:linear-gradient(135deg,#1e3a8a,#2f62c8 55%,#35b8e0)}
+.c .cta{background:radial-gradient(70% 100% at 80% 0%,#2a4aa0,transparent 70%),#0f1a3a;border:1px solid rgba(255,255,255,.1)}
+
+/* ---------- ficha ---------- */
+.ficha{border-radius:24px;padding:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin:60px 0 120px;background:var(--surf);border:1px dashed var(--bd);color:var(--mu)}
+.ficha h4{font:700 12px 'Public Sans';letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px;color:var(--ac)}
+.ficha p,.ficha li{font-size:15px;line-height:1.6}
+.ficha ul{padding-left:18px}
+.ficha .tag{display:inline-block;font:600 12px 'Public Sans';padding:4px 10px;border-radius:999px;margin:0 6px 6px 0;background:color-mix(in srgb,var(--ac) 14%,transparent);color:var(--ac)}
+@media (max-width:860px){.ficha{grid-template-columns:1fr}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="switcher" aria-label="Elegir propuesta">
+  <button data-v="a" class="on"><span>A</span>Neural oscuro</button>
+  <button data-v="b"><span>B</span>Claro eléctrico</button>
+  <button data-v="c"><span>C</span>Dashboard vivo</button>
+</nav>
+
+<!-- ======================= A ======================= -->
+<main class="variant a on" id="v-a">
+  <section class="a-hero">
+    <div class="aurora"></div>
+    <canvas id="netA"></canvas>
+    <header class="nav"><div class="logo"><i>N</i>N-AI</div>
+      <div class="links"><a>Servicios</a><a>Casos</a><a>Método</a><a>Equipo</a><a>Contacto</a></div>
+      <a class="navcta">Agendar diagnóstico</a></header>
+    <div class="pill in"><span class="dot"></span>Consultora de IA y analítica avanzada · Costa Rica &amp; LATAM</div>
+    <h1 class="in d1">Un equipo experto en IA, automatización y <span class="grad">analítica avanzada.</span></h1>
+    <p class="sub in d2">Diseñamos, construimos y ponemos en producción soluciones de datos para empresas e instituciones: desde modelos predictivos hasta agentes que automatizan procesos completos.</p>
+    <div class="ctas in d3"><a class="btn btn-p">Agendar un diagnóstico →</a><a class="btn btn-g">Ver casos de éxito</a></div>
+    <div class="a-stats in d4">
+      <div class="stat"><b data-count="400" data-pre="+" data-suf="%">+400%</b><span>Créditos colocados</span></div>
+      <div class="stat"><b data-count="2.4" data-pre="&gt;" data-suf="M" data-dec="1">&gt;2.4M</b><span>Registros de compra pública</span></div>
+      <div class="stat"><b data-count="47">47</b><span>Patrones de anomalía</span></div>
+    </div>
+  </section>
+  <div class="shared"></div>
+  <div class="wrap"><div class="ficha">
+    <div><h4>Estilo A</h4><p>Oscuro y luminoso, con estética de laboratorio de IA. Transmite tecnología de punta desde el primer segundo. La red neuronal que hoy casi no se nota pasa a ser la protagonista.</p></div>
+    <div><h4>Qué cambia</h4><ul><li>Paleta: de claro a oscuro (cambio grande de identidad)</li><li>Hero centrado con aurora, red brillante y números animados</li><li>Tarjetas con luz que sigue al mouse</li></ul></div>
+    <div><h4>Referencias 21st.dev</h4><span class="tag">AI Hero Background</span><span class="tag">Animated Gradient</span><span class="tag">Border beam</span><span class="tag">Spotlight card</span><p style="margin-top:10px">Esfuerzo: alto. Hay que revisar el contraste de todo el sitio.</p></div>
+  </div></div>
+</main>
+
+<!-- ======================= B ======================= -->
+<main class="variant b" id="v-b">
+  <section class="b-hero" id="heroB">
+    <canvas id="gridB"></canvas>
+    <div class="glow" id="glowB"></div>
+    <header class="nav"><div class="logo"><i>N</i>N-AI</div>
+      <div class="links"><a>Servicios</a><a>Casos</a><a>Método</a><a>Equipo</a><a>Contacto</a></div>
+      <a class="navcta">Agendar diagnóstico</a></header>
+    <div>
+      <div class="pill in"><span class="dot"></span>Consultora de IA y analítica avanzada · Costa Rica &amp; LATAM</div>
+      <h1 class="in d1">Un equipo experto en <span class="rot" id="rotB"><em>inteligencia artificial.</em></span></h1>
+      <p class="sub in d2">Diseñamos, construimos y ponemos en producción soluciones de datos para empresas e instituciones: desde modelos predictivos hasta agentes que automatizan procesos completos.</p>
+      <div class="ctas in d3"><a class="btn btn-p">Agendar un diagnóstico →</a><a class="btn btn-g">Ver casos de éxito</a></div>
+    </div>
+    <div class="stack in d2" aria-hidden="true">
+      <div class="sc s1"><div class="h"><span class="ico" data-icon="ai"></span>Modelo predictivo<small>● en producción</small></div>
+        <svg viewBox="0 0 300 60" width="100%" height="60" style="margin-top:12px"><path d="M0 48 C30 40 50 44 80 34 S130 38 160 24 S220 26 250 14 S290 10 300 6" fill="none" stroke="#2f62c8" stroke-width="2.5"/><path d="M0 48 C30 40 50 44 80 34 S130 38 160 24 S220 26 250 14 S290 10 300 6 L300 60 L0 60Z" fill="#2f62c8" fill-opacity=".08"/></svg></div>
+      <div class="sc s2"><div class="h"><span class="ico" data-icon="auto"></span>Automatización<small>● activa</small></div>
+        <div class="flow"><span>Factura recibida</span><i>→</i><span>Validación con IA</span><i>→</i><span>ERP ✓</span></div></div>
+      <div class="sc s3"><div class="h"><span class="ico" data-icon="chart"></span>Analítica avanzada</div>
+        <div class="minibars"><i style="height:40%"></i><i style="height:65%"></i><i style="height:95%"></i><i style="height:72%"></i><i style="height:50%"></i><i style="height:84%"></i><i style="height:60%"></i></div></div>
+      <div class="chip k1"><b>+400%</b><span>créditos colocados</span></div>
+      <div class="chip k2"><b>&gt;2.4M</b><span>registros analizados</span></div>
+    </div>
+  </section>
+  <div class="band" aria-hidden="true"><div class="track" id="trackB"></div></div>
+  <div class="shared"></div>
+  <div class="wrap"><div class="ficha">
+    <div><h4>Estilo B</h4><p>Mantiene tu identidad clara y azul, pero con mucha más energía: tipografía enorme, tarjetas de servicios flotando, una franja inclinada y bloques de color sólido.</p></div>
+    <div><h4>Qué cambia</h4><ul><li>Hero en dos columnas; la frase rota entre IA, automatización, analítica y agentes</li><li>Cuadrícula que se ilumina alrededor del mouse</li><li>Servicio destacado en azul sólido</li></ul></div>
+    <div><h4>Referencias 21st.dev</h4><span class="tag">Modern Hero section</span><span class="tag">DataGridHero</span><span class="tag">Marquee</span><span class="tag">Text rotate</span><p style="margin-top:10px">Esfuerzo: medio. Es el cambio más seguro, porque mantiene los colores actuales.</p></div>
+  </div></div>
+</main>
+
+<!-- ======================= C ======================= -->
+<main class="variant c" id="v-c">
+  <section class="c-hero">
+    <header class="nav"><div class="logo"><i>N</i>N-AI</div>
+      <div class="links"><a>Servicios</a><a>Casos</a><a>Método</a><a>Equipo</a><a>Contacto</a></div>
+      <a class="navcta">Agendar diagnóstico</a></header>
+    <div>
+      <div class="pill in"><span class="dot"></span>Soluciones de IA en producción</div>
+      <h1 class="in d1">Un equipo experto en IA, automatización y <span class="serif">analítica avanzada.</span></h1>
+      <p class="sub in d2">Diseñamos, construimos y ponemos en producción soluciones de datos para empresas e instituciones en Costa Rica y Latinoamérica.</p>
+      <div class="ctas in d3"><a class="btn btn-p">Agendar un diagnóstico →</a><a class="btn btn-g">Ver el caso SICOP</a></div>
+      <div class="mini in d4"><div><b>+400%</b><span>Créditos colocados</span></div><div><b>&gt;2.4M</b><span>Registros analizados</span></div><div><b>47</b><span>Patrones de anomalía</span></div></div>
+    </div>
+    <div class="dash in d2" aria-hidden="true">
+      <div class="toast" id="toastC"><div class="ic">!</div><div><b id="toastT">Anomalía detectada</b><small id="toastS">Contrato 2026-LA-000184 · score 0.91</small></div></div>
+      <div class="panel">
+        <div class="phd"><div style="display:flex;align-items:center"><div class="dots"><i></i><i></i><i></i></div>Caso compras públicas · Monitor de riesgo</div><div class="live"><i></i>EN VIVO</div></div>
+        <div class="kpis">
+          <div class="kpi"><span>Registros analizados</span><b id="recC">2,401,338</b></div>
+          <div class="kpi"><span>Alertas hoy</span><b class="red" id="alC">12</b></div>
+          <div class="kpi"><span>Riesgo promedio</span><b id="rsC">0.34</b></div>
+        </div>
+        <div class="chartbox"><div class="t"><span>Monto adjudicado vs. esperado</span><span style="color:#ff7b87">● anomalías</span></div>
+          <svg viewBox="0 0 560 170" width="100%" height="170" preserveAspectRatio="none">
+            <defs><linearGradient id="gC" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#4f86e6" stop-opacity=".4"/><stop offset="1" stop-color="#4f86e6" stop-opacity="0"/></linearGradient></defs>
+            <path fill="rgba(143,180,255,.08)" d="M0 62 L560 62 L560 128 L0 128 Z"/>
+            <path id="areaC" fill="url(#gC)" d=""/>
+            <path id="lineC" fill="none" stroke="#8fb4ff" stroke-width="2" d=""/>
+            <g id="dotsC"></g>
+          </svg></div>
+        <div class="row2">
+          <div class="gauge"><span class="t">Score de riesgo</span>
+            <svg width="150" height="92" viewBox="0 0 150 92"><defs><linearGradient id="gG"><stop offset="0" stop-color="#35e0ff"/><stop offset=".6" stop-color="#ffc35d"/><stop offset="1" stop-color="#ff5d6c"/></linearGradient></defs><path d="M15 80 A60 60 0 0 1 135 80" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="12" stroke-linecap="round"/><path id="gArc" d="M15 80 A60 60 0 0 1 135 80" fill="none" stroke="url(#gG)" stroke-width="12" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="188.5" style="transition:stroke-dashoffset 1.4s cubic-bezier(.22,1,.36,1)"/><text x="75" y="76" text-anchor="middle" fill="#fff" font-family="Archivo" font-weight="800" font-size="24">0.82</text></svg>
+          </div>
+          <div class="inst"><span class="t">Instituciones con más alertas</span><div id="instC"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="shared"></div>
+  <div class="wrap"><div class="ficha">
+    <div><h4>Estilo C</h4><p>En vez de contar lo que hacen, lo muestran. Al entrar se ve un sistema real funcionando, con alertas que aparecen solas. Es la forma más directa de probar que hay expertos detrás.</p></div>
+    <div><h4>Qué cambia</h4><ul><li>Hero en dos columnas: mensaje a la izquierda y tablero 3D a la derecha</li><li>Gráfico que se actualiza solo (datos simulados, no reales)</li><li>Acento editorial en cursiva, como el sitio actual</li></ul></div>
+    <div><h4>Referencias 21st.dev</h4><span class="tag">Hero Heatmap (split)</span><span class="tag">Hero Radial Gradient</span><span class="tag">Animated list</span><p style="margin-top:10px">Esfuerzo: medio-alto. Reutiliza tus componentes AnomalyChart y RiskScoreGauge.</p></div>
+  </div></div>
+</main>
+
+<template id="shared">
+  <section class="sec" style="padding-top:120px"><div class="wrap">
+    <div class="eyebrow">Servicios</div>
+    <h2>Lo que hacemos por su organización.</h2>
+    <p class="lead">Cuatro líneas de servicio, un mismo estándar: cada solución se mide por el impacto en el negocio, no por la tecnología que usa.</p>
+    <div class="srv">
+      <article class="sv feat"><span class="num">01</span><span class="ico" data-icon="ai"></span><h3>Inteligencia artificial y machine learning</h3><p>Modelos predictivos, detección de anomalías, scoring de riesgo e IA generativa aplicada a su operación.</p><div class="tags"><span>Predicción</span><span>Scoring</span><span>IA generativa</span></div></article>
+      <article class="sv"><span class="num">02</span><span class="ico" data-icon="auto"></span><h3>Automatización inteligente</h3><p>Procesos que hoy son manuales, resueltos con flujos y agentes de IA conectados a sus sistemas.</p><div class="tags"><span>Agentes de IA</span><span>Flujos</span><span>Integraciones</span></div></article>
+      <article class="sv"><span class="num">03</span><span class="ico" data-icon="chart"></span><h3>Analítica avanzada y BI</h3><p>Tableros ejecutivos, segmentación de clientes, pronósticos y medición del desempeño de campañas.</p><div class="tags"><span>Dashboards</span><span>RFM</span><span>Pronósticos</span></div></article>
+      <article class="sv"><span class="num">04</span><span class="ico" data-icon="data"></span><h3>Arquitectura y gobierno de datos</h3><p>Ingesta, calidad y gobierno en la nube, para que la IA trabaje sobre datos confiables.</p><div class="tags"><span>Nube</span><span>Calidad</span><span>Gobierno</span></div></article>
+    </div>
+    <div class="sectors"><b>Sectores</b><span>Sector público</span><span>Banca y crédito</span><span>Consumo masivo</span><span>Retail</span><span>Marketing y medios</span></div>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <div class="eyebrow">Cómo trabajamos</div>
+    <h2>Un método probado, del diagnóstico a la operación.</h2>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3>Diagnóstico</h3><p>Entendemos el problema de negocio y evaluamos los datos disponibles.</p><span class="out">Mapa de oportunidades</span></div>
+      <div class="step"><div class="n">02</div><h3>Diseño</h3><p>Definimos la solución, las métricas de éxito y el plan de trabajo.</p><span class="out">Arquitectura y plan</span></div>
+      <div class="step"><div class="n">03</div><h3>Construcción</h3><p>Desarrollamos y validamos con datos reales, en ciclos cortos.</p><span class="out">Solución probada</span></div>
+      <div class="step"><div class="n">04</div><h3>Operación</h3><p>Ponemos en producción, medimos resultados y mejoramos continuamente.</p><span class="out">Impacto medido</span></div>
+    </div>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <div class="eyebrow">Equipo</div>
+    <h2>Especialistas, no generalistas.</h2>
+    <p class="lead">Economía, estadística, ingeniería de datos y machine learning trabajando en el mismo equipo.</p>
+    <div class="team">
+      <article class="tm lead"><div class="pic"><img class="photo" alt="Nancy Rodríguez"></div><div class="body"><h3>Nancy Rodríguez</h3><div class="role">Fundadora y directora</div><p>Economista y estadística, con experiencia en banca, sector público y consumo masivo.</p></div></article>
+      <article class="tm"><div class="pic"><span class="ej">Perfil de ejemplo</span><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></div><div class="body"><h3>Nombre del especialista</h3><div class="role">Ingeniería de datos</div><p>Pipelines, nube y calidad de datos.</p></div></article>
+      <article class="tm"><div class="pic"><span class="ej">Perfil de ejemplo</span><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></div><div class="body"><h3>Nombre del especialista</h3><div class="role">Machine learning</div><p>Modelos predictivos y de riesgo.</p></div></article>
+      <article class="tm"><div class="pic"><span class="ej">Perfil de ejemplo</span><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></div><div class="body"><h3>Nombre del especialista</h3><div class="role">Automatización y agentes</div><p>Flujos e integraciones con IA.</p></div></article>
+    </div>
+    <div class="creds">
+      <div class="cr"><b data-count="400" data-pre="+" data-suf="%">+400%</b><span>créditos colocados con motores de decisión</span></div>
+      <div class="cr"><b data-count="2.4" data-pre="&gt;" data-suf="M" data-dec="1">&gt;2.4M</b><span>registros de compra pública analizados</span></div>
+      <div class="cr"><b data-count="47">47</b><span>patrones de anomalía modelados</span></div>
+      <div class="cr"><b>Investigación</b><span>publicaciones académicas en economía y estadística</span></div>
+    </div>
+  </div></section>
+
+  <section class="sec" style="padding-bottom:0"><div class="wrap">
+    <div class="cta"><div class="eyebrow">Hablemos</div><h2>¿Tiene un problema de datos que vale la pena resolver?</h2><p class="lead">En una sesión de diagnóstico identificamos dónde la IA y la automatización pueden generar impacto en su organización.</p><div class="ctas"><a class="btn btn-w">Agendar un diagnóstico →</a><a class="btn btn-o">Escribir por WhatsApp</a></div></div>
+  </div></section>
+</template>
+
+<script>
+const PHOTO = "__PHOTO__";
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const ICONS = {
+  ai:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l1.8 4.7 4.7 1.8-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg>',
+  auto:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M6.5 10v3.5a2 2 0 0 0 2 2H14"/><path d="M17.5 10V6.5a2 2 0 0 0-2-2H10"/></svg>',
+  chart:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>',
+  data:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>'
+};
+
+/* ---------- secciones compartidas ---------- */
+const tpl = document.getElementById('shared');
+document.querySelectorAll('.shared').forEach(s => s.appendChild(tpl.content.cloneNode(true)));
+document.querySelectorAll('[data-icon]').forEach(el => el.innerHTML = ICONS[el.dataset.icon]);
+document.querySelectorAll('img.photo').forEach(i => i.src = PHOTO);
+document.querySelectorAll('.sv').forEach(c => c.addEventListener('mousemove', e => {
+  const r = c.getBoundingClientRect(); c.style.setProperty('--mx',(e.clientX-r.left)+'px'); c.style.setProperty('--my',(e.clientY-r.top)+'px');
+}));
+
+/* ---------- selector ---------- */
+const btns = document.querySelectorAll('.switcher button');
+function show(v){
+  btns.forEach(b => b.classList.toggle('on', b.dataset.v === v));
+  document.querySelectorAll('.variant').forEach(m => m.classList.toggle('on', m.id === 'v-'+v));
+  scrollTo(0,0); history.replaceState(null,'','#'+v);
+  requestAnimationFrame(() => dispatchEvent(new Event('resize')));
+}
+btns.forEach(b => b.onclick = () => show(b.dataset.v));
+
+/* ---------- contadores al entrar en pantalla ---------- */
+const io = new IntersectionObserver(es => es.forEach(en => {
+  if (!en.isIntersecting || reduce) return; io.unobserve(en.target);
+  const el = en.target, to = +el.dataset.count, dec = +(el.dataset.dec||0), pre = el.dataset.pre||'', suf = el.dataset.suf||'';
+  const t0 = performance.now();
+  (function tick(t){ const p = Math.min(1,(t-t0)/1800), e = 1-Math.pow(1-p,4); el.textContent = pre+(to*e).toFixed(dec)+suf; if (p<1) requestAnimationFrame(tick); })(t0);
+}), {threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el => io.observe(el));
+
+function fit(cv){
+  const r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio||1,2);
+  cv.width = r.width*d; cv.height = r.height*d;
+  const ctx = cv.getContext('2d'); ctx.setTransform(d,0,0,d,0,0);
+  return {ctx, w:r.width, h:r.height};
+}
+const isOn = v => document.getElementById('v-'+v).classList.contains('on');
+
+/* ---------- A · red neuronal ---------- */
+(function(){
+  const cv = document.getElementById('netA'); let S, nodes = [], mouse = {x:-999,y:-999};
+  function init(){ if(!isOn('a')) return; S = fit(cv); const n = Math.round(S.w*S.h/14000);
+    nodes = Array.from({length:n}, () => ({x:Math.random()*S.w, y:Math.random()*S.h, vx:(Math.random()-.5)*.35, vy:(Math.random()-.5)*.35, r:Math.random()*1.8+.8, hot:Math.random()<.12})); }
+  cv.parentElement.addEventListener('mousemove', e => { const r = cv.getBoundingClientRect(); mouse.x = e.clientX-r.left; mouse.y = e.clientY-r.top; });
+  addEventListener('resize', init); init();
+  (function loop(t){
+    if (isOn('a') && S){
+      const {ctx,w,h} = S; ctx.clearRect(0,0,w,h);
+      for (const p of nodes){ if(!reduce){p.x+=p.vx; p.y+=p.vy;} if(p.x<0||p.x>w)p.vx*=-1; if(p.y<0||p.y>h)p.vy*=-1; }
+      for (let i=0;i<nodes.length;i++){ const a = nodes[i];
+        for (let j=i+1;j<nodes.length;j++){ const b = nodes[j], dx=a.x-b.x, dy=a.y-b.y, d=dx*dx+dy*dy;
+          if (d<22500){ ctx.strokeStyle = `rgba(111,156,255,${(1-Math.sqrt(d)/150)*.35})`; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); } }
+        const md = Math.hypot(a.x-mouse.x, a.y-mouse.y);
+        if (md<200){ ctx.strokeStyle = `rgba(53,224,255,${(1-md/200)*.7})`; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(mouse.x,mouse.y); ctx.stroke(); }
+      }
+      for (const p of nodes){
+        const k = p.hot ? 1+Math.sin(t/500+p.x)*.5 : 1;
+        ctx.fillStyle = p.hot ? '#35e0ff' : 'rgba(170,196,255,.85)';
+        ctx.shadowColor = '#35e0ff'; ctx.shadowBlur = p.hot ? 16 : 0;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r*k*(p.hot?1.6:1),0,7); ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+    }
+    requestAnimationFrame(loop);
+  })(0);
+})();
+
+/* ---------- B · cuadrícula que se ilumina ---------- */
+(function(){
+  const cv = document.getElementById('gridB'), hero = document.getElementById('heroB'), glow = document.getElementById('glowB');
+  let S, mouse = {x:-999,y:-999}; const lit = new Map(), C = 56;
+  function init(){ if(isOn('b')) S = fit(cv); }
+  addEventListener('resize', init); init();
+  hero.addEventListener('mousemove', e => { const r = hero.getBoundingClientRect(); mouse.x = e.clientX-r.left; mouse.y = e.clientY-r.top; glow.style.left = mouse.x+'px'; glow.style.top = mouse.y+'px'; });
+  (function loop(){
+    if (isOn('b') && S){
+      const {ctx,w,h} = S; ctx.clearRect(0,0,w,h);
+      if (!reduce && Math.random()<.08) lit.set(`${Math.floor(Math.random()*w/C)},${Math.floor(Math.random()*h/C)}`,1);
+      if (mouse.x>0) lit.set(`${Math.floor(mouse.x/C)},${Math.floor(mouse.y/C)}`,1);
+      for (const [k,a] of lit){ const [cx,cy] = k.split(',').map(Number);
+        ctx.fillStyle = `rgba(47,98,200,${a*.16})`; ctx.fillRect(cx*C+1,cy*C+1,C-1,C-1);
+        const na = a-.012; na<=0 ? lit.delete(k) : lit.set(k,na); }
+      ctx.strokeStyle = 'rgba(11,18,32,.06)'; ctx.lineWidth = 1; ctx.beginPath();
+      for (let x=0;x<=w;x+=C){ ctx.moveTo(x+.5,0); ctx.lineTo(x+.5,h); }
+      for (let y=0;y<=h;y+=C){ ctx.moveTo(0,y+.5); ctx.lineTo(w,y+.5); }
+      ctx.stroke();
+      const g = ctx.createRadialGradient(w*.35,h*.45,0,w*.35,h*.45,Math.max(w,h)*.75);
+      g.addColorStop(0,'rgba(245,247,251,0)'); g.addColorStop(1,'rgba(245,247,251,.95)');
+      ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+    }
+    requestAnimationFrame(loop);
+  })();
+  const words = ['inteligencia artificial.','automatización.','analítica avanzada.','agentes de IA.'];
+  const rot = document.getElementById('rotB'); let i = 0;
+  if (!reduce) setInterval(() => {
+    const em = rot.querySelector('em'); em.classList.add('out');
+    setTimeout(() => { i=(i+1)%words.length; em.textContent = words[i]; em.classList.remove('out'); em.classList.add('pre'); void em.offsetWidth; em.classList.remove('pre'); }, 450);
+  }, 2600);
+  const items = ['Inteligencia artificial','Automatización','Analítica avanzada','Agentes de IA','Machine learning','Gobierno de datos','Pronósticos','Risk scoring'];
+  document.getElementById('trackB').innerHTML = [...items,...items].map(t => `<span>${t}</span>`).join('');
+})();
+
+/* ---------- C · tablero en vivo (datos simulados) ---------- */
+(function(){
+  const N = 40, W = 560, H = 170; let data = [], v = 90;
+  function next(){ v += (Math.random()-.5)*18; v = Math.max(45,Math.min(125,v)); const a = Math.random()<.09; return {y: a ? 18+Math.random()*16 : v, a}; }
+  for (let i=0;i<N;i++) data.push(next());
+  function render(){
+    const step = W/(N-1), pts = data.map((p,i)=>[i*step,p.y]);
+    const d = 'M'+pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L');
+    document.getElementById('lineC').setAttribute('d', d);
+    document.getElementById('areaC').setAttribute('d', d+` L${W} ${H} L0 ${H} Z`);
+    document.getElementById('dotsC').innerHTML = pts.filter((p,i)=>data[i].a).map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="11" fill="#ff5d6c" fill-opacity=".2"/><circle cx="${p[0]}" cy="${p[1]}" r="4" fill="#ff5d6c"/>`).join('');
+  }
+  render();
+  const inst = [['Institución A',.86,'#ff5d6c'],['Institución B',.71,'#ffc35d'],['Institución C',.58,'#ffc35d'],['Institución D',.33,'#35e0ff']];
+  const box = document.getElementById('instC');
+  box.innerHTML = inst.map(r=>`<div class="ir"><span>${r[0]}</span><div class="bar"><i style="width:0;background:${r[2]}"></i></div><span>${r[1].toFixed(2)}</span></div>`).join('');
+  setTimeout(()=>{ box.querySelectorAll('.bar i').forEach((b,k)=>b.style.width = inst[k][1]*100+'%'); document.getElementById('gArc').style.strokeDashoffset = 188.5*(1-.82); }, 300);
+  let rec = 2401338, al = 12, ti = 0;
+  const toasts = [['Anomalía detectada','Contrato 2026-LA-000184 · score 0.91'],['Precio fuera de rango','Licitación 2026-LN-000077 · +312%'],['Proveedor recurrente','Adjudicación directa n.º 14 del año'],['Posible fraccionamiento','3 compras bajo umbral · mismo día']];
+  const tEl = document.getElementById('toastC');
+  if (!reduce){
+    setInterval(()=>{ if (!isOn('c')) return;
+      const p = next(); data.push(p); data.shift(); render();
+      rec += Math.floor(Math.random()*140+20); document.getElementById('recC').textContent = rec.toLocaleString('en-US');
+      if (p.a) document.getElementById('alC').textContent = ++al;
+      document.getElementById('rsC').textContent = (.3+Math.random()*.08).toFixed(2);
+    }, 700);
+    setInterval(()=>{ tEl.classList.add('hide');
+      setTimeout(()=>{ ti=(ti+1)%toasts.length; document.getElementById('toastT').textContent = toasts[ti][0]; document.getElementById('toastS').textContent = toasts[ti][1]; tEl.classList.remove('hide'); }, 500);
+    }, 3400);
+  }
+})();
+
+addEventListener('hashchange', () => { const h = location.hash.slice(1); if (['a','b','c'].includes(h)) show(h); });
+const start = (location.hash||'#a').slice(1);
+show(['a','b','c'].includes(start) ? start : 'a');
+</script>
+</body>
+</html>
