@@ -141,6 +141,7 @@ section{scroll-margin-top:72px}
 .rows h3{font-size:22px;line-height:1.2}
 .rows p{color:var(--ink-secondary);font-size:16px}
 .rows .tags{margin-top:10px}
+.ev{margin-top:14px;padding-left:12px;border-left:2px solid var(--accent);font-size:15px;color:var(--ink-primary);max-width:56ch}
 .sectors{margin-top:36px;font-size:15px;color:var(--ink-secondary)}
 .sectors b{color:var(--ink-primary);font-weight:600;margin-right:6px}
 @media (max-width:860px){.anchor{grid-template-columns:1fr}.rows li{grid-template-columns:44px 1fr}.rows li>div:last-child{grid-column:2}}
@@ -341,7 +342,7 @@ footer{background:var(--bg-deep);border-top:1px solid var(--line-subtle);padding
       </aside>
     </div>
     <ul class="rows">
-      <li class="rv"><span class="idx num">02</span><h3>Automatización inteligente</h3><div><p>Procesos que hoy son manuales, resueltos con flujos y agentes de IA conectados a tus sistemas.</p><p class="tags">agentes de IA · flujos · integraciones</p></div></li>
+      <li class="rv"><span class="idx num">02</span><h3>Automatización inteligente</h3><div><p>Procesos que hoy son manuales, resueltos con flujos y agentes de IA conectados a tus sistemas.</p><p class="tags">agentes de IA · flujos · integraciones</p><p class="ev">Evidencia: ingesta, limpieza, reportes y pronósticos automatizados para una empresa regional de consumo masivo.</p></div></li>
       <li class="rv"><span class="idx num">03</span><h3>Analítica avanzada y BI</h3><div><p>Tableros ejecutivos, segmentación de clientes, pronósticos y medición del desempeño de campañas.</p><p class="tags">dashboards · segmentación RFM · pronósticos</p></div></li>
       <li class="rv"><span class="idx num">04</span><h3>Arquitectura y gobierno de datos</h3><div><p>Ingesta, calidad y gobierno en la nube, para que la IA trabaje sobre datos confiables.</p><p class="tags">nube · calidad · gobierno</p></div></li>
     </ul>
@@ -382,6 +383,13 @@ footer{background:var(--bg-deep);border-top:1px solid var(--line-subtle);padding
       </article>
       <article class="demo rv d1">
         <span class="status live"><i aria-hidden="true"></i>En vivo</span>
+        <h3>Ingesta, reportes y pronósticos automatizados</h3>
+        <p>Para una empresa regional de consumo masivo: los datos de varias fuentes se centralizan, limpian y unifican solos, y los reportes se actualizan, analizan y proyectan sin trabajo manual.</p>
+        <svg viewBox="0 0 240 64" aria-hidden="true"><g fill="none" stroke="#8C867E"><path d="M14 10h36M14 32h36M14 54h36"/><path d="M50 10l28 22M50 54l28-22M50 32h28"/></g><g fill="#C9C3BA"><circle cx="10" cy="10" r="4"/><circle cx="10" cy="32" r="4"/><circle cx="10" cy="54" r="4"/><rect x="80" y="22" width="24" height="20" rx="3"/><rect x="124" y="40" width="10" height="20"/><rect x="138" y="30" width="10" height="30"/><rect x="152" y="34" width="10" height="26"/><rect x="166" y="22" width="10" height="38"/></g><path d="M104 32h14" stroke="#8C867E"/><path d="M176 22l16-6 16-4 16-6" fill="none" stroke="#FF6A4D" stroke-width="2" stroke-dasharray="4 4"/></svg>
+        <p class="pend">Pendiente I9: volumen ingestado, tiempo ahorrado y frecuencia de reportes.</p>
+      </article>
+      <article class="demo rv d1">
+        <span class="status live"><i aria-hidden="true"></i>En vivo</span>
         <h3>Crédito preaprobado · motor de decisión</h3>
         <p>Preaprobación automática para una entidad financiera regulada: más de 200 reglas de negocio (NIF y SUGEF) y decisión en menos de un segundo. Resultado: +400% de créditos colocados.</p>
         <svg viewBox="0 0 240 64" aria-hidden="true"><rect x="8" y="22" width="44" height="20" rx="3" fill="none" stroke="#C9C3BA"/><path d="M52 32h28M80 32l24-16M80 32l24 16" stroke="#8C867E" fill="none"/><rect x="104" y="6" width="44" height="20" rx="3" fill="none" stroke="#C9C3BA"/><rect x="104" y="38" width="44" height="20" rx="3" fill="none" stroke="#C9C3BA"/><path d="M148 48h40" stroke="#8C867E"/><rect x="188" y="38" width="44" height="20" rx="3" fill="#FF6A4D" fill-opacity=".85"/></svg>
@@ -398,7 +406,7 @@ footer{background:var(--bg-deep);border-top:1px solid var(--line-subtle);padding
         <p>Segmentación de comportamiento y preferencias reveladas para líderes de categoría y retail.</p>
         <svg viewBox="0 0 240 64" aria-hidden="true"><g fill="#C9C3BA"><rect x="0" y="40" width="30" height="24"/><rect x="40" y="26" width="30" height="38"/><rect x="80" y="10" width="30" height="54" fill="#FF6A4D"/><rect x="120" y="30" width="30" height="34"/><rect x="160" y="44" width="30" height="20"/><rect x="200" y="36" width="30" height="28"/></g></svg>
       </article>
-      <article class="demo wide rv d1">
+      <article class="demo rv d2">
         <span class="status concept"><i aria-hidden="true"></i>Concepto</span>
         <h3>Inteligencia de gobierno de datos</h3>
         <p>Linaje, calidad, responsables y postura regulatoria de los datos, visibles a escala institucional.</p>
@@ -496,7 +504,7 @@ footer{background:var(--bg-deep);border-top:1px solid var(--line-subtle);padding
   </div>
 </footer>
 
-<button class="notes-toggle" id="notesBtn" aria-pressed="false">Mostrar pendientes (5)</button>
+<button class="notes-toggle" id="notesBtn" aria-pressed="false">Mostrar pendientes (6)</button>
 
 <script>
 const PHOTO = "__PHOTO__";
@@ -539,7 +547,7 @@ addEventListener('keydown', e=>{ if(e.key==='Escape' && nav.classList.contains('
 
 /* pendientes */
 const nb = document.getElementById('notesBtn');
-nb.addEventListener('click', ()=>{ const on = document.body.classList.toggle('show-notes'); nb.setAttribute('aria-pressed',on); nb.textContent = on ? 'Ocultar pendientes' : 'Mostrar pendientes (5)'; });
+nb.addEventListener('click', ()=>{ const on = document.body.classList.toggle('show-notes'); nb.setAttribute('aria-pressed',on); nb.textContent = on ? 'Ocultar pendientes' : 'Mostrar pendientes (6)'; });
 </script>
 </body>
 </html>

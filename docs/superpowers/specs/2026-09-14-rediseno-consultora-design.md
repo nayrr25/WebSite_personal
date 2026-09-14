@@ -47,6 +47,7 @@ Cada insumo tiene una alternativa explícita, para que su ausencia no bloquee el
 | I6 | Diagnóstico: duración, costo (o "sin costo") y qué recibe el cliente | Texto | El contacto dice "conversación inicial" sin prometer duración ni costo |
 | I7 | Duración típica de cada fase del método | Texto | La línea de tiempo muestra entregables sin duraciones |
 | I8 | Publicaciones confirmadas (título, año, enlace), excluyendo las 4 de homónimos que aparecen en Scholar | Lista | Solo el enlace al perfil de Google Scholar |
+| I9 | Caso de automatización: volumen ingestado (registros o fuentes), tiempo manual ahorrado y frecuencia de los reportes automáticos | Texto | La tarjeta y la evidencia describen qué hace el sistema, sin cifras |
 
 Los datos del caso se reúnen en `src/content/data/sicop.json`, versionado en el repositorio: hechos, 8 dimensiones, 12 instituciones anonimizadas y, si llega I1, la serie temporal. La fuente va como metadato.
 
@@ -95,7 +96,7 @@ La portada pasa de 11 secciones a 8, en este orden:
 - **H2:** "Lo que N-AI hace por tu organización." Sin etiqueta en mayúsculas; numeración editorial.
 - **Servicio ancla** (bloque ancho, dos columnas): **Inteligencia artificial y machine learning**. Descripción: modelos predictivos, detección de anomalías, scoring de riesgo e IA generativa aplicada. A la derecha, el caso SICOP como evidencia (una línea de resultado y enlace).
 - **Los otros 3, en lista editorial** (filas separadas por una línea, sin tarjetas ni íconos):
-  - **Automatización inteligente:** procesos manuales resueltos con flujos y agentes de IA conectados a tus sistemas.
+  - **Automatización inteligente:** procesos manuales resueltos con flujos y agentes de IA conectados a tus sistemas. Evidencia: "ingesta, limpieza, reportes y pronósticos automatizados para una empresa regional de consumo masivo" (con cifras de I9 cuando lleguen).
   - **Analítica avanzada y BI:** tableros ejecutivos, segmentación de clientes, pronósticos y medición de campañas.
   - **Arquitectura y gobierno de datos:** ingesta, calidad y gobierno en la nube, para que la IA trabaje sobre datos confiables.
 - **Etiquetas** de cada servicio en texto separado por "·", no en píldoras.
@@ -110,7 +111,8 @@ La portada pasa de 11 secciones a 8, en este orden:
 
 ### 4. Demos
 
-- Se conservan las 5 demos y sus estados.
+- Se conservan las 5 demos y sus estados, y se agrega una sexta en vivo: **Ingesta, reportes y pronósticos automatizados**. Cliente anónimo por sector ("empresa regional de consumo masivo"). Los datos de varias fuentes se centralizan, limpian y unifican solos, y los reportes se actualizan, analizan y proyectan (forecasting) sin trabajo manual. Solo lleva cifras de I9.
+- Las 6 tarjetas van en una cuadrícula de 3×2, sin tarjetas de doble ancho.
 - **Tarjetas sin tarjeta anidada:** superficie única, sin borde interior. Las mini-visualizaciones se recolorean con los tokens nuevos.
 - **Enlaces:** la tarjeta de compras públicas enlaza a `/casos/sicop`. Las demás son `<article>` sin enlace ni texto "Ver caso de estudio".
 
@@ -279,7 +281,7 @@ Coral de alerta, derivado del concepto de "señal" de SICOP. Los tokens se renom
 1. **Maqueta v2:** hero, banda SICOP y servicios, con la paleta nueva y el panel con los datos reales del caso. Se sube a `docs/superpowers/specs/assets/` para aprobación visual antes de implementar.
 2. **Plan de implementación** en `docs/superpowers/plans/`.
 3. **Commits en `feat/rediseno-consultora`**, subidos a GitHub después de cada entregable → PR a `main` → vista previa de Vercel → revisión de Nancy → merge solo con su aprobación.
-4. **Cuando lleguen I1 e I5–I8,** se incorporan en commits propios, sin rehacer el diseño.
+4. **Cuando lleguen I1 e I5–I9,** se incorporan en commits propios, sin rehacer el diseño.
 
 ## Fuera de alcance
 
