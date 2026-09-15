@@ -65,7 +65,7 @@ export default function Leadership() {
                   href={item.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="group inline-flex items-center gap-2 text-[15px] font-semibold text-accent transition-colors duration-150 hover:text-accent-cyan"
+                  className="group inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-accent transition-colors duration-150 hover:text-accent-cyan"
                 >
                   {item.label}
                   <span aria-hidden className="transition-transform duration-200 ease-out group-hover:translate-x-[3px]">

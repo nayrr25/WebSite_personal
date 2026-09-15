@@ -190,3 +190,146 @@ El JSON crudo quedó en `/private/tmp/claude-501/-Users-nancyrodriguez/ddda1b6a-
 - `detect_root_en.json`
 - `detect_root_casos_sicop.json`
 - `detect_root_en_cases_sicop.json`
+
+---
+
+# Evaluación C · Segunda ronda, tras las correcciones (commit a198ecf)
+
+Revisor independiente distinto de A; misma referencia `critique.md`.
+
+DEGRADADO: una sola pasada (hice de subagente revisor). No corrí el detector `impeccable detect` ni la evaluación B aislada. Todo lo que afirmo lo medí en el DOM. A 1440 las capturas del panel salen reducidas e ilegibles, así que ahí me apoyé en mediciones y no en la imagen.
+
+# Crítica UX: portada N-AI (ES/EN) y caso SICOP
+
+## 1. Veredicto de especificidad
+La parte que distingue al sitio sí es propia. El tablero del hero usa los datos reales del caso: 12 instituciones anonimizadas, 8 dimensiones y compuesto 62, las mismas cifras de la página del caso. A eso se suman la Contraloría, SUGEF/NIF y los sectores. El resto sigue una plantilla que usaría cualquier consultora:
+- El titular podría ser de cualquier empresa del rubro.
+- Servicios son 4 tarjetas con ícono y etiquetas.
+- El Método son 4 pasos numerados 01–04.
+- El patrón etiqueta + H2 se repite 7 veces.
+- La biografía es genérica ("con experiencia transformando problemas complejos…").
+
+## 2. Heurísticas de Nielsen
+
+| # | Heurística | Nota | Problema clave |
+|---|---|---|---|
+| 1 | Visibilidad del estado | 3 | Buen menú fijo, botón Pausar y riel del caso con `aria-current`. Pero "EN VIVO" sobre una animación de datos históricos se entiende como monitoreo en tiempo real; lo aclara solo un pie de 12 px. |
+| 2 | Coincidencia con el mundo real | 2 | "Agendar diagnóstico" promete una agenda y lleva a WhatsApp o correo. ">2.4M" usa formato inglés en la página en español. "+400% créditos colocados" no dice contra qué. En el caso aparece "Capa de IA · 8". |
+| 3 | Control y libertad | 3 | Hay pausa, enlace de regreso a `/#caso-sicop` y el cambio de idioma conserva la ruta. Los carruseles no tienen indicador de posición. |
+| 4 | Consistencia y estándares | 2 | Solo 2 de 4 servicios traen "Evidencia:". De 3 demos "En vivo", solo 1 tiene enlace. La misma cifra aparece en formatos distintos (">2.4M" frente a "2,4 millones"). |
+| 5 | Prevención de errores | 3 | WhatsApp y correo abren con mensaje precargado (Organización/Objetivo/Plazo). Aquí no hay mucho que se pueda hacer mal. |
+| 6 | Reconocer antes que recordar | 3 | Menú con texto y riel del caso. En celular, 4 servicios y 6 demos quedan escondidos; la única pista es que la siguiente tarjeta asoma un 18%. |
+| 7 | Flexibilidad y eficiencia | n/a | Es una portada. |
+| 8 | Estética y diseño minimalista | 2 | "47" aparece 4 veces y "SICOP" 6 en la portada. En celular la página mide 9.224 px (unas 11 pantallas) y el hero, 1.218 px. Además, el hero sale recortado en celular (P1). |
+| 9 | Recuperación de errores | 3 | Si `mailto` falla, el correo está escrito en texto visible. Casi no hay estados de error posibles. |
+| 10 | Ayuda y documentación | 2 | Las preguntas frecuentes explican cómo se cobra, pero no hay rangos. Faltan plazo de respuesta y duración/costo del diagnóstico (insumos pendientes). "Qué pasa después" no da tiempos. |
+| **Total** | | **23/36 (64%)** | **Aceptable** |
+
+## 3. Total
+**23/36 = 64%, banda Aceptable.** Sin el recorte del hero en celular y con las etiquetas corregidas, estaría en la zona de "Bueno" (70% o más).
+
+## 4. Carga cognitiva, recorrido emocional y fortalezas
+
+**Carga cognitiva**
+- **Primera pantalla de escritorio:** unos 12 datos a la vez. Son 2 botones de acción y 3 cifras de prueba, más un tablero con 3 KPI, gráfico, medidor, 4 barras y aviso flotante.
+  - Tiene sentido para el estilo aprobado.
+  - Pero las cifras de prueba mezclan dos casos (+400% es del crédito y el tablero es de SICOP), y eso cansa sin aportar.
+- **Encabezado de escritorio:** 7 opciones (5 enlaces, idioma y botón). Es estándar y se acepta.
+- **Carruseles en celular:** obligan a recordar qué tarjetas faltan, porque no hay contador ni puntos.
+- **Jerga sin explicar:** RFM, scoring, pipeline, NIF/SUGEF.
+
+**Recorrido emocional**
+- **Picos:** el tablero del hero y la banda del caso.
+- **Primer bajón, en Demos:** 5 de 6 tarjetas no llevan a ningún lado, y 2 de ellas dicen "En vivo".
+- **Segundo bajón, en Quién lidera:** después de tanta prueba concreta, la biografía es abstracta.
+- **En las preguntas desplegables:** "¿Quién hace consultoría de IA en Costa Rica?" se lee escrita para Google, no para una persona.
+- **Cierre:** la banda de contacto tranquiliza ("sin compromiso", 3 pasos). Pero justo en el momento de mayor riesgo no dice cuándo llega la respuesta.
+- **En celular:** el pico se rompe desde la primera pantalla por el recorte.
+
+**3 fortalezas**
+1. **Tablero honesto y accesible.** Usa datos reales del caso y trae:
+   - botón Pausar (WCAG 2.2.2);
+   - resumen solo para lector de pantalla;
+   - respeto a `prefers-reduced-motion`;
+   - pausa fuera de pantalla y con la pestaña oculta.
+2. **Contacto sin fricción.** Mensaje de WhatsApp precargado, correo con plantilla y 3 pasos claros de "Qué pasa después".
+3. **Buena narrativa en la página del caso.** Va de reto a fuentes, arquitectura, IA, instituciones e impacto. Tiene riel con sección activa, regreso al punto exacto de la portada y botón al final.
+
+## 5. Problemas priorizados
+
+**[P1] El hero se recorta en celular.**
+- **Qué pasa:** a 390 px la columna del grid del hero mide 438,66 px dentro de un contenedor de 350 px. Como `#top` tiene `overflow:hidden`, no aparece scroll horizontal: el contenido simplemente se corta.
+  - En español se cortan 89 px: el H1 ("automatizació…"), el subtítulo, el botón "Ver el caso S…" y la etiqueta "patrones de anomalía mo…". Lo confirmé con `elementFromPoint` (h1.right = 459).
+  - En inglés se cortan 22 px.
+- **Causa:** la fila de encabezado del tablero (título + "EN VIVO" sin salto de línea + Pausar) exige un ancho mínimo de 401 px. Con el padding del panel suben a 439 px, y el ítem del grid tiene `min-width:auto`.
+- **Por qué importa:** es lo primero que ve cualquier visitante en celular, y la marca vende precisión.
+- **Arreglo:** en `src/components/sections/Hero.tsx`, usar `grid-cols-[minmax(0,1fr)]` en el `Container` para móvil, o `min-w-0` en los dos `Reveal` hijos. Después verificar a 360, 375 y 390 en los dos idiomas.
+
+**[P2] Etiquetas incorrectas en las cifras del caso.**
+- **Qué pasa:** la tarjeta dice "Capa de IA · 8" y la siguiente, "para calcular un puntaje de riesgo · <1 s" (un fragmento en minúscula).
+- **Por qué importa:** es la primera prueba que lee alguien escéptico, y la etiqueta no dice qué es el 8.
+- **Arreglo:** en `src/app/_shell/CaseSicop.tsx` (el `dl` del header):
+  - usar `t.caseBand.facts[2].label` en lugar de `c.sections.ai`;
+  - escribir una etiqueta completa para la cuarta cifra, por ejemplo "Tiempo para calcular un puntaje".
+
+**[P2] Demos que prometen más de lo que muestran.**
+- **Qué pasa:** la sección se llama "Demos" y 3 tarjetas dicen "En vivo", pero solo SICOP tiene enlace. Crédito (+400%) y automatización no llevan a nada.
+- **Por qué importa:** "demo en vivo" hace esperar algo que se puede abrir. Si no hay nada, parece humo.
+- **Arreglo:** cambiar la insignia a "En producción" (`statusLabels` en `es.ts`/`en.ts`). Cuando la dueña entregue las cifras, agregar una mini-ficha para crédito y automatización. No inventar datos mientras tanto.
+
+**[P2] Las cifras del hero no se sostienen solas.**
+- **Qué pasa:** "+400%" no tiene línea base ni dice de qué caso es, y está al lado de un tablero de otro caso. ">2.4M" rompe el formato en español.
+- **Arreglo:**
+  - Etiqueta con origen, por ejemplo "créditos colocados · motor de preaprobación". Solo si la dueña confirma la línea base, agregarla.
+  - Usar "2,4 M" en `es.ts`.
+
+**[P2] Repetición, largo y verbo de la acción principal.**
+- **Qué pasa:** "47" aparece 4 veces y la página en celular mide unas 11 pantallas. "Agendar" hace esperar un calendario.
+- **Arreglo:**
+  - Quitar el 47 de la evidencia de Servicios.
+  - Cambiar el botón a algo como "Solicitar un diagnóstico", o conectar un calendario real.
+  - Cuando la dueña lo entregue, poner el plazo de respuesta dentro del paso 2 de contacto ("Nancy te responde").
+
+**[P3] Preguntas escritas para buscadores.**
+- **Qué pasa:** "¿Quién hace consultoría de IA / inteligencia de compras públicas en Costa Rica?" aparecen visibles.
+- **Arreglo:** mantener el formato de 3 destacadas + 3 desplegables, pero reescribirlas como preguntas de cliente, por ejemplo "¿Trabajan con instituciones públicas?". El texto para SEO puede quedarse en JSON-LD.
+
+**[P3] Áreas táctiles pequeñas en celular.**
+- LinkedIn, Scholar y GitHub en `Leadership.tsx`: 23 px de alto.
+- Botón Menú en `Nav.tsx`: 38 px de alto.
+- "Volver al inicio" en el caso: 20 px de alto.
+- EN y Pausar sí llegan a unos 44 px gracias a su `::after`.
+
+## 6. Señales por persona
+
+**Primera visita**
+- Tiene que adivinar qué es RFM, scoring, pipeline y NIF/SUGEF.
+- "EN VIVO" le hace creer que ve instituciones reales en tiempo real.
+- "Agendar" le hace buscar un calendario que no existe.
+
+**Escéptico (comprador corporativo o institucional)**
+- "+400%" no tiene base.
+- "Capa de IA · 8" en el caso.
+- 5 de 6 sistemas sin evidencia enlazable.
+- "minutos, no semanas" en Impacto sin dato que lo respalde.
+- Sin plazos ni rangos de costo (insumos pendientes).
+- Método sin duración por fase (insumo pendiente).
+- La biografía no dice años, sectores ni organizaciones.
+
+**Móvil**
+- El hero se recorta (P1).
+- Los botones de acción quedan bien ubicados (399–448 px, dentro de la primera pantalla).
+- En móvil el tablero oculta el KPI compuesto y el medidor, así que el 62 no se ve.
+- Carruseles sin indicador.
+- Páginas muy largas: la portada suma 9.224 px; Quién lidera mide 1.290 px y las preguntas frecuentes, 1.280 px.
+- En el caso, el riel se oculta y no hay otra navegación interna en 6.626 px de página.
+
+**Observaciones menores**
+- **Anclas en dos idiomas:** `#contact` va en inglés y el resto (`#servicios`, `#metodo`) en español.
+- **Textos del tablero pequeños:** las etiquetas miden 12 px en color #8C98B3. El contraste es suficiente, pero son chicas.
+- **Nitidez del retrato (no confirmado):** el archivo es de 880×880 y en escritorio se muestra en 476×297 px a densidad 2×, recortado a 16:10, así que puede verse algo suave. El `naturalWidth` reportó 391; revisar en un navegador real.
+- **Evidencia desigual:** Analítica/BI y Arquitectura no tienen "Evidencia:"; las tarjetas quedan de igual alto pero se ven con menos contenido.
+
+Preguntas a la dueña omitidas: soy un subagente y la conversación la lleva el agente principal.
+
+Estado: no edité archivos. Cerré la pestaña que abrí y dejé el viewport de la pestaña principal en "desktop".

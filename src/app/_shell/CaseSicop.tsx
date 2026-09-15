@@ -57,7 +57,7 @@ export default function CaseSicop() {
         <Container className="py-14 md:py-20">
           <a
             href={homeAnchor(lang, "#caso-sicop")}
-            className="group inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-cyan"
+            className="group inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-accent hover:text-accent-cyan"
           >
             <span aria-hidden className="transition-transform duration-200 ease-out group-hover:-translate-x-[3px]">
               ←
@@ -71,8 +71,8 @@ export default function CaseSicop() {
             {[
               { value: `>${caseFacts.recordsMillions}M`, label: t.dashboard.kpiRecords },
               { value: String(caseFacts.anomalyPatterns), label: t.dashboard.kpiPatterns },
-              { value: String(caseFacts.riskDimensions), label: c.sections.ai },
-              { value: `<${caseFacts.scoringSeconds} s`, label: t.caseBand.facts[3].label },
+              { value: String(caseFacts.riskDimensions), label: t.caseBand.facts[2].label },
+              { value: `<${caseFacts.scoringSeconds} s`, label: c.scoringLabel },
             ].map((fact) => (
               <div key={fact.label} className="flex flex-col-reverse justify-end rounded-[18px] border border-line bg-surface p-5">
                 <dt className="mt-2 text-sm text-ink-2">{fact.label}</dt>

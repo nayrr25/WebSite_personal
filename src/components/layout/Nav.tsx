@@ -101,7 +101,7 @@ export default function Nav() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen((value) => !value)}
-            className="inline-flex rounded-full border border-line-strong px-3.5 py-2 text-sm font-semibold text-ink active:scale-[0.97] lg:hidden"
+            className="inline-flex min-h-11 items-center rounded-full border border-line-strong px-4 text-sm font-semibold text-ink active:scale-[0.97] lg:hidden"
           >
             {open ? t.menu.close : t.menu.open}
           </button>

@@ -19,7 +19,7 @@ export default function Hero() {
         aria-hidden
         className="mask-hero-grid pointer-events-none absolute inset-0 bg-grid-48 bg-cell-48"
       />
-      <Container className="relative grid min-h-[calc(100svh-68px)] items-center gap-10 py-8 md:py-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
+      <Container className="relative grid min-h-[calc(100svh-68px)] grid-cols-[minmax(0,1fr)] items-center gap-10 py-8 md:py-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-14">
         <div>
           <Reveal>
             <p className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs text-ink-soft sm:text-[13px]">

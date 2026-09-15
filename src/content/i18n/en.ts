@@ -177,6 +177,7 @@ export const en: Strings = {
     metaDescription:
       "How N-AI built anomaly detection across 47 patterns and risk scoring across 8 dimensions for public procurement oversight in Costa Rica.",
     back: "Back to home",
+    scoringLabel: "time to compute a risk score",
     eyebrow: "Case study",
     title: "Public procurement intelligence for Costa Rica's Comptroller General",
     lead:
@@ -301,7 +302,7 @@ export const en: Strings = {
     },
   ],
   statusLabels: {
-    Live: "Live",
+    Live: "In production",
     "In Build": "In build",
     Concept: "Concept",
   },

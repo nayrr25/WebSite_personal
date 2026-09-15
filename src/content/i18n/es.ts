@@ -178,6 +178,7 @@ export const es = {
     metaDescription:
       "Cómo N-AI construyó detección de anomalías sobre 47 patrones y scoring de riesgo en 8 dimensiones para la supervisión de compras públicas en Costa Rica.",
     back: "Volver al inicio",
+    scoringLabel: "tiempo para calcular un puntaje de riesgo",
     eyebrow: "Caso de estudio",
     title: "Inteligencia de compras públicas para la Contraloría General de la República",
     lead:
@@ -302,7 +303,7 @@ export const es = {
     },
   ],
   statusLabels: {
-    Live: "En vivo",
+    Live: "En producción",
     "In Build": "En construcción",
     Concept: "Concepto",
   },
