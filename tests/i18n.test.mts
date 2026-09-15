@@ -59,3 +59,22 @@ test("método de 4 fases y 4 credenciales reales", () => {
     );
   }
 });
+
+test("FAQ compacta: 6 preguntas, 3 destacadas abiertas", () => {
+  for (const dict of [es, en]) {
+    assert.equal(dict.faq.items.length, 6);
+    assert.equal(dict.faq.items.filter((item) => item.featured).length, 3);
+    assert.deepEqual(
+      dict.faq.items.map((item) => item.featured),
+      [true, true, true, false, false, false],
+    );
+  }
+});
+
+test("el contacto propone el diagnóstico y no usa el correo del dominio", () => {
+  assert.match(es.contact.whatsappMessage, /diagnóstico/);
+  assert.match(en.contact.whatsappMessage, /diagnostic/);
+  assert.equal(es.contact.steps.length, 3);
+  const all = JSON.stringify(es) + JSON.stringify(en);
+  assert.doesNotMatch(all, /nancyrodriguez@n-ai\.dev/);
+});

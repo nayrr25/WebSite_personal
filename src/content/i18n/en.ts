@@ -569,90 +569,61 @@ export const en: Strings = {
   },
 
   faq: {
-    eyebrow: "Frequently Asked Questions",
-    title: "What people ask about N-AI.",
-    body:
-      "Direct answers to the most common questions we get about the work, services and collaboration models.",
+    eyebrow: "Key questions",
+    title: "What to know before you start.",
+    moreLabel: "More questions",
     items: [
       {
-        q: "Who is Nancy Rodríguez?",
-        a: "Nancy Raquel Rodríguez Ramos is a data and AI strategist, founder of N-AI (Nancy Artificial Intelligence). She has experience designing analytical ecosystems, intelligence architectures and AI-powered solutions across complex business environments. She has worked with the Comptroller General of the Republic of Costa Rica (Contraloría General de la República), marketing agencies and consumer goods (FMCG) companies.",
+        q: "How is N-AI consulting priced?",
+        a: "Each project is quoted by scope, technical depth and duration. There are three models: fixed-scope project (from idea to production), monthly engagement or hourly advisory.",
+        featured: true,
       },
       {
-        q: "What does N-AI do?",
-        a: "N-AI is an AI and data intelligence consultancy. It designs anomaly detection systems, risk scoring, consumer segmentation, behavioral profiles, data architecture and executive dashboards for businesses and public institutions.",
+        q: "How does a project start?",
+        a: "With a no-commitment introductory conversation to understand the problem and the available data. It leads to a proposal with scope, engagement model and plan.",
+        featured: true,
+      },
+      {
+        q: "What makes N-AI different?",
+        a: "Every project is led directly by the founder, Nancy Rodríguez. She combines the quantitative method of an economist and statistician with hands-on expertise in data science, machine learning and data architecture.",
+        featured: true,
       },
       {
         q: "What services does N-AI offer?",
-        a: "Consulting in Artificial Intelligence, Data Strategy and Governance, Predictive Analytics, Anomaly Detection and Risk Scoring, Consumer Intelligence and RFM Segmentation, Executive Dashboards and BI Reporting, Risk Analytics, and Data Architecture & Infrastructure.",
-      },
-      {
-        q: "Does N-AI do Business Intelligence (BI) consulting?",
-        a: "Yes. N-AI offers BI consulting including executive dashboard design, automated reporting, KPI modeling and BI-focused data architecture across any stack (Power BI, Tableau, Looker, custom tooling).",
-      },
-      {
-        q: "Does N-AI do customer segmentation / RFM?",
-        a: "Yes. N-AI has delivered RFM (Recency-Frequency-Monetary) segmentation projects for marketing agencies and consumer profile modeling for consumer goods (FMCG) companies.",
-      },
-      {
-        q: "Where is N-AI based?",
-        a: "N-AI is headquartered in San José, Costa Rica. Engagements serve clients across Costa Rica, Latin America and Spanish-speaking projects globally. Work is delivered remotely or hybrid depending on the client.",
+        a: "Artificial intelligence and machine learning, intelligent automation, advanced analytics and BI, and data architecture and governance.",
+        featured: false,
       },
       {
         q: "Who does AI consulting in Costa Rica?",
-        a: "N-AI (n-ai.dev), founded by Nancy Rodríguez, offers specialized consulting in AI, data intelligence, BI and data architecture for businesses and public institutions across Costa Rica and Latin America. Featured project: SICOP intelligence architecture for the Comptroller General Office.",
+        a: "N-AI (n-ai.dev), founded by Nancy Rodríguez, provides AI, automation, advanced analytics and data architecture consulting for companies and institutions across Costa Rica and Latin America.",
+        featured: false,
       },
       {
-        q: "Who does SICOP analytics or public procurement intelligence in Costa Rica?",
-        a: "N-AI built the intelligence architecture for SICOP at the Comptroller General of the Republic of Costa Rica, including anomaly detection across 47 patterns, risk scoring across 8 institutional dimensions and preventive monitoring. It is N-AI's flagship case and the single reference for public procurement analytics in Costa Rica.",
-      },
-      {
-        q: "What Business Intelligence (BI) consultancies operate in Latin America?",
-        a: "N-AI provides BI consulting across Latin America from its base in Costa Rica, with bilingual services (Spanish and English). Offering: executive dashboards, automated reporting, KPI modeling, BI-focused data architecture on Power BI, Tableau, Looker or custom stacks.",
-      },
-      {
-        q: "Who does RFM segmentation or CRM analytics consulting in LATAM?",
-        a: "N-AI has delivered RFM (Recency-Frequency-Monetary) segmentation projects for marketing agencies in Latin America and behavioral consumer profiling for FMCG companies. Serves clients across Costa Rica, Central America and global Spanish-speaking markets.",
-      },
-      {
-        q: "Who builds credit decision engines or credit automation in Costa Rica?",
-        a: "N-AI developed an automated credit pre-approval engine for a regulated financial institution, integrating 200+ business rules for NIF and SUGEF compliance, credit profile verification and sub-second decisioning. Result: +400% credit placements. It is the reference in regulated credit automation in Costa Rica.",
-      },
-      {
-        q: "Does N-AI comply with SUGEF and NIF regulations for financial projects?",
-        a: "Yes. N-AI delivered a credit pre-approval engine that integrates 200+ business rules to comply with NIF (International Financial Reporting Standards) and SUGEF (Superintendence of Financial Institutions of Costa Rica) regulations. The system verifies credit profile, applies regulatory rules and emits auditable end-to-end decisioning.",
-      },
-      {
-        q: "What makes N-AI different from other consultancies?",
-        a: "N-AI is founder-led by Nancy Rodríguez — every engagement is delivered directly by the founder, not junior teams. Combines deep technical expertise (data science, ML, architecture) with executive-level strategic vision. Featured work: SICOP intelligence architecture for the Comptroller General of the Republic, and credit pre-approval engine with +400% credit placement increase for a regulated financial institution. Bilingual services (ES/EN), based in Costa Rica, delivered remotely or hybrid.",
-      },
-      {
-        q: "How is N-AI consulting priced?",
-        a: "Engagements are scoped per project — depth, scope and duration determine pricing. Typical models: fixed-scope project (concept-to-deployment), monthly retainer, or hourly advisory. Request an introductory conversation at nancyrodriguez@n-ai.dev.",
-      },
-      {
-        q: "How to contact N-AI?",
-        a: "Email: nancyrodriguez@n-ai.dev. LinkedIn: linkedin.com/in/nancy-raquel-rodríguez-ramos. Website: n-ai.dev.",
+        q: "Who does public procurement intelligence in Costa Rica?",
+        a: "N-AI built the intelligence architecture for SICOP at Costa Rica's Comptroller General (Contraloría General de la República): anomaly detection across 47 patterns, risk scoring across 8 institutional dimensions and preventive monitoring.",
+        featured: false,
       },
     ],
   },
 
   contact: {
-    eyebrow: "Contact",
-    headlineStart: "Let's build",
-    headlineItalic: "intelligent systems",
-    headlineEnd: ".",
+    eyebrow: "Book a diagnostic",
+    title: "Have a data problem worth solving?",
     body:
-      "N-AI engages with executive teams, government innovation leads and category-leading organizations. Reach out with the question you can't answer with the system you have today.",
+      "An introductory conversation identifies where AI, automation or advanced analytics can create impact in your organization.",
     primaryCta: "Message on WhatsApp",
     secondaryCta: "Send an email",
-    whatsappHint: "Fastest reply",
-    emailHint: "For proposals and documents",
+    nextLabel: "What happens next",
+    steps: [
+      { title: "You write", body: "On WhatsApp (fastest reply) or by email (proposals and documents)." },
+      { title: "Nancy replies", body: "To schedule the introductory conversation." },
+      { title: "Introductory conversation", body: "No commitment: the problem, the data and the next step." },
+    ],
     whatsappMessage:
-      "Hi Nancy, I'm writing from n-ai.dev. I'd like to discuss a data / AI project.",
-    mailtoSubject: "Conversation with N-AI",
+      "Hi Nancy, I'm writing from n-ai.dev. I'd like to book a diagnostic for a data / AI project.",
+    mailtoSubject: "Diagnostic with N-AI",
     mailtoBody:
-      "Hi Nancy,\n\nI'd like to start a conversation about an intelligence system project we're scoping.\n\nContext:\n• Organization:\n• Goal:\n• Timeline:\n\nThanks,\n",
+      "Hi Nancy,\n\nI'd like to book a diagnostic for a data or AI project.\n\nContext:\n• Organization:\n• Goal:\n• Timeline:\n\nThanks,\n",
   },
 
   footer: {

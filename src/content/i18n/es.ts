@@ -585,92 +585,64 @@ export const es = {
   },
 
   faq: {
-    eyebrow: "Preguntas Frecuentes",
-    title: "Lo que la gente pregunta sobre N-AI.",
-    body:
-      "Respuestas directas a las preguntas más comunes que recibimos sobre el trabajo, los servicios y las modalidades de colaboración.",
+    eyebrow: "Preguntas clave",
+    title: "Lo que conviene saber antes de empezar.",
+    moreLabel: "Más preguntas",
     items: [
       {
-        q: "¿Quién es Nancy Rodríguez?",
-        a: "Nancy Raquel Rodríguez Ramos es una estratega de datos e IA, fundadora de N-AI (Nancy Artificial Intelligence). Tiene experiencia diseñando ecosistemas analíticos, arquitecturas de inteligencia y soluciones impulsadas por IA en entornos de negocio complejos. Ha trabajado con la Contraloría General de la República, agencias de marketing y empresas de consumo masivo.",
+        q: "¿Cómo se cobra una consultoría con N-AI?",
+        a: "Cada proyecto se cotiza según su alcance, profundidad técnica y duración. Hay tres modalidades: proyecto cerrado (de la idea a la puesta en producción), acompañamiento mensual o asesoría por horas.",
+        featured: true,
       },
       {
-        q: "¿Qué hace N-AI?",
-        a: "N-AI es una consultora de IA e inteligencia de datos. Diseña sistemas de detección de anomalías, risk scoring, segmentación de consumidores, perfiles de comportamiento, arquitectura de datos y dashboards ejecutivos para empresas y organismos públicos.",
+        q: "¿Cómo empieza un proyecto?",
+        a: "Con una conversación inicial sin compromiso para entender el problema y los datos disponibles. De ahí sale una propuesta con alcance, modalidad y plan.",
+        featured: true,
+      },
+      {
+        q: "¿Qué hace diferente a N-AI?",
+        a: "Cada proyecto lo lleva directamente la fundadora, Nancy Rodríguez. Une el método cuantitativo de una economista y estadística con experiencia técnica en ciencia de datos, machine learning y arquitectura de datos.",
+        featured: true,
       },
       {
         q: "¿Qué servicios ofrece N-AI?",
-        a: "Consultoría en Inteligencia Artificial, Estrategia y Gobernanza de Datos, Analítica Predictiva, Detección de Anomalías y Risk Scoring, Inteligencia de Consumidor y Segmentación RFM, Dashboards Ejecutivos y Reportería BI, Análisis de Riesgo, y Arquitectura e Infraestructura de Datos.",
-      },
-      {
-        q: "¿N-AI hace consultoría de Business Intelligence (BI)?",
-        a: "Sí. N-AI ofrece consultoría de BI incluyendo diseño de dashboards ejecutivos, reportería automatizada, modelos de KPI y arquitectura de datos para BI sobre cualquier stack (Power BI, Tableau, Looker, herramientas custom).",
-      },
-      {
-        q: "¿N-AI hace segmentación de clientes / RFM?",
-        a: "Sí. N-AI ha desarrollado proyectos de segmentación RFM (Recency-Frequency-Monetary) para agencias de marketing y modelado de perfiles de consumidor para empresas de consumo masivo (FMCG).",
-      },
-      {
-        q: "¿Dónde está N-AI?",
-        a: "N-AI tiene sede en San José, Costa Rica. Trabaja con clientes en Costa Rica, Latinoamérica y proyectos hispanohablantes globales. Los engagements se ejecutan de forma remota o híbrida según el cliente.",
+        a: "Inteligencia artificial y machine learning, automatización inteligente, analítica avanzada y BI, y arquitectura y gobierno de datos.",
+        featured: false,
       },
       {
         q: "¿Quién hace consultoría de IA en Costa Rica?",
-        a: "N-AI (n-ai.dev), fundada por Nancy Rodríguez, ofrece consultoría especializada en IA, inteligencia de datos, BI y arquitectura de datos para empresas y organismos públicos en Costa Rica y Latinoamérica. Caso destacado: proyecto SICOP con la Contraloría General de la República.",
+        a: "N-AI (n-ai.dev), fundada por Nancy Rodríguez, ofrece consultoría de IA, automatización, analítica avanzada y arquitectura de datos para empresas e instituciones en Costa Rica y Latinoamérica.",
+        featured: false,
       },
       {
-        q: "¿Quién hace SICOP analytics o inteligencia de compras públicas en Costa Rica?",
-        a: "N-AI desarrolló la arquitectura de inteligencia para SICOP con la Contraloría General de la República, incluyendo detección de anomalías sobre 47 patrones, risk scoring sobre 8 dimensiones institucionales y monitoreo preventivo. Es el caso destacado de la consultora y referente único en analítica de compras públicas en Costa Rica.",
-      },
-      {
-        q: "¿Qué consultorías de Business Intelligence (BI) hay en Latinoamérica?",
-        a: "N-AI ofrece consultoría de BI en Latinoamérica desde su base en Costa Rica, con servicios bilingües (español e inglés). Cobertura: dashboards ejecutivos, reportería automatizada, modelado de KPIs, arquitectura de datos para BI sobre Power BI, Tableau, Looker o stacks custom.",
-      },
-      {
-        q: "¿Quién hace segmentación RFM o consultoría de CRM analytics en LATAM?",
-        a: "N-AI ha desarrollado proyectos de segmentación RFM (Recency-Frequency-Monetary) para agencias de marketing en Latinoamérica y perfiles de comportamiento del consumidor para empresas de consumo masivo (FMCG). Atiende clientes en Costa Rica, Centroamérica y mercados hispanohablantes globales.",
-      },
-      {
-        q: "¿Quién hace motores de decisión crediticios o automatización de crédito en Costa Rica?",
-        a: "N-AI desarrolló un motor automatizado de pre-aprobación crediticia para una entidad financiera regulada, integrando más de 200 reglas de negocio para cumplimiento NIF y SUGEF, verificación de perfil crediticio y decisión sub-segundo. Resultado: +400% de créditos colocados. Es el referente en automatización crediticia regulada en Costa Rica.",
-      },
-      {
-        q: "¿N-AI cumple con normativa SUGEF y NIF para proyectos financieros?",
-        a: "Sí. N-AI ha entregado un motor de pre-aprobación crediticia que integra más de 200 reglas de negocio para cumplir con normativa NIF (Normas Internacionales de Información Financiera) y SUGEF (Superintendencia General de Entidades Financieras de Costa Rica). El sistema verifica perfil crediticio, aplica reglas regulatorias y emite decisión auditable end-to-end.",
-      },
-      {
-        q: "¿Qué hace que N-AI sea diferente de otras consultorías?",
-        a: "N-AI es founder-led por Nancy Rodríguez — cada engagement lo lleva directamente la fundadora, no equipos junior. Combina experiencia técnica profunda (data science, ML, arquitectura) con visión estratégica ejecutiva. Trabajo destacado: arquitectura de inteligencia SICOP para la Contraloría General de la República y motor de pre-aprobación crediticia con +400% de incremento para entidad financiera regulada. Servicios bilingües (ES/EN) con base en Costa Rica y entrega remota o híbrida.",
-      },
-      {
-        q: "¿Cómo se cobra una consultoría con N-AI?",
-        a: "Los engagements son personalizados según alcance, profundidad técnica y duración. Modalidades típicas: proyecto cerrado (concept-to-deployment), retainer mensual, o asesoría por horas. Solicita una conversación inicial sin compromiso vía nancyrodriguez@n-ai.dev.",
-      },
-      {
-        q: "¿Cómo contactar N-AI?",
-        a: "Email: nancyrodriguez@n-ai.dev. LinkedIn: linkedin.com/in/nancy-raquel-rodríguez-ramos. Sitio web: n-ai.dev.",
+        q: "¿Quién hace inteligencia de compras públicas en Costa Rica?",
+        a: "N-AI desarrolló la arquitectura de inteligencia para SICOP con la Contraloría General de la República: detección de anomalías sobre 47 patrones, scoring de riesgo en 8 dimensiones institucionales y monitoreo preventivo.",
+        featured: false,
       },
     ],
   },
 
   contact: {
-    eyebrow: "Contacto",
-    headlineStart: "Construyamos",
-    headlineItalic: "sistemas inteligentes",
-    headlineEnd: ".",
+    eyebrow: "Agendar un diagnóstico",
+    title: "¿Tienes un problema de datos que vale la pena resolver?",
     body:
-      "N-AI colabora con equipos ejecutivos, líderes de innovación gubernamental y organizaciones líderes de categoría. Escríbenos sobre la pregunta que tu sistema actual no puede responder.",
+      "En una conversación inicial se identifica dónde la IA, la automatización o la analítica avanzada pueden generar impacto en tu organización.",
     primaryCta: "Escribir por WhatsApp",
     secondaryCta: "Escribir por correo",
-    // Etiquetas que dicen QUE pasa al hacer clic. "Iniciar una conversacion"
-    // no dice a donde lleva; "Escribir por WhatsApp" si.
-    whatsappHint: "Respuesta más rápida",
-    emailHint: "Para propuestas y documentos",
+    nextLabel: "Qué pasa después",
+    steps: [
+      {
+        title: "Escribes",
+        body: "Por WhatsApp (respuesta más rápida) o por correo (propuestas y documentos).",
+      },
+      { title: "Nancy te responde", body: "Para coordinar la conversación inicial." },
+      { title: "Conversación inicial", body: "Sin compromiso: el problema, los datos y el siguiente paso." },
+    ],
     whatsappMessage:
-      "Hola Nancy, te escribo desde n-ai.dev. Me interesa conversar sobre un proyecto de datos / IA.",
-    mailtoSubject: "Conversación con N-AI",
+      "Hola Nancy, te escribo desde n-ai.dev. Me interesa agendar un diagnóstico para un proyecto de datos / IA.",
+    mailtoSubject: "Diagnóstico con N-AI",
     mailtoBody:
-      "Hola Nancy,\n\nMe gustaría iniciar una conversación sobre un proyecto de sistema de inteligencia que estamos evaluando.\n\nContexto:\n• Organización:\n• Objetivo:\n• Timeline:\n\nGracias,\n",
+      "Hola Nancy,\n\nMe interesa agendar un diagnóstico para un proyecto de datos o IA.\n\nContexto:\n• Organización:\n• Objetivo:\n• Plazo:\n\nGracias,\n",
   },
 
   footer: {
