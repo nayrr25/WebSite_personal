@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default:
-      "AI & Data Consulting in Costa Rica · N-AI",
+      "AI & Data Analytics Consulting in Costa Rica · N-AI",
     template: "%s · N-AI",
   },
   description:
@@ -81,13 +81,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     alternateLocale: ["es_CR"],
     url: "/en",
-    title: "AI & Data Consulting in Costa Rica · N-AI",
+    title: "AI & Data Analytics Consulting in Costa Rica · N-AI",
     description: "Expert AI, automation and advanced analytics consulting in Costa Rica and Latin America. SICOP case, decision engines and automated reporting.",
     siteName: "N-AI · Nancy Artificial Intelligence",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI & Data Consulting in Costa Rica · N-AI",
+    title: "AI & Data Analytics Consulting in Costa Rica · N-AI",
     description: "Expert AI, automation and advanced analytics consulting in Costa Rica and Latin America. SICOP case, decision engines and automated reporting.",
   },
 };

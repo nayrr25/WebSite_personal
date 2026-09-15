@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default:
-      "Consultoría de IA y Datos en Costa Rica · N-AI",
+      "Consultoría de IA y Analítica de Datos en Costa Rica · N-AI",
     template: "%s · N-AI",
   },
   description:
@@ -81,13 +81,13 @@ export const metadata: Metadata = {
     locale: "es_CR",
     alternateLocale: ["en_US"],
     url: "/",
-    title: "Consultoría de IA y Datos en Costa Rica · N-AI",
+    title: "Consultoría de IA y Analítica de Datos en Costa Rica · N-AI",
     description: "Consultoría experta en IA, automatización y analítica avanzada en Costa Rica y Latinoamérica. Caso SICOP, motores de decisión y reportes automatizados.",
     siteName: "N-AI · Nancy Artificial Intelligence",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Consultoría de IA y Datos en Costa Rica · N-AI",
+    title: "Consultoría de IA y Analítica de Datos en Costa Rica · N-AI",
     description: "Consultoría experta en IA, automatización y analítica avanzada en Costa Rica y Latinoamérica. Caso SICOP, motores de decisión y reportes automatizados.",
   },
 };
