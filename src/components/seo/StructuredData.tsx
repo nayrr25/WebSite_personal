@@ -43,7 +43,8 @@ export default function StructuredData({
       width: 600,
       height: 400,
     },
-    image: `${siteUrl}/Nancy.jpg`,
+    // Imagen de marca para la organización; el retrato queda para Person.
+    image: `${siteUrl}/opengraph-image`,
     description:
       "Consultoría experta en inteligencia artificial, automatización y analítica avanzada para empresas e instituciones en Costa Rica y Latinoamérica.",
     founder: { "@id": `${siteUrl}/#nancy` },

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: en.caseSicop.metaDescription,
   alternates: {
     canonical: "/en/cases/sicop",
-    languages: { "es-CR": "/casos/sicop", "en-US": "/en/cases/sicop", "x-default": "/casos/sicop" },
+    languages: { es: "/casos/sicop", "es-CR": "/casos/sicop", "en-US": "/en/cases/sicop", "x-default": "/casos/sicop" },
   },
   // Al definir openGraph en la página se reemplaza el heredado del layout,
   // así que la imagen para redes se declara de forma explícita.

@@ -17,28 +17,15 @@ export const metadata: Metadata = {
   // a "/" y Google veía una sola página, en español.
   alternates: {
     canonical: "/",
+    // "es" cubre toda Latinoamérica; "es-CR" se mantiene para Costa Rica.
     languages: {
+      es: "/",
       "es-CR": "/",
       "en-US": "/en",
       "x-default": "/",
     },
   },
-  keywords: [
-    // Diez terminos, no 67. Google ignora esta etiqueta desde 2009, asi que su
-    // unico efecto real era documentar una estrategia dispersa. Estos diez son
-    // los que el sitio puede defender de verdad: los nichos donde hay casos
-    // reales detras y practicamente ninguna competencia comercial.
-    "consultoria IA Costa Rica",
-    "consultoria Business Intelligence Costa Rica",
-    "inteligencia de compras publicas SICOP",
-    "analitica SICOP Costa Rica",
-    "deteccion de anomalias compras publicas",
-    "motor de decision crediticia",
-    "automatizacion crediticia SUGEF",
-    "consultoria automatizacion Costa Rica",
-    "analitica avanzada Costa Rica",
-    "Nancy Rodriguez consultora datos",
-  ],
+  // Sin meta keywords: Google la ignora. Los temas se trabajan con contenido.
   authors: [{ name: "Nancy Rodríguez", url: SITE_URL }],
   creator: "Nancy Rodríguez",
   publisher: "N-AI · Nancy Artificial Intelligence",

@@ -21,7 +21,8 @@ export const es = {
   hero: {
     pill: "Consultoría de IA y analítica avanzada · Costa Rica y Latinoamérica",
     headlineStart: "Consultoría experta en IA, automatización y",
-    headlineHighlight: "analítica avanzada.",
+    headlineHighlight: "analítica avanzada",
+    headlineEnd: "en Costa Rica.",
     subhead:
       "N-AI diseña, construye y pone en producción soluciones de datos para empresas e instituciones en Costa Rica y Latinoamérica.",
     primaryCta: "Agendar un diagnóstico",

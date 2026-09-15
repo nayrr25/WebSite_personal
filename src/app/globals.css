@@ -64,7 +64,7 @@
   /* H1 del hero */
   .text-display-xl {
     font-family: var(--font-display);
-    font-size: clamp(40px, 4.9vw, 74px);
+    font-size: clamp(40px, 4.5vw, 74px);
     line-height: 1.02;
     letter-spacing: -0.04em;
     font-weight: 800;

@@ -21,7 +21,8 @@ export const en: Strings = {
   hero: {
     pill: "AI and advanced analytics consulting · Costa Rica and Latin America",
     headlineStart: "Expert consulting in AI, automation and",
-    headlineHighlight: "advanced analytics.",
+    headlineHighlight: "advanced analytics",
+    headlineEnd: "in Costa Rica.",
     subhead:
       "N-AI designs, builds and deploys data solutions for companies and institutions across Costa Rica and Latin America.",
     primaryCta: "Book a diagnostic",
