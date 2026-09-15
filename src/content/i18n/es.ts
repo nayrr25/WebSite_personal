@@ -69,6 +69,46 @@ export const es = {
     },
   },
 
+  services: {
+    eyebrow: "Servicios",
+    title: "Lo que N-AI hace por tu organización.",
+    body:
+      "Cuatro líneas de servicio con un mismo estándar: cada solución se mide por su impacto en el negocio, no por la tecnología que usa.",
+    evidenceLabel: "Evidencia:",
+    sectorsLabel: "Sectores",
+    sectors: ["Sector público", "Banca y crédito", "Consumo masivo", "Retail", "Marketing y medios"],
+    items: [
+      {
+        title: "Inteligencia artificial y machine learning",
+        description:
+          "Modelos predictivos, detección de anomalías, scoring de riesgo e IA generativa aplicada a tu operación.",
+        tags: ["Predicción", "Scoring", "IA generativa"],
+        evidence: "caso SICOP, 47 patrones y 8 dimensiones de riesgo.",
+      },
+      {
+        title: "Automatización inteligente",
+        description:
+          "Procesos que hoy son manuales, resueltos con flujos y agentes de IA conectados a tus sistemas.",
+        tags: ["Agentes de IA", "Flujos", "Integraciones"],
+        evidence: "ingesta, reportes y pronósticos automatizados para consumo masivo.",
+      },
+      {
+        title: "Analítica avanzada y BI",
+        description:
+          "Tableros ejecutivos, segmentación de clientes, pronósticos y medición del desempeño de campañas.",
+        tags: ["Dashboards", "RFM", "Pronósticos"],
+        evidence: "",
+      },
+      {
+        title: "Arquitectura y gobierno de datos",
+        description:
+          "Ingesta, calidad y gobierno en la nube, para que la IA trabaje sobre datos confiables.",
+        tags: ["Nube", "Calidad", "Gobierno"],
+        evidence: "",
+      },
+    ],
+  },
+
   sicop: {
     eyebrow: "Caso de Estudio Destacado",
     title: "Inteligencia de Compras Públicas",

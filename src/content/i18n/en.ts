@@ -68,6 +68,46 @@ export const en: Strings = {
     },
   },
 
+  services: {
+    eyebrow: "Services",
+    title: "What N-AI does for your organization.",
+    body:
+      "Four service lines held to one standard: every solution is measured by its business impact, not by the technology it uses.",
+    evidenceLabel: "Proof:",
+    sectorsLabel: "Sectors",
+    sectors: ["Public sector", "Banking and credit", "Consumer goods", "Retail", "Marketing and media"],
+    items: [
+      {
+        title: "Artificial intelligence and machine learning",
+        description:
+          "Predictive models, anomaly detection, risk scoring and generative AI applied to your operations.",
+        tags: ["Prediction", "Scoring", "Generative AI"],
+        evidence: "SICOP case, 47 patterns and 8 risk dimensions.",
+      },
+      {
+        title: "Intelligent automation",
+        description:
+          "Processes that are manual today, solved with workflows and AI agents connected to your systems.",
+        tags: ["AI agents", "Workflows", "Integrations"],
+        evidence: "automated ingestion, reporting and forecasting for consumer goods.",
+      },
+      {
+        title: "Advanced analytics and BI",
+        description:
+          "Executive dashboards, customer segmentation, forecasting and campaign performance measurement.",
+        tags: ["Dashboards", "RFM", "Forecasting"],
+        evidence: "",
+      },
+      {
+        title: "Data architecture and governance",
+        description:
+          "Cloud ingestion, quality and governance, so AI runs on data you can trust.",
+        tags: ["Cloud", "Quality", "Governance"],
+        evidence: "",
+      },
+    ],
+  },
+
   sicop: {
     eyebrow: "Featured Case Study",
     title: "Public Procurement Intelligence",
