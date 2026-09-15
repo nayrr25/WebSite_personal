@@ -9,7 +9,6 @@ const LAYER_DELAY = 520; // ms entre capas: la pared queda armada en ~2,5 s
 const PIECE_DELAY = 70;
 const IA_X = 1;
 const IA_LAYER: number = STACK_LAYERS.length;
-const IA_START = IA_LAYER + 2.5;
 
 type Piece = { x: number; z: number; j: number; label: string; dx: number; dy: number; dz: number; rot: number };
 
@@ -72,6 +71,10 @@ export default function MethodBlocks({
     const readSize = () => {
       size = parseFloat(getComputedStyle(world).getPropertyValue("--s")) || size;
     };
+    // En celular el escenario va justo debajo del título: el bloque IA flota más bajo para no taparlo.
+    const compact = () => size < 50;
+    const startGap = () => (compact() ? 1 : 2.5);
+    const hoverGap = () => (compact() ? 0.8 : 1.6);
 
     const place = (i: number, isBuilt: boolean) => {
       const p = PIECES[i];
@@ -92,9 +95,9 @@ export default function MethodBlocks({
       const center = rect.top + rect.height / 2;
       // 0 cuando el escenario asoma por abajo; 1 cuando su centro llega al centro de la pantalla.
       const progress = clamp((innerHeight - center) / (innerHeight / 2));
-      const z = IA_LAYER + (1 - easeOut(progress)) * (IA_START - IA_LAYER);
+      const z = IA_LAYER + (1 - easeOut(progress)) * startGap();
       // No aterriza sobre una pared incompleta.
-      return wallDone ? z : Math.max(z, IA_LAYER + 1.6);
+      return wallDone ? z : Math.max(z, IA_LAYER + hoverGap());
     };
 
     const tick = () => {
@@ -126,7 +129,7 @@ export default function MethodBlocks({
           place(i, false);
         }),
       );
-      iaZ = IA_START;
+      iaZ = IA_LAYER + startGap();
       iaRender();
     };
 
