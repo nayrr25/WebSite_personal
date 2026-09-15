@@ -1,176 +1,77 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { motion, useReducedMotion } from "framer-motion";
 import Container from "@/components/layout/Container";
-import GradientText from "@/components/ui/GradientText";
-import { LogoFull } from "@/components/ui/Logo";
+import Reveal from "@/components/motion/Reveal";
 import { LinkButton } from "@/components/ui/Button";
-import AuroraGradient from "@/components/backgrounds/AuroraGradient";
-import { useT } from "@/lib/i18n";
-
-const ParticleNetwork = dynamic(() => import("@/components/backgrounds/ParticleNetwork"), {
-  ssr: false,
-});
+import LiveDashboard from "@/components/sections/LiveDashboard";
+import { useLanguage } from "@/lib/i18n";
+import { CASE_SICOP_PATH } from "@/lib/routes";
 
 export default function Hero() {
-  const reduce = useReducedMotion();
-  const t = useT();
+  const { lang, t } = useLanguage();
 
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[100svh] items-center overflow-hidden pt-24"
+      className="relative overflow-hidden bg-[radial-gradient(1100px_650px_at_78%_18%,#1A2C5E_0%,transparent_70%)]"
     >
-      <div className="absolute inset-0 -z-10">
-        <AuroraGradient intensity={0.85} />
-        <ParticleNetwork density={0.075} linkDistance={165} strength={1.15} />
-        {/* FIX: acá vivía un viñeteado `rgba(7,9,12,.95)` heredado del tema
-         * OSCURO anterior. Sobre el fondo claro actual pintaba un halo gris
-         * sucio en los bordes y ahogaba la red de partículas. Lo reemplazamos
-         * por una viñeta clarísima del propio --bg-base, que asienta el borde
-         * sin ensuciar y deja respirar las partículas. */}
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, transparent 45%, rgba(243,245,249,0.55) 78%, rgba(243,245,249,0.92) 100%)",
-          }}
-        />
-      </div>
-
-      <Container className="relative">
-        <div className="flex flex-col items-center text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduce ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-2"
-          >
-            <LogoFull size="lg" three />
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: reduce ? 0 : 0.7,
-              delay: reduce ? 0 : 0.1,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="text-display-l mt-6 max-w-[20ch] text-balance text-text-primary"
-          >
-            {t.hero.headlineStart} <GradientText>{t.hero.headlineHighlight}</GradientText>
-            {t.hero.headlineEnd}
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: reduce ? 0 : 0.7,
-              delay: reduce ? 0 : 0.2,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="text-body mt-7 max-w-2xl text-pretty"
-          >
-            {t.hero.subhead}
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: reduce ? 0 : 0.7,
-              delay: reduce ? 0 : 0.3,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="mt-10 flex flex-col items-center gap-3 sm:flex-row"
-          >
-            <LinkButton href="#case-study" variant="primary" withArrow>
-              {t.hero.primaryCta}
-            </LinkButton>
-            <LinkButton href="#contact" variant="ghost">
-              {t.hero.secondaryCta}
-            </LinkButton>
-          </motion.div>
-        </div>
-
-        {/* Orden deliberado: primero la PRUEBA (tres números reales), después
-         * el RANGO (la tira de servicios). Antes el marquee ocupaba solo este
-         * espacio y no aportaba ninguna evidencia; ahora encabeza la prueba y
-         * la tira queda como respaldo, con menos peso visual para no competir. */}
-        <motion.dl
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: reduce ? 0 : 0.7,
-            delay: reduce ? 0 : 0.45,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="mx-auto mt-16 grid max-w-3xl grid-cols-1 gap-px overflow-hidden rounded-xl border border-border-subtle bg-border-subtle sm:grid-cols-3"
-        >
-          {t.hero.proof.map((item) => (
-            <div
-              key={item.label}
-              className="flex flex-col items-center bg-bg-elevated/70 px-5 py-6 backdrop-blur-sm"
-            >
-              <dt className="sr-only">{item.label}</dt>
-              <dd className="flex flex-col items-center">
-                <span className="text-h2 tabular-nums text-text-primary">
-                  {item.value}
-                </span>
-                <span className="mt-2 text-[11px] uppercase leading-snug tracking-eyebrow text-text-muted">
-                  {item.label}
-                </span>
-              </dd>
-            </div>
-          ))}
-        </motion.dl>
-
-        {/* Tira de servicios — el "qué sé hacer" en un vistazo. Vuelve al hero
-         * pero por debajo de los números, en píldoras teal: se ve, pero el
-         * tamaño de letra (11px vs. el h2 de los números) mantiene claro que
-         * la prueba manda y la tira acompaña. */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: reduce ? 0 : 0.8, delay: reduce ? 0 : 0.7 }}
-          className="mask-fade-x relative mt-10 overflow-hidden"
-          aria-hidden
-        >
-          <div
-            className={
-              reduce
-                ? "flex flex-wrap justify-center gap-2"
-                : "flex w-max animate-marquee-slow gap-2.5"
-            }
-          >
-            {(reduce
-              ? t.hero.marquee
-              : [...t.hero.marquee, ...t.hero.marquee, ...t.hero.marquee]
-            ).map((label, i) => (
+      <div
+        aria-hidden
+        className="mask-hero-grid pointer-events-none absolute inset-0 bg-grid-48 bg-cell-48"
+      />
+      <Container className="relative grid min-h-[calc(100svh-68px)] items-center gap-10 py-8 md:py-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
+        <div>
+          <Reveal>
+            <p className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs text-ink-soft sm:text-[13px]">
               <span
-                key={`${label}-${i}`}
-                className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border border-accent-teal/25 bg-accent-teal/[0.07] px-3.5 py-1.5 text-[11px] font-semibold tracking-eyebrow text-accent-teal backdrop-blur-sm"
-              >
-                <span
-                  aria-hidden
-                  className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent-teal"
-                />
-                {label.toUpperCase()}
+                aria-hidden
+                className="h-[7px] w-[7px] flex-none animate-pulse-dot rounded-full bg-accent-cyan shadow-[0_0_12px_#35E0FF]"
+              />
+              {t.hero.pill}
+            </p>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <h1 className="text-display-xl mt-5 text-ink sm:mt-6">
+              {t.hero.headlineStart}{" "}
+              <span className="text-grad pr-[0.08em] font-serif text-[1.1em] font-normal italic leading-none tracking-[-0.01em]">
+                {t.hero.headlineHighlight}
               </span>
-            ))}
-          </div>
-        </motion.div>
-      </Container>
-
-      <div aria-hidden className="absolute inset-x-0 bottom-8 flex justify-center">
-        <div className="flex h-10 w-[1px] items-start justify-center overflow-hidden bg-border-subtle">
-          <span className="block h-3 w-[1px] animate-scroll-pulse bg-accent-cyan" />
+            </h1>
+          </Reveal>
+          <Reveal delay={0.12}>
+            <p className="mt-4 max-w-[520px] text-base leading-relaxed text-ink-2 sm:mt-6 sm:text-lg">
+              {t.hero.subhead}
+            </p>
+          </Reveal>
+          <Reveal delay={0.18}>
+            <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
+              <LinkButton href="#contact" variant="primary" withArrow>
+                {t.hero.primaryCta}
+              </LinkButton>
+              <LinkButton href={CASE_SICOP_PATH[lang]} variant="ghost">
+                {t.hero.secondaryCta}
+              </LinkButton>
+            </div>
+          </Reveal>
+          <Reveal delay={0.24}>
+            <dl className="mt-6 grid grid-cols-3 gap-3.5 sm:mt-10 sm:flex sm:flex-wrap sm:gap-8">
+              {t.hero.proof.map((item) => (
+                <div key={item.label} className="flex flex-col-reverse justify-end">
+                  <dt className="mt-2 max-w-[16ch] text-xs leading-snug text-ink-muted sm:text-[13px]">
+                    {item.label}
+                  </dt>
+                  <dd className="font-display text-[26px] font-extrabold leading-none tracking-[-0.03em] tabular-nums text-ink sm:text-[34px]">
+                    {item.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
         </div>
-      </div>
+        <Reveal delay={0.12}>
+          <LiveDashboard />
+        </Reveal>
+      </Container>
     </section>
   );
 }

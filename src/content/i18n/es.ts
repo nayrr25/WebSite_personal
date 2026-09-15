@@ -23,34 +23,50 @@ export const es = {
   skipToContent: "Saltar al contenido",
 
   hero: {
-    eyebrowFull: "Nancy Artificial Intelligence · Costa Rica & LATAM",
-    // El H1 anterior -"...en sistemas inteligentes"- no contenia ningun
-    // termino que alguien busque. "Decisiones" si: es lo que el cliente
-    // quiere comprar, y refleja la regla de marca business first.
-    headlineStart: "Convertimos datos complejos en",
-    headlineHighlight: "decisiones inteligentes",
-    headlineEnd: ".",
+    pill: "Consultoría de IA y analítica avanzada · Costa Rica y Latinoamérica",
+    headlineStart: "Consultoría experta en IA, automatización y",
+    headlineHighlight: "analítica avanzada.",
     subhead:
-      "Consultoría de IA, Business Intelligence y arquitectura de datos en Costa Rica y Latinoamérica. Especialistas en inteligencia de compras públicas, scoring crediticio y analítica de consumidor.",
-    primaryCta: "Explorar Casos de Estudio",
-    secondaryCta: "Trabaja con N-AI",
+      "N-AI diseña, construye y pone en producción soluciones de datos para empresas e instituciones en Costa Rica y Latinoamérica.",
+    primaryCta: "Agendar un diagnóstico",
+    secondaryCta: "Ver el caso SICOP",
     proof: [
-      { value: "+400%", label: "Créditos colocados" },
-      { value: ">2.4M", label: "Registros de compra pública analizados" },
-      { value: "47", label: "Patrones de anomalía modelados" },
+      { value: "+400%", label: "créditos colocados" },
+      { value: ">2.4M", label: "registros de compra pública analizados" },
+      { value: "47", label: "patrones de anomalía modelados" },
     ],
-    marquee: [
-      "Detección de Anomalías",
-      "Risk Scoring",
-      "Analítica Predictiva",
-      "Inteligencia de Consumidor",
-      "Gobernanza de Datos",
-      "Machine Learning",
-      "Dashboards Ejecutivos",
-      "Motores de Decisión",
-      "Compras Públicas",
-      "Pronósticos",
-    ],
+  },
+
+  dashboard: {
+    title: "Caso SICOP · monitor de riesgo",
+    live: "EN VIVO",
+    pause: "Pausar",
+    resume: "Reanudar",
+    kpiRecords: "Registros analizados",
+    kpiPatterns: "Patrones de anomalía",
+    kpiComposite: "Riesgo compuesto",
+    chartTitle: "Puntaje de riesgo · 12 instituciones anonimizadas",
+    institution: "Institución",
+    gaugeTitle: "Compuesto de 8 dimensiones",
+    topDimsTitle: "Dimensiones con mayor puntaje",
+    alertCritical: "Riesgo crítico detectado",
+    alertHigh: "Riesgo alto detectado",
+    tiers: { low: "bajo", medium: "medio", high: "alto", critical: "crítico" },
+    level: "nivel",
+    caption:
+      "Recorrido animado sobre los resultados reales del caso SICOP · instituciones anonimizadas",
+    srSummary:
+      "Tablero del caso SICOP con resultados reales: más de 2,4 millones de registros analizados, 47 patrones de anomalía y riesgo compuesto de 62 sobre 100. De 12 instituciones anonimizadas, 2 tienen riesgo crítico, con puntajes de 91 y 84.",
+    dimensions: {
+      contractingVelocity: "Velocidad de contratación",
+      supplierConcentration: "Concentración de proveedores",
+      priceDispersion: "Dispersión de precios",
+      addendumExposure: "Exposición a adendas",
+      sanctionProximity: "Proximidad a sanciones",
+      transparencyPosture: "Postura de transparencia",
+      controlMaturity: "Madurez de controles",
+      signalDensity: "Densidad de señales",
+    },
   },
 
   sicop: {

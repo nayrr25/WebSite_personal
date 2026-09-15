@@ -58,3 +58,17 @@ test("hechos del caso", () => {
   });
   assert.equal(riskDimensions.length, caseFacts.riskDimensions);
 });
+
+import { es } from "../src/content/i18n/es.ts";
+import { en } from "../src/content/i18n/en.ts";
+
+test("el resumen accesible del tablero usa las cifras reales", () => {
+  for (const dict of [es, en]) {
+    const summary = dict.dashboard.srSummary;
+    assert.match(summary, new RegExp(`\\b${compositeScore()}\\b`));
+    assert.match(summary, /\b91\b/);
+    assert.match(summary, /\b84\b/);
+    assert.match(summary, /\b47\b/);
+    assert.equal(Object.keys(dict.dashboard.dimensions).length, riskDimensions.length);
+  }
+});
