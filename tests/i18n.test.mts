@@ -37,3 +37,15 @@ test("la banda del caso muestra los hechos reales en orden", () => {
     );
   }
 });
+
+import { demoStatic } from "../src/content/demos.ts";
+
+test("6 demos, en el mismo orden que su configuración visual", () => {
+  for (const dict of [es, en]) {
+    assert.deepEqual(dict.demos.map((d) => d.slug), demoStatic.map((d) => d.slug));
+  }
+  assert.deepEqual(
+    es.demos.map((d) => d.status),
+    ["Live", "Live", "Live", "In Build", "In Build", "Concept"],
+  );
+});

@@ -1,44 +1,35 @@
 import { cn } from "@/lib/cn";
 import type { HTMLAttributes } from "react";
 
-type Tone = "live" | "build" | "concept" | "neutral" | "danger";
+type Tone = "live" | "build" | "concept";
 
 const tones: Record<Tone, string> = {
-  live: "border-accent-mint/40 bg-accent-mint/[0.06] text-accent-mint",
-  build: "border-accent-cyan/40 bg-accent-cyan/[0.06] text-accent-cyan",
-  concept: "border-border-strong bg-bg-glass text-text-secondary",
-  neutral: "border-border-subtle bg-bg-glass text-text-secondary",
-  danger: "border-danger/40 bg-danger/[0.08] text-danger",
+  live: "border-live/30 text-live",
+  build: "border-warn/30 text-warn",
+  concept: "border-line text-ink-2",
+};
+
+const dots: Record<Tone, string> = {
+  live: "animate-pulse-dot bg-live shadow-[0_0_10px_#7FF0C8]",
+  build: "bg-warn",
+  concept: "bg-ink-muted",
 };
 
 interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
-  tone?: Tone;
-  /** Show a pulsing dot to the left (live status) */
-  pulse?: boolean;
+  tone: Tone;
 }
 
-export default function Badge({
-  tone = "neutral",
-  pulse = false,
-  className,
-  children,
-  ...rest
-}: BadgeProps) {
+export default function Badge({ tone, className, children, ...rest }: BadgeProps) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium uppercase tracking-eyebrow",
+        "inline-flex items-center gap-2 self-start rounded-full border px-3 py-1.5 text-xs font-semibold",
         tones[tone],
         className,
       )}
       {...rest}
     >
-      {pulse && (
-        <span aria-hidden className="relative inline-flex h-1.5 w-1.5">
-          <span className="absolute inset-0 rounded-full bg-current opacity-60 [animation:pulseDot_2s_ease-in-out_infinite]" />
-          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
-        </span>
-      )}
+      <span aria-hidden className={cn("h-[7px] w-[7px] rounded-full", dots[tone])} />
       {children}
     </span>
   );

@@ -327,51 +327,56 @@ export const en: Strings = {
 
   demosSection: {
     eyebrow: "Demos",
-    title: "Working systems and the ones we're building next.",
-    body:
-      "Production deployments and design-stage prototypes. Each demo answers a real question for a real audience.",
-    cta: "View case study",
+    title: "Systems in production and in the making.",
+    body: "Each system answers a real business question.",
+    cta: "See the case",
   },
   demos: [
     {
       slug: "public-procurement-intelligence",
-      title: "Public Procurement Intelligence",
+      title: "Public procurement intelligence",
+      status: "Live" as const,
+      description: "Anomaly detection, risk scoring and preventive monitoring on SICOP.",
+    },
+    {
+      slug: "data-automation",
+      title: "Automated data ingestion, reporting and forecasting",
       status: "Live" as const,
       description:
-        "SICOP-wide anomaly detection, risk scoring and preventive monitoring at executive resolution.",
+        "For a regional consumer goods company: data from multiple sources is centralized, cleaned and unified automatically, and reports are refreshed, analyzed and forecast with no manual work.",
+    },
+    {
+      slug: "credit-preapproval",
+      title: "Pre-approved credit · decision engine",
+      status: "Live" as const,
+      description:
+        "Automated pre-approval for a regulated financial institution: 200+ business rules (NIF and SUGEF) and sub-second decisions. Result: +400% credit placements.",
     },
     {
       slug: "heatsight-ai",
       title: "HeatSight AI",
       status: "In Build" as const,
       description:
-        "Consumer demand sensing across geographies and SKUs — micro-trends surfaced before they hit the report.",
+        "Consumer demand by geography and SKU: micro-trends visible before they reach the report.",
     },
     {
       slug: "consumer-intelligence",
-      title: "Consumer Intelligence",
+      title: "Consumer intelligence",
       status: "In Build" as const,
       description:
-        "Behavioral segmentation and revealed-preference modeling for category leaders and retail strategists.",
-    },
-    {
-      slug: "credit-preapproval",
-      title: "Pre-Approved Credit · Decision Engine",
-      status: "Live" as const,
-      description:
-        "Automated credit pre-approval engine for a regulated financial institution. 200+ business rules integrated for NIF and SUGEF compliance, credit profile verification and sub-second decisioning. Impact: +400% credit placements.",
+        "Behavioral segmentation and revealed preferences for category and retail leaders.",
     },
     {
       slug: "data-governance-intelligence",
-      title: "Data Governance Intelligence",
+      title: "Data governance intelligence",
       status: "Concept" as const,
       description:
-        "Lineage, quality, ownership and regulatory posture made visible at the institutional scale.",
+        "Lineage, quality, ownership and regulatory posture of data, visible at institutional scale.",
     },
   ],
   statusLabels: {
     Live: "Live",
-    "In Build": "In Build",
+    "In Build": "In build",
     Concept: "Concept",
   },
 

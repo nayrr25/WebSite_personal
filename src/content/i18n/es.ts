@@ -330,51 +330,56 @@ export const es = {
 
   demosSection: {
     eyebrow: "Demos",
-    title: "Sistemas en producción y los que estamos construyendo.",
-    body:
-      "Despliegues productivos y prototipos en fase de diseño. Cada demo responde una pregunta real para una audiencia real.",
-    cta: "Ver caso de estudio",
+    title: "Sistemas en producción y en construcción.",
+    body: "Cada sistema responde una pregunta real de negocio.",
+    cta: "Ver el caso",
   },
   demos: [
     {
       slug: "public-procurement-intelligence",
-      title: "Inteligencia de Compras Públicas",
+      title: "Inteligencia de compras públicas",
+      status: "Live" as const,
+      description: "Detección de anomalías, scoring de riesgo y monitoreo preventivo sobre SICOP.",
+    },
+    {
+      slug: "data-automation",
+      title: "Ingesta, reportes y pronósticos automatizados",
       status: "Live" as const,
       description:
-        "Detección de anomalías, risk scoring y monitoreo preventivo a escala SICOP, en resolución ejecutiva.",
+        "Para una empresa regional de consumo masivo: los datos de varias fuentes se centralizan, limpian y unifican solos, y los reportes se actualizan, analizan y proyectan sin trabajo manual.",
+    },
+    {
+      slug: "credit-preapproval",
+      title: "Crédito preaprobado · motor de decisión",
+      status: "Live" as const,
+      description:
+        "Preaprobación automática para una entidad financiera regulada: más de 200 reglas de negocio (NIF y SUGEF) y decisión en menos de un segundo. Resultado: +400% de créditos colocados.",
     },
     {
       slug: "heatsight-ai",
       title: "HeatSight AI",
       status: "In Build" as const,
       description:
-        "Sensado de demanda de consumidor por geografía y SKU — micro-tendencias visibles antes de que lleguen al reporte.",
+        "Demanda del consumidor por geografía y SKU: micro-tendencias visibles antes de que lleguen al reporte.",
     },
     {
       slug: "consumer-intelligence",
-      title: "Inteligencia de Consumidor",
+      title: "Inteligencia de consumidor",
       status: "In Build" as const,
       description:
-        "Segmentación de comportamiento y modelado de preferencia revelada para líderes de categoría y estrategas retail.",
-    },
-    {
-      slug: "credit-preapproval",
-      title: "Crédito Preaprobado · Motor de Decisión",
-      status: "Live" as const,
-      description:
-        "Motor automatizado de pre-aprobación crediticia para entidad financiera regulada. Más de 200 reglas de negocio integradas para cumplimiento NIF y SUGEF, verificación de perfil crediticio y decisión sub-segundo. Impacto: +400% de créditos colocados.",
+        "Segmentación de comportamiento y preferencias reveladas para líderes de categoría y retail.",
     },
     {
       slug: "data-governance-intelligence",
-      title: "Inteligencia de Gobernanza de Datos",
+      title: "Inteligencia de gobierno de datos",
       status: "Concept" as const,
       description:
-        "Lineage, calidad, ownership y postura regulatoria — visibles a escala institucional.",
+        "Linaje, calidad, responsables y postura regulatoria de los datos, visibles a escala institucional.",
     },
   ],
   statusLabels: {
-    Live: "En Vivo",
-    "In Build": "En Construcción",
+    Live: "En vivo",
+    "In Build": "En construcción",
     Concept: "Concepto",
   },
 
