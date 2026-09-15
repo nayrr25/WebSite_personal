@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N-AI · Maqueta demo: validación de datos y pronóstico de demanda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A1024; --bg-deep:#070B18; --band:#0F1A3A;
+  --surf:rgba(255,255,255,.045); --surf2:rgba(255,255,255,.07);
+  --line:rgba(255,255,255,.10); --line2:rgba(255,255,255,.06); --line-strong:rgba(255,255,255,.18);
+  --ink:#fff; --ink2:#AEB8CF; --muted:#8C98B3; --soft:#D3DAEA;
+  --accent:#8FB4FF; --cyan:#35E0FF;
+  --ok:#7FF0C8; --okbg:rgba(127,240,200,.12);
+  --warn:#FFC35D; --warnbg:rgba(255,195,93,.12);
+  --bad:#FF8F99; --badbg:rgba(255,107,120,.12);
+  --na:#AEB8CF; --nabg:rgba(255,255,255,.06);
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --gutter:clamp(20px,4vw,48px);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{-webkit-text-size-adjust:100%}
+body{background:linear-gradient(180deg,var(--bg) 0,var(--bg-deep) 100%);color:var(--ink);font:400 16px/1.6 'Public Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(143,180,255,.35)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:8px}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif;letter-spacing:-.02em;text-wrap:balance;margin:0}
+p{text-wrap:pretty}
+.wrap{width:min(1080px,100%);margin-inline:auto;padding-inline:var(--gutter)}
+.hide{display:none!important}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* nota de maqueta */
+.mk{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:60;background:#fff;color:var(--bg);font:600 13px 'Public Sans';padding:9px 16px;border-radius:999px;box-shadow:0 12px 30px -10px rgba(0,0,0,.6);white-space:nowrap}
+
+/* ---------- encabezado de la página ---------- */
+.hero{background:radial-gradient(1000px 520px at 80% 0%,#1A2C5E 0%,transparent 70%);padding-block:clamp(56px,8vw,96px) 8px}
+.back{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:var(--accent);font-weight:600;font-size:14px;text-decoration:none}
+.eyebrow{font:600 12px 'Public Sans';letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:18px 0 0}
+.hero h1{font-size:clamp(34px,4.6vw,58px);line-height:1.03;letter-spacing:-.04em;font-weight:800;margin-top:12px;max-width:20ch}
+.hero .lead{color:var(--ink2);font-size:18px;max-width:62ch;margin:18px 0 0}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:32px}
+.fact{background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:18px}
+.fact b{display:block;font:700 17px/1.3 Archivo,sans-serif}
+.fact span{display:block;margin-top:6px;font-size:14px;color:var(--ink2)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.tools li{list-style:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--soft)}
+.tools{padding:0}
+.simnote{margin-top:22px;display:flex;gap:10px;align-items:flex-start;background:var(--warnbg);border:1px solid rgba(255,195,93,.28);color:#FFE2A8;border-radius:14px;padding:12px 16px;font-size:14px;max-width:78ch}
+@media (max-width:760px){.facts{grid-template-columns:1fr}}
+
+/* ---------- pasos ---------- */
+.steps{display:flex;gap:8px;margin:36px 0 0;flex-wrap:wrap;list-style:none;padding:0}
+.step{flex:1;min-width:150px;border:1px solid var(--line);background:var(--surf);border-radius:14px;padding:11px 14px;font-size:14px;color:var(--muted);transition:border-color 250ms ease,background-color 250ms ease,color 250ms ease}
+.step .n{display:inline-flex;width:22px;height:22px;border-radius:50%;background:var(--nabg);color:var(--na);align-items:center;justify-content:center;font:700 12px Archivo;margin-right:8px;font-variant-numeric:tabular-nums}
+.step.on{border-color:rgba(143,180,255,.55);background:rgba(143,180,255,.10);color:#fff;font-weight:600}
+.step.on .n{background:var(--accent);color:var(--bg)}
+.step.done{color:var(--ink2)}
+.step.done .n{background:var(--ok);color:var(--bg)}
+
+main{padding-bottom:96px}
+section.blk{margin-top:44px;scroll-margin-top:24px}
+.kicker{font:600 12px 'Public Sans';letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h2{font-size:clamp(24px,2.6vw,30px);line-height:1.15;font-weight:800;margin:0 0 10px}
+h3{font-size:18px;font-weight:700;margin:0 0 12px}
+.lead2{color:var(--ink2);margin:0 0 22px;max-width:70ch;font-size:16px}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:22px;padding:22px 24px}
+
+/* ---------- archivos ---------- */
+.files{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:880px){.files{grid-template-columns:1fr}}
+.file{background:var(--surf);border:1.5px solid var(--line);border-radius:18px;padding:18px;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:border-color 160ms ease,background-color 160ms ease,transform 120ms var(--ease-out)}
+.file:active{transform:scale(.98)}
+@media (hover:hover) and (pointer:fine){.file:hover{border-color:rgba(143,180,255,.45);background:var(--surf2)}}
+.file.sel{border-color:var(--cyan);background:rgba(53,224,255,.07);box-shadow:0 0 0 3px rgba(53,224,255,.12)}
+.file .ftag{font:700 16px Archivo;margin-bottom:6px}
+.file .fn{color:var(--accent);word-break:break-all;margin-bottom:8px}
+.file .fmeta{font-size:13.5px;color:var(--muted);line-height:1.5}
+.actions{margin-top:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 15px/1 'Public Sans';padding:14px 22px;border-radius:999px;border:0;cursor:pointer;transition:transform 120ms var(--ease-out),box-shadow 200ms ease,background-color 200ms ease}
+.btn:active{transform:scale(.97)}
+.btn-w{background:#fff;color:var(--bg);box-shadow:0 10px 30px -12px rgba(143,180,255,.6)}
+.btn-w[disabled]{background:rgba(255,255,255,.18);color:var(--muted);box-shadow:none;cursor:not-allowed}
+.btn-o{border:1px solid var(--line-strong);color:#fff;background:rgba(255,255,255,.03)}
+@media (hover:hover) and (pointer:fine){.btn-w:not([disabled]):hover{box-shadow:0 14px 38px -10px rgba(143,180,255,.85)}.btn-o:hover{background:rgba(255,255,255,.08)}}
+.hint{font-size:14px;color:var(--muted)}
+
+/* ---------- validación ---------- */
+.rules{list-style:none;padding:0;margin:0}
+.rules li{display:flex;align-items:center;gap:12px;padding:12px 2px;border-bottom:1px solid var(--line2);font-size:15px;color:var(--muted);opacity:.45;transition:opacity 250ms ease,color 250ms ease}
+.rules li:last-child{border-bottom:0}
+.rules li.active{opacity:1;color:#fff}
+.rules li.done{opacity:1;color:var(--ink2)}
+.rules b{color:inherit;font-weight:600}
+.tick{width:20px;height:20px;border-radius:50%;border:2px solid var(--line-strong);flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--bg)}
+.rules li.active .tick{border-color:var(--cyan);border-right-color:transparent;animation:spin .7s linear infinite}
+.rules li.done .tick{background:var(--ok);border-color:var(--ok)}
+.rules li.done .tick::after{content:"✓";font-weight:800}
+@keyframes spin{to{transform:rotate(360deg)}}
+.rcount{margin-left:auto;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ---------- resultado ---------- */
+.statusbar{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:14px;font-weight:600;margin-bottom:18px;font-size:16.5px}
+.statusbar .ic{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--bg);font-size:14px;font-weight:800;flex:none}
+.st-ok{background:var(--okbg);color:var(--ok)} .st-ok .ic{background:var(--ok)}
+.st-warn{background:var(--warnbg);color:var(--warn)} .st-warn .ic{background:var(--warn)}
+.st-bad{background:var(--badbg);color:var(--bad)} .st-bad .ic{background:#FF6B78}
+.kpis{display:flex;gap:32px;flex-wrap:wrap;margin:4px 0 22px}
+.kpi .v{font:800 30px/1 Archivo;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.kpi .l{font-size:13px;color:var(--muted);margin-top:6px}
+.tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:14px}
+/* En celular la tabla se desplaza: ancho mínimo y códigos sin partir. */
+.tbl-scroll table{min-width:660px}
+td.mono,td.num{white-space:nowrap}
+th{text-align:left;font-weight:600;color:var(--ink2);border-bottom:1px solid var(--line-strong);padding:10px 11px;white-space:nowrap;font-size:12.5px;letter-spacing:.02em}
+td{padding:12px 11px;border-bottom:1px solid var(--line2);vertical-align:top;color:var(--soft)}
+tr:last-child td{border-bottom:none}
+code{font-family:ui-monospace,Menlo,monospace;background:rgba(255,255,255,.08);color:#fff;padding:1px 6px;border-radius:5px;font-size:12.5px}
+.sev{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;font-weight:600;font-size:13.5px;color:#fff}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.d-bad{background:#FF6B78} .d-warn{background:var(--warn)} .d-info{background:var(--na)} .d-ok{background:var(--ok)}
+.pill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;white-space:nowrap;color:#fff}
+.p-ok{background:var(--okbg)} .p-warn{background:var(--warnbg)} .p-bad{background:var(--badbg)} .p-na{background:var(--nabg)}
+.nota{font-size:14px;color:var(--muted);margin:16px 0 0;max-width:76ch}
+
+/* ---------- pronóstico ---------- */
+tr.prod{cursor:pointer;transition:background-color 160ms ease}
+@media (hover:hover) and (pointer:fine){tr.prod:hover{background:rgba(255,255,255,.04)}}
+tr.prod.sel{background:rgba(53,224,255,.08)}
+th.hl,td.hl{background:rgba(143,180,255,.08);font-weight:700;color:#fff}
+.detail{margin-top:16px}
+.chartwrap{position:relative}
+svg.chart{display:block;width:100%;height:auto;overflow:visible}
+.tip{position:absolute;pointer-events:none;background:#fff;color:var(--bg);border-radius:10px;padding:8px 11px;font-size:13px;line-height:1.45;white-space:nowrap;opacity:0;transition:opacity 120ms ease;z-index:5}
+.tip b{font-variant-numeric:tabular-nums}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0 0;font-size:13px;color:var(--ink2)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.lk{width:22px;height:0;border-top:2.5px solid var(--accent);flex:none}
+.lk.dash{border-top-style:dashed;border-top-color:var(--cyan)}
+.lk.band{height:12px;border:0;background:rgba(143,180,255,.2);border-radius:3px}
+
+/* ---------- correo ---------- */
+.mail{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--surf)}
+.mail-h{background:rgba(255,255,255,.04);border-bottom:1px solid var(--line);padding:14px 22px;font-size:14px;color:var(--ink2)}
+.mail-h b{color:#fff;font-weight:600}
+.mail-b{padding:22px 24px}
+.mail-b p{margin:0 0 12px;max-width:74ch;color:var(--soft)}
+.mail-b b{color:#fff}
+
+/* ---------- cierre ---------- */
+.cta{margin-top:64px;border-radius:32px;border:1px solid var(--line);background:var(--band);background-image:radial-gradient(70% 100% at 85% 0%,#233E85 0%,transparent 70%);padding:clamp(28px,5vw,48px)}
+.cta h2{font-size:clamp(28px,3.4vw,42px);letter-spacing:-.03em}
+.cta p{color:var(--ink2);max-width:58ch;margin:12px 0 24px}
+footer{border-top:1px solid var(--line);margin-top:48px;padding-block:24px;color:var(--muted);font-size:13px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0s!important;transition-duration:0s!important}
+  .rules li.active .tick{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="mk">Maqueta · demo genérica con datos simulados</div>
+
+<header class="hero">
+  <div class="wrap">
+    <a class="back" href="#">← Volver al inicio</a>
+    <p class="eyebrow">Demo interactiva</p>
+    <h1>Validación automática de datos y pronóstico de demanda</h1>
+    <p class="lead">Así funciona un proceso mensual de planificación cuando la entrega de datos, la validación, el pronóstico y el reporte se automatizan de punta a punta. Pruébalo con uno de los tres archivos de ejemplo.</p>
+
+    <div class="facts">
+      <div class="fact"><b>Datos que se validan solos</b><span>Reglas de estructura, catálogo, integridad y estadística antes de cargar un solo número.</span></div>
+      <div class="fact"><b>Respuestas claras al analista</b><span>Fila, columna y qué corregir, en lugar de un error técnico.</span></div>
+      <div class="fact"><b>Pronóstico con su nivel de confianza</b><span>Rango esperado y error observado; sin números inventados para productos nuevos.</span></div>
+    </div>
+
+    <ul class="tools" aria-label="Herramientas típicas">
+      <li>Python</li><li>SQL</li><li>BigQuery</li><li>Cloud Run</li><li>Pipelines</li><li>Power BI</li><li>Looker</li><li>IA generativa para el resumen</li>
+    </ul>
+
+    <p class="simnote"><span aria-hidden="true">●</span><span><b>Datos simulados.</b> Las cifras, productos, regiones y archivos son ficticios y solo ilustran el funcionamiento. No corresponden a ninguna empresa.</span></p>
+  </div>
+</header>
+
+<div class="wrap">
+  <ol class="steps" aria-label="Pasos de la demo">
+    <li class="step on" id="s1"><span class="n">1</span>Se entrega el archivo</li>
+    <li class="step" id="s2"><span class="n">2</span>Se valida solo</li>
+    <li class="step" id="s3"><span class="n">3</span>Respuesta al analista</li>
+    <li class="step" id="s4"><span class="n">4</span>Pronóstico disponible</li>
+  </ol>
+</div>
+
+<main class="wrap">
+
+<section class="blk" id="sec1" aria-labelledby="h1s">
+  <p class="kicker">Paso 1</p>
+  <h2 id="h1s">El analista entrega su archivo del mes</h2>
+  <p class="lead2">Lo sube a la carpeta de siempre; no cambia su forma de trabajar. Elige uno de estos tres casos para ver qué ocurre después.</p>
+  <div class="files" id="files"></div>
+  <div class="actions">
+    <button class="btn btn-w" id="btnValidar" disabled>Validar la entrega</button>
+    <span class="hint" id="hint" aria-live="polite">Selecciona un archivo para continuar</span>
+  </div>
+</section>
+
+<section class="blk hide" id="sec2" aria-labelledby="h2s">
+  <p class="kicker">Paso 2</p>
+  <h2 id="h2s">La validación corre sola</h2>
+  <p class="lead2">Nadie revisa el archivo a mano. Se ejecutan las reglas acordadas con el negocio: primero las que revisan la forma del archivo y después las que revisan si las cifras tienen sentido.</p>
+  <div class="card"><ul class="rules" id="rules"></ul></div>
+</section>
+
+<section class="blk hide" id="sec3" aria-labelledby="h3s" aria-live="polite">
+  <p class="kicker">Paso 3</p>
+  <h2 id="h3s">El analista recibe una respuesta clara</h2>
+  <p class="lead2" id="lead3"></p>
+  <div class="card">
+    <div class="statusbar" id="statusbar"></div>
+    <div class="kpis" id="kpis"></div>
+    <h3 id="hallTitle">Detalle de los hallazgos</h3>
+    <div class="tbl-scroll"><table id="tblHall"></table></div>
+    <p class="nota" id="notaHall"></p>
+  </div>
+  <div class="actions">
+    <button class="btn btn-w" id="btnSeguir"></button>
+    <button class="btn btn-o" id="btnOtro">Probar otro archivo</button>
+  </div>
+</section>
+
+<section class="blk hide" id="sec4" aria-labelledby="h4s">
+  <p class="kicker">Paso 4</p>
+  <h2 id="h4s">El pronóstico es una columna más de la tabla</h2>
+  <p class="lead2">Para quien planifica no hay un sistema nuevo que aprender: el pronóstico aparece junto al histórico, con su rango esperado y el error observado, para saber cuánta confianza merece. <b>Elige cualquier producto</b> para ver su detalle.</p>
+  <div class="card">
+    <div class="tbl-scroll"><table id="tblFc"></table></div>
+    <p class="nota">Los productos sin historia suficiente no reciben un número inventado: se marcan como <i>sin modelo</i> y se tratan aparte. Un pronóstico que no se puede sostener es peor que ninguno.</p>
+  </div>
+  <div class="card detail hide" id="detail" aria-live="polite"></div>
+  <div class="actions">
+    <button class="btn btn-o" id="btnMail">Ver el resumen que se envía por correo</button>
+  </div>
+</section>
+
+<section class="blk hide" id="sec5" aria-labelledby="h5s">
+  <p class="kicker">Cierre del ciclo</p>
+  <h2 id="h5s">El análisis llega solo, cada mes</h2>
+  <p class="lead2">Nadie tiene que entrar a buscar nada. El texto lo redacta un asistente de inteligencia artificial, pero <b>todas las cifras las calcula el sistema</b>: la IA no calcula el pronóstico, solo lo explica.</p>
+  <div class="mail">
+    <div class="mail-h"><b>Para:</b> Planificación de demanda &nbsp;·&nbsp; <b>Asunto:</b> Cierre de demanda — agosto 2026</div>
+    <div class="mail-b">
+      <p>El ciclo de agosto cerró con las tres entregas recibidas y validadas. La Región Central entregó conforme; la Región Norte corrigió y reenvió el mismo día; la Región Sur se aceptó con una observación sobre la caída del 18,4 % frente al promedio de los últimos tres meses, que el analista confirmó como efecto de un cambio temporal en la distribución.</p>
+      <p>El error de pronóstico del mes anterior fue de <b>9,4 %</b> sobre el total del portafolio, dentro del rango de los últimos seis meses. Cuatro productos superaron el 20 % de error y se revisan en la sesión mensual.</p>
+      <p>Para septiembre se proyecta un volumen total de <b>30.300 unidades</b>, un 2,1 % por debajo de agosto, consistente con el patrón estacional de los años anteriores.</p>
+      <p style="color:var(--muted);font-size:14px;margin-top:18px">Cada cifra de este correo se puede rastrear hasta la fila de origen. Si un número no se puede rastrear, el correo no se envía.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta" aria-labelledby="ctaT">
+  <h2 id="ctaT">¿Tu planificación depende de archivos que se revisan a mano?</h2>
+  <p>En una conversación inicial se revisa cómo llegan hoy tus datos y qué parte del proceso se puede validar, pronosticar y reportar de forma automática.</p>
+  <a class="btn btn-w" href="#">Escribir por WhatsApp →</a>
+</section>
+
+<footer>N-AI · Demo sobre datos simulados · No corresponde a ninguna empresa</footer>
+</main>
+
+<script>
+"use strict";
+const $ = (s) => document.querySelector(s);
+const fmt = (n) => n.toLocaleString("es-CR");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const go = (el) => el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+
+/* ============ DATOS SIMULADOS (genéricos) ============ */
+const ARCHIVOS = [
+  { id: "cen", tag: "Región Central", fn: "Demanda_Ago2026_CENTRAL.xlsx",
+    meta: "4.812 filas · entregado el 4 de septiembre, 08:42",
+    estado: "ok", filas: 4812, cargadas: 4812, bloq: 0, adv: 0, hallazgos: [],
+    nota: "Entrega conforme. La información quedó incorporada y está disponible para el ciclo de planificación. No se requiere ninguna acción." },
+  { id: "nor", tag: "Región Norte", fn: "Demanda_Ago2026_NORTE.xlsx",
+    meta: "1.286 filas · entregado el 4 de septiembre, 11:15",
+    estado: "bad", filas: 1286, cargadas: 0, bloq: 3, adv: 1,
+    hallazgos: [
+      { r: "D01", sev: "bad", filas: "14", h: "Fila 47 · <code>codigo</code> = «PA-12»", q: "No existe en el maestro de productos. ¿Quiso decir <b>P-A012</b>?" },
+      { r: "A03", sev: "bad", filas: "—", h: "Total declarado 48.230 vs. detalle 46.905", q: "Diferencia de 1.325 unidades. Revise la hoja de control." },
+      { r: "T01", sev: "bad", filas: "3", h: "Fila 112 · <code>fecha</code> = «31/09/2026»", q: "Fecha inexistente: septiembre tiene 30 días." },
+      { r: "P02", sev: "warn", filas: "2", h: "Precio de P-C001 pasó de 1.180 a 41.300", q: "Variación de 3.400 %. Verifique el separador decimal." },
+    ],
+    nota: "El archivo se rechaza completo, nunca por partes: una carga parcial haría imposible cuadrar las cifras del mes. El detalle se adjunta a la respuesta para que la corrección tome minutos, no días." },
+  { id: "sur", tag: "Región Sur", fn: "Demanda_Ago2026_SUR.xlsx",
+    meta: "7.940 filas · entregado el 5 de septiembre, 16:03",
+    estado: "warn", filas: 7940, cargadas: 7940, bloq: 0, adv: 2,
+    hallazgos: [
+      { r: "H01", sev: "warn", filas: "—", h: "Total del mes −18,4 % vs. promedio de 3 meses", q: "Fuera del umbral de ±15 %. Confirme si es esperado." },
+      { r: "N04", sev: "info", filas: "31", h: "Productos con venta y existencia en cero", q: "Se marcan como posible quiebre para que el modelo aprenda la demanda real y no la venta limitada por faltante." },
+    ],
+    nota: "La información se carga, pero queda con una observación abierta. El analista confirma o corrige; en ambos casos queda registrado quién respondió y cuándo." },
+];
+
+const REGLAS = [
+  { g: "Estructura", t: "Columnas, tipos de dato y formato de fecha", n: 12 },
+  { g: "Estructura", t: "Separador decimal y de miles", n: 4 },
+  { g: "Catálogo", t: "Cada código contra el maestro de productos vigente", n: 1 },
+  { g: "Integridad", t: "Totales declarados contra el detalle y filas duplicadas", n: 6 },
+  { g: "Histórico", t: "Continuidad con los meses ya cargados", n: 3 },
+  { g: "Estadística", t: "Saltos de precio no explicables para un mismo producto", n: 5 },
+  { g: "Estadística", t: "Datos atípicos, con un método robusto a picos legítimos", n: 7 },
+  { g: "Estadística", t: "Comparación contra el nivel reciente y estacional", n: 4 },
+];
+
+const PRODUCTOS = [
+  { sku: "P-A012", nom: "Producto A · caja 12", real: 11480, fc: 11120, lo: 10180, hi: 12060, err: 6.2, conf: "Alto",
+    hist: [9800,10200,11400,12100,12800,11900,10600,10100,11200,13400,9700,9900,10400,10800,11700,12500,13100,11480] },
+  { sku: "P-B024", nom: "Producto B · caja 24", real: 7940, fc: 8310, lo: 7420, hi: 9200, err: 8.9, conf: "Alto",
+    hist: [6900,7100,7600,8200,8800,8100,7300,7000,7500,9100,6800,6950,7200,7500,8000,8600,9000,7940] },
+  { sku: "P-C001", nom: "Producto C · unidad", real: 5210, fc: 5640, lo: 4480, hi: 6800, err: 17.4, conf: "Medio",
+    hist: [3900,4100,4600,5100,5800,5200,4300,4000,4400,6200,3800,3950,4300,4700,5300,5900,6100,5210] },
+  { sku: "P-D006", nom: "Producto D · paquete familiar", real: 3870, fc: 3640, lo: 3180, hi: 4100, err: 9.1, conf: "Alto",
+    hist: [3400,3500,3700,3900,4100,3800,3500,3400,3600,4300,3300,3350,3500,3600,3800,4000,4200,3870] },
+  { sku: "P-E003", nom: "Producto E · formato pequeño", real: 1420, fc: 1510, lo: 980, hi: 2040, err: 26.8, conf: "Bajo",
+    hist: [900,1500,800,1900,1100,2100,700,1600,1000,2300,850,1750,950,1850,1200,2000,1300,1420] },
+  { sku: "P-F100", nom: "Producto F · lanzamiento", real: 640, fc: null, lo: null, hi: null, err: null, conf: "Sin modelo",
+    hist: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,520,610,640] },
+];
+
+const MESES = ["Mar 25","Abr 25","May 25","Jun 25","Jul 25","Ago 25","Sep 25","Oct 25","Nov 25","Dic 25",
+               "Ene 26","Feb 26","Mar 26","Abr 26","May 26","Jun 26","Jul 26","Ago 26"];
+
+let sel = null;
+const setStep = (on) => ["#s1","#s2","#s3","#s4"].forEach((id, i) => {
+  $(id).className = "step" + (i + 1 < on ? " done" : i + 1 === on ? " on" : "");
+});
+
+/* ============ PASO 1 ============ */
+$("#files").innerHTML = ARCHIVOS.map((a) =>
+  `<button class="file" data-id="${a.id}" aria-pressed="false">
+     <div class="ftag">${a.tag}</div>
+     <div class="fn mono">${a.fn}</div>
+     <div class="fmeta">${a.meta}</div>
+   </button>`).join("");
+
+document.querySelectorAll(".file").forEach((b) => b.addEventListener("click", () => {
+  document.querySelectorAll(".file").forEach((x) => { x.classList.remove("sel"); x.setAttribute("aria-pressed", "false"); });
+  b.classList.add("sel");
+  b.setAttribute("aria-pressed", "true");
+  sel = ARCHIVOS.find((a) => a.id === b.dataset.id);
+  $("#btnValidar").disabled = false;
+  $("#hint").textContent = `${sel.tag} seleccionado · listo para validar`;
+}));
+
+/* ============ PASO 2 ============ */
+$("#btnValidar").addEventListener("click", () => {
+  $("#sec2").classList.remove("hide");
+  ["#sec3","#sec4","#sec5"].forEach((s) => $(s).classList.add("hide"));
+  setStep(2);
+  $("#rules").innerHTML = REGLAS.map((r) =>
+    `<li><span class="tick" aria-hidden="true"></span><span><b>${r.g}</b> — ${r.t}</span><span class="rcount">${r.n} ${r.n === 1 ? "regla" : "reglas"}</span></li>`).join("");
+  go($("#sec2"));
+  correr(0);
+});
+
+function correr(i) {
+  const items = document.querySelectorAll("#rules li");
+  if (i > 0) items[i - 1].className = "done";
+  if (i >= items.length) { setTimeout(resultado, reduce ? 0 : 380); return; }
+  items[i].className = "active";
+  setTimeout(() => correr(i + 1), reduce ? 0 : 300);
+}
+
+/* ============ PASO 3 ============ */
+function resultado() {
+  const a = sel;
+  setStep(3);
+  $("#sec3").classList.remove("hide");
+  const cfg = {
+    ok:   { cls: "st-ok",   ic: "✓", txt: "Aceptado", lead: "La entrega cumple todas las reglas. El analista recibe la confirmación y no tiene que hacer nada más." },
+    warn: { cls: "st-warn", ic: "!", txt: "Aceptado con observación", lead: "La información se carga, pero hay algo que amerita una confirmación humana. El sistema no decide por el negocio: le avisa." },
+    bad:  { cls: "st-bad",  ic: "✕", txt: "Rechazado", lead: "El archivo no entra, y el analista recibe exactamente qué corregir, con la fila y la columna señaladas." },
+  }[a.estado];
+
+  $("#lead3").textContent = cfg.lead;
+  $("#statusbar").className = "statusbar " + cfg.cls;
+  $("#statusbar").innerHTML = `<span class="ic" aria-hidden="true">${cfg.ic}</span> ${cfg.txt} — ${a.tag} · agosto 2026`;
+  $("#kpis").innerHTML = [["filas recibidas", a.filas], ["filas cargadas", a.cargadas], ["bloqueantes", a.bloq], ["advertencias", a.adv]]
+    .map(([l, v]) => `<div class="kpi"><div class="v">${fmt(v)}</div><div class="l">${l}</div></div>`).join("");
+
+  if (!a.hallazgos.length) {
+    $("#hallTitle").classList.add("hide");
+    $("#tblHall").innerHTML = "";
+  } else {
+    $("#hallTitle").classList.remove("hide");
+    $("#tblHall").innerHTML =
+      `<thead><tr><th>Regla</th><th>Severidad</th><th class="num">Filas</th><th>Hallazgo</th><th>Qué hacer</th></tr></thead><tbody>` +
+      a.hallazgos.map((h) => {
+        const s = { bad: ["d-bad", "Bloqueante"], warn: ["d-warn", "Advertencia"], info: ["d-info", "Informativa"] }[h.sev];
+        return `<tr><td class="mono">${h.r}</td><td><span class="sev"><span class="dot ${s[0]}"></span>${s[1]}</span></td>
+          <td class="num">${h.filas}</td><td>${h.h}</td><td>${h.q}</td></tr>`;
+      }).join("") + `</tbody>`;
+  }
+  $("#notaHall").innerHTML = a.nota;
+
+  const btn = $("#btnSeguir");
+  if (a.estado === "bad") {
+    btn.textContent = "Ver qué pasa cuando el archivo sí entra";
+    btn.onclick = () => {
+      sel = ARCHIVOS[0];
+      document.querySelectorAll(".file").forEach((x) => { const on = x.dataset.id === "cen"; x.classList.toggle("sel", on); x.setAttribute("aria-pressed", String(on)); });
+      resultado();
+    };
+  } else {
+    btn.textContent = "Continuar al pronóstico →";
+    btn.onclick = () => { pronostico(); go($("#sec4")); };
+  }
+  go($("#sec3"));
+}
+
+$("#btnOtro").addEventListener("click", () => {
+  ["#sec2","#sec3","#sec4","#sec5"].forEach((s) => $(s).classList.add("hide"));
+  setStep(1);
+  go($("#sec1"));
+});
+
+/* ============ PASO 4 ============ */
+function pronostico() {
+  setStep(4);
+  $("#sec4").classList.remove("hide");
+  const pill = (c) => ({ Alto: ["p-ok", "d-ok"], Medio: ["p-warn", "d-warn"], Bajo: ["p-bad", "d-bad"], "Sin modelo": ["p-na", "d-info"] })[c];
+  $("#tblFc").innerHTML =
+    `<thead><tr><th>Código</th><th>Producto</th><th class="num">Ago 2026<br><span style="font-weight:400;color:var(--muted)">real</span></th>
+      <th class="num hl">Sep 2026<br><span style="font-weight:400">pronóstico</span></th>
+      <th class="num">Rango esperado</th><th class="num">Error último mes</th><th>Confianza</th></tr></thead><tbody>` +
+    PRODUCTOS.map((p, i) => `<tr class="prod" data-i="${i}" tabindex="0" aria-label="Ver detalle de ${p.nom}">
+        <td class="mono">${p.sku}</td><td>${p.nom}</td>
+        <td class="num">${fmt(p.real)}</td>
+        <td class="num hl">${p.fc ? fmt(p.fc) : "—"}</td>
+        <td class="num" style="color:var(--muted)">${p.lo ? fmt(p.lo) + " – " + fmt(p.hi) : "—"}</td>
+        <td class="num">${p.err !== null ? p.err.toString().replace(".", ",") + " %" : "—"}</td>
+        <td><span class="pill ${pill(p.conf)[0]}"><span class="dot ${pill(p.conf)[1]}"></span>${p.conf}</span></td>
+      </tr>`).join("") + `</tbody>`;
+
+  document.querySelectorAll("tr.prod").forEach((tr) => {
+    const open = () => {
+      document.querySelectorAll("tr.prod").forEach((x) => x.classList.remove("sel"));
+      tr.classList.add("sel");
+      detalle(PRODUCTOS[+tr.dataset.i]);
+    };
+    tr.addEventListener("click", open);
+    tr.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+  });
+}
+
+/* ---- gráfico: una serie; el pronóstico se distingue por trazo y banda ---- */
+function detalle(p) {
+  const box = $("#detail");
+  box.classList.remove("hide");
+
+  if (p.fc === null) {
+    box.innerHTML = `<h3>${p.nom} <span class="mono" style="color:var(--muted);font-weight:400">· ${p.sku}</span></h3>
+      <p class="lead2" style="margin-bottom:0">Este producto tiene <b>3 meses de historia</b>. No se le calcula pronóstico: no hay base para sostener un número, y publicar uno inventado es peor que declarar que todavía no se puede. Se trata aparte, con criterio de negocio, hasta acumular historia suficiente.</p>`;
+    return;
+  }
+
+  const W = 900, H = 300, ML = 58, MR = 96, MT = 18, MB = 34;
+  const iw = W - ML - MR, ih = H - MT - MB;
+  const vals = p.hist.filter((v) => v !== null);
+  const lo = Math.min(...vals, p.lo), hi = Math.max(...vals, p.hi);
+  const pad = (hi - lo) * 0.12;
+  const yMin = Math.max(0, Math.floor((lo - pad) / 500) * 500);
+  const yMax = Math.ceil((hi + pad) / 500) * 500;
+  const n = p.hist.length;
+  const X = (i) => ML + (iw * i) / n;
+  const Y = (v) => MT + ih - ((v - yMin) / (yMax - yMin)) * ih;
+  const pts = p.hist.map((v, i) => (v === null ? null : [X(i), Y(v)])).filter(Boolean);
+  const line = pts.map((c, i) => (i ? "L" : "M") + c[0].toFixed(1) + " " + c[1].toFixed(1)).join(" ");
+  const last = [X(n - 1), Y(p.hist[n - 1])], fcp = [X(n), Y(p.fc)];
+  const ticks = [];
+  for (let v = yMin; v <= yMax; v += (yMax - yMin) / 4) ticks.push(Math.round(v));
+
+  box.innerHTML = `
+    <h3>${p.nom} <span class="mono" style="color:var(--muted);font-weight:400">· ${p.sku}</span></h3>
+    <p class="lead2" style="margin-bottom:14px">18 meses de historia validada. La banda muestra el rango dentro del cual se espera la demanda de septiembre; el error del mes anterior fue de <b>${p.err.toString().replace(".", ",")} %</b>.</p>
+    <div class="chartwrap">
+      <svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Demanda mensual de ${p.nom} y pronóstico de septiembre 2026: ${fmt(p.fc)} unidades, rango ${fmt(p.lo)} a ${fmt(p.hi)}">
+        ${ticks.map((v) => `<line x1="${ML}" x2="${ML + iw + 56}" y1="${Y(v)}" y2="${Y(v)}" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+           <text x="${ML - 11}" y="${Y(v) + 4}" text-anchor="end" font-size="12" fill="#8C98B3" font-family="Public Sans, sans-serif">${fmt(v)}</text>`).join("")}
+        ${MESES.map((m, i) => (i % 3 === 0 || i === n - 1)
+           ? `<text x="${X(i)}" y="${H - 12}" text-anchor="middle" font-size="12" fill="#8C98B3" font-family="Public Sans, sans-serif">${m}</text>` : "").join("")}
+        <text x="${X(n)}" y="${H - 12}" text-anchor="middle" font-size="12" fill="#35E0FF" font-weight="700" font-family="Public Sans, sans-serif">Sep 26</text>
+        <line x1="${(last[0] + fcp[0]) / 2}" x2="${(last[0] + fcp[0]) / 2}" y1="${MT - 6}" y2="${MT + ih}" stroke="rgba(255,255,255,.22)" stroke-width="1" stroke-dasharray="3 3"/>
+        <text x="${(last[0] + fcp[0]) / 2 + 6}" y="${MT + 4}" font-size="12" fill="#8C98B3" font-family="Public Sans, sans-serif">hoy</text>
+        <rect x="${fcp[0] - 13}" y="${Y(p.hi)}" width="26" height="${Y(p.lo) - Y(p.hi)}" fill="rgba(143,180,255,.2)" rx="4"/>
+        <path d="${line}" fill="none" stroke="#8FB4FF" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M${last[0]} ${last[1]} L${fcp[0]} ${fcp[1]}" fill="none" stroke="#35E0FF" stroke-width="2.5" stroke-dasharray="6 4" stroke-linecap="round"/>
+        ${pts.map((c) => `<circle cx="${c[0]}" cy="${c[1]}" r="3.2" fill="#0A1024" stroke="#8FB4FF" stroke-width="2"/>`).join("")}
+        <circle cx="${fcp[0]}" cy="${fcp[1]}" r="6" fill="#35E0FF" stroke="#0A1024" stroke-width="2.5"/>
+        <text x="${fcp[0] + 16}" y="${fcp[1] - 8}" font-size="14" font-weight="700" fill="#FFFFFF" font-family="Archivo, sans-serif">${fmt(p.fc)}</text>
+        <text x="${fcp[0] + 16}" y="${fcp[1] + 9}" font-size="12" fill="#8C98B3" font-family="Public Sans, sans-serif">pronóstico</text>
+        ${p.hist.map((v, i) => (v === null ? "" : `<rect class="hit" data-i="${i}" x="${X(i) - 14}" y="${MT}" width="28" height="${ih}" fill="transparent" style="cursor:crosshair"/>`)).join("")}
+      </svg>
+      <div class="tip" id="tip"></div>
+    </div>
+    <div class="legend">
+      <span><i class="lk"></i> Demanda real mensual</span>
+      <span><i class="lk dash"></i> Pronóstico</span>
+      <span><i class="lk band"></i> Rango esperado</span>
+    </div>`;
+
+  const tip = $("#tip"), wrap = box.querySelector(".chartwrap");
+  box.querySelectorAll(".hit").forEach((r) => {
+    r.addEventListener("mouseenter", () => {
+      const i = +r.dataset.i, rect = wrap.getBoundingClientRect(), sc = rect.width / W;
+      tip.innerHTML = `${MESES[i]}<br><b>${fmt(p.hist[i])}</b> unidades`;
+      tip.style.opacity = 1;
+      tip.style.left = Math.min(X(i) * sc + 12, rect.width - 130) + "px";
+      tip.style.top = Y(p.hist[i]) * sc - 8 + "px";
+    });
+    r.addEventListener("mouseleave", () => (tip.style.opacity = 0));
+  });
+}
+
+$("#btnMail").addEventListener("click", () => { $("#sec5").classList.remove("hide"); go($("#sec5")); });
+</script>
+</body>
+</html>
