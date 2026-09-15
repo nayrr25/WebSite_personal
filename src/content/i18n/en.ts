@@ -159,9 +159,9 @@ export const en: Strings = {
     title: "Business question first. Technology last.",
     name: "Nancy Rodríguez",
     role: "Founder · Principal Data & AI Consultant",
-    disciplines: "Economist · Statistician · Data & AI Leader",
+    disciplines: "Economist · Master's in AI · 13+ years in data",
     bio:
-      "Nancy Rodríguez is an economist, statistician and data & AI leader with experience turning complex business problems into measurable, data-driven solutions. She leads every N-AI project personally.",
+      "Nancy Rodríguez is an economist with a master's in Artificial Intelligence and more than 13 years in data and analytics across banking, telecom regulation, consumer goods and academia. She has taught data analysis with R at the University of Costa Rica and economics at Universidad Libre de Costa Rica. She leads every N-AI project personally.",
     quote: "Data without methodology is just information.",
     areasLabel: "Areas of work",
     areas: [
@@ -173,6 +173,10 @@ export const en: Strings = {
       "Data governance",
     ],
     portraitAlt: "Portrait of Nancy Rodríguez, founder of N-AI",
+    educationTitle: "Education",
+    recognizedLabel: "Recognized by the",
+    certifications:
+      "Plus 12 licenses and certifications, including Applied Generative AI: LLMs and Intelligent Automation (Smart Data).",
   },
 
   caseSicop: {

@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Section from "@/components/layout/Section";
 import Reveal from "@/components/motion/Reveal";
+import { EDUCATION } from "@/content/data/education";
 import { site } from "@/content/site";
-import { useT } from "@/lib/i18n";
+import { useLanguage } from "@/lib/i18n";
 
 const SOCIAL = [
   { label: "LinkedIn", href: site.contact.linkedin },
@@ -13,7 +14,7 @@ const SOCIAL = [
 ];
 
 export default function Leadership() {
-  const t = useT();
+  const { lang, t } = useLanguage();
   const l = t.leadership;
 
   return (
@@ -78,6 +79,29 @@ export default function Leadership() {
         </Reveal>
       </div>
 
+      <Reveal delay={0.08}>
+        <div className="mt-3.5 rounded-card border border-line bg-surface p-5 md:p-9">
+          <h3 className="font-display text-xl font-bold text-ink">{l.educationTitle}</h3>
+          <ul className="mt-5 grid gap-x-10 gap-y-4 md:grid-cols-2 lg:grid-cols-3">
+            {EDUCATION.map((item) => (
+              <li key={`${item.school}-${item.title.es}`} className="border-t border-line pt-3">
+                <p className="text-[15px] font-semibold leading-snug text-ink">{item.title[lang]}</p>
+                <p className="mt-1 text-sm leading-snug text-ink-2">
+                  {item.partner ? `${item.school} · ${item.partner}` : item.school}
+                  {item.years ? ` · ${item.years}` : ""}
+                  {item.status ? ` · ${item.status[lang]}` : ""}
+                </p>
+                {item.recognizedBy && (
+                  <p className="mt-1 text-[13px] leading-snug text-accent">
+                    {l.recognizedLabel} {item.recognizedBy}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 max-w-[70ch] text-sm text-ink-muted">{l.certifications}</p>
+        </div>
+      </Reveal>
     </Section>
   );
 }
