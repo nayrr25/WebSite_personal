@@ -4,7 +4,7 @@
 .stage {
   --s: 42px;
   position: relative;
-  height: 280px;
+  height: 310px;
   display: grid;
   place-items: center;
 }
