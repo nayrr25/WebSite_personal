@@ -129,15 +129,6 @@
     mask-image: radial-gradient(ellipse at 70% 40%, #000 20%, transparent 70%);
   }
 
-  /* Alias heredados: se eliminan en la Tarea 11. */
-  .mask-fade-x {
-    mask-image: linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
-  }
-  .mask-radial-soft {
-    mask-image: radial-gradient(circle at center, black 0%, transparent 70%);
-    -webkit-mask-image: radial-gradient(circle at center, black 0%, transparent 70%);
-  }
 }
 
 /* Movimiento reducido: sin bucles, pulsos ni desplazamientos. Los fundidos
