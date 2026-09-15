@@ -125,6 +125,61 @@ export const en: Strings = {
     ],
   },
 
+  method: {
+    eyebrow: "Method",
+    title: "From diagnosis to operation.",
+    deliverableLabel: "Deliverable",
+    steps: [
+      {
+        title: "Diagnosis",
+        body: "Understand the business problem and assess the available data.",
+        deliverable: "Opportunity map",
+      },
+      {
+        title: "Design",
+        body: "Define the solution, success metrics and work plan.",
+        deliverable: "Architecture and plan",
+      },
+      {
+        title: "Build",
+        body: "Develop and validate with real data, in short cycles.",
+        deliverable: "Tested solution",
+      },
+      {
+        title: "Operate",
+        body: "Deploy to production, measure results and improve.",
+        deliverable: "Measured impact",
+      },
+    ],
+  },
+
+  leadership: {
+    eyebrow: "Who leads",
+    title: "Business question first. Technology last.",
+    name: "Nancy Rodríguez",
+    role: "Founder · Principal Data & AI Consultant",
+    disciplines: "Economist · Statistician · Data & AI Leader",
+    bio:
+      "Nancy Rodríguez is an economist, statistician and data & AI leader with experience turning complex business problems into measurable, data-driven solutions. She leads every N-AI project personally.",
+    quote: "Data without methodology is just information.",
+    areasLabel: "Areas of work",
+    areas: [
+      "Artificial intelligence",
+      "Advanced analytics",
+      "Data strategy",
+      "Consumer intelligence",
+      "Predictive modeling",
+      "Data governance",
+    ],
+    portraitAlt: "Portrait of Nancy Rodríguez, founder of N-AI",
+    credentials: [
+      { value: "+400%", label: "credit placements with decision engines" },
+      { value: ">2.4M", label: "public procurement records analyzed" },
+      { value: "47", label: "anomaly patterns modeled" },
+      { value: "Research", label: "academic publications in economics and statistics" },
+    ],
+  },
+
   sicop: {
     eyebrow: "Featured Case Study",
     title: "Public Procurement Intelligence",

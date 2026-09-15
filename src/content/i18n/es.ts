@@ -126,6 +126,61 @@ export const es = {
     ],
   },
 
+  method: {
+    eyebrow: "Método",
+    title: "Del diagnóstico a la operación.",
+    deliverableLabel: "Entregable",
+    steps: [
+      {
+        title: "Diagnóstico",
+        body: "Entender el problema de negocio y evaluar los datos disponibles.",
+        deliverable: "Mapa de oportunidades",
+      },
+      {
+        title: "Diseño",
+        body: "Definir la solución, las métricas de éxito y el plan de trabajo.",
+        deliverable: "Arquitectura y plan",
+      },
+      {
+        title: "Construcción",
+        body: "Desarrollar y validar con datos reales, en ciclos cortos.",
+        deliverable: "Solución probada",
+      },
+      {
+        title: "Operación",
+        body: "Poner en producción, medir resultados y mejorar.",
+        deliverable: "Impacto medido",
+      },
+    ],
+  },
+
+  leadership: {
+    eyebrow: "Quién lidera",
+    title: "Primero la pregunta de negocio. Al final, la tecnología.",
+    name: "Nancy Rodríguez",
+    role: "Fundadora · Principal Data & AI Consultant",
+    disciplines: "Economista · Estadística · Data & AI Leader",
+    bio:
+      "Nancy Rodríguez es economista, estadística y líder de datos e IA, con experiencia transformando problemas complejos de negocio en soluciones medibles basadas en datos. Cada proyecto de N-AI lo lleva ella directamente.",
+    quote: "Datos sin metodología son solo información.",
+    areasLabel: "Áreas de trabajo",
+    areas: [
+      "Inteligencia artificial",
+      "Analítica avanzada",
+      "Estrategia de datos",
+      "Inteligencia de consumidor",
+      "Modelado predictivo",
+      "Gobierno de datos",
+    ],
+    portraitAlt: "Retrato de Nancy Rodríguez, fundadora de N-AI",
+    credentials: [
+      { value: "+400%", label: "créditos colocados con motores de decisión" },
+      { value: ">2.4M", label: "registros de compra pública analizados" },
+      { value: "47", label: "patrones de anomalía modelados" },
+      { value: "Investigación", label: "publicaciones académicas en economía y estadística" },
+    ],
+  },
+
   sicop: {
     eyebrow: "Caso de Estudio Destacado",
     title: "Inteligencia de Compras Públicas",

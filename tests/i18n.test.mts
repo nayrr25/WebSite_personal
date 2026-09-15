@@ -49,3 +49,13 @@ test("6 demos, en el mismo orden que su configuración visual", () => {
     ["Live", "Live", "Live", "In Build", "In Build", "Concept"],
   );
 });
+
+test("método de 4 fases y 4 credenciales reales", () => {
+  for (const dict of [es, en]) {
+    assert.equal(dict.method.steps.length, 4);
+    assert.deepEqual(
+      dict.leadership.credentials.slice(0, 3).map((c) => c.value),
+      ["+400%", ">2.4M", "47"],
+    );
+  }
+});

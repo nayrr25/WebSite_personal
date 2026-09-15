@@ -6,6 +6,8 @@ import CaseStudyHero from "@/components/sections/CaseStudyHero";
 import CaseStudyDeepDive from "@/components/sections/CaseStudyDeepDive";
 import IntelligencePipeline from "@/components/sections/IntelligencePipeline";
 import DemoShowcase from "@/components/sections/DemoShowcase";
+import Method from "@/components/sections/Method";
+import Leadership from "@/components/sections/Leadership";
 import Capabilities from "@/components/sections/Capabilities";
 import BuildingInPublic from "@/components/sections/BuildingInPublic";
 import FAQ from "@/components/sections/FAQ";
@@ -31,6 +33,8 @@ export default function HomeSections() {
       <CaseStudyDeepDive />
       <IntelligencePipeline />
       <DemoShowcase />
+      <Method />
+      <Leadership />
       <NetworkBand />
       <Capabilities />
       <BuildingInPublic />
