@@ -80,5 +80,5 @@ Decisiones de contenido que la ronda C propone y que no se aplicaron sin la due�
 - Preguntas de la FAQ escritas para buscadores ("¿Quién hace consultoría de IA en Costa Rica?").
 - Biografía sin años, sectores ni organizaciones; carruseles sin indicador de posición.
 
-- Alto en celular en español (9.224 px): la crítica propone retrato 16/9 en celular, FAQ destacada como acordeón en celular y cifras de la banda en una fila. Son cambios de composición que conviene aprobar antes.
+- Alto en celular (9.425 px en español, 9.079 px en inglés): la crítica propone retrato 16/9 en celular, FAQ destacada como acordeón en celular y cifras de la banda en una fila. Son cambios de composición que conviene aprobar antes.
 - Correo del dominio: volver a `@n-ai.dev` cuando se confirme que recibe correo.
