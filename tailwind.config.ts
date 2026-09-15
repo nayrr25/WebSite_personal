@@ -62,18 +62,11 @@ const config: Config = {
       animation: {
         "pulse-dot": "pulseDot 2s ease-in-out infinite",
         "pulse-live": "pulseDot 1.2s ease-in-out infinite",
-        beam: "beam 2.2s cubic-bezier(0.23, 1, 0.32, 1) 2 forwards",
       },
       keyframes: {
         pulseDot: {
           "0%, 100%": { opacity: "1", transform: "scale(1)" },
           "50%": { opacity: "0.45", transform: "scale(0.8)" },
-        },
-        // El destello recorre la línea con transform (no con `left`).
-        beam: {
-          "0%": { transform: "translateX(0)", opacity: "1" },
-          "90%": { opacity: "1" },
-          "100%": { transform: "translateX(530%)", opacity: "0" },
         },
       },
     },

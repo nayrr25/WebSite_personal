@@ -128,6 +128,8 @@ export const en: Strings = {
     eyebrow: "Method",
     title: "From diagnosis to operation.",
     deliverableLabel: "Deliverable",
+    stackCaption: "Tools N-AI uses to build each phase",
+    stackSrLabel: "Tools by phase",
     steps: [
       {
         title: "Diagnosis",
