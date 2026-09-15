@@ -5,7 +5,7 @@ import Reveal from "@/components/motion/Reveal";
 import Badge from "@/components/ui/Badge";
 import { cn } from "@/lib/cn";
 import { useLanguage } from "@/lib/i18n";
-import { CASE_SICOP_PATH } from "@/lib/routes";
+import { CASE_SICOP_PATH, DEMO_DEMAND_PATH } from "@/lib/routes";
 import { demoStatic, type DemoPreview, type DemoStatus } from "@/content/demos";
 
 const TONE: Record<DemoStatus, "live" | "build" | "concept"> = {
@@ -32,12 +32,19 @@ export default function DemoShowcase() {
       <div role="region" aria-label={t.demosSection.title} tabIndex={0} className="-mx-5 mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-3 [scrollbar-width:none] sm:mx-0 sm:grid sm:snap-none sm:gap-3.5 sm:overflow-visible sm:px-0 sm:pb-0 md:mt-12 [&::-webkit-scrollbar]:hidden sm:grid-cols-2 lg:grid-cols-3">
         {t.demos.map((demo, i) => {
           const preview = demoStatic[i].preview;
+          // Solo las demos con página propia llevan enlace (y elevación al pasar el mouse).
+          const link =
+            preview === "anomaly"
+              ? { href: CASE_SICOP_PATH[lang], label: t.demosSection.cta }
+              : preview === "automation"
+                ? { href: DEMO_DEMAND_PATH[lang], label: t.demosSection.demoCta }
+                : null;
           return (
             <Reveal key={demo.slug} delay={(i % 3) * 0.06} className="h-full w-[82%] flex-none snap-start sm:w-auto">
               <article
                 className={cn(
                   "flex h-full flex-col rounded-card border border-line bg-surface p-5 sm:min-h-[300px] sm:p-6",
-                  preview === "anomaly" &&
+                  link &&
                     "transition-[transform,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-accent/40 motion-reduce:transition-none motion-reduce:hover:translate-y-0",
                 )}
               >
@@ -47,12 +54,12 @@ export default function DemoShowcase() {
                 <div className="mt-auto pt-4 sm:pt-5">
                   <PreviewVisual kind={preview} />
                 </div>
-                {preview === "anomaly" && (
+                {link && (
                   <a
-                    href={CASE_SICOP_PATH[lang]}
+                    href={link.href}
                     className="group mt-1.5 inline-flex min-h-11 items-center gap-2 self-start text-sm font-semibold text-accent transition-colors duration-150 hover:text-accent-cyan"
                   >
-                    {t.demosSection.cta}
+                    {link.label}
                     <span aria-hidden className="transition-transform duration-200 ease-out group-hover:translate-x-[3px]">
                       →
                     </span>

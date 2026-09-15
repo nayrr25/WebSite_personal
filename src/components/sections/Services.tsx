@@ -4,7 +4,8 @@ import type { PointerEvent } from "react";
 import { Database, Sparkles, TrendingUp, Workflow, type LucideIcon } from "lucide-react";
 import Section from "@/components/layout/Section";
 import Reveal from "@/components/motion/Reveal";
-import { useT } from "@/lib/i18n";
+import { useLanguage } from "@/lib/i18n";
+import { DEMO_DEMAND_PATH } from "@/lib/routes";
 import { serviceIcons, type ServiceIcon } from "@/content/services";
 
 const ICONS: Record<ServiceIcon, LucideIcon> = {
@@ -22,7 +23,7 @@ function trackPointer(event: PointerEvent<HTMLElement>) {
 }
 
 export default function Services() {
-  const t = useT();
+  const { lang, t } = useLanguage();
   const s = t.services;
 
   return (
@@ -71,6 +72,17 @@ export default function Services() {
                   <p className="mt-3.5 border-t border-line pt-3 text-[13px] text-ink-soft">
                     <b className="font-semibold text-accent-cyan">{s.evidenceLabel}</b> {item.evidence}
                   </p>
+                )}
+                {(serviceIcons[i] === "workflow" || serviceIcons[i] === "trending") && (
+                  <a
+                    href={DEMO_DEMAND_PATH[lang]}
+                    className="relative mt-2 inline-flex min-h-11 items-center gap-2 self-start text-sm font-semibold text-accent transition-colors duration-150 hover:text-accent-cyan"
+                  >
+                    {s.demoLink}
+                    <span aria-hidden className="transition-transform duration-200 ease-out group-hover:translate-x-[3px]">
+                      →
+                    </span>
+                  </a>
                 )}
               </article>
             </Reveal>
