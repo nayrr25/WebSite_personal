@@ -29,11 +29,10 @@
 - Next.js 14.2 (App Router) + TypeScript
 - Tailwind CSS 3.4 + tokens custom
 - Framer Motion (animaciones)
-- Recharts (lazy-loaded, solo en case study)
 - lucide-react (iconos)
 - Inter (UI) + Instrument Serif (acentos editoriales)
 - pnpm 9.15 (via corepack)
-- Node 18.20.8 (via nvm)
+- Node 22.23.2 (via nvm; es el `default`)
 - Vercel Hobby (hosting)
 - Porkbun (registrar + DNS + email forwarding)
 
@@ -176,7 +175,7 @@ HANDOFF.md                       # Este documento
 
 ## 📧 Email
 
-- **Tu email:** `nancyrodriguez@n-ai.dev`
+- **Correo publicado en el sitio:** `nanyrr25@gmail.com`. El reenvío de `nancyrodriguez@n-ai.dev` está configurado en Porkbun, pero no se ha probado.
 - **Reenvía a:** Gmail (configurado en Porkbun → Email Forwarding)
 - **Para migrar a mailbox real:** Google Workspace, Fastmail, Proton, Zoho — reemplazas los MX y TXT por los del nuevo proveedor.
 
@@ -270,7 +269,10 @@ git push --force-with-lease
 - Sitio completo en español (default) + inglés (toggle)
 - Logo HTML/CSS (sin typos posibles)
 - Foto Nancy + iconos sociales (LinkedIn, WhatsApp, GitHub, Scholar, Email)
-- 9 secciones: Hero · About · Case Study · Deep Dive · Pipeline · Demos · Capabilities · Building in Public · FAQ · Contact
+- Portada de 8 secciones (estilo C): Hero con tablero en vivo · Servicios · Caso SICOP · Demos · Método · Quién lidera · Preguntas clave · Contacto
+- Página del caso: `/casos/sicop` y `/en/cases/sicop`
+- Datos reales del caso en `src/content/data/sicop.ts`; pruebas con `pnpm test` (Node 22)
+- Diseño y decisiones: `docs/superpowers/specs/2026-09-14-rediseno-consultora-design.md`
 - Caso SICOP atribuido a Contraloría General de la República
 - Citation capsule con dual meaning N-AI (Nancy / Neural)
 - SEO completo: GSC, sitemap, 14 schemas JSON-LD, llms.txt

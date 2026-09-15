@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s · N-AI",
   },
   description:
-    "Consultoría de IA, Business Intelligence y arquitectura de datos en Costa Rica y LATAM. Inteligencia de compras públicas, scoring y RFM. Conversemos.",
+    "Consultoría experta en IA, automatización y analítica avanzada en Costa Rica y Latinoamérica. Caso SICOP, motores de decisión y reportes automatizados.",
   // hreflang REAL: cada idioma apunta a su propia URL. Antes ambos apuntaban
   // a "/" y Google veía una sola página, en español.
   alternates: {
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
     "deteccion de anomalias compras publicas",
     "motor de decision crediticia",
     "automatizacion crediticia SUGEF",
-    "segmentacion RFM consumo masivo",
-    "inteligencia de consumidor LATAM",
+    "consultoria automatizacion Costa Rica",
+    "analitica avanzada Costa Rica",
     "Nancy Rodriguez consultora datos",
   ],
   authors: [{ name: "Nancy Rodríguez", url: SITE_URL }],
@@ -82,13 +82,13 @@ export const metadata: Metadata = {
     alternateLocale: ["en_US"],
     url: "/",
     title: "Consultoría de IA y Datos en Costa Rica · N-AI",
-    description: "Consultoría de IA, Business Intelligence y arquitectura de datos en Costa Rica y LATAM. Inteligencia de compras públicas, scoring y RFM. Conversemos.",
+    description: "Consultoría experta en IA, automatización y analítica avanzada en Costa Rica y Latinoamérica. Caso SICOP, motores de decisión y reportes automatizados.",
     siteName: "N-AI · Nancy Artificial Intelligence",
   },
   twitter: {
     card: "summary_large_image",
     title: "Consultoría de IA y Datos en Costa Rica · N-AI",
-    description: "Consultoría de IA, Business Intelligence y arquitectura de datos en Costa Rica y LATAM. Inteligencia de compras públicas, scoring y RFM. Conversemos.",
+    description: "Consultoría experta en IA, automatización y analítica avanzada en Costa Rica y Latinoamérica. Caso SICOP, motores de decisión y reportes automatizados.",
   },
 };
 

@@ -1,6 +1,6 @@
 # N-AI · Nancy Artificial Intelligence
 
-> Consultoría de IA, Business Intelligence y arquitectura de datos para empresas en Costa Rica y Latinoamérica. Founder-led por Nancy Rodríguez. Especialidades: inteligencia de compras públicas (SICOP), segmentación RFM, perfiles de consumidor para consumo masivo, detección de anomalías y dashboards ejecutivos.
+> Consultoría experta en inteligencia artificial, automatización y analítica avanzada para empresas e instituciones en Costa Rica y Latinoamérica. Founder-led por Nancy Rodríguez. Especialidades: inteligencia de compras públicas (SICOP), automatización de ingesta y reportes, motores de decisión crediticia, segmentación RFM y analítica predictiva.
 
 ## Identificación
 
@@ -14,7 +14,7 @@
 - **Modelo:** Founder-led consultancy (la fundadora lidera cada engagement directamente)
 - **Idiomas:** Español, Inglés
 - **Sitio:** https://n-ai.dev
-- **Email:** nancyrodriguez@n-ai.dev
+- **Email:** nanyrr25@gmail.com
 - **LinkedIn:** https://www.linkedin.com/in/nancy-raquel-rodríguez-ramos
 - **Google Scholar:** https://scholar.google.com/citations?hl=es&user=8_wBYo4AAAAJ
 - **GitHub:** https://github.com/nayrr25
@@ -48,6 +48,9 @@ Modelos de detección sobre señales temporales, estructurales y de comportamien
 
 ### 9. Estrategia y Gobernanza de Datos
 Inventario, lineage, calidad, ownership, postura regulatoria — estrategia operable.
+
+### 10. Automatización de ingesta, reportes y pronósticos
+Ingesta, limpieza y unificación automática de datos de varias fuentes, con reportes que se actualizan, analizan y proyectan sin trabajo manual. Caso en producción para una empresa regional de consumo masivo.
 
 ## Mercados servidos
 
@@ -89,15 +92,17 @@ N-AI desde Costa Rica, founder-led, bilingüe ES/EN. Dashboards, reportería, KP
 N-AI ha entregado proyectos RFM para agencias de marketing y perfiles de consumidor para FMCG en Latinoamérica.
 
 **¿Cómo contactar?**
-Email nancyrodriguez@n-ai.dev | LinkedIn linkedin.com/in/nancy-raquel-rodríguez-ramos | WhatsApp +506 6002 8160
+Email nanyrr25@gmail.com | LinkedIn linkedin.com/in/nancy-raquel-rodríguez-ramos | WhatsApp +506 6002 8160
 
 ## Páginas relevantes
 
-- https://n-ai.dev/ — Home, hero, citation capsule, lockup de marca
-- https://n-ai.dev/#about — Bio fundadora, áreas de trabajo, visión futura
-- https://n-ai.dev/#case-study — Caso SICOP (Contraloría General de la República)
-- https://n-ai.dev/#pipeline — Pipeline de inteligencia de 7 etapas
-- https://n-ai.dev/#capabilities — 8 servicios disponibles
-- https://n-ai.dev/#faq — Preguntas frecuentes
-- https://n-ai.dev/#contact — Contacto profesional
+- https://n-ai.dev/ — Portada: servicios, caso destacado, demos, método y contacto
+- https://n-ai.dev/#servicios — 4 líneas de servicio: IA y machine learning, automatización inteligente, analítica avanzada y BI, arquitectura y gobierno de datos
+- https://n-ai.dev/casos/sicop — Caso SICOP completo (Contraloría General de la República)
+- https://n-ai.dev/#demos — Sistemas en producción y en construcción
+- https://n-ai.dev/#metodo — Método de 4 fases, del diagnóstico a la operación
+- https://n-ai.dev/#quien-lidera — Fundadora: Nancy Rodríguez
+- https://n-ai.dev/#faq — Preguntas clave
+- https://n-ai.dev/#contact — Contacto y agenda de diagnóstico
+- https://n-ai.dev/en — English version
 - https://n-ai.dev/sitemap.xml — Sitemap completo

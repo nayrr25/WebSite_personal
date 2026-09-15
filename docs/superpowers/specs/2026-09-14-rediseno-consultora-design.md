@@ -283,3 +283,10 @@ La portada pasa de 11 secciones a 8, en este orden:
 ## Fuera de alcance
 
 Páginas individuales por servicio, blog, agenda o calendario real, fotos de equipo, cambios de dominio, analytics o DNS, e ingesta de datos abiertos de SICOP.
+
+## Ajustes durante el plan de implementación
+
+- **Cápsula de cita:** el bloque `capsule` no se muestra en la página, porque la maqueta v3 aprobada no lo incluye. Su contenido sigue en `public/llms.txt` y en los datos estructurados.
+- **Gráficos:** no se crea `LineSeries.tsx`. El gráfico de instituciones vive dentro de `LiveDashboard.tsx`, y `BarList.tsx` se reutiliza en el tablero y en la página del caso.
+- **Menú:** el eyebrow de la sección de método es "Método" y no "Cómo trabajamos", para no usar el plural de equipo.
+- **Umbrales:** el tablero no dibuja una línea de umbral de riesgo, porque el caso no publica los cortes entre niveles.
