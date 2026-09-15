@@ -180,6 +180,85 @@ export const en: Strings = {
     ],
   },
 
+  caseSicop: {
+    metaTitle: "SICOP case: public procurement intelligence",
+    metaDescription:
+      "How N-AI built anomaly detection across 47 patterns and risk scoring across 8 dimensions for public procurement oversight in Costa Rica.",
+    back: "Back to home",
+    eyebrow: "Case study",
+    title: "Public procurement intelligence for Costa Rica's Comptroller General",
+    lead:
+      "Data architecture and artificial intelligence to move SICOP oversight from reactive to preventive.",
+    railTitle: "On this page",
+    sections: {
+      summary: "Summary",
+      challenge: "The challenge",
+      architecture: "Sources and architecture",
+      ai: "AI layer",
+      institutions: "Institutions",
+      impact: "Impact",
+    },
+    contextLabel: "Context",
+    context:
+      "Public procurement oversight was reactive: irregularities surfaced after the damage was done, with data spread across different sources and taxonomies.",
+    resultLabel: "Outcome",
+    result:
+      "Risk becomes visible before it turns into a legal case: auditors act on signals, not on findings.",
+    challengeTitle: "Why oversight arrived too late",
+    challengePoints: [
+      "Data spread across different sources and formats",
+      "Classifications that change between institutions",
+      "Irregularities detected after the damage was done",
+      "Systemic risk patterns nobody modeled",
+    ],
+    architectureTitle: "Seven sources, seven stages",
+    sourcesLabel: "Sources",
+    sources: [
+      "Solicitations",
+      "Awards",
+      "Contracts",
+      "Addenda",
+      "Supplier registry",
+      "Sanctions",
+      "Institutional data",
+    ],
+    pipelineLabel: "Pipeline stages",
+    pipeline: [
+      { title: "Extraction", body: "Continuously pulls records from every SICOP source." },
+      { title: "Inventory", body: "Documents every field and every relationship between sources." },
+      { title: "Unification", body: "Brings the different formats together into a single data model." },
+      { title: "Validation", body: "Checks types, consistency and traceability before the data is used." },
+      { title: "Anomaly detection", body: "Evaluates 47 patterns across time, structure and behavior signals." },
+      { title: "Risk scoring", body: "Combines 8 dimensions into an auditable score per institution." },
+      { title: "Preventive monitoring", body: "Shows events, trends and peer comparisons to decision makers." },
+    ],
+    aiTitle: "47 patterns and 8 risk dimensions",
+    aiBody:
+      "Rules catch the obvious and models catch the subtle: unusual award velocity, supplier concentration, out-of-range prices and addendum sequences that often precede irregularities. Each institution gets a score that breaks down into 8 dimensions.",
+    compositeLabel: "Composite",
+    institutionsTitle: "12 institutions, anonymized",
+    institutionsBody: "Risk score for each institution, on a 0 to 100 scale.",
+    impactTitle: "What changes for decision makers",
+    impact: [
+      {
+        title: "Preventive oversight",
+        body: "Risk is visible before it turns into a legal case: action is taken on signals, not findings.",
+      },
+      {
+        title: "Faster decisions",
+        body: "Decision makers see risk on the first screen and reach a defensible decision in minutes, not weeks.",
+      },
+      {
+        title: "Verifiable transparency",
+        body: "Every score traces back to its components, and every component to a record.",
+      },
+    ],
+    dataNote: "Project results with anonymized institutions.",
+    ctaTitle: "Facing a similar challenge?",
+    ctaBody: "An introductory conversation identifies how to apply this approach to your data.",
+    ctaButton: "Book a diagnostic",
+  },
+
   sicop: {
     eyebrow: "Featured Case Study",
     title: "Public Procurement Intelligence",

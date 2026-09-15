@@ -78,3 +78,15 @@ test("el contacto propone el diagnóstico y no usa el correo del dominio", () =>
   const all = JSON.stringify(es) + JSON.stringify(en);
   assert.doesNotMatch(all, /nancyrodriguez@n-ai\.dev/);
 });
+
+test("la página del caso tiene 7 fuentes, 7 etapas y 3 impactos", () => {
+  for (const dict of [es, en]) {
+    assert.equal(dict.caseSicop.sources.length, caseFacts.sources);
+    assert.equal(dict.caseSicop.pipeline.length, 7);
+    assert.equal(dict.caseSicop.impact.length, 3);
+    assert.deepEqual(
+      Object.keys(dict.caseSicop.sections),
+      ["summary", "challenge", "architecture", "ai", "institutions", "impact"],
+    );
+  }
+});

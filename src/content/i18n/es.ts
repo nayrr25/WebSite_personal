@@ -181,6 +181,85 @@ export const es = {
     ],
   },
 
+  caseSicop: {
+    metaTitle: "Caso SICOP: inteligencia de compras públicas",
+    metaDescription:
+      "Cómo N-AI construyó detección de anomalías sobre 47 patrones y scoring de riesgo en 8 dimensiones para la supervisión de compras públicas en Costa Rica.",
+    back: "Volver al inicio",
+    eyebrow: "Caso de estudio",
+    title: "Inteligencia de compras públicas para la Contraloría General de la República",
+    lead:
+      "Arquitectura de datos e inteligencia artificial para pasar de una supervisión reactiva a una preventiva sobre SICOP.",
+    railTitle: "En esta página",
+    sections: {
+      summary: "Resumen",
+      challenge: "El reto",
+      architecture: "Fuentes y arquitectura",
+      ai: "Capa de IA",
+      institutions: "Instituciones",
+      impact: "Impacto",
+    },
+    contextLabel: "Contexto",
+    context:
+      "La supervisión de las compras públicas era reactiva: las irregularidades aparecían después del daño, con datos repartidos en fuentes y taxonomías distintas.",
+    resultLabel: "Resultado",
+    result:
+      "El riesgo se vuelve visible antes de convertirse en un caso legal: los auditores actúan sobre señales, no sobre hallazgos.",
+    challengeTitle: "Por qué la supervisión llegaba tarde",
+    challengePoints: [
+      "Datos repartidos en fuentes y formatos distintos",
+      "Clasificaciones que cambian entre instituciones",
+      "Irregularidades que se detectaban después del daño",
+      "Patrones de riesgo sistémico que nadie modelaba",
+    ],
+    architectureTitle: "Siete fuentes, siete etapas",
+    sourcesLabel: "Fuentes",
+    sources: [
+      "Solicitudes",
+      "Adjudicaciones",
+      "Contratos",
+      "Adendas",
+      "Registro de proveedores",
+      "Sanciones",
+      "Datos de las instituciones",
+    ],
+    pipelineLabel: "Etapas del pipeline",
+    pipeline: [
+      { title: "Extracción", body: "Trae los registros de cada fuente de SICOP de forma continua." },
+      { title: "Inventario", body: "Documenta cada campo y cada relación entre fuentes." },
+      { title: "Unificación", body: "Reúne los distintos formatos en un solo modelo de datos." },
+      { title: "Validación", body: "Revisa tipos, consistencia y trazabilidad antes de usar los datos." },
+      { title: "Detección de anomalías", body: "Evalúa 47 patrones sobre señales de tiempo, estructura y comportamiento." },
+      { title: "Scoring de riesgo", body: "Combina 8 dimensiones en un puntaje auditable por institución." },
+      { title: "Monitoreo preventivo", body: "Muestra eventos, tendencias y comparaciones entre pares a quien decide." },
+    ],
+    aiTitle: "47 patrones y 8 dimensiones de riesgo",
+    aiBody:
+      "Las reglas detectan lo evidente y los modelos, lo sutil: velocidad inusual de adjudicación, concentración de proveedores, precios fuera de rango y secuencias de adendas que suelen anteceder irregularidades. Cada institución recibe un puntaje que se descompone en 8 dimensiones.",
+    compositeLabel: "Compuesto",
+    institutionsTitle: "12 instituciones, anonimizadas",
+    institutionsBody: "Puntaje de riesgo de cada institución, en escala de 0 a 100.",
+    impactTitle: "Qué cambia para quien decide",
+    impact: [
+      {
+        title: "Supervisión preventiva",
+        body: "El riesgo se ve antes de convertirse en un caso legal: se actúa sobre señales, no sobre hallazgos.",
+      },
+      {
+        title: "Decisiones más rápidas",
+        body: "Quien decide ve el riesgo en la primera pantalla y llega a una decisión defendible en minutos, no semanas.",
+      },
+      {
+        title: "Transparencia verificable",
+        body: "Cada puntaje se rastrea hasta sus componentes, y cada componente hasta un registro.",
+      },
+    ],
+    dataNote: "Resultados del proyecto con instituciones anonimizadas.",
+    ctaTitle: "¿Tu organización enfrenta un reto parecido?",
+    ctaBody: "En una conversación inicial se identifica cómo aplicar este enfoque a tus datos.",
+    ctaButton: "Agendar un diagnóstico",
+  },
+
   sicop: {
     eyebrow: "Caso de Estudio Destacado",
     title: "Inteligencia de Compras Públicas",
