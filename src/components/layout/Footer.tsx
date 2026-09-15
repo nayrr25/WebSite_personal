@@ -2,88 +2,75 @@
 
 import Container from "./Container";
 import { site } from "@/content/site";
-import { useT } from "@/lib/i18n";
-import { LogoMark } from "@/components/ui/Logo";
+import { useLanguage } from "@/lib/i18n";
+import { homeAnchor } from "@/lib/routes";
+
+const SOCIAL = [
+  { label: "LinkedIn", href: site.contact.linkedin },
+  { label: "Google Scholar", href: site.contact.scholar },
+  { label: "GitHub", href: site.contact.github },
+];
 
 export default function Footer() {
-  const t = useT();
+  const { lang, t } = useLanguage();
   const year = new Date().getFullYear();
+
   return (
-    <footer className="relative border-t border-border-subtle bg-bg-base py-16">
-      <Container>
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <LogoMark size={28} />
-              <span className="text-[15px] font-medium tracking-tight text-text-primary">
-                {site.brand.name}
-              </span>
-            </div>
-            <p className="mt-4 max-w-sm text-sm text-text-secondary">
-              {site.brand.fullName}. {t.brand.tagline}.
-            </p>
-          </div>
-
-          <div>
-            <p className="text-eyebrow mb-4">{t.footer.navTitle}</p>
-            <ul className="space-y-2 text-sm">
-              {t.nav.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    className="text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <p className="text-eyebrow mb-4">{t.footer.contactTitle}</p>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a
-                  href={`mailto:${site.contact.email}`}
-                  className="text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
-                >
-                  {site.contact.email}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={site.contact.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
-                >
-                  LinkedIn
-                </a>
-              </li>
-              <li>
-                <a
-                  href={site.contact.scholar}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
-                >
-                  Google Scholar
-                </a>
-              </li>
-            </ul>
-          </div>
+    <footer className="mt-24 border-t border-line py-12 md:mt-32">
+      <Container className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+        <div>
+          <a
+            href={homeAnchor(lang, "#top")}
+            className="flex items-center gap-2.5 font-display text-xl font-extrabold text-ink"
+          >
+            <span
+              aria-hidden
+              className="grid h-[34px] w-[34px] place-items-center rounded-[10px] bg-white text-base text-navy"
+            >
+              N
+            </span>
+            {site.brand.name}
+          </a>
+          <p className="mt-3 text-[13px] text-ink-muted">
+            © {year} {site.brand.name} · {t.footer.location}
+          </p>
+          <a
+            href={`mailto:${site.contact.email}`}
+            className="mt-1 block text-[13px] text-ink-2 transition-colors duration-150 hover:text-ink"
+          >
+            {site.contact.email}
+          </a>
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-border-subtle pt-6 md:flex-row md:items-center">
-          <p className="text-xs text-text-muted">
-            © {year} {site.brand.name} · {t.brand.subBrand}
-          </p>
-          <p className="flex items-center gap-2 text-xs text-text-muted">
-            <span aria-hidden className="inline-block h-2 w-2 rounded-full bg-accent-cyan shadow-glow" />
-            {t.themeLabel}
-          </p>
-        </div>
+        <nav aria-label={t.footer.navTitle}>
+          <ul className="flex flex-wrap gap-x-6 text-sm">
+            {t.nav.map((item) => (
+              <li key={item.href}>
+                <a
+                  href={homeAnchor(lang, item.href)}
+                  className="inline-flex min-h-11 items-center text-ink-2 transition-colors duration-150 hover:text-ink"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <ul className="flex flex-wrap gap-x-6 text-sm">
+          {SOCIAL.map((item) => (
+            <li key={item.label}>
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-11 items-center text-ink-2 transition-colors duration-150 hover:text-ink"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       </Container>
     </footer>
   );

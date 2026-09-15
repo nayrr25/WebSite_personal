@@ -1,117 +1,62 @@
 "use client";
 
-import Section from "@/components/layout/Section";
-import Eyebrow from "@/components/ui/Eyebrow";
+import Container from "@/components/layout/Container";
 import Reveal from "@/components/motion/Reveal";
-import GridGlow from "@/components/backgrounds/GridGlow";
 import { LinkButton } from "@/components/ui/Button";
 import { site } from "@/content/site";
 import { useT } from "@/lib/i18n";
-import { Mail, Linkedin, GraduationCap, MessageCircle } from "lucide-react";
 
 export default function Contact() {
   const t = useT();
-  const subject = encodeURIComponent(t.contact.mailtoSubject);
-  const body = encodeURIComponent(t.contact.mailtoBody);
-  const mailto = `mailto:${site.contact.email}?subject=${subject}&body=${body}`;
-  // WhatsApp ya estaba configurado en site.ts pero no se usaba en ninguna
-  // parte del sitio. En Costa Rica es el canal de negocio por defecto y tiene
-  // muchisima menos friccion que abrir un cliente de correo: pasa a ser la
-  // accion principal, con el correo al lado para propuestas y adjuntos.
-  const whatsapp = `${site.contact.whatsapp}?text=${encodeURIComponent(
-    t.contact.whatsappMessage,
-  )}`;
+  const c = t.contact;
+  const mailto = `mailto:${site.contact.email}?subject=${encodeURIComponent(c.mailtoSubject)}&body=${encodeURIComponent(c.mailtoBody)}`;
+  const whatsapp = `${site.contact.whatsapp}?text=${encodeURIComponent(c.whatsappMessage)}`;
 
   return (
-    <Section id="contact" className="relative overflow-hidden">
-      <GridGlow size={50} />
-      <div className="relative flex flex-col items-center text-center">
+    <section id="contact" aria-labelledby="contact-title" className="py-6 md:py-10">
+      <Container>
         <Reveal>
-          <Eyebrow>{t.contact.eyebrow}</Eyebrow>
-        </Reveal>
-        <Reveal delay={0.05}>
-          <h2 className="text-display-l mt-6 max-w-[16ch] text-text-primary">
-            {t.contact.headlineStart}{" "}
-            <span className="font-serif italic font-normal text-accent-cyan">
-              {t.contact.headlineItalic}
-            </span>
-            {t.contact.headlineEnd}
-          </h2>
-        </Reveal>
-        <Reveal delay={0.12}>
-          <p className="text-body mt-6 max-w-xl">{t.contact.body}</p>
-        </Reveal>
-
-        <Reveal delay={0.18}>
-          <div className="mt-12 flex flex-col items-center gap-4">
-            {/* Dos canales explicitos, uno al lado del otro. Antes habia un
-             * solo boton que decia "Iniciar una conversacion" y abria el
-             * cliente de correo sin avisar. */}
-            <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
-              <div className="flex flex-col items-center gap-1.5">
-                <LinkButton
-                  href={whatsapp}
-                  variant="primary"
-                  withArrow
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {t.contact.primaryCta}
+          <div className="grid items-center gap-8 overflow-hidden rounded-band border border-line bg-navy-cta bg-[radial-gradient(60%_90%_at_15%_0%,rgba(47,98,200,0.55),transparent_70%),radial-gradient(50%_80%_at_95%_100%,rgba(53,224,255,0.18),transparent_70%)] p-7 md:p-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:p-16">
+            <div>
+              <p className="text-eyebrow text-ink-soft">{c.eyebrow}</p>
+              <h2 id="contact-title" className="text-display-l mt-3.5 text-ink">
+                {c.title}
+              </h2>
+              <p className="text-body mt-4">{c.body}</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <LinkButton href={whatsapp} target="_blank" rel="noreferrer" variant="primary" withArrow>
+                  {c.primaryCta}
                 </LinkButton>
-                <span className="text-[11px] uppercase tracking-eyebrow text-accent-teal">
-                  {t.contact.whatsappHint}
-                </span>
-              </div>
-
-              <div className="flex flex-col items-center gap-1.5">
                 <LinkButton href={mailto} variant="ghost">
-                  {t.contact.secondaryCta}
+                  {c.secondaryCta}
                 </LinkButton>
-                <span className="text-[11px] uppercase tracking-eyebrow text-text-muted">
-                  {t.contact.emailHint}
-                </span>
               </div>
+              <p className="mt-5 text-[15px] text-ink-2">
+                <span className="tabular-nums">{site.contact.whatsappDisplay}</span> · {site.contact.email}
+              </p>
             </div>
-
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-              <a
-                href={whatsapp}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
-              >
-                <MessageCircle className="h-4 w-4" aria-hidden />
-                {site.contact.whatsappDisplay}
-              </a>
-              <a
-                href={`mailto:${site.contact.email}`}
-                className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
-              >
-                <Mail className="h-4 w-4" aria-hidden />
-                {site.contact.email}
-              </a>
-              <a
-                href={site.contact.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
-              >
-                <Linkedin className="h-4 w-4" aria-hidden />
-                LinkedIn
-              </a>
-              <a
-                href={site.contact.scholar}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
-              >
-                <GraduationCap className="h-4 w-4" aria-hidden />
-                Google Scholar
-              </a>
-            </div>
+            <ol aria-label={c.nextLabel} className="grid gap-2.5">
+              {c.steps.map((step, i) => (
+                <li
+                  key={step.title}
+                  className="grid grid-cols-[40px_1fr] gap-1 rounded-2xl border border-line bg-white/5 px-[18px] py-4"
+                >
+                  <span
+                    aria-hidden
+                    className="grid h-7 w-7 place-items-center rounded-full border border-accent font-display text-[13px] font-bold text-accent"
+                  >
+                    {i + 1}
+                  </span>
+                  <div>
+                    <b className="font-semibold text-ink">{step.title}</b>
+                    <span className="block text-sm text-ink-2">{step.body}</span>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </Reveal>
-      </div>
-    </Section>
+      </Container>
+    </section>
   );
 }

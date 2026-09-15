@@ -7,7 +7,7 @@ import { en } from "@/content/i18n/en";
  *  - Organization / ProfessionalService (N-AI brand entity)
  *  - Person (Nancy Rodríguez, founder)
  *  - WebSite (with SearchAction)
- *  - Service[] (one per capability — 8 services)
+ *  - Service[] (one per service line — 4 services)
  *  - FAQPage (every Q&A in the visible FAQ section)
  *  - ItemList of services (helps Google show service-list rich results)
  *
@@ -51,7 +51,7 @@ export default function StructuredData({
     },
     image: `${siteUrl}/Nancy.jpg`,
     description:
-      "Consultoría ejecutiva de IA e inteligencia de datos. Detección de anomalías, risk scoring, segmentación RFM, perfiles de consumidor, arquitectura de datos y dashboards ejecutivos.",
+      "Consultoría experta en inteligencia artificial, automatización y analítica avanzada para empresas e instituciones en Costa Rica y Latinoamérica.",
     founder: { "@id": `${siteUrl}/#nancy` },
     foundingDate: "2026",
     slogan: "Datos · Insights · IA",
@@ -62,6 +62,10 @@ export default function StructuredData({
     ],
     knowsLanguage: ["es", "en"],
     knowsAbout: [
+      "Intelligent Automation",
+      "Automatización inteligente",
+      "Advanced Analytics",
+      "Forecasting",
       "Inteligencia Artificial",
       "Artificial Intelligence",
       "Data Intelligence",
@@ -171,26 +175,19 @@ export default function StructuredData({
   // aplanan para seguir emitiendo un Service por cada una. Cada vertical
   // aporta ademas su audiencia declarada, que es informacion util para los
   // motores: "quien ofrece analitica de pauta para equipos de marketing".
-  const flatCapabilities = es.verticals.flatMap((v) =>
-    v.items.map((item) => ({ ...item, audience: v.audience, vertical: v.title })),
-  );
-
-  const services = flatCapabilities.map((cap, idx) => ({
+  // Un Service por cada línea de servicio visible en la portada.
+  const services = es.services.items.map((item, idx) => ({
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": `${siteUrl}/#service-${idx}`,
-    serviceType: cap.title,
-    name: cap.title,
-    description: cap.description,
+    serviceType: item.title,
+    name: item.title,
+    description: `${item.description} ${item.tags.join(" · ")}.`,
     provider: { "@id": `${siteUrl}/#organization` },
     areaServed: [
       { "@type": "Country", name: "Costa Rica" },
       { "@type": "Place", name: "Latin America" },
     ],
-    audience: {
-      "@type": "BusinessAudience",
-      audienceType: ["Executive teams", "Government innovation leads", "Category leaders"],
-    },
   }));
 
   // FAQPage schema — Google can show "People also ask" rich result + AI engines

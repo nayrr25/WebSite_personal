@@ -1,0 +1,323 @@
+[
+  {
+    "antipattern": "low-contrast",
+    "name": "Low contrast text",
+    "description": "Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "4.3:1 (need 4.5:1) — text #ffffff on #7c5cff"
+  },
+  {
+    "antipattern": "gradient-text",
+    "name": "Gradient text",
+    "description": "Gradient text is decorative rather than meaningful — a common AI tell, especially on headings and metrics. Use solid colors for text.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "background-clip: text + gradient"
+  },
+  {
+    "antipattern": "low-contrast",
+    "name": "Low contrast text",
+    "description": "Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "4.2:1 (need 4.5:1) — text #ffffff on #3d78e6"
+  },
+  {
+    "antipattern": "low-contrast",
+    "name": "Low contrast text",
+    "description": "Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "3.0:1 (need 4.5:1) — text #16a34a on #dcfce7"
+  },
+  {
+    "antipattern": "low-contrast",
+    "name": "Low contrast text",
+    "description": "Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "3.0:1 (need 4.5:1) — text #16a34a on #dcfce7"
+  },
+  {
+    "antipattern": "gradient-text",
+    "name": "Gradient text",
+    "description": "Gradient text is decorative rather than meaningful — a common AI tell, especially on headings and metrics. Use solid colors for text.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "background-clip: text + gradient"
+  },
+  {
+    "antipattern": "low-contrast",
+    "name": "Low contrast text",
+    "description": "Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "3.5:1 (need 4.5:1) — text #e5394b on #ffe3e6"
+  },
+  {
+    "antipattern": "dark-glow",
+    "name": "Glowing shadow accents",
+    "description": "Colored glow shadows — a zero-offset chromatic halo (box- or text-shadow) on any background, or any colored blurred shadow on a dark background — are the default \"cool\" look of AI-generated UIs. Use neutral elevation shadows and subtle, purposeful lighting instead.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "Zero-offset box-shadow glow (#4f86e6)"
+  },
+  {
+    "antipattern": "dark-glow",
+    "name": "Glowing shadow accents",
+    "description": "Colored glow shadows — a zero-offset chromatic halo (box- or text-shadow) on any background, or any colored blurred shadow on a dark background — are the default \"cool\" look of AI-generated UIs. Use neutral elevation shadows and subtle, purposeful lighting instead.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "Zero-offset box-shadow glow (#35e0ff)"
+  },
+  {
+    "antipattern": "dark-glow",
+    "name": "Glowing shadow accents",
+    "description": "Colored glow shadows — a zero-offset chromatic halo (box- or text-shadow) on any background, or any colored blurred shadow on a dark background — are the default \"cool\" look of AI-generated UIs. Use neutral elevation shadows and subtle, purposeful lighting instead.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "Colored box-shadow glow (#3578ff) on dark background"
+  },
+  {
+    "antipattern": "dark-glow",
+    "name": "Glowing shadow accents",
+    "description": "Colored glow shadows — a zero-offset chromatic halo (box- or text-shadow) on any background, or any colored blurred shadow on a dark background — are the default \"cool\" look of AI-generated UIs. Use neutral elevation shadows and subtle, purposeful lighting instead.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "Zero-offset box-shadow glow (#2f62c8)"
+  },
+  {
+    "antipattern": "dark-glow",
+    "name": "Glowing shadow accents",
+    "description": "Colored glow shadows — a zero-offset chromatic halo (box- or text-shadow) on any background, or any colored blurred shadow on a dark background — are the default \"cool\" look of AI-generated UIs. Use neutral elevation shadows and subtle, purposeful lighting instead.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "Zero-offset box-shadow glow (#ff5d6c)"
+  },
+  {
+    "antipattern": "dark-glow",
+    "name": "Glowing shadow accents",
+    "description": "Colored glow shadows — a zero-offset chromatic halo (box- or text-shadow) on any background, or any colored blurred shadow on a dark background — are the default \"cool\" look of AI-generated UIs. Use neutral elevation shadows and subtle, purposeful lighting instead.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "Zero-offset box-shadow glow (#4f86e6)"
+  },
+  {
+    "antipattern": "broken-image",
+    "name": "Broken or placeholder image",
+    "description": "<img> tags with empty src, missing src, or placeholder values ship as broken-image boxes. Use real images, generated assets, or remove the tag.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "<img> with no src attribute"
+  },
+  {
+    "antipattern": "extreme-negative-tracking",
+    "name": "Crushed letter spacing",
+    "description": "Letter-spacing pulled tighter than the point where characters keep their own shapes costs legibility. Tighten display type optically, not destructively.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "letter-spacing: -0.05em — \"Un equipo experto en inteligencia artifi\""
+  },
+  {
+    "antipattern": "extreme-negative-tracking",
+    "name": "Crushed letter spacing",
+    "description": "Letter-spacing pulled tighter than the point where characters keep their own shapes costs legibility. Tighten display type optically, not destructively.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "letter-spacing: -0.05em — \"inteligencia artificial.\""
+  },
+  {
+    "antipattern": "undersized-ui-text",
+    "name": "Undersized functional text",
+    "description": "Interactive and content-bearing UI text (links, buttons, nav items, labels, table cells, meta rows, timecodes) below 11px is a legibility failure, not a style choice. WCAG sets no absolute pixel floor, but functional text under 11px is a defensible quality bar: it fails on high-DPI and small viewports and it degrades tap and read targets. The 11px floor holds even inside a footer; only non-interactive legal smallprint gets the softer 10px floor. Being ON the DESIGN.md size ramp does not exempt a value here: adding 8px to the ramp launders the token but not the legibility problem, and that is exactly the escape hatch this rule closes. Exempts sup/sub, visually-hidden (sr-only) text, and code/terminal contexts. Decorative letterspaced micro-labels are still functional and stay in scope.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "10.5px functional text \"Perfil de ejemplo\" (below 11px floor)"
+  },
+  {
+    "antipattern": "undersized-ui-text",
+    "name": "Undersized functional text",
+    "description": "Interactive and content-bearing UI text (links, buttons, nav items, labels, table cells, meta rows, timecodes) below 11px is a legibility failure, not a style choice. WCAG sets no absolute pixel floor, but functional text under 11px is a defensible quality bar: it fails on high-DPI and small viewports and it degrades tap and read targets. The 11px floor holds even inside a footer; only non-interactive legal smallprint gets the softer 10px floor. Being ON the DESIGN.md size ramp does not exempt a value here: adding 8px to the ramp launders the token but not the legibility problem, and that is exactly the escape hatch this rule closes. Exempts sup/sub, visually-hidden (sr-only) text, and code/terminal contexts. Decorative letterspaced micro-labels are still functional and stay in scope.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "10.5px functional text \"Perfil de ejemplo\" (below 11px floor)"
+  },
+  {
+    "antipattern": "undersized-ui-text",
+    "name": "Undersized functional text",
+    "description": "Interactive and content-bearing UI text (links, buttons, nav items, labels, table cells, meta rows, timecodes) below 11px is a legibility failure, not a style choice. WCAG sets no absolute pixel floor, but functional text under 11px is a defensible quality bar: it fails on high-DPI and small viewports and it degrades tap and read targets. The 11px floor holds even inside a footer; only non-interactive legal smallprint gets the softer 10px floor. Being ON the DESIGN.md size ramp does not exempt a value here: adding 8px to the ramp launders the token but not the legibility problem, and that is exactly the escape hatch this rule closes. Exempts sup/sub, visually-hidden (sr-only) text, and code/terminal contexts. Decorative letterspaced micro-labels are still functional and stay in scope.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "10.5px functional text \"Perfil de ejemplo\" (below 11px floor)"
+  },
+  {
+    "antipattern": "clipped-overflow-container",
+    "name": "Positioned child clipped by overflow container",
+    "description": "A clipping container (overflow hidden or clip) wrapping an absolutely-positioned child cuts off tooltips, menus, and popovers that need to escape. Let the overflow be visible, or move the positioned layer out of the clip.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "section.a-hero clips a positioned child"
+  },
+  {
+    "antipattern": "radial-spotlight-glow",
+    "name": "Decorative radial spotlight glow",
+    "description": "A soft, low-opacity accent-colored radial gradient fading to transparent, dropped behind a hero or section as a \"spotlight.\" It is a reflex AI decoration — the translucent cousin of the saturated radial halo. Let the surface stand on its own, or light the composition with a deliberate material accent rather than a floating colored haze.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "radial-gradient spotlight glow \"glowB\" (#2f62c8 a0.20 → transparent) on 720x720 surface"
+  },
+  {
+    "antipattern": "flat-type-hierarchy",
+    "name": "Flat type hierarchy",
+    "description": "Dominant heading and body roles are separated by less than 1.25× at every step, leaving the size hierarchy flat. Add at least one stronger size step.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "Role sizes: h4 12px, body 14.5px, h1 16px, h2 16px (largest adjacent step 1.21:1; target 1.25:1)"
+  },
+  {
+    "antipattern": "skipped-heading",
+    "name": "Skipped heading level",
+    "description": "Heading levels should not skip (e.g. h1 then h3 with no h2). Screen readers use heading hierarchy for navigation. Skipping levels breaks the document outline.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "<h1> \"Un equipo experto en IA, automatización y analítica avanzada\" followed by <h4> \"Estilo A\" (missing h2)"
+  },
+  {
+    "antipattern": "skipped-heading",
+    "name": "Skipped heading level",
+    "description": "Heading levels should not skip (e.g. h1 then h3 with no h2). Screen readers use heading hierarchy for navigation. Skipping levels breaks the document outline.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "<h1> \"Un equipo experto en inteligencia artificial.\" followed by <h4> \"Estilo B\" (missing h2)"
+  },
+  {
+    "antipattern": "skipped-heading",
+    "name": "Skipped heading level",
+    "description": "Heading levels should not skip (e.g. h1 then h3 with no h2). Screen readers use heading hierarchy for navigation. Skipping levels breaks the document outline.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "<h1> \"Un equipo experto en IA, automatización y analítica avanzada\" followed by <h4> \"Estilo C\" (missing h2)"
+  },
+  {
+    "antipattern": "gradient-text",
+    "name": "Gradient text",
+    "description": "Gradient text is decorative rather than meaningful — a common AI tell, especially on headings and metrics. Use solid colors for text.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "background-clip: text + gradient"
+  },
+  {
+    "antipattern": "pulsing-dot",
+    "name": "Pulsing status dot",
+    "description": "Small pulsing status dots simulate liveness decoratively. Reserve pulse animation for indicators tied to genuinely live, changing data; a static indicator with clear labeling is honest and calmer.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": ".pill .dot — 7x7px dot with infinite \"pulse\" animation"
+  },
+  {
+    "antipattern": "pulsing-dot",
+    "name": "Pulsing status dot",
+    "description": "Small pulsing status dots simulate liveness decoratively. Reserve pulse animation for indicators tied to genuinely live, changing data; a static indicator with clear labeling is honest and calmer.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": ".live i — 7x7px dot with infinite \"pulse\" animation"
+  },
+  {
+    "antipattern": "marquee",
+    "name": "Auto-scrolling marquee",
+    "description": "Continuously auto-scrolling content demands attention it has not earned and hides half its content at any moment. Reserve motion for content that changes; let readers move at their own pace.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": ".band .track — infinite horizontal loop animation \"marquee\""
+  },
+  {
+    "antipattern": "dark-glow",
+    "name": "Glowing shadow accents",
+    "description": "Colored glow shadows — a zero-offset chromatic halo (box- or text-shadow) on any background, or any colored blurred shadow on a dark background — are the default \"cool\" look of AI-generated UIs. Use neutral elevation shadows and subtle, purposeful lighting instead.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "Zero-offset box-shadow glow (#4f86e6)"
+  },
+  {
+    "antipattern": "radial-halo",
+    "name": "Radial-gradient background halo",
+    "description": "A chromatic radial-gradient wash — saturated at the center, fading to transparent — used as a decorative background glow on a dark page. Same tell as glowing shadows, drawn with a gradient instead of a shadow. Ground the surface with a solid or subtly shifted background instead.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "radial-gradient halo (#1a2c5e → transparent) on dark page"
+  },
+  {
+    "antipattern": "codex-grid-background",
+    "name": "Decorative grid-line background",
+    "description": "A decorative grid or line-field background drawn with hairline linear-gradient layers tiled by a fixed pixel cell is a recurring generated-UI signature. Reserve grid overlays for actual canvas, map, blueprint, or measurement surfaces; elsewhere use product structure or a plain surface.",
+    "severity": "advisory",
+    "category": "slop",
+    "file": "/Users/nancyrodriguez/WebSite_personal/docs/superpowers/specs/assets/2026-09-14-maqueta-propuestas.html",
+    "line": 0,
+    "snippet": "two-axis grid-line gradient background",
+    "advisory": true
+  }
+]

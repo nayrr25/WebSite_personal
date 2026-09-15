@@ -1,217 +1,179 @@
 "use client";
 
 import Section from "@/components/layout/Section";
-import Eyebrow from "@/components/ui/Eyebrow";
-import Badge from "@/components/ui/Badge";
 import Reveal from "@/components/motion/Reveal";
-import { useT } from "@/lib/i18n";
-import { demoStatic, type DemoStatus, type DemoPreview } from "@/content/demos";
-import { ArrowUpRight } from "lucide-react";
+import Badge from "@/components/ui/Badge";
 import { cn } from "@/lib/cn";
-import { motion, useReducedMotion } from "framer-motion";
+import { useLanguage } from "@/lib/i18n";
+import { CASE_SICOP_PATH } from "@/lib/routes";
+import { demoStatic, type DemoPreview, type DemoStatus } from "@/content/demos";
 
-const statusTone: Record<DemoStatus, "live" | "build" | "concept"> = {
+const TONE: Record<DemoStatus, "live" | "build" | "concept"> = {
   Live: "live",
   "In Build": "build",
   Concept: "concept",
 };
 
-interface MergedDemo {
-  slug: string;
-  title: string;
-  description: string;
-  status: DemoStatus;
-  statusLabel: string;
-  preview: DemoPreview;
-  span?: 1 | 2;
-}
-
 export default function DemoShowcase() {
-  const t = useT();
-
-  // Merge translation strings with static visual mapping by slug.
-  const merged: MergedDemo[] = t.demos.map((d) => {
-    const stat = demoStatic.find((s) => s.slug === d.slug);
-    return {
-      slug: d.slug,
-      title: d.title,
-      description: d.description,
-      status: d.status,
-      statusLabel: t.statusLabels[d.status],
-      preview: stat?.preview ?? "anomaly",
-      span: stat?.span,
-    };
-  });
+  const { lang, t } = useLanguage();
 
   return (
     <Section id="demos">
       <Reveal>
-        <Eyebrow>{t.demosSection.eyebrow}</Eyebrow>
+        <p className="text-eyebrow">{t.demosSection.eyebrow}</p>
       </Reveal>
       <Reveal delay={0.05}>
-        <h2 className="text-display-l mt-5 max-w-[18ch] text-text-primary">
-          {t.demosSection.title}
-        </h2>
+        <h2 className="text-display-l mt-3.5 max-w-[19ch] text-ink">{t.demosSection.title}</h2>
       </Reveal>
-      <Reveal delay={0.12}>
-        <p className="text-body mt-5 max-w-2xl">{t.demosSection.body}</p>
+      <Reveal delay={0.1}>
+        <p className="text-body mt-4 max-w-[58ch]">{t.demosSection.body}</p>
       </Reveal>
 
-      <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {merged.map((demo, i) => (
-          <Reveal key={demo.slug} delay={i * 0.05}>
-            <DemoCard demo={demo} ctaLabel={t.demosSection.cta} />
-          </Reveal>
-        ))}
+      <div role="region" aria-label={t.demosSection.title} tabIndex={0} className="-mx-5 mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-3 [scrollbar-width:none] sm:mx-0 sm:grid sm:snap-none sm:gap-3.5 sm:overflow-visible sm:px-0 sm:pb-0 md:mt-12 [&::-webkit-scrollbar]:hidden sm:grid-cols-2 lg:grid-cols-3">
+        {t.demos.map((demo, i) => {
+          const preview = demoStatic[i].preview;
+          return (
+            <Reveal key={demo.slug} delay={(i % 3) * 0.06} className="h-full w-[82%] flex-none snap-start sm:w-auto">
+              <article
+                className={cn(
+                  "flex h-full flex-col rounded-card border border-line bg-surface p-5 sm:min-h-[300px] sm:p-6",
+                  preview === "anomaly" &&
+                    "transition-[transform,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-accent/40 motion-reduce:transition-none motion-reduce:hover:translate-y-0",
+                )}
+              >
+                <Badge tone={TONE[demo.status]}>{t.statusLabels[demo.status]}</Badge>
+                <h3 className="mt-4 font-display text-xl font-bold leading-snug text-ink">{demo.title}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-ink-2">{demo.description}</p>
+                <div className="mt-auto pt-4 sm:pt-5">
+                  <PreviewVisual kind={preview} />
+                </div>
+                {preview === "anomaly" && (
+                  <a
+                    href={CASE_SICOP_PATH[lang]}
+                    className="group mt-1.5 inline-flex min-h-11 items-center gap-2 self-start text-sm font-semibold text-accent transition-colors duration-150 hover:text-accent-cyan"
+                  >
+                    {t.demosSection.cta}
+                    <span aria-hidden className="transition-transform duration-200 ease-out group-hover:translate-x-[3px]">
+                      →
+                    </span>
+                  </a>
+                )}
+              </article>
+            </Reveal>
+          );
+        })}
       </div>
     </Section>
   );
 }
 
-function DemoCard({ demo, ctaLabel }: { demo: MergedDemo; ctaLabel: string }) {
-  const reduce = useReducedMotion();
-  return (
-    <motion.a
-      href={`#${demo.slug}`}
-      whileHover={reduce ? undefined : { y: -4 }}
-      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-      className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-lg border border-border-subtle bg-bg-elevated/60 p-6 backdrop-blur-md",
-        "transition-all duration-300 ease-smooth hover:border-accent-cyan/40 hover:shadow-glow",
-        demo.span === 2 && "lg:col-span-2",
-      )}
-    >
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-accent-cyan/[0.06] to-transparent transition-transform duration-700 ease-smooth group-hover:translate-x-full"
-      />
-
-      <div className="relative flex items-start justify-between gap-4">
-        <Badge tone={statusTone[demo.status]} pulse={demo.status === "Live"}>
-          {demo.statusLabel}
-        </Badge>
-        <ArrowUpRight
-          aria-hidden
-          className="h-4 w-4 text-text-muted transition-all duration-200 ease-smooth group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-cyan"
-        />
-      </div>
-
-      <h3 className="text-h3 relative mt-6 max-w-[28ch] text-text-primary">{demo.title}</h3>
-      <p className="text-body-sm relative mt-2 max-w-md text-[14px]">{demo.description}</p>
-
-      <div className="relative mt-6 flex-1">
-        <DemoPreviewVisual kind={demo.preview} />
-      </div>
-
-      <div className="relative mt-6 flex items-center gap-2 text-[12px] text-accent-cyan/80 transition-colors duration-200 ease-smooth group-hover:text-accent-cyan">
-        {ctaLabel}
-        <ArrowUpRight aria-hidden className="h-3 w-3" />
-      </div>
-    </motion.a>
-  );
-}
-
-function DemoPreviewVisual({ kind }: { kind: DemoPreview }) {
+function PreviewVisual({ kind }: { kind: DemoPreview }) {
+  const svg = "block h-auto max-h-[64px] w-full sm:max-h-[84px]";
   switch (kind) {
     case "anomaly":
       return (
-        <svg viewBox="0 0 240 80" className="block w-full" aria-hidden>
+        <svg viewBox="0 0 240 64" className={svg} aria-hidden>
           <defs>
-            <linearGradient id="prevA" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#5EE9F0" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#5EE9F0" stopOpacity="0" />
+            <linearGradient id="demo-anomaly" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stopColor="#4F86E6" stopOpacity="0.4" />
+              <stop offset="1" stopColor="#4F86E6" stopOpacity="0" />
             </linearGradient>
           </defs>
-          <path
-            d="M0 60 L20 50 L40 56 L60 42 L80 48 L100 38 L120 52 L140 30 L160 44 L180 36 L200 50 L220 28 L240 40"
-            stroke="#5EE9F0"
-            strokeWidth="1.5"
-            fill="none"
-          />
-          <path
-            d="M0 60 L20 50 L40 56 L60 42 L80 48 L100 38 L120 52 L140 30 L160 44 L180 36 L200 50 L220 28 L240 40 L240 80 L0 80 Z"
-            fill="url(#prevA)"
-          />
-          <circle cx="100" cy="38" r="4" fill="#7CF5C4" />
-          <circle cx="100" cy="38" r="9" fill="#7CF5C4" opacity="0.18" />
-          <circle cx="220" cy="28" r="4" fill="#7CF5C4" />
-          <circle cx="220" cy="28" r="9" fill="#7CF5C4" opacity="0.18" />
+          <path d="M0 46 L24 40 L48 44 L72 34 L96 38 L120 30 L144 40 L168 22 L192 34 L216 12 L240 26 L240 64 L0 64Z" fill="url(#demo-anomaly)" />
+          <polyline points="0,46 24,40 48,44 72,34 96,38 120,30 144,40 168,22 192,34 216,12 240,26" fill="none" stroke="#8FB4FF" strokeWidth="1.8" />
+          <circle cx="216" cy="12" r="4" fill="#FF6B78" />
+          <circle cx="168" cy="22" r="4" fill="#FF6B78" />
         </svg>
       );
-    case "heat":
+    case "automation":
       return (
-        <div className="grid grid-cols-12 gap-1">
-          {Array.from({ length: 36 }).map((_, i) => {
-            const intensity = (Math.sin(i * 0.7) + 1) / 2;
-            return (
-              <div
-                key={i}
-                className="aspect-square rounded-[2px]"
-                style={{
-                  background: `rgba(94,233,240,${(intensity * 0.7).toFixed(2)})`,
-                }}
-              />
-            );
-          })}
-        </div>
-      );
-    case "flow":
-      return (
-        <svg viewBox="0 0 240 80" className="block w-full" aria-hidden>
-          {Array.from({ length: 6 }).map((_, i) => (
-            <g key={i}>
-              <circle cx={20 + i * 40} cy={40} r="3" fill="#5EE9F0" />
-              {i < 5 && (
-                <line
-                  x1={20 + i * 40}
-                  y1={40}
-                  x2={60 + i * 40}
-                  y2={40}
-                  stroke="rgba(94,233,240,0.4)"
-                  strokeWidth="1"
-                  strokeDasharray="2 3"
-                />
-              )}
-            </g>
-          ))}
-          {[15, 35, 55].map((y, i) => (
-            <line
-              key={i}
-              x1="0"
-              y1={y}
-              x2="240"
-              y2={y}
-              stroke="rgba(255,255,255,0.04)"
-              strokeWidth="1"
-            />
-          ))}
+        <svg viewBox="0 0 240 64" className={svg} aria-hidden>
+          <g fill="none" stroke="rgba(143,180,255,0.55)">
+            <path d="M14 10h36M14 32h36M14 54h36M50 10l28 22M50 54l28-22M50 32h28M104 32h14" />
+          </g>
+          <g fill="#8FB4FF">
+            <circle cx="10" cy="10" r="4" />
+            <circle cx="10" cy="32" r="4" />
+            <circle cx="10" cy="54" r="4" />
+          </g>
+          <rect x="80" y="22" width="24" height="20" rx="4" fill="#35E0FF" fillOpacity="0.85" />
+          <g fill="#8FB4FF" fillOpacity="0.8">
+            <rect x="124" y="40" width="10" height="20" />
+            <rect x="138" y="30" width="10" height="30" />
+            <rect x="152" y="34" width="10" height="26" />
+            <rect x="166" y="22" width="10" height="38" />
+          </g>
+          <path d="M176 22l16-6 16-4 16-6" fill="none" stroke="#35E0FF" strokeWidth="2" strokeDasharray="4 4" />
         </svg>
       );
     case "decision":
       return (
-        <svg viewBox="0 0 240 80" className="block w-full" aria-hidden>
-          <rect x="20" y="30" width="40" height="20" rx="4" fill="rgba(94,233,240,0.10)" stroke="#5EE9F0" strokeWidth="1" />
-          <line x1="60" y1="40" x2="100" y2="20" stroke="rgba(94,233,240,0.5)" strokeWidth="1" />
-          <line x1="60" y1="40" x2="100" y2="60" stroke="rgba(94,233,240,0.5)" strokeWidth="1" />
-          <rect x="100" y="10" width="40" height="20" rx="4" fill="rgba(94,233,240,0.10)" stroke="#5EE9F0" strokeWidth="1" />
-          <rect x="100" y="50" width="40" height="20" rx="4" fill="rgba(124,245,196,0.12)" stroke="#7CF5C4" strokeWidth="1" />
-          <line x1="140" y1="60" x2="180" y2="40" stroke="rgba(124,245,196,0.5)" strokeWidth="1" />
-          <rect x="180" y="30" width="40" height="20" rx="4" fill="rgba(124,245,196,0.16)" stroke="#7CF5C4" strokeWidth="1" />
+        <svg viewBox="0 0 240 64" className={svg} aria-hidden>
+          <g fill="rgba(143,180,255,0.12)" stroke="#8FB4FF">
+            <rect x="8" y="22" width="44" height="20" rx="4" />
+            <rect x="104" y="6" width="44" height="20" rx="4" />
+            <rect x="104" y="38" width="44" height="20" rx="4" />
+          </g>
+          <path d="M52 32h28M80 32l24-16M80 32l24 16M148 48h40" stroke="rgba(143,180,255,0.5)" fill="none" />
+          <rect x="188" y="38" width="44" height="20" rx="4" fill="rgba(53,224,255,0.2)" stroke="#35E0FF" />
+        </svg>
+      );
+    case "heat":
+      return (
+        <svg viewBox="0 0 240 64" className={svg} aria-hidden>
+          {Array.from({ length: 36 }, (_, i) => {
+            // Patrón fijo (seno), no datos: es una ilustración de la demo en construcción.
+            const intensity = (Math.sin(i * 0.7) + 1) / 2;
+            const peak = intensity > 0.93;
+            return (
+              <rect
+                key={i}
+                x={(i % 12) * 20}
+                y={Math.floor(i / 12) * 21}
+                width="18"
+                height="19"
+                rx="3"
+                fill={peak ? "#35E0FF" : "#8FB4FF"}
+                fillOpacity={peak ? 1 : 0.1 + intensity * 0.6}
+              />
+            );
+          })}
+        </svg>
+      );
+    case "consumer":
+      return (
+        <svg viewBox="0 0 240 64" className={svg} aria-hidden>
+          <g fill="#8FB4FF" fillOpacity="0.55">
+            <rect x="0" y="40" width="30" height="24" rx="3" />
+            <rect x="40" y="26" width="30" height="38" rx="3" />
+            <rect x="120" y="30" width="30" height="34" rx="3" />
+            <rect x="160" y="44" width="30" height="20" rx="3" />
+            <rect x="200" y="36" width="30" height="28" rx="3" />
+          </g>
+          <rect x="80" y="10" width="30" height="54" rx="3" fill="#35E0FF" />
         </svg>
       );
     case "graph":
       return (
-        <svg viewBox="0 0 240 80" className="block w-full" aria-hidden>
-          {[[40, 20], [80, 50], [120, 18], [160, 52], [200, 22], [60, 60], [100, 30], [140, 60], [180, 30]].map(([cx, cy], i) => (
-            <circle key={i} cx={cx} cy={cy} r="3" fill="#5EE9F0" />
-          ))}
-          {[
-            [40, 20, 80, 50], [80, 50, 120, 18], [120, 18, 160, 52], [160, 52, 200, 22],
-            [60, 60, 100, 30], [100, 30, 140, 60], [140, 60, 180, 30],
-            [80, 50, 100, 30], [120, 18, 100, 30],
-          ].map(([x1, y1, x2, y2], i) => (
-            <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(94,233,240,0.3)" strokeWidth="1" />
-          ))}
+        <svg viewBox="0 0 240 64" className={svg} aria-hidden>
+          <g stroke="rgba(143,180,255,0.35)">
+            <line x1="30" y1="14" x2="80" y2="44" />
+            <line x1="80" y1="44" x2="130" y2="14" />
+            <line x1="130" y1="14" x2="180" y2="46" />
+            <line x1="180" y1="46" x2="220" y2="18" />
+            <line x1="55" y1="54" x2="105" y2="26" />
+            <line x1="105" y1="26" x2="155" y2="54" />
+          </g>
+          <g fill="#8FB4FF">
+            <circle cx="30" cy="14" r="4" />
+            <circle cx="80" cy="44" r="4" />
+            <circle cx="130" cy="14" r="4" />
+            <circle cx="180" cy="46" r="4" />
+            <circle cx="55" cy="54" r="4" />
+            <circle cx="105" cy="26" r="4" />
+            <circle cx="155" cy="54" r="4" />
+          </g>
+          <circle cx="220" cy="18" r="5" fill="#35E0FF" />
         </svg>
       );
   }

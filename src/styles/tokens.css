@@ -1,42 +1,20 @@
-/* Design tokens — single source of truth (OPCIÓN C · Corporate Cool, tema claro).
- * Mirrored in tailwind.config.ts so utilities and inline styles stay in sync.
- *
- * Nota: conservamos los MISMOS nombres semánticos (--accent-cyan, etc.) para no
- * tocar ningún componente. Solo cambian los valores: el acento "cyan" ahora es
- * un azul navy, y el fondo pasa de oscuro a slate claro. */
+/* Tokens del estilo C (maqueta v3). Espejo de tailwind.config.ts. */
 :root {
-  /* Fondos */
-  --bg-base: #f3f5f9;        /* slate muy claro, fondo general */
-  --bg-elevated: #ffffff;    /* tarjetas / superficies elevadas */
-  --bg-glass: rgba(30, 39, 53, 0.04);
+  --navy: #0a1024;
+  --navy-deep: #070b18;
+  --navy-panel: #0c1328;
+  --navy-band: #0f1a3a;
+  --surface: rgba(255, 255, 255, 0.045);
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --ink: #ffffff;
+  --ink-2: #aeb8cf;
+  --ink-muted: #8c98b3;
+  --accent: #8fb4ff;
+  --accent-cyan: #35e0ff;
+  --alert: #ff6b78;
+  --warn: #ffc35d;
+  --live: #7ff0c8;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 
-  /* Bordes (oscuros sobre claro) */
-  --border-subtle: rgba(30, 39, 53, 0.10);
-  --border-strong: rgba(30, 39, 53, 0.16);
-
-  /* Texto */
-  --text-primary: #1e2735;   /* slate-900 */
-  --text-secondary: #586172; /* slate-500 */
-  --text-muted: #828ba0;     /* slate-400 */
-
-  /* Acentos — ahora azul corporativo (mismos nombres) */
-  --accent-cyan: #2f62c8;    /* azul navy — acento primario */
-  --accent-mint: #4f86e6;    /* azul más claro — segundo color de degradados */
-  --accent-deep: #1e3360;    /* navy profundo — fondos sólidos / CTA */
-
-  /* Acentos VIVOS — pensados para leerse SOBRE FONDO CLARO.
-   * El cian #5EE9F0 y el menta #7CF5C4 originales venían del tema oscuro:
-   * sobre el slate claro actual se lavaban y quedaban casi invisibles.
-   * Estos conservan la misma familia (teal / esmeralda) pero con la
-   * saturación y oscuridad necesarias para tener contraste real. */
-  --accent-teal: #08A5B8;     /* reemplaza a #5EE9F0 en trazos y nodos */
-  --accent-emerald: #0BB07C;  /* reemplaza a #7CF5C4 */
-  --accent-teal-soft: #5EE9F0;    /* se conserva SOLO para halos y glows */
-  --accent-emerald-soft: #7CF5C4;
-
-  --danger: #dc4c4c;
-
-  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
-  --dur-base: 600ms;
-  --dur-micro: 200ms;
 }

@@ -5,7 +5,7 @@ export const site = {
     fullName: "Nancy Artificial Intelligence",
   },
   contact: {
-    email: "nancyrodriguez@n-ai.dev",
+    email: "nanyrr25@gmail.com",
     linkedin: "https://www.linkedin.com/in/nancy-raquel-rodríguez-ramos",
     scholar: "https://scholar.google.com/citations?hl=es&user=8_wBYo4AAAAJ",
     github: "https://github.com/nayrr25",

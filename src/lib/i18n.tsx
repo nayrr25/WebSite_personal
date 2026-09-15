@@ -3,15 +3,13 @@
 import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { es, type Strings } from "@/content/i18n/es";
 import { en } from "@/content/i18n/en";
+import { HOME_PATH, type Lang } from "@/lib/routes";
 
-export type Lang = "es" | "en";
+export type { Lang };
 
 export const DEFAULT_LANG: Lang = "es";
 
 const DICTIONARY: Record<Lang, Strings> = { es, en };
-
-/** Ruta de cada idioma. El español vive en la raíz por ser el canónico. */
-export const LANG_PATH: Record<Lang, string> = { es: "/", en: "/en" };
 
 /** El idioma contrario — lo usa el conmutador del nav. */
 export function otherLang(lang: Lang): Lang {
@@ -50,7 +48,7 @@ export function LanguageProvider({
 }) {
   const value = useMemo<LanguageContextValue>(() => {
     const other = otherLang(lang);
-    return { lang, t: DICTIONARY[lang], other, otherHref: LANG_PATH[other] };
+    return { lang, t: DICTIONARY[lang], other, otherHref: HOME_PATH[other] };
   }, [lang]);
 
   return (

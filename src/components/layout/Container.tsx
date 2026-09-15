@@ -7,7 +7,7 @@ export default function Container({
   ...rest
 }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("mx-auto w-full max-w-content px-6 md:px-10", className)} {...rest}>
+    <div className={cn("mx-auto w-full max-w-content px-5 md:px-10", className)} {...rest}>
       {children}
     </div>
   );

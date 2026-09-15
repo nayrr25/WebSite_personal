@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s · N-AI",
   },
   description:
-    "AI, Business Intelligence and data architecture consulting in Costa Rica and LATAM. Public procurement intelligence, credit scoring and RFM. Let's talk.",
+    "Expert AI, automation and advanced analytics consulting in Costa Rica and Latin America. SICOP case, decision engines and automated reporting.",
   // hreflang REAL: cada idioma apunta a su propia URL. Antes ambos apuntaban
   // a "/" y Google veía una sola página, en español.
   alternates: {
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
     "deteccion de anomalias compras publicas",
     "motor de decision crediticia",
     "automatizacion crediticia SUGEF",
-    "segmentacion RFM consumo masivo",
-    "inteligencia de consumidor LATAM",
+    "consultoria automatizacion Costa Rica",
+    "analitica avanzada Costa Rica",
     "Nancy Rodriguez consultora datos",
   ],
   authors: [{ name: "Nancy Rodríguez", url: SITE_URL }],
@@ -82,19 +82,19 @@ export const metadata: Metadata = {
     alternateLocale: ["es_CR"],
     url: "/en",
     title: "AI & Data Consulting in Costa Rica · N-AI",
-    description: "AI, Business Intelligence and data architecture consulting in Costa Rica and LATAM. Public procurement intelligence, credit scoring and RFM. Let's talk.",
+    description: "Expert AI, automation and advanced analytics consulting in Costa Rica and Latin America. SICOP case, decision engines and automated reporting.",
     siteName: "N-AI · Nancy Artificial Intelligence",
   },
   twitter: {
     card: "summary_large_image",
     title: "AI & Data Consulting in Costa Rica · N-AI",
-    description: "AI, Business Intelligence and data architecture consulting in Costa Rica and LATAM. Public procurement intelligence, credit scoring and RFM. Let's talk.",
+    description: "Expert AI, automation and advanced analytics consulting in Costa Rica and Latin America. SICOP case, decision engines and automated reporting.",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F3F5F9",
-  colorScheme: "light",
+  themeColor: "#0A1024",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
 };

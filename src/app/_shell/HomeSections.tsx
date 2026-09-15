@@ -1,37 +1,26 @@
 import Hero from "@/components/sections/Hero";
-import About from "@/components/sections/About";
-import CaseStudyHero from "@/components/sections/CaseStudyHero";
-import CaseStudyDeepDive from "@/components/sections/CaseStudyDeepDive";
-import IntelligencePipeline from "@/components/sections/IntelligencePipeline";
+import Services from "@/components/sections/Services";
+import CaseBand from "@/components/sections/CaseBand";
 import DemoShowcase from "@/components/sections/DemoShowcase";
-import Capabilities from "@/components/sections/Capabilities";
-import BuildingInPublic from "@/components/sections/BuildingInPublic";
+import Method from "@/components/sections/Method";
+import Leadership from "@/components/sections/Leadership";
 import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
-import NetworkBand from "@/components/backgrounds/NetworkBand";
 
 /**
- * Las secciones de la portada, compartidas por los dos idiomas.
- * El contenido lo resuelve cada componente vía `useT()`, que lee el idioma
- * del layout raíz correspondiente.
+ * Portada del estilo C (maqueta v3), compartida por los dos idiomas.
+ * Cada componente resuelve sus textos con `useT()` según el layout raíz.
  */
 export default function HomeSections() {
   return (
     <>
       <Hero />
-      {/* La red del hero no muere ahí: reaparece en bandas entre secciones.
-       * Ver NetworkBand para por qué son bandas y no fondos de seccion. */}
-      <NetworkBand />
-      <About />
-      <CaseStudyHero />
-      <CaseStudyDeepDive />
-      <IntelligencePipeline />
+      <Services />
+      <CaseBand />
       <DemoShowcase />
-      <NetworkBand />
-      <Capabilities />
-      <BuildingInPublic />
+      <Method />
+      <Leadership />
       <FAQ />
-      <NetworkBand />
       <Contact />
     </>
   );
