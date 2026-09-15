@@ -7,17 +7,20 @@ export const es = {
     subBrand: "Neural Analytics & Intelligence",
   },
   nav: [
-    { label: "Sobre Mí", href: "#about" },
-    { label: "Caso de Estudio", href: "#case-study" },
-    { label: "Pipeline", href: "#pipeline" },
+    { label: "Servicios", href: "#servicios" },
+    { label: "Caso SICOP", href: "#caso-sicop" },
     { label: "Demos", href: "#demos" },
-    { label: "Capacidades", href: "#capabilities" },
-    { label: "FAQ", href: "#faq" },
+    { label: "Método", href: "#metodo" },
     { label: "Contacto", href: "#contact" },
   ],
-  navCTA: "Trabaja con N-AI",
+  navCTA: "Agendar diagnóstico",
+  menu: {
+    label: "Menú principal",
+    open: "Menú",
+    close: "Cerrar",
+    home: "inicio",
+  },
   skipToContent: "Saltar al contenido",
-  themeLabel: "Tema · Oscuro",
 
   hero: {
     eyebrowFull: "Nancy Artificial Intelligence · Costa Rica & LATAM",
@@ -539,7 +542,7 @@ export const es = {
 
   footer: {
     navTitle: "Navegar",
-    contactTitle: "Contacto",
+    location: "San José, Costa Rica",
   },
 
   metadata: {

@@ -7,17 +7,20 @@ export const en: Strings = {
     subBrand: "Neural Analytics & Intelligence",
   },
   nav: [
-    { label: "About", href: "#about" },
-    { label: "Case Study", href: "#case-study" },
-    { label: "Pipeline", href: "#pipeline" },
+    { label: "Services", href: "#servicios" },
+    { label: "SICOP case", href: "#caso-sicop" },
     { label: "Demos", href: "#demos" },
-    { label: "Capabilities", href: "#capabilities" },
-    { label: "FAQ", href: "#faq" },
+    { label: "Method", href: "#metodo" },
     { label: "Contact", href: "#contact" },
   ],
-  navCTA: "Work With N-AI",
+  navCTA: "Book a diagnostic",
+  menu: {
+    label: "Main menu",
+    open: "Menu",
+    close: "Close",
+    home: "home",
+  },
   skipToContent: "Skip to content",
-  themeLabel: "Theme · Dark",
 
   hero: {
     eyebrowFull: "Nancy Artificial Intelligence · Costa Rica & LATAM",
@@ -519,7 +522,7 @@ export const en: Strings = {
 
   footer: {
     navTitle: "Navigate",
-    contactTitle: "Contact",
+    location: "San José, Costa Rica",
   },
 
   metadata: {

@@ -2,85 +2,76 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
 import { site } from "@/content/site";
 import { useLanguage } from "@/lib/i18n";
-import { LogoMark } from "@/components/ui/Logo";
-import { Menu, X, Globe } from "lucide-react";
+import { alternateHref, homeAnchor } from "@/lib/routes";
 
-const HIDE_UNTIL = 80;
-
+/**
+ * Menú siempre visible (sticky). Antes aparecía recién a los 80 px de scroll
+ * y en móvil el botón no respondía en el primer pantallazo.
+ */
 export default function Nav() {
-  const reduce = useReducedMotion();
-  const { lang, t, otherHref } = useLanguage();
+  const { lang, t } = useLanguage();
+  const pathname = usePathname() ?? "/";
   const [scrolled, setScrolled] = useState(false);
-  const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 12);
-      setVisible(y > HIDE_UNTIL);
-    };
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        document.getElementById("menu-button")?.focus();
+      }
     };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const switchLabel = lang === "es" ? t.langToggle.switchToEnglish : t.langToggle.switchToSpanish;
-  const oppositeLang = lang === "es" ? t.langToggle.en : t.langToggle.es;
-  const oppositeLangCode = lang === "es" ? "en" : "es";
+  const switchLabel =
+    lang === "es" ? t.langToggle.switchToEnglish : t.langToggle.switchToSpanish;
+  const otherCode = lang === "es" ? "en" : "es";
 
   return (
-    <motion.header
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -8 }}
-      transition={{ duration: reduce ? 0 : 0.4, ease: [0.22, 1, 0.36, 1] }}
+    <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-colors duration-300 ease-smooth",
-        "pointer-events-none",
-        visible && "pointer-events-auto",
+        "sticky top-0 z-50 border-b transition-colors duration-200",
+        scrolled || open
+          ? "border-line bg-navy/85 backdrop-blur-md"
+          : "border-transparent bg-transparent",
       )}
     >
-      <div
-        className={cn(
-          "mx-auto mt-3 flex w-full max-w-content items-center justify-between gap-6 rounded-xl border px-4 py-2.5 md:mx-auto md:px-5",
-          scrolled
-            ? "border-border-subtle bg-bg-base/70 backdrop-blur-xl"
-            : "border-transparent bg-transparent",
-        )}
-        style={{ marginInline: "max(1rem, calc((100vw - 1280px) / 2))" }}
-      >
+      <div className="mx-auto flex h-[68px] w-full max-w-content items-center justify-between gap-6 px-5 md:px-10">
         <a
-          href="#top"
-          aria-label={`${site.brand.name} home`}
-          className="flex items-center gap-2.5"
+          href={homeAnchor(lang, "#top")}
+          aria-label={`${site.brand.name}, ${t.menu.home}`}
+          className="flex items-center gap-2.5 font-display text-xl font-extrabold tracking-tightish text-ink"
         >
-          <LogoMark size={26} />
-          <span className="text-[15px] font-medium tracking-tight text-text-primary">
-            {site.brand.name}
+          <span
+            aria-hidden
+            className="grid h-[34px] w-[34px] place-items-center rounded-[10px] bg-white text-base text-navy"
+          >
+            N
           </span>
-          <span className="hidden text-[12px] tracking-eyebrow text-text-muted md:inline">
-            · {t.brand.tagline}
-          </span>
+          {site.brand.name}
         </a>
 
-        <nav aria-label="Primary" className="hidden md:block">
-          <ul className="flex items-center gap-1">
+        <nav aria-label={t.menu.label} className="hidden lg:block">
+          <ul className="flex items-center gap-7 text-sm">
             {t.nav.map((item) => (
               <li key={item.href}>
                 <a
-                  href={item.href}
-                  className="rounded-md px-3 py-1.5 text-[13.5px] text-text-secondary transition-colors duration-200 ease-smooth hover:text-text-primary"
+                  href={homeAnchor(lang, item.href)}
+                  className="text-ink-2 transition-colors duration-150 hover:text-ink"
                 >
                   {item.label}
                 </a>
@@ -89,79 +80,54 @@ export default function Nav() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-2">
-          {/* Language toggle */}
-          {/* Enlace real, no botón: cada idioma tiene su propia URL, así que
-           * cambiar de idioma es navegar. Google puede seguirlo y descubrir
-           * la otra versión; antes era un onClick y no existía para el
-           * rastreador. `hrefLang` se lo declara explícitamente. */}
+        <div className="flex items-center gap-4">
           <Link
-            href={otherHref}
-            hrefLang={oppositeLangCode}
+            href={alternateHref(pathname, lang)}
+            hrefLang={otherCode}
             aria-label={switchLabel}
-            title={switchLabel}
-            className="group inline-flex h-9 items-center gap-1.5 rounded-md border border-border-subtle bg-bg-glass px-2.5 text-[12px] font-medium text-text-secondary transition-all duration-200 ease-smooth hover:border-accent-cyan/40 hover:text-text-primary"
+            className="text-[13px] font-semibold text-ink-2 transition-colors duration-150 hover:text-ink"
           >
-            <Globe aria-hidden className="h-3.5 w-3.5 text-accent-cyan" />
-            <span className="tracking-eyebrow">{oppositeLang}</span>
+            {lang === "es" ? t.langToggle.en : t.langToggle.es}
           </Link>
-
           <a
-            href="#contact"
-            className="hidden rounded-md border border-accent-cyan/40 bg-accent-cyan/[0.04] px-3.5 py-1.5 text-[13px] font-medium text-text-primary transition-all duration-200 ease-smooth hover:border-accent-cyan/80 hover:shadow-glow md:inline-block"
+            href={homeAnchor(lang, "#contact")}
+            className="hidden rounded-full bg-white px-[18px] py-[11px] text-sm font-semibold leading-none text-navy shadow-btn-glow transition-[transform,box-shadow] duration-200 ease-out hover:shadow-btn-glow-hover active:scale-[0.97] lg:inline-flex"
           >
             {t.navCTA}
           </a>
           <button
+            id="menu-button"
             type="button"
-            aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border-subtle text-text-primary md:hidden"
+            aria-controls="mobile-menu"
+            onClick={() => setOpen((value) => !value)}
+            className="inline-flex rounded-full border border-line-strong px-3.5 py-2 text-sm font-semibold text-ink active:scale-[0.97] lg:hidden"
           >
-            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            {open ? t.menu.close : t.menu.open}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <motion.div
-        initial={false}
-        animate={{
-          opacity: open ? 1 : 0,
-          y: open ? 0 : -8,
-          pointerEvents: open ? "auto" : "none",
-        }}
-        transition={{ duration: reduce ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] }}
-        className="md:hidden"
-        aria-hidden={!open}
+      <nav
+        id="mobile-menu"
+        aria-label={t.menu.label}
+        hidden={!open}
+        className="border-t border-line bg-navy lg:hidden"
       >
-        <div className="mx-4 mt-2 rounded-xl border border-border-subtle bg-bg-base/95 p-4 backdrop-blur-xl">
-          <ul className="flex flex-col gap-1">
-            {t.nav.map((item) => (
-              <li key={item.href}>
-                <a
-                  onClick={() => setOpen(false)}
-                  href={item.href}
-                  className="block rounded-md px-3 py-2 text-sm text-text-secondary hover:bg-white/[0.04] hover:text-text-primary"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-            <li className="pt-2">
+        <ul className="px-5 pb-5 pt-2">
+          {[...t.nav, { label: t.navCTA, href: "#contact" }].map((item) => (
+            <li key={item.label}>
               <a
+                href={homeAnchor(lang, item.href)}
                 onClick={() => setOpen(false)}
-                href="#contact"
-                className="block rounded-md border border-accent-cyan/40 px-3 py-2 text-center text-sm font-medium text-text-primary"
+                className="block border-b border-line py-3.5 text-[17px] text-ink"
               >
-                {t.navCTA}
+                {item.label}
               </a>
             </li>
-          </ul>
-        </div>
-      </motion.div>
-    </motion.header>
+          ))}
+        </ul>
+      </nav>
+    </header>
   );
 }
-
