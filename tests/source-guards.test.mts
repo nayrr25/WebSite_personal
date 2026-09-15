@@ -80,6 +80,17 @@ test("SEO: los contadores del tablero parten del valor real (HTML sin ceros)", (
   assert.match(dashboard, /useState\(target\)/);
 });
 
+test("SEO: sin meta keywords, hreflang es y el título dice Costa Rica", () => {
+  assert.deepEqual(offenders(/^\s*keywords:/m), []);
+  for (const file of SRC.filter((f) => /layout\.tsx$|sicop\/page\.tsx$|sitemap\.ts$/.test(f.path))) {
+    assert.match(file.text, /\bes: /, `${file.path} sin hreflang "es"`);
+  }
+  assert.match(`${es.hero.headlineStart} ${es.hero.headlineHighlight} ${es.hero.headlineEnd}`, /Costa Rica/);
+  assert.match(`${en.hero.headlineStart} ${en.hero.headlineHighlight} ${en.hero.headlineEnd}`, /Costa Rica/);
+  const schema = SRC.find((file) => file.path.endsWith("StructuredData.tsx"))!.text;
+  assert.doesNotMatch(schema, /Nancy\.jpg/);
+});
+
 test("ningún texto habla de un equipo", () => {
   assert.doesNotMatch(JSON.stringify(es), /\bequipos?\b|\bnuestr[oa]s?\b|\btrabajamos\b/i);
   assert.doesNotMatch(JSON.stringify(en), /\bteams?\b|\bour experts\b|\bwe work\b/i);

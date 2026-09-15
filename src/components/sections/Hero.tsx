@@ -35,7 +35,8 @@ export default function Hero() {
               {t.hero.headlineStart}{" "}
               <span className="text-grad pr-[0.08em] font-serif text-[1.1em] font-normal italic leading-none tracking-[-0.01em]">
                 {t.hero.headlineHighlight}
-              </span>
+              </span>{" "}
+              {t.hero.headlineEnd}
             </h1>
           </Reveal>
           <Reveal delay={0.12}>
