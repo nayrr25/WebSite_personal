@@ -11,12 +11,21 @@ export const metadata: Metadata = {
     canonical: "/casos/sicop",
     languages: { "es-CR": "/casos/sicop", "en-US": "/en/cases/sicop", "x-default": "/casos/sicop" },
   },
+  // Al definir openGraph en la página se reemplaza el heredado del layout,
+  // así que la imagen para redes se declara de forma explícita.
   openGraph: {
     type: "article",
     locale: "es_CR",
     url: "/casos/sicop",
     title: es.caseSicop.metaTitle,
     description: es.caseSicop.metaDescription,
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: es.caseSicop.metaTitle }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: es.caseSicop.metaTitle,
+    description: es.caseSicop.metaDescription,
+    images: ["/opengraph-image"],
   },
 };
 

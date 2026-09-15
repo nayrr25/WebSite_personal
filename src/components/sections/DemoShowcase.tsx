@@ -28,11 +28,11 @@ export default function DemoShowcase() {
         <p className="text-body mt-4 max-w-[62ch]">{t.demosSection.body}</p>
       </Reveal>
 
-      <div className="mt-8 grid gap-3.5 sm:grid-cols-2 md:mt-12 lg:grid-cols-3">
+      <div role="region" aria-label={t.demosSection.title} tabIndex={0} className="-mx-5 mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-3 [scrollbar-width:none] sm:mx-0 sm:grid sm:snap-none sm:gap-3.5 sm:overflow-visible sm:px-0 sm:pb-0 md:mt-12 [&::-webkit-scrollbar]:hidden sm:grid-cols-2 lg:grid-cols-3">
         {t.demos.map((demo, i) => {
           const preview = demoStatic[i].preview;
           return (
-            <Reveal key={demo.slug} delay={(i % 3) * 0.06} className="h-full">
+            <Reveal key={demo.slug} delay={(i % 3) * 0.06} className="h-full w-[82%] flex-none snap-start sm:w-auto">
               <article className="flex h-full flex-col rounded-card border border-line bg-surface p-5 transition-[transform,border-color] sm:min-h-[300px] sm:p-6 duration-300 ease-out hover:-translate-y-1 hover:border-accent/40 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
                 <Badge tone={TONE[demo.status]}>{t.statusLabels[demo.status]}</Badge>
                 <h3 className="mt-4 font-display text-xl font-bold leading-snug text-ink">{demo.title}</h3>

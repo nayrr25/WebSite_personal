@@ -290,3 +290,5 @@ Páginas individuales por servicio, blog, agenda o calendario real, fotos de equ
 - **Gráficos:** no se crea `LineSeries.tsx`. El gráfico de instituciones vive dentro de `LiveDashboard.tsx`, y `BarList.tsx` se reutiliza en el tablero y en la página del caso.
 - **Menú:** el eyebrow de la sección de método es "Método" y no "Cómo trabajamos", para no usar el plural de equipo.
 - **Umbrales:** el tablero no dibuja una línea de umbral de riesgo, porque el caso no publica los cortes entre niveles.
+- **Celular:** en pantallas de menos de 640 px, Demos y Servicios se muestran como carrusel horizontal que se desliza tarjeta por tarjeta (decisión de Nancy del 2026-09-14), para acercar la portada a la meta de 9.000 px. Antes de ese cambio, con la compactación, medía 12.257 px. El escritorio no cambia.
+- **Imagen para redes en el caso:** las páginas `/casos/sicop` y `/en/cases/sicop` declaran `openGraph.images` y `twitter.images` de forma explícita, porque definir `openGraph` en la página reemplaza la imagen heredada.

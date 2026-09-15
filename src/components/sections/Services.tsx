@@ -37,11 +37,11 @@ export default function Services() {
         <p className="text-body mt-4 max-w-[62ch]">{s.body}</p>
       </Reveal>
 
-      <div className="mt-8 grid gap-3.5 sm:grid-cols-2 md:mt-12 lg:grid-cols-4">
+      <div role="region" aria-label={s.title} tabIndex={0} className="-mx-5 mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-3 [scrollbar-width:none] sm:mx-0 sm:grid sm:snap-none sm:gap-3.5 sm:overflow-visible sm:px-0 sm:pb-0 md:mt-12 [&::-webkit-scrollbar]:hidden sm:grid-cols-2 lg:grid-cols-4">
         {s.items.map((item, i) => {
           const Icon = ICONS[serviceIcons[i]];
           return (
-            <Reveal key={item.title} delay={i * 0.06} className="h-full">
+            <Reveal key={item.title} delay={i * 0.06} className="h-full w-[82%] flex-none snap-start sm:w-auto">
               <article
                 onPointerMove={trackPointer}
                 className="group relative flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface p-5 transition-[transform,border-color] sm:p-6 duration-300 ease-out hover:-translate-y-1.5 hover:border-accent/50 motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:min-h-[360px]"
