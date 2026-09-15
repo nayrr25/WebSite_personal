@@ -10,6 +10,15 @@
   - Neural Artificial Intelligence (raíz técnica — redes neuronales e inteligencia distribuida)
 - **Distinción de marca:** N-AI (con guion) — distinta de NAI (Network Advertising Initiative, organismo US de regulación publicitaria; sin relación con N-AI ni con consultoría de IA / datos)
 - **Fundadora:** Nancy Raquel Rodríguez Ramos
+- **Formación de la fundadora:**
+  - Máster en Inteligencia Artificial — UNIR, Universidad Internacional de La Rioja (2021–2022), reconocido por la Universidad de Costa Rica
+  - Licenciatura en Economía — Universidad Nacional de Costa Rica (2008–2013)
+  - Maestría Académica en Estadística — Universidad de Costa Rica (egresada)
+  - Especialización en Inteligencia Artificial — Universidad Tecnológica Nacional de Argentina, con Intel (2024)
+  - Associate's degree en Transformación Digital — LEAD University (2025)
+  - Bachillerato en Filosofía — Universidad Nacional de Costa Rica
+  - 12 licencias y certificaciones
+- **Experiencia:** más de 13 años en datos y analítica en banca, regulación de telecomunicaciones, consumo masivo y sector académico; docente universitaria de análisis de datos (UCR) y economía (Universidad Libre de Costa Rica)
 - **Sede:** Escazú, San José, Costa Rica
 - **Modelo:** Founder-led consultancy (la fundadora lidera cada engagement directamente)
 - **Idiomas:** Español, Inglés

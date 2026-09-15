@@ -160,9 +160,9 @@ export const es = {
     title: "Primero la pregunta de negocio. Al final, la tecnología.",
     name: "Nancy Rodríguez",
     role: "Fundadora · Principal Data & AI Consultant",
-    disciplines: "Economista · Estadística · Data & AI Leader",
+    disciplines: "Economista · Máster en IA · 13+ años en datos",
     bio:
-      "Nancy Rodríguez es economista, estadística y líder de datos e IA, con experiencia transformando problemas complejos de negocio en soluciones medibles basadas en datos. Cada proyecto de N-AI lo lleva ella directamente.",
+      "Nancy Rodríguez es economista y máster en Inteligencia Artificial, con más de 13 años en datos y analítica en banca, regulación de telecomunicaciones, consumo masivo y el sector académico. Ha sido profesora universitaria de análisis de datos con R en la Universidad de Costa Rica y de economía en la Universidad Libre de Costa Rica. Cada proyecto de N-AI lo lleva ella directamente.",
     quote: "Datos sin metodología son solo información.",
     areasLabel: "Áreas de trabajo",
     areas: [
@@ -174,6 +174,10 @@ export const es = {
       "Gobierno de datos",
     ],
     portraitAlt: "Retrato de Nancy Rodríguez, fundadora de N-AI",
+    educationTitle: "Formación",
+    recognizedLabel: "Reconocido por la",
+    certifications:
+      "Además, 12 licencias y certificaciones, entre ellas IA Generativa Aplicada: LLM’s y Automatización Inteligente (Smart Data).",
   },
 
   caseSicop: {

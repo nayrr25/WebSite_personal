@@ -1,3 +1,4 @@
+import { EDUCATION } from "@/content/data/education";
 import { site } from "@/content/site";
 import { es } from "@/content/i18n/es";
 import { en } from "@/content/i18n/en";
@@ -100,6 +101,17 @@ export default function StructuredData({
     familyName: "Rodríguez Ramos",
     jobTitle: dict.leadership.role,
     description: dict.leadership.disciplines,
+    // Todas las instituciones donde estudió; solo los títulos obtenidos van como credencial.
+    alumniOf: Array.from(new Set(EDUCATION.map((item) => item.school))).map((name) => ({
+      "@type": "CollegeOrUniversity",
+      name,
+    })),
+    hasCredential: EDUCATION.filter((item) => item.credential).map((item) => ({
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: item.credential,
+      name: item.title[lang],
+      recognizedBy: { "@type": "CollegeOrUniversity", name: item.recognizedBy ?? item.school },
+    })),
     worksFor: { "@id": `${siteUrl}/#organization` },
     url: siteUrl,
     image: `${siteUrl}/nancy-retrato.jpg`,
