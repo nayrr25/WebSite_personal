@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N-AI · Maqueta Método con bloques</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Instrument+Serif:ital@1&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A1024; --bg-deep:#070B18; --panel:#0C1328; --band:#0F1A3A;
+  --line:rgba(255,255,255,.10); --ink:#fff; --ink-2:#AEB8CF; --muted:#8C98B3;
+  --accent:#8FB4FF; --cyan:#35E0FF;
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --gutter:clamp(20px,4vw,48px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:linear-gradient(180deg,var(--bg) 0,var(--bg-deep) 100%);color:var(--ink);font:400 17px/1.6 'Public Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(143,180,255,.35)}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif;letter-spacing:-.03em;text-wrap:balance}
+.wrap{width:min(1240px,100%);margin-inline:auto;padding-inline:var(--gutter)}
+
+/* nota de maqueta */
+.note{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:60;background:#fff;color:var(--bg);font:600 13px 'Public Sans';padding:9px 16px;border-radius:999px;box-shadow:0 12px 30px -10px rgba(0,0,0,.6);white-space:nowrap}
+
+/* contexto previo: el hero actual, resumido */
+.intro{min-height:88svh;display:grid;align-items:center;background:radial-gradient(1100px 650px at 78% 18%,#1A2C5E 0%,transparent 70%)}
+.intro h1{font-size:clamp(40px,4.5vw,74px);line-height:1.02;letter-spacing:-.04em;font-weight:800;max-width:15ch}
+.intro h1 em{font:italic 400 1.1em/1 'Instrument Serif',Georgia,serif;letter-spacing:-.01em;background:linear-gradient(90deg,#8FB4FF,#35E0FF);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.08em}
+.intro p{color:var(--ink-2);max-width:48ch;margin-top:20px}
+.intro .hint{margin-top:40px;font-size:14px;color:var(--muted)}
+
+/* ---------- Método con bloques ---------- */
+.method{position:relative;height:420svh}
+.sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;align-items:center}
+.grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,64px);align-items:center}
+.method h2{font-size:clamp(34px,4vw,58px);line-height:1.03;letter-spacing:-.04em;font-weight:800;max-width:14ch}
+.steps{list-style:none;margin-top:36px;position:relative;padding-left:22px}
+.steps::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:2px;border-radius:2px;background:rgba(255,255,255,.08)}
+.rail{position:absolute;left:0;top:6px;width:2px;height:calc(100% - 12px);border-radius:2px;background:linear-gradient(180deg,var(--accent),var(--cyan));transform-origin:top;transform:scaleY(0)}
+.step{padding:12px 0;color:var(--muted);transition:color 300ms ease}
+.step h3{font-size:22px;font-weight:700;letter-spacing:-.02em;color:inherit;transition:color 300ms ease}
+.step p{font-size:15px;line-height:1.55;max-width:44ch;margin-top:4px;color:inherit;opacity:.8}
+.step .dl{display:inline-flex;gap:8px;align-items:center;margin-top:8px;font-size:13px;color:var(--ink-2)}
+.step .dl b{font-weight:600;color:#fff}
+.step .body{display:grid;grid-template-rows:0fr;transition:grid-template-rows 400ms var(--ease-out)}
+.step .body>div{overflow:hidden}
+.step.on{color:#fff}
+.step.on h3{color:#fff}
+.step.on .body{grid-template-rows:1fr}
+.step.done{color:var(--ink-2)}
+
+/* escenario 3D */
+.stage{position:relative;height:min(78svh,720px);display:grid;place-items:center}
+.floorglow{position:absolute;left:50%;top:62%;width:min(520px,80%);height:180px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(79,134,230,.45),transparent);filter:blur(24px);opacity:.25}
+/* Pared de ladrillos: 4 de ancho × 4 capas, una fila de fondo para que cada etiqueta quede a la vista. */
+.world{--s:80px;position:relative;width:calc(var(--s)*4);height:var(--s);transform-style:preserve-3d;transform:translateY(calc(var(--s)*1.7)) rotateX(56deg) rotateZ(28deg)}
+.floor{position:absolute;inset:calc(var(--s)*-2);background-image:linear-gradient(rgba(143,180,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(143,180,255,.12) 1px,transparent 1px);background-size:var(--s) var(--s);background-position:calc(var(--s)*2) calc(var(--s)*2);-webkit-mask:radial-gradient(closest-side,#000 30%,transparent);mask:radial-gradient(closest-side,#000 30%,transparent)}
+/* Sin opacity ni will-change:opacity en el cubo: ambos aplanan preserve-3d. El desvanecido va en cada cara. */
+.cube{position:absolute;left:0;top:0;width:var(--s);height:var(--s);transform-style:preserve-3d;will-change:transform}
+.cube i{position:absolute;inset:0;display:grid;place-items:center;border:1px solid rgba(255,255,255,.14)}
+.cube .t{transform:translateZ(var(--s));background:var(--top)}
+.cube .s{transform-origin:50% 100%;transform:rotateX(-90deg);background:var(--side);font:700 calc(var(--s)*.19)/1.05 Archivo,sans-serif;letter-spacing:-.01em;color:var(--label);text-align:center;padding:4px}
+.cube .e{transform-origin:100% 50%;transform:rotateY(90deg);background:var(--dark)}
+.l0{--top:#2A4488;--side:#1A2C5E;--dark:#101C40;--label:#D3DAEA}
+.l1{--top:#4A73D6;--side:#2F5BD3;--dark:#1E3E99;--label:#fff}
+.l2{--top:#B8D0FF;--side:#8FB4FF;--dark:#5E86D9;--label:#0A1024}
+.l3{--top:#9DF3FF;--side:#35E0FF;--dark:#16A6C4;--label:#0A1024}
+.caption{position:absolute;right:0;bottom:0;font-size:12px;color:var(--muted)}
+
+.after{min-height:70svh;display:grid;place-items:center;color:var(--muted);text-align:center}
+
+@media (max-width:900px){
+  .sticky{align-items:start;padding-top:24px}
+  .grid{grid-template-columns:1fr;gap:0}
+  .stage{height:50svh;order:-1}
+  .world{--s:50px}
+  .cube .s{font-size:calc(var(--s)*.16)}
+  .method h2{font-size:30px;max-width:none}
+  .steps{margin-top:16px}
+  .step{display:none;padding:0}
+  .step.on{display:block}
+  .steps::before,.rail{display:none}
+  .count{display:block!important}
+  .caption{position:static;margin-top:8px}
+}
+.count{display:none;font-size:13px;color:var(--muted);margin-top:14px}
+
+@media (prefers-reduced-motion:reduce){
+  .method{height:auto}
+  .sticky{position:relative;height:auto;padding-block:96px}
+  .step .body{grid-template-rows:1fr}
+  .step{color:#fff}
+}
+</style>
+</head>
+<body>
+
+<div class="note">Maqueta · Método con bloques · baja para ver cómo se arma</div>
+
+<section class="intro">
+  <div class="wrap">
+    <h1>Consultoría experta en IA, automatización y <em>analítica avanzada</em> en Costa Rica.</h1>
+    <p>Aquí va el hero actual con el tablero en vivo. Esta maqueta solo muestra la sección Método.</p>
+    <p class="hint">↓ Baja</p>
+  </div>
+</section>
+
+<section class="method" id="metodo" aria-labelledby="metodo-title">
+  <div class="sticky">
+    <div class="wrap grid">
+      <div>
+        <h2 id="metodo-title">Del diagnóstico a la operación.</h2>
+        <ol class="steps">
+          <span class="rail" aria-hidden="true"></span>
+          <li class="step">
+            <h3>Diagnóstico</h3>
+            <div class="body"><div>
+              <p>Entender el problema de negocio y evaluar los datos disponibles.</p>
+              <span class="dl">Entregable <b>Mapa de oportunidades</b></span>
+            </div></div>
+          </li>
+          <li class="step">
+            <h3>Diseño</h3>
+            <div class="body"><div>
+              <p>Definir la solución, las métricas de éxito y el plan de trabajo.</p>
+              <span class="dl">Entregable <b>Arquitectura y plan</b></span>
+            </div></div>
+          </li>
+          <li class="step">
+            <h3>Construcción</h3>
+            <div class="body"><div>
+              <p>Desarrollar y validar con datos reales, en ciclos cortos.</p>
+              <span class="dl">Entregable <b>Solución probada</b></span>
+            </div></div>
+          </li>
+          <li class="step">
+            <h3>Operación</h3>
+            <div class="body"><div>
+              <p>Poner en producción, medir resultados y mejorar.</p>
+              <span class="dl">Entregable <b>Impacto medido</b></span>
+            </div></div>
+          </li>
+        </ol>
+        <p class="count" aria-hidden="true">Fase <span id="count">1</span> de 4</p>
+      </div>
+
+      <div class="stage" aria-hidden="true">
+        <div class="floorglow" id="glow"></div>
+        <div class="world" id="world">
+          <div class="floor"></div>
+        </div>
+        <p class="caption">Herramientas de ejemplo · lista por confirmar</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="after"><p>Aquí sigue la sección siguiente del sitio.</p></section>
+
+<script>
+(() => {
+  // Una capa por fase, como ladrillos intercalados (4 y 3 piezas): [x, y]; z es la fase.
+  const LAYERS = [
+    { cls: "l0", cells: [[0,0],[1,0],[2,0],[3,0]],   labels: ["SQL","BigQuery","Salesforce","R"] },
+    { cls: "l1", cells: [[0.5,0],[1.5,0],[2.5,0]],   labels: ["GCP","Azure","AWS"] },
+    { cls: "l2", cells: [[0,0],[1,0],[2,0],[3,0]],   labels: ["Python","Cloud Run","Pipelines","GitHub"] },
+    { cls: "l3", cells: [[0.5,0],[1.5,0],[2.5,0]],   labels: ["Power BI","Looker","Tableau"] },
+  ];
+  const world = document.getElementById("world");
+  const section = document.getElementById("metodo");
+  const steps = [...document.querySelectorAll(".step")];
+  const rail = document.querySelector(".rail");
+  const glow = document.getElementById("glow");
+  const count = document.getElementById("count");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const cubes = [];
+  LAYERS.forEach((layer, z) => {
+    layer.cells.forEach(([x, y], j) => {
+      const el = document.createElement("div");
+      el.className = `cube ${layer.cls}`;
+      el.innerHTML = `<i class="t"></i><i class="e"></i><i class="s">${layer.labels[j]}</i>`;
+      world.appendChild(el);
+      const i = cubes.length;
+      // Desplazamientos fijos por pieza (sin azar): cada bloque llega desde otro lado.
+      cubes.push({ el, x, y, z, j,
+        dx: ((i * 37) % 5 - 2) * 0.9, dy: ((i * 53) % 5 - 2) * 0.9,
+        dz: 5 + (i % 3), rot: ((i * 29) % 7 - 3) * 14 });
+    });
+  });
+
+  let S = 80;
+  const size = () => {
+    S = innerWidth <= 900 ? 50 : Math.round(Math.min(96, Math.max(68, innerWidth * 0.062)));
+    world.style.setProperty("--s", S + "px");
+  };
+
+  const clamp = (v) => Math.min(1, Math.max(0, v));
+  const ease = (t) => 1 - Math.pow(1 - t, 3);
+  const LAYER_START = [0.02, 0.26, 0.5, 0.74];
+
+  const render = (p) => {
+    for (const c of cubes) {
+      const start = LAYER_START[c.z] + c.j * 0.035;
+      const t = ease(clamp((p - start) / 0.15));
+      const k = 1 - t;
+      const x = (c.x + c.dx * k) * S, y = (c.y + c.dy * k) * S, z = (c.z + c.dz * k) * S;
+      c.el.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotateZ(${c.rot * k}deg)`;
+      const o = clamp(t * 2.5);
+      if (c.o !== o) { c.o = o; for (const f of c.el.children) f.style.opacity = o; }
+    }
+    const active = LAYER_START.reduce((n, s, i) => (p >= s ? i : n), 0);
+    steps.forEach((s, i) => { s.classList.toggle("on", i === active); s.classList.toggle("done", i < active); });
+    rail.style.transform = `scaleY(${clamp(p / 0.9)})`;
+    glow.style.opacity = 0.25 + 0.55 * clamp(p);
+    count.textContent = active + 1;
+  };
+
+  size();
+  if (reduce) { render(1); steps.forEach((s) => s.classList.add("on")); return; }
+
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const r = section.getBoundingClientRect();
+      render(clamp(-r.top / (r.height - innerHeight)));
+      ticking = false;
+    });
+  };
+  addEventListener("scroll", onScroll, { passive: true });
+  addEventListener("resize", () => { size(); onScroll(); });
+  onScroll();
+})();
+</script>
+</body>
+</html>
