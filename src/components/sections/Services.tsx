@@ -34,7 +34,7 @@ export default function Services() {
         <h2 className="text-display-l mt-3.5 max-w-[19ch] text-ink">{s.title}</h2>
       </Reveal>
       <Reveal delay={0.1}>
-        <p className="text-body mt-4 max-w-[62ch]">{s.body}</p>
+        <p className="text-body mt-4 max-w-[58ch]">{s.body}</p>
       </Reveal>
 
       <div role="region" aria-label={s.title} tabIndex={0} className="-mx-5 mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-3 [scrollbar-width:none] sm:mx-0 sm:grid sm:snap-none sm:gap-3.5 sm:overflow-visible sm:px-0 sm:pb-0 md:mt-12 [&::-webkit-scrollbar]:hidden sm:grid-cols-2 lg:grid-cols-4">

@@ -66,7 +66,7 @@ export default function CaseSicop() {
           </a>
           <p className="text-eyebrow mt-8">{c.eyebrow}</p>
           <h1 className="text-display-xl mt-4 max-w-[22ch] text-ink">{c.title}</h1>
-          <p className="text-body mt-5 max-w-[60ch]">{c.lead}</p>
+          <p className="text-body mt-5 max-w-[56ch]">{c.lead}</p>
           <dl className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {[
               { value: `>${caseFacts.recordsMillions}M`, label: t.dashboard.kpiRecords },
@@ -178,7 +178,7 @@ export default function CaseSicop() {
           <section id="cs-ai" aria-labelledby="cs-ai-title">
             <p className="text-eyebrow">{c.sections.ai}</p>
             <h2 id="cs-ai-title" className="text-h2 mt-3 text-ink">{c.aiTitle}</h2>
-            <p className="text-body mt-4 max-w-[64ch]">{c.aiBody}</p>
+            <p className="text-body mt-4 max-w-[58ch]">{c.aiBody}</p>
             <div className="mt-6 rounded-card border border-line bg-surface p-6">
               <p className="flex items-baseline justify-between text-sm text-ink-2">
                 {t.dashboard.gaugeTitle}

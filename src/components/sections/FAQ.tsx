@@ -27,7 +27,7 @@ export default function FAQ() {
               <Reveal key={item.q} delay={i * 0.06}>
                 <div className="rounded-[18px] border border-line bg-surface px-6 py-5">
                   <h3 className="font-display text-[19px] font-bold leading-snug text-ink">{item.q}</h3>
-                  <p className="mt-2 text-base leading-relaxed text-ink-2">{item.a}</p>
+                  <p className="mt-2 max-w-[60ch] text-base leading-relaxed text-ink-2">{item.a}</p>
                 </div>
               </Reveal>
             ))}
@@ -47,7 +47,7 @@ export default function FAQ() {
                       –
                     </span>
                   </summary>
-                  <p className="pb-5 text-base leading-relaxed text-ink-2">{item.a}</p>
+                  <p className="max-w-[60ch] pb-5 text-base leading-relaxed text-ink-2">{item.a}</p>
                 </details>
               ))}
             </div>

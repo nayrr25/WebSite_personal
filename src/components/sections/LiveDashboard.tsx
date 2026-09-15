@@ -324,7 +324,7 @@ export default function LiveDashboard() {
         </div>
       </div>
 
-      <p className="mt-3.5 text-right text-xs text-ink-muted">{d.caption}</p>
+      <p className="ml-auto mt-3.5 max-w-[56ch] text-right text-xs text-ink-muted">{d.caption}</p>
     </div>
   );
 }
