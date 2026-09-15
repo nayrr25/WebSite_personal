@@ -6,7 +6,8 @@ import { useLanguage } from "@/lib/i18n";
 import { homeAnchor } from "@/lib/routes";
 
 const SOCIAL = [
-  { label: "LinkedIn", href: site.contact.linkedin },
+  { label: "LinkedIn · N-AI", href: site.contact.linkedinCompany },
+  { label: "LinkedIn · Nancy", href: site.contact.linkedin },
   { label: "Google Scholar", href: site.contact.scholar },
   { label: "GitHub", href: site.contact.github },
 ];

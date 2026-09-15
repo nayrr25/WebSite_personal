@@ -8,6 +8,8 @@ export const site = {
     email: "nanyrr25@gmail.com",
     // La "í" va codificada: algunos validadores de schema rechazan URL sin codificar.
     linkedin: "https://www.linkedin.com/in/nancy-raquel-rodr%C3%ADguez-ramos",
+    // Página de empresa de N-AI (distinta del perfil personal de Nancy).
+    linkedinCompany: "https://www.linkedin.com/company/neural-artificial-intelligence",
     scholar: "https://scholar.google.com/citations?hl=es&user=8_wBYo4AAAAJ",
     github: "https://github.com/nayrr25",
     // WhatsApp uses wa.me format with country code, no + or spaces
