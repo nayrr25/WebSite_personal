@@ -28,16 +28,16 @@ export default function DemoShowcase() {
         <p className="text-body mt-4 max-w-[62ch]">{t.demosSection.body}</p>
       </Reveal>
 
-      <div className="mt-12 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid gap-3.5 sm:grid-cols-2 md:mt-12 lg:grid-cols-3">
         {t.demos.map((demo, i) => {
           const preview = demoStatic[i].preview;
           return (
             <Reveal key={demo.slug} delay={(i % 3) * 0.06} className="h-full">
-              <article className="flex h-full min-h-[300px] flex-col rounded-card border border-line bg-surface p-6 transition-[transform,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-accent/40 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+              <article className="flex h-full flex-col rounded-card border border-line bg-surface p-5 transition-[transform,border-color] sm:min-h-[300px] sm:p-6 duration-300 ease-out hover:-translate-y-1 hover:border-accent/40 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
                 <Badge tone={TONE[demo.status]}>{t.statusLabels[demo.status]}</Badge>
                 <h3 className="mt-4 font-display text-xl font-bold leading-snug text-ink">{demo.title}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-ink-2">{demo.description}</p>
-                <div className="mt-auto pt-5">
+                <div className="mt-auto pt-4 sm:pt-5">
                   <PreviewVisual kind={preview} />
                 </div>
                 {preview === "anomaly" && (
@@ -61,7 +61,7 @@ export default function DemoShowcase() {
 }
 
 function PreviewVisual({ kind }: { kind: DemoPreview }) {
-  const svg = "block h-auto max-h-[84px] w-full";
+  const svg = "block h-auto max-h-[64px] w-full sm:max-h-[84px]";
   switch (kind) {
     case "anomaly":
       return (

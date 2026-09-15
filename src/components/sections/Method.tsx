@@ -23,7 +23,7 @@ export default function Method() {
         <h2 className="text-display-l mt-3.5 max-w-[19ch] text-ink">{m.title}</h2>
       </Reveal>
 
-      <div ref={lineRef} className="relative mt-14">
+      <div ref={lineRef} className="relative mt-10 md:mt-14">
         <div
           aria-hidden
           className="absolute left-[6%] right-[6%] top-[27px] hidden h-0.5 bg-gradient-to-r from-accent to-accent-cyan opacity-35 md:block"
@@ -35,7 +35,7 @@ export default function Method() {
             inView && "animate-beam",
           )}
         />
-        <ol className="grid gap-9 sm:grid-cols-2 md:grid-cols-4 md:gap-0">
+        <ol className="grid gap-7 sm:grid-cols-2 md:grid-cols-4 md:gap-0">
           {m.steps.map((step, i) => (
             <li key={step.title} className="relative md:pr-6">
               <Reveal delay={i * 0.06}>

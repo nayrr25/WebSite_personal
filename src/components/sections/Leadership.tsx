@@ -25,10 +25,10 @@ export default function Leadership() {
         <h2 className="text-display-l mt-3.5 max-w-[19ch] text-ink">{l.title}</h2>
       </Reveal>
 
-      <div className="mt-12 grid gap-3.5 lg:grid-cols-[5fr_7fr]">
+      <div className="mt-8 grid gap-3.5 md:mt-12 lg:grid-cols-[5fr_7fr]">
         <Reveal className="h-full">
           <article className="flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface">
-            <div className="relative aspect-[4/4.2] bg-gradient-to-br from-accent/25 to-accent-cyan/10">
+            <div className="relative aspect-[4/3] bg-gradient-to-br from-accent/25 to-accent-cyan/10 sm:aspect-[4/4.2]">
               <Image
                 src="/nancy-retrato.webp"
                 alt={l.portraitAlt}
@@ -46,7 +46,7 @@ export default function Leadership() {
         </Reveal>
 
         <Reveal delay={0.06} className="h-full">
-          <div className="flex h-full flex-col rounded-card border border-line bg-surface p-6 md:p-9">
+          <div className="flex h-full flex-col rounded-card border border-line bg-surface p-5 md:p-9">
             <p className="text-[17px] leading-relaxed text-ink-2">{l.bio}</p>
             <blockquote className="mt-6 border-l-2 border-accent-cyan pl-4 font-serif text-[clamp(26px,2.6vw,34px)] italic leading-tight text-ink">
               {l.quote}
@@ -78,12 +78,12 @@ export default function Leadership() {
         </Reveal>
       </div>
 
-      <dl className="mt-3.5 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+      <dl className="mt-3.5 grid gap-2.5 sm:grid-cols-2 sm:gap-3.5 lg:grid-cols-4">
         {l.credentials.map((c, i) => (
           <Reveal key={c.label} delay={i * 0.06}>
-            <div className="flex h-full flex-col-reverse justify-end rounded-[18px] border border-line bg-surface p-5">
-              <dt className="mt-2 text-sm leading-snug text-ink-2">{c.label}</dt>
-              <dd className="font-display text-4xl font-extrabold leading-none tracking-[-0.035em] tabular-nums text-ink">
+            <div className="flex h-full flex-row-reverse items-baseline justify-end gap-3 rounded-[18px] border border-line bg-surface p-4 sm:flex-col-reverse sm:items-stretch sm:gap-0 sm:p-5">
+              <dt className="text-sm leading-snug text-ink-2 sm:mt-2">{c.label}</dt>
+              <dd className="flex-none font-display text-3xl font-extrabold leading-none tracking-[-0.035em] tabular-nums text-ink sm:text-4xl">
                 {c.value}
               </dd>
             </div>
