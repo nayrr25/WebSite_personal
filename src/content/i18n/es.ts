@@ -128,6 +128,8 @@ export const es = {
     eyebrow: "Método",
     title: "Del diagnóstico a la operación.",
     deliverableLabel: "Entregable",
+    stackCaption: "Herramientas con las que N-AI construye cada fase",
+    stackSrLabel: "Herramientas por fase",
     steps: [
       {
         title: "Diagnóstico",

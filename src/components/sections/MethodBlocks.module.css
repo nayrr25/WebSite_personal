@@ -1,0 +1,156 @@
+/* Pared de bloques 3D de la sección Método. Solo transform y opacity en las
+   animaciones; la opacidad va en cada cara porque en el cubo aplana preserve-3d. */
+
+.stage {
+  --s: 42px;
+  position: relative;
+  height: 280px;
+  display: grid;
+  place-items: center;
+}
+
+@media (min-width: 640px) {
+  .stage {
+    --s: 52px;
+    height: 350px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .stage {
+    --s: 62px;
+    height: 430px;
+  }
+}
+
+.floorGlow {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  width: min(440px, 90%);
+  height: 160px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(79, 134, 230, 0.45), transparent);
+  filter: blur(24px);
+  opacity: 0.25;
+  transition: opacity 1.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.built .floorGlow {
+  opacity: 0.8;
+}
+
+.world {
+  position: relative;
+  width: calc(var(--s) * 4);
+  height: var(--s);
+  transform-style: preserve-3d;
+  transform: translateY(calc(var(--s) * 1.7)) rotateX(56deg) rotateZ(28deg);
+}
+
+.floor {
+  position: absolute;
+  inset: calc(var(--s) * -2);
+  background-image:
+    linear-gradient(rgba(143, 180, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143, 180, 255, 0.12) 1px, transparent 1px);
+  background-size: var(--s) var(--s);
+  background-position: calc(var(--s) * 2) calc(var(--s) * 2);
+  -webkit-mask: radial-gradient(closest-side, #000 30%, transparent);
+  mask: radial-gradient(closest-side, #000 30%, transparent);
+}
+
+.cube {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--s);
+  height: var(--s);
+  transform-style: preserve-3d;
+  transition: transform 750ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.cube i {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-style: normal;
+  transition: opacity 300ms ease;
+  transition-delay: inherit;
+}
+
+.top {
+  transform: translateZ(var(--s));
+  background: var(--top);
+}
+
+.south {
+  transform-origin: 50% 100%;
+  transform: rotateX(-90deg);
+  background: var(--side);
+  padding: 3px;
+  text-align: center;
+  font: 700 calc(var(--s) * 0.18) / 1.05 var(--font-display), system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  color: var(--label);
+}
+
+.east {
+  transform-origin: 100% 50%;
+  transform: rotateY(90deg);
+  background: var(--dark);
+}
+
+.l0 { --top: #2a4488; --side: #1a2c5e; --dark: #101c40; --label: #d3daea; }
+.l1 { --top: #4a73d6; --side: #2f5bd3; --dark: #1e3e99; --label: #ffffff; }
+.l2 { --top: #b8d0ff; --side: #8fb4ff; --dark: #5e86d9; --label: #0a1024; }
+.l3 { --top: #9df3ff; --side: #35e0ff; --dark: #16a6c4; --label: #0a1024; }
+
+/* Bloque IA: doble de ancho, sigue el scroll desde JS (sin transición CSS). */
+.cube.ia {
+  --top: #ffffff;
+  --side: linear-gradient(180deg, #a8f6ff, #35e0ff);
+  --dark: #16a6c4;
+  --label: #0a1024;
+  width: calc(var(--s) * 2);
+  transition: none;
+}
+
+.cube.ia .east {
+  left: auto;
+  width: var(--s);
+}
+
+.cube.ia .south {
+  font-size: calc(var(--s) * 0.36);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.cube.ia .top {
+  transition: box-shadow 600ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.iaLanded .cube.ia .top {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.7),
+    0 0 48px 8px rgba(53, 224, 255, 0.55);
+}
+
+@media (max-width: 639px) {
+  .south {
+    font-size: calc(var(--s) * 0.16);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cube,
+  .cube i,
+  .floorGlow,
+  .cube.ia .top {
+    transition: none;
+  }
+}
