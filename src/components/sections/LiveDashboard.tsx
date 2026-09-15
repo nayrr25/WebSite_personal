@@ -35,15 +35,25 @@ const POINTS = institutions.map((inst, i) => ({
 const LINE = "M" + POINTS.map((p) => `${p.cx.toFixed(1)} ${p.cy.toFixed(1)}`).join(" L");
 const AREA = `${LINE} L${W - PAD} ${H} L${PAD} ${H} Z`;
 
-/** Cuenta una sola vez hasta el valor real cuando el tablero entra en pantalla. */
-function useCountUp(target: number, decimals: number, active: boolean, reduce: boolean) {
-  const [value, setValue] = useState(reduce ? target : 0);
+/**
+ * "static": valor final (es lo que va en el HTML y lo que leen los buscadores).
+ * "armed": el tablero cargó fuera de pantalla; se pone en 0 sin que se vea.
+ * "counting": entró en pantalla después de estar armado; cuenta hasta el valor.
+ */
+type CountPhase = "static" | "armed" | "counting";
+
+/** Cuenta una sola vez hasta el valor real, solo si el tablero no era visible al cargar. */
+function useCountUp(target: number, decimals: number, phase: CountPhase, reduce: boolean) {
+  const [value, setValue] = useState(target);
   useEffect(() => {
-    if (reduce) {
+    if (reduce || phase === "static") {
       setValue(target);
       return;
     }
-    if (!active) return;
+    if (phase === "armed") {
+      setValue(0);
+      return;
+    }
     let frame = 0;
     const start = performance.now();
     const tick = (now: number) => {
@@ -53,7 +63,7 @@ function useCountUp(target: number, decimals: number, active: boolean, reduce: b
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [target, active, reduce]);
+  }, [target, phase, reduce]);
   return value.toFixed(decimals);
 }
 
@@ -97,6 +107,8 @@ export default function LiveDashboard() {
   const rootRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [started, setStarted] = useState(false);
+  const [countPhase, setCountPhase] = useState<CountPhase>("static");
+  const firstObservation = useRef(true);
   const [paused, setPaused] = useState(false);
   const [index, setIndex] = useState(reduce ? institutions.length - 1 : 0);
   const [alertIndex, setAlertIndex] = useState(lastAlertIndex);
@@ -114,6 +126,13 @@ export default function LiveDashboard() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setVisible(entry.isIntersecting);
+        if (firstObservation.current) {
+          firstObservation.current = false;
+          // Visible al cargar: las cifras finales ya están pintadas, no se reinician.
+          if (!entry.isIntersecting) setCountPhase("armed");
+        } else if (entry.isIntersecting) {
+          setCountPhase((phase) => (phase === "armed" ? "counting" : phase));
+        }
         if (entry.isIntersecting) setStarted(true);
       },
       { threshold: 0.25 },
@@ -147,9 +166,9 @@ export default function LiveDashboard() {
   // Las cifras del hero (registros y patrones) ya están al lado: aquí van
   // resultados del recorrido que no aparecen en otra parte de la portada.
   const tiers = tierCounts();
-  const alerts = useCountUp(tiers.high + tiers.critical, 0, started, reduce);
-  const critical = useCountUp(tiers.critical, 0, started, reduce);
-  const compositeShown = useCountUp(composite, 0, started, reduce);
+  const alerts = useCountUp(tiers.high + tiers.critical, 0, countPhase, reduce);
+  const critical = useCountUp(tiers.critical, 0, countPhase, reduce);
+  const compositeShown = useCountUp(composite, 0, countPhase, reduce);
   const current = POINTS[index];
   const alert = institutions[alertIndex];
 

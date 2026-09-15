@@ -10,7 +10,7 @@
   - Neural Artificial Intelligence (raíz técnica — redes neuronales e inteligencia distribuida)
 - **Distinción de marca:** N-AI (con guion) — distinta de NAI (Network Advertising Initiative, organismo US de regulación publicitaria; sin relación con N-AI ni con consultoría de IA / datos)
 - **Fundadora:** Nancy Raquel Rodríguez Ramos
-- **Sede:** San José, Costa Rica
+- **Sede:** Escazú, San José, Costa Rica
 - **Modelo:** Founder-led consultancy (la fundadora lidera cada engagement directamente)
 - **Idiomas:** Español, Inglés
 - **Sitio:** https://n-ai.dev

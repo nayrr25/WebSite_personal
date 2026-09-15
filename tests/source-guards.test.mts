@@ -62,6 +62,24 @@ test("cada ancla del menú existe en una sección", () => {
   assert.deepEqual(en.nav.map((item) => item.href), es.nav.map((item) => item.href));
 });
 
+test("SEO: el schema no declara búsqueda interna ni alias ambiguos", () => {
+  assert.deepEqual(offenders(/SearchAction|Neural A(I|rtificial)/), []);
+});
+
+test("SEO: logo liviano y con las dimensiones que declara el schema", () => {
+  const png = readFileSync(join(ROOT, "public/logo.png"));
+  assert.ok(png.length < 100_000, `logo.png pesa ${png.length} bytes`);
+  const width = png.readUInt32BE(16);
+  const height = png.readUInt32BE(20);
+  const schema = SRC.find((file) => file.path.endsWith("StructuredData.tsx"))!.text;
+  assert.match(schema, new RegExp(`width: ${width},\\s*height: ${height},`));
+});
+
+test("SEO: los contadores del tablero parten del valor real (HTML sin ceros)", () => {
+  const dashboard = SRC.find((file) => file.path.endsWith("LiveDashboard.tsx"))!.text;
+  assert.match(dashboard, /useState\(target\)/);
+});
+
 test("ningún texto habla de un equipo", () => {
   assert.doesNotMatch(JSON.stringify(es), /\bequipos?\b|\bnuestr[oa]s?\b|\btrabajamos\b/i);
   assert.doesNotMatch(JSON.stringify(en), /\bteams?\b|\bour experts\b|\bwe work\b/i);
