@@ -87,7 +87,8 @@ export default function StructuredData({
       email: site.contact.email,
       availableLanguage: ["es", "en"],
     },
-    sameAs: [site.contact.linkedin, site.contact.scholar, site.contact.github],
+    // La organización enlaza su página de empresa; el perfil personal va en Person.
+    sameAs: [site.contact.linkedinCompany, site.contact.linkedin, site.contact.scholar, site.contact.github],
   };
 
   const person = {

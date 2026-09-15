@@ -40,6 +40,14 @@ test("la bio nombra sectores y no empleadores", () => {
   }
 });
 
+test("la página de empresa de LinkedIn está en el schema, el pie y llms.txt", () => {
+  const url = "linkedin.com/company/neural-artificial-intelligence";
+  assert.ok(readFileSync(join(ROOT, "src/content/site.ts"), "utf8").includes(url));
+  assert.match(readFileSync(join(ROOT, "src/components/seo/StructuredData.tsx"), "utf8"), /linkedinCompany/);
+  assert.match(readFileSync(join(ROOT, "src/components/layout/Footer.tsx"), "utf8"), /linkedinCompany/);
+  assert.ok(readFileSync(join(ROOT, "public/llms.txt"), "utf8").includes(url));
+});
+
 test("el schema y llms.txt publican la formación", () => {
   const schema = readFileSync(join(ROOT, "src/components/seo/StructuredData.tsx"), "utf8");
   assert.match(schema, /alumniOf/);
