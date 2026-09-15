@@ -1,5 +1,5 @@
 import { cn } from "@/lib/cn";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 
 type Variant = "primary" | "ghost" | "subtle";
@@ -12,17 +12,22 @@ interface BaseProps {
 }
 
 const base =
-  "group relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md px-5 py-3 text-sm font-semibold tracking-wide transition-all duration-200 ease-smooth focus-visible:outline-none";
+  "group relative inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-full px-6 py-4 text-[15px] font-semibold leading-none transition-[transform,box-shadow,background-color,color] duration-200 ease-out active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100";
 
 const variants: Record<Variant, string> = {
-  // OPCIÓN C: primario sólido navy con texto blanco
-  primary:
-    "border border-transparent bg-accent-deep text-white hover:bg-accent-cyan hover:shadow-glow",
-  ghost:
-    "border border-border-strong bg-bg-elevated text-text-primary hover:border-accent-cyan/50 hover:bg-bg-glass",
-  subtle:
-    "border border-transparent bg-bg-glass text-text-secondary hover:bg-[rgba(30,39,53,0.07)] hover:text-text-primary",
+  primary: "bg-white text-navy shadow-btn-glow hover:shadow-btn-glow-hover",
+  ghost: "border border-white/25 bg-white/[0.03] text-ink hover:bg-white/[0.08]",
+  subtle: "px-0 py-2 text-accent hover:text-accent-cyan",
 };
+
+function Arrow() {
+  return (
+    <ArrowRight
+      aria-hidden
+      className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-[3px] motion-reduce:transition-none"
+    />
+  );
+}
 
 export function Button({
   variant = "primary",
@@ -33,13 +38,8 @@ export function Button({
 }: BaseProps & ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button className={cn(base, variants[variant], className)} {...rest}>
-      <span className="relative z-10">{children}</span>
-      {withArrow && (
-        <ArrowUpRight
-          aria-hidden
-          className="relative z-10 h-4 w-4 transition-transform duration-200 ease-smooth group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-        />
-      )}
+      {children}
+      {withArrow && <Arrow />}
     </button>
   );
 }
@@ -54,13 +54,8 @@ export function LinkButton({
 }: BaseProps & AnchorHTMLAttributes<HTMLAnchorElement>) {
   return (
     <a href={href} className={cn(base, variants[variant], className)} {...rest}>
-      <span className="relative z-10">{children}</span>
-      {withArrow && (
-        <ArrowUpRight
-          aria-hidden
-          className="relative z-10 h-4 w-4 transition-transform duration-200 ease-smooth group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-        />
-      )}
+      {children}
+      {withArrow && <Arrow />}
     </a>
   );
 }

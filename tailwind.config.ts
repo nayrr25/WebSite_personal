@@ -2,76 +2,106 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: ["./src/**/*.{ts,tsx,css}"],
+  // Hover solo en dispositivos que lo soportan: evita estados "pegados" al tocar.
+  future: { hoverOnlyWhenSupported: true },
   theme: {
     extend: {
       colors: {
-        // OPCIÓN C · tema claro. Mismos nombres que antes; valores nuevos.
-        bg: {
-          base: "#F3F5F9",
-          elevated: "#FFFFFF",
-          glass: "rgba(30,39,53,0.04)",
+        navy: {
+          DEFAULT: "#0A1024",
+          deep: "#070B18",
+          panel: "#0C1328",
+          band: "#0F1A3A",
+          cta: "#0E1834",
         },
-        border: {
-          subtle: "rgba(30,39,53,0.10)",
-          strong: "rgba(30,39,53,0.16)",
-        },
-        text: {
-          primary: "#1E2735",
-          secondary: "#586172",
-          muted: "#828BA0",
-        },
+        surface: { DEFAULT: "rgba(255,255,255,0.045)", strong: "rgba(255,255,255,0.07)" },
+        line: { DEFAULT: "rgba(255,255,255,0.10)", strong: "rgba(255,255,255,0.18)" },
+        ink: { DEFAULT: "#FFFFFF", 2: "#AEB8CF", muted: "#8C98B3", soft: "#D3DAEA" },
         accent: {
-          cyan: "#2F62C8", // azul navy (acento primario)
-          mint: "#4F86E6", // azul claro (degradados)
-          deep: "#1E3360", // navy profundo (CTA sólido / cabeceras)
+          DEFAULT: "#8FB4FF",
+          cyan: "#35E0FF",
+          // Alias heredados: se eliminan en la Tarea 11.
+          mint: "#35E0FF",
+          deep: "#1A2C5E",
         },
-        danger: "#DC4C4C",
-        "accent-teal": "var(--accent-teal)",
-        "accent-emerald": "var(--accent-emerald)",
+        alert: "#FF6B78",
+        warn: "#FFC35D",
+        live: "#7FF0C8",
+        // ---- Alias heredados: se eliminan en la Tarea 11 ----
+        bg: {
+          base: "#0A1024",
+          elevated: "rgba(255,255,255,0.045)",
+          glass: "rgba(255,255,255,0.045)",
+        },
+        border: { subtle: "rgba(255,255,255,0.10)", strong: "rgba(255,255,255,0.18)" },
+        text: { primary: "#FFFFFF", secondary: "#AEB8CF", muted: "#8C98B3" },
+        danger: "#FF6B78",
+        "accent-teal": "#35E0FF",
+        "accent-emerald": "#7FF0C8",
       },
       fontFamily: {
-        // body / UI general
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
-        // titulares (Archivo) — usado por las utilidades .text-display-*/.text-h*
         display: ["var(--font-display)", "var(--font-sans)", "system-ui", "sans-serif"],
-        // acento itálico ocasional
         serif: ["var(--font-serif)", "ui-serif", "Georgia", "serif"],
       },
-      maxWidth: {
-        content: "1280px",
-      },
+      maxWidth: { content: "1240px" },
       borderRadius: {
         sm: "8px",
         md: "12px",
         lg: "20px",
         xl: "28px",
+        card: "22px",
+        band: "32px",
       },
       letterSpacing: {
-        eyebrow: "0.18em",
-        display: "-0.03em",
+        eyebrow: "0.14em",
+        display: "-0.04em",
         tightish: "-0.02em",
       },
       transitionTimingFunction: {
-        smooth: "cubic-bezier(0.22, 1, 0.36, 1)",
+        out: "cubic-bezier(0.23, 1, 0.32, 1)",
+        // Alias heredado: se elimina en la Tarea 11.
+        smooth: "cubic-bezier(0.23, 1, 0.32, 1)",
       },
       boxShadow: {
-        // sombras azules suaves (en claro queremos elevación real + halo de marca)
-        glow: "0 0 0 1px rgba(47,98,200,0.18), 0 12px 34px -16px rgba(47,98,200,0.40)",
-        "glow-mint": "0 0 0 1px rgba(79,134,230,0.18), 0 12px 34px -16px rgba(79,134,230,0.38)",
-        card: "0 1px 2px rgba(30,39,53,0.04), 0 18px 44px -26px rgba(30,39,53,0.28)",
+        panel: "0 60px 120px -30px rgba(0,0,0,0.75), 0 0 80px -20px rgba(79,134,230,0.35)",
+        "btn-glow": "0 10px 30px -12px rgba(143,180,255,0.6)",
+        "btn-glow-hover": "0 14px 38px -10px rgba(143,180,255,0.85)",
+        toast: "0 20px 40px -12px rgba(0,0,0,0.6)",
+        // Alias heredados: se eliminan en la Tarea 11.
+        glow: "0 0 0 1px rgba(143,180,255,0.25), 0 12px 34px -16px rgba(143,180,255,0.5)",
+        card: "0 18px 44px -26px rgba(0,0,0,0.6)",
       },
       backgroundImage: {
-        // líneas de grilla oscuras sobre claro
+        "grid-48":
+          "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)",
+        "fact-text": "linear-gradient(180deg, #FFFFFF, #AFC6FF)",
+        // Alias heredado: se elimina en la Tarea 11.
         "grid-faint":
-          "linear-gradient(to right, rgba(30,39,53,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(30,39,53,0.05) 1px, transparent 1px)",
+          "linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)",
       },
+      backgroundSize: { "cell-48": "48px 48px" },
       animation: {
+        "pulse-dot": "pulseDot 2s ease-in-out infinite",
+        "pulse-live": "pulseDot 1.2s ease-in-out infinite",
+        beam: "beam 2.2s cubic-bezier(0.23, 1, 0.32, 1) 2 forwards",
+        // Alias heredados: se eliminan en la Tarea 11.
         "marquee-slow": "marquee 38s linear infinite",
         "scroll-pulse": "scrollPulse 2.4s ease-in-out infinite",
         "gradient-shift": "gradientShift 8s ease-in-out infinite",
         "aurora-drift": "auroraDrift 18s ease-in-out infinite",
       },
       keyframes: {
+        pulseDot: {
+          "0%, 100%": { opacity: "1", transform: "scale(1)" },
+          "50%": { opacity: "0.45", transform: "scale(0.8)" },
+        },
+        // El destello recorre la línea con transform (no con `left`).
+        beam: {
+          "0%": { transform: "translateX(0)", opacity: "1" },
+          "90%": { opacity: "1" },
+          "100%": { transform: "translateX(530%)", opacity: "0" },
+        },
         marquee: {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(-50%)" },
@@ -87,10 +117,6 @@ const config: Config = {
         auroraDrift: {
           "0%, 100%": { transform: "translate3d(0,0,0) scale(1)" },
           "50%": { transform: "translate3d(2%,-1%,0) scale(1.05)" },
-        },
-        pulseDot: {
-          "0%, 100%": { transform: "scale(1)", opacity: "0.6" },
-          "50%": { transform: "scale(2)", opacity: "0" },
         },
       },
     },
