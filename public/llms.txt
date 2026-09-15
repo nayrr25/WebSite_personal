@@ -106,6 +106,7 @@ Email nanyrr25@gmail.com | LinkedIn linkedin.com/in/nancy-raquel-rodríguez-ramo
 ## Páginas relevantes
 
 - https://n-ai.dev/ — Portada: servicios, caso destacado, demos, método y contacto
+- https://n-ai.dev/demos/planificacion-de-demanda — Demo interactiva con datos simulados: validación automática de archivos, pronóstico de demanda con rango y confianza, y reporte mensual redactado con IA (versión en inglés: https://n-ai.dev/en/demos/demand-planning)
 - https://n-ai.dev/#servicios — 4 líneas de servicio: IA y machine learning, automatización inteligente, analítica avanzada y BI, arquitectura y gobierno de datos
 - https://n-ai.dev/casos/sicop — Caso SICOP completo (Contraloría General de la República)
 - https://n-ai.dev/#demos — Sistemas en producción y en construcción
