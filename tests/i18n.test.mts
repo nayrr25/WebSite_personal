@@ -50,13 +50,14 @@ test("6 demos, en el mismo orden que su configuración visual", () => {
   );
 });
 
-test("método de 4 fases y 4 credenciales reales", () => {
+test("método de 4 fases; las cifras del hero no se repiten en liderazgo", () => {
   for (const dict of [es, en]) {
     assert.equal(dict.method.steps.length, 4);
     assert.deepEqual(
-      dict.leadership.credentials.slice(0, 3).map((c) => c.value),
+      dict.hero.proof.map((c) => c.value),
       ["+400%", ">2.4M", "47"],
     );
+    assert.equal("credentials" in dict.leadership, false);
   }
 });
 

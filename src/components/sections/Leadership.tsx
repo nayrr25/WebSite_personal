@@ -28,7 +28,7 @@ export default function Leadership() {
       <div className="mt-8 grid gap-3.5 md:mt-12 lg:grid-cols-[5fr_7fr]">
         <Reveal className="h-full">
           <article className="flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface">
-            <div className="relative aspect-[4/3] bg-gradient-to-br from-accent/25 to-accent-cyan/10 sm:aspect-[4/4.2]">
+            <div className="relative aspect-[4/3] bg-gradient-to-br from-accent/25 to-accent-cyan/10 sm:aspect-[4/4.2] lg:aspect-[16/10]">
               <Image
                 src="/nancy-retrato.webp"
                 alt={l.portraitAlt}
@@ -78,18 +78,6 @@ export default function Leadership() {
         </Reveal>
       </div>
 
-      <dl className="mt-3.5 grid gap-2.5 sm:grid-cols-2 sm:gap-3.5 lg:grid-cols-4">
-        {l.credentials.map((c, i) => (
-          <Reveal key={c.label} delay={i * 0.06}>
-            <div className="flex h-full flex-row-reverse items-baseline justify-end gap-3 rounded-[18px] border border-line bg-surface p-4 sm:flex-col-reverse sm:items-stretch sm:gap-0 sm:p-5">
-              <dt className="text-sm leading-snug text-ink-2 sm:mt-2">{c.label}</dt>
-              <dd className="flex-none font-display text-3xl font-extrabold leading-none tracking-[-0.035em] tabular-nums text-ink sm:text-4xl">
-                {c.value}
-              </dd>
-            </div>
-          </Reveal>
-        ))}
-      </dl>
     </Section>
   );
 }

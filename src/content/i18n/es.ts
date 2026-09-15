@@ -41,6 +41,8 @@ export const es = {
     kpiRecords: "Registros analizados",
     kpiPatterns: "Patrones de anomalía",
     kpiComposite: "Riesgo compuesto",
+    kpiAlerts: "Instituciones en alerta",
+    kpiCritical: "En riesgo crítico",
     chartTitle: "Puntaje de riesgo · 12 instituciones anonimizadas",
     institution: "Institución",
     gaugeTitle: "Compuesto de 8 dimensiones",
@@ -169,12 +171,6 @@ export const es = {
       "Gobierno de datos",
     ],
     portraitAlt: "Retrato de Nancy Rodríguez, fundadora de N-AI",
-    credentials: [
-      { value: "+400%", label: "créditos colocados con motores de decisión" },
-      { value: ">2.4M", label: "registros de compra pública analizados" },
-      { value: "47", label: "patrones de anomalía modelados" },
-      { value: "Investigación", label: "publicaciones académicas en economía y estadística" },
-    ],
   },
 
   caseSicop: {

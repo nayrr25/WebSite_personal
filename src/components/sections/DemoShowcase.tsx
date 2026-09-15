@@ -3,6 +3,7 @@
 import Section from "@/components/layout/Section";
 import Reveal from "@/components/motion/Reveal";
 import Badge from "@/components/ui/Badge";
+import { cn } from "@/lib/cn";
 import { useLanguage } from "@/lib/i18n";
 import { CASE_SICOP_PATH } from "@/lib/routes";
 import { demoStatic, type DemoPreview, type DemoStatus } from "@/content/demos";
@@ -33,7 +34,13 @@ export default function DemoShowcase() {
           const preview = demoStatic[i].preview;
           return (
             <Reveal key={demo.slug} delay={(i % 3) * 0.06} className="h-full w-[82%] flex-none snap-start sm:w-auto">
-              <article className="flex h-full flex-col rounded-card border border-line bg-surface p-5 transition-[transform,border-color] sm:min-h-[300px] sm:p-6 duration-300 ease-out hover:-translate-y-1 hover:border-accent/40 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+              <article
+                className={cn(
+                  "flex h-full flex-col rounded-card border border-line bg-surface p-5 sm:min-h-[300px] sm:p-6",
+                  preview === "anomaly" &&
+                    "transition-[transform,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-accent/40 motion-reduce:transition-none motion-reduce:hover:translate-y-0",
+                )}
+              >
                 <Badge tone={TONE[demo.status]}>{t.statusLabels[demo.status]}</Badge>
                 <h3 className="mt-4 font-display text-xl font-bold leading-snug text-ink">{demo.title}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-ink-2">{demo.description}</p>
@@ -43,7 +50,7 @@ export default function DemoShowcase() {
                 {preview === "anomaly" && (
                   <a
                     href={CASE_SICOP_PATH[lang]}
-                    className="group mt-3.5 inline-flex items-center gap-2 text-sm font-semibold text-accent transition-colors duration-150 hover:text-accent-cyan"
+                    className="group mt-1.5 inline-flex min-h-11 items-center gap-2 self-start text-sm font-semibold text-accent transition-colors duration-150 hover:text-accent-cyan"
                   >
                     {t.demosSection.cta}
                     <span aria-hidden className="transition-transform duration-200 ease-out group-hover:translate-x-[3px]">

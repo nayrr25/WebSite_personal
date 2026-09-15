@@ -43,12 +43,12 @@ export default function Footer() {
         </div>
 
         <nav aria-label={t.footer.navTitle}>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          <ul className="flex flex-wrap gap-x-6 text-sm">
             {t.nav.map((item) => (
               <li key={item.href}>
                 <a
                   href={homeAnchor(lang, item.href)}
-                  className="text-ink-2 transition-colors duration-150 hover:text-ink"
+                  className="inline-flex min-h-11 items-center text-ink-2 transition-colors duration-150 hover:text-ink"
                 >
                   {item.label}
                 </a>
@@ -57,14 +57,14 @@ export default function Footer() {
           </ul>
         </nav>
 
-        <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+        <ul className="flex flex-wrap gap-x-6 text-sm">
           {SOCIAL.map((item) => (
             <li key={item.label}>
               <a
                 href={item.href}
                 target="_blank"
                 rel="noreferrer"
-                className="text-ink-2 transition-colors duration-150 hover:text-ink"
+                className="inline-flex min-h-11 items-center text-ink-2 transition-colors duration-150 hover:text-ink"
               >
                 {item.label}
               </a>

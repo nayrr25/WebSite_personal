@@ -85,7 +85,7 @@ export default function Nav() {
             href={alternateHref(pathname, lang)}
             hrefLang={otherCode}
             aria-label={switchLabel}
-            className="text-[13px] font-semibold text-ink-2 transition-colors duration-150 hover:text-ink"
+            className="relative text-[13px] font-semibold text-ink-2 transition-colors duration-150 after:absolute after:-inset-3 after:content-[''] hover:text-ink"
           >
             {lang === "es" ? t.langToggle.en : t.langToggle.es}
           </Link>
@@ -115,7 +115,7 @@ export default function Nav() {
         className="border-t border-line bg-navy lg:hidden"
       >
         <ul className="px-5 pb-5 pt-2">
-          {[...t.nav, { label: t.navCTA, href: "#contact" }].map((item) => (
+          {t.nav.map((item) => (
             <li key={item.label}>
               <a
                 href={homeAnchor(lang, item.href)}
@@ -126,6 +126,15 @@ export default function Nav() {
               </a>
             </li>
           ))}
+          <li className="pt-5">
+            <a
+              href={homeAnchor(lang, "#contact")}
+              onClick={() => setOpen(false)}
+              className="flex min-h-12 items-center justify-center rounded-full bg-white px-5 text-base font-semibold text-navy shadow-btn-glow active:scale-[0.97]"
+            >
+              {t.navCTA}
+            </a>
+          </li>
         </ul>
       </nav>
     </header>

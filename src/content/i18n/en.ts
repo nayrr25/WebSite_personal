@@ -41,6 +41,8 @@ export const en: Strings = {
     kpiRecords: "Records analyzed",
     kpiPatterns: "Anomaly patterns",
     kpiComposite: "Composite risk",
+    kpiAlerts: "Institutions on alert",
+    kpiCritical: "At critical risk",
     chartTitle: "Risk score · 12 anonymized institutions",
     institution: "Institution",
     gaugeTitle: "8-dimension composite",
@@ -168,12 +170,6 @@ export const en: Strings = {
       "Data governance",
     ],
     portraitAlt: "Portrait of Nancy Rodríguez, founder of N-AI",
-    credentials: [
-      { value: "+400%", label: "credit placements with decision engines" },
-      { value: ">2.4M", label: "public procurement records analyzed" },
-      { value: "47", label: "anomaly patterns modeled" },
-      { value: "Research", label: "academic publications in economics and statistics" },
-    ],
   },
 
   caseSicop: {

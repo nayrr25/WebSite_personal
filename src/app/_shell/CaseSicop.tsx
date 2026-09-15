@@ -102,7 +102,10 @@ export default function CaseSicop() {
                   >
                     <span
                       aria-hidden
-                      className={cn("block h-px bg-current transition-[width] duration-200", active === id ? "w-8" : "w-4")}
+                      className={cn(
+                        "block h-px w-8 origin-left bg-current transition-transform duration-200 ease-out motion-reduce:transition-none",
+                        active === id ? "scale-x-100" : "scale-x-50",
+                      )}
                     />
                     {c.sections[id]}
                   </a>

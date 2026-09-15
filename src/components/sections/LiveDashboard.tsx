@@ -6,11 +6,11 @@ import BarList from "@/components/charts/BarList";
 import { cn } from "@/lib/cn";
 import { useT } from "@/lib/i18n";
 import {
-  caseFacts,
   compositeScore,
   institutions,
   isAlert,
   lastAlertIndex,
+  tierCounts,
   topDimensions,
   type RiskTier,
 } from "@/content/data/sicop";
@@ -144,8 +144,11 @@ export default function LiveDashboard() {
     return () => window.clearTimeout(id);
   }, [index, alertIndex, reduce]);
 
-  const records = useCountUp(caseFacts.recordsMillions, 1, started, reduce);
-  const patterns = useCountUp(caseFacts.anomalyPatterns, 0, started, reduce);
+  // Las cifras del hero (registros y patrones) ya están al lado: aquí van
+  // resultados del recorrido que no aparecen en otra parte de la portada.
+  const tiers = tierCounts();
+  const alerts = useCountUp(tiers.high + tiers.critical, 0, started, reduce);
+  const critical = useCountUp(tiers.critical, 0, started, reduce);
   const compositeShown = useCountUp(composite, 0, started, reduce);
   const current = POINTS[index];
   const alert = institutions[alertIndex];
@@ -157,7 +160,7 @@ export default function LiveDashboard() {
       <div
         aria-hidden="true"
         className={cn(
-          "relative z-10 mb-3 flex max-w-[310px] items-center gap-2.5 rounded-[14px] bg-white px-3.5 py-2.5 text-navy shadow-toast transition-[opacity,transform] duration-[450ms] ease-out motion-reduce:transition-none lg:absolute lg:-right-4 lg:-top-7 lg:mb-0",
+          "pointer-events-none relative z-10 mb-3 flex max-w-[310px] items-center gap-2.5 rounded-[14px] bg-white px-3.5 py-2.5 text-navy shadow-toast transition-[opacity,transform] duration-[450ms] ease-out motion-reduce:transition-none lg:absolute lg:-right-4 lg:-top-16 lg:mb-0",
           toastVisible ? "translate-y-0 opacity-100" : "-translate-y-2.5 opacity-0",
         )}
       >
@@ -176,16 +179,16 @@ export default function LiveDashboard() {
 
       <div className="rounded-[22px] border border-white/10 bg-navy-panel/80 p-[18px] shadow-panel backdrop-blur-md transition-transform duration-[600ms] ease-out motion-reduce:transition-none lg:[transform:rotateY(-11deg)_rotateX(5deg)] lg:hover:[transform:rotateY(-4deg)_rotateX(2deg)]">
         <div className="flex items-center justify-between gap-3 border-b border-white/[0.07] px-1 pb-3.5 text-[13px] text-[#C3CBDD]">
-          <div className="flex items-center gap-3">
-            <span aria-hidden className="flex gap-1.5">
+          <div className="flex min-w-0 items-center gap-3">
+            <span aria-hidden className="flex flex-none gap-1.5">
               {[0, 1, 2].map((i) => (
                 <i key={i} className="h-[9px] w-[9px] rounded-full bg-white/20" />
               ))}
             </span>
-            {d.title}
+            <span className="truncate">{d.title}</span>
           </div>
-          <div className="flex items-center gap-2.5">
-            <span className="flex items-center gap-1.5 text-xs font-bold tracking-[0.12em] text-[#FF8F99]">
+          <div className="flex flex-none items-center gap-2.5">
+            <span className="flex items-center gap-1.5 whitespace-nowrap text-xs font-bold tracking-[0.12em] text-[#FF8F99]">
               <i aria-hidden className="h-[7px] w-[7px] animate-pulse-live rounded-full bg-alert" />
               {d.live}
             </span>
@@ -194,7 +197,7 @@ export default function LiveDashboard() {
                 type="button"
                 onClick={() => setPaused((value) => !value)}
                 aria-pressed={paused}
-                className="rounded-full border border-white/15 px-2.5 py-1 text-xs font-semibold text-[#C3CBDD] transition-colors duration-150 hover:border-white/30 active:scale-[0.97]"
+                className="relative rounded-full border border-white/15 px-2.5 py-1 text-xs font-semibold text-[#C3CBDD] transition-colors duration-150 after:absolute after:-inset-[9px] after:content-[''] hover:border-white/30 active:scale-[0.97]"
               >
                 {paused ? d.resume : d.pause}
               </button>
@@ -203,8 +206,8 @@ export default function LiveDashboard() {
         </div>
 
         <div aria-hidden="true" className="mt-3.5 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
-          <Kpi label={d.kpiRecords} value={`>${records}M`} />
-          <Kpi label={d.kpiPatterns} value={patterns} />
+          <Kpi label={d.kpiAlerts} value={alerts} suffix={`/${institutions.length}`} />
+          <Kpi label={d.kpiCritical} value={critical} suffix={`/${institutions.length}`} />
           <Kpi
             label={d.kpiComposite}
             value={compositeShown}
