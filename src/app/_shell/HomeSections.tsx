@@ -1,5 +1,6 @@
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
+import CaseBand from "@/components/sections/CaseBand";
 import About from "@/components/sections/About";
 import CaseStudyHero from "@/components/sections/CaseStudyHero";
 import CaseStudyDeepDive from "@/components/sections/CaseStudyDeepDive";
@@ -21,6 +22,7 @@ export default function HomeSections() {
     <>
       <Hero />
       <Services />
+      <CaseBand />
       {/* La red del hero no muere ahí: reaparece en bandas entre secciones.
        * Ver NetworkBand para por qué son bandas y no fondos de seccion. */}
       <NetworkBand />

@@ -108,6 +108,23 @@ export const en: Strings = {
     ],
   },
 
+  caseBand: {
+    eyebrow: "Featured case",
+    title: "Public procurement intelligence for Costa Rica's Comptroller General.",
+    context:
+      "Public procurement oversight was reactive: irregularities surfaced after the damage was done, with data spread across different sources and taxonomies.",
+    resultLabel: "Outcome",
+    result:
+      "Risk becomes visible before it turns into a legal case: auditors act on signals, not on findings.",
+    cta: "Read the full case",
+    facts: [
+      { value: "7", label: "unified data sources" },
+      { value: "47", label: "anomaly patterns" },
+      { value: "8", label: "institutional risk dimensions" },
+      { value: "<1 s", label: "to compute a risk score" },
+    ],
+  },
+
   sicop: {
     eyebrow: "Featured Case Study",
     title: "Public Procurement Intelligence",

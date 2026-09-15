@@ -26,3 +26,14 @@ test("4 servicios, cada uno con su ícono y 3 etiquetas", () => {
     assert.equal(item.tags.length, 3);
   }
 });
+
+import { caseFacts } from "../src/content/data/sicop.ts";
+
+test("la banda del caso muestra los hechos reales en orden", () => {
+  for (const dict of [es, en]) {
+    assert.deepEqual(
+      dict.caseBand.facts.map((f) => f.value),
+      [String(caseFacts.sources), String(caseFacts.anomalyPatterns), String(caseFacts.riskDimensions), `<${caseFacts.scoringSeconds} s`],
+    );
+  }
+});

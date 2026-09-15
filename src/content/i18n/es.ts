@@ -109,6 +109,23 @@ export const es = {
     ],
   },
 
+  caseBand: {
+    eyebrow: "Caso destacado",
+    title: "Inteligencia de compras públicas para la Contraloría General de la República.",
+    context:
+      "La supervisión de las compras públicas era reactiva: las irregularidades aparecían después del daño, con datos repartidos en fuentes y taxonomías distintas.",
+    resultLabel: "Resultado",
+    result:
+      "El riesgo se vuelve visible antes de convertirse en un caso legal: los auditores actúan sobre señales, no sobre hallazgos.",
+    cta: "Leer el caso completo",
+    facts: [
+      { value: "7", label: "fuentes de datos unificadas" },
+      { value: "47", label: "patrones de anomalía" },
+      { value: "8", label: "dimensiones de riesgo institucional" },
+      { value: "<1 s", label: "para calcular un puntaje de riesgo" },
+    ],
+  },
+
   sicop: {
     eyebrow: "Caso de Estudio Destacado",
     title: "Inteligencia de Compras Públicas",
